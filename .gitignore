@@ -13,6 +13,27 @@ dist-ssr
 *.local
 data/*.sqlite
 data/*.sqlite-*
+data/*.db
+data/*.db-*
+data/art/
+data/command-warfare.db
+
+# Local HTTPS certs (mkcert) — regenerate with `npm run cert:dev`
+certs/
+
+# Local / generated noise
+0
+*.raw.json
+sim-*.json
+sim-*.err
+sim-*.md
+sim-err.txt
+diag-*.json
+ultimate-lengths.json
+scripts/battleSim-out.json
+scripts/_sim_out.json
+scripts/officer-audit-*.md
+sim/
 
 # Editor directories and files
 .vscode/*

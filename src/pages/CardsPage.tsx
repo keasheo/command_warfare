@@ -1,43 +1,26 @@
-import { useEffect, useMemo, useState, type ReactNode } from 'react'
-import { api, formatRange, type Card, type Settings } from '../api'
-
-const emptyCard = (): Card => ({
-  id: crypto.randomUUID().replaceAll('-', ''),
-  name: 'New Card',
-  cardType: 'Unit',
-  rarity: 'Common',
-  unique: false,
-  race: null,
-  primaryType: null,
-  secondaryType: null,
-  uv: null,
-  move: null,
-  damage: null,
-  range: null,
-  toughness: null,
-  companyAp: null,
-  companyCapacity: null,
-  commandRadius: null,
-  apGeneration: null,
-  ccGeneration: null,
-  abilities: [],
-  ultimate: null,
-  flavorText: null,
-  complexity: null,
-  role: null,
-  tags: [],
-})
-
-function numOrNull(value: string): number | null {
-  const text = value.trim()
-  if (!text) return null
-  if (text.toLowerCase() === 'melee') return 1
-  const n = Number(text)
-  return Number.isFinite(n) ? n : null
-}
+import { useEffect, useMemo, useState } from 'react'
+import {
+  api,
+  countCardAbilitySlots,
+  MAX_CARD_ABILITIES,
+  MAXIMUM_UNIT_PASSIVES,
+  maxKeywordsForRarity,
+  prepareCardArtFile,
+  type Ability,
+  type Card,
+  type Keyword,
+  type Settings,
+} from '../api'
+import { abilityDisplayRank, orderedAbilityNames } from '../abilityOrder'
+import { CardEditor } from '../components/cards/CardEditor'
+import { CardList } from '../components/cards/CardList'
+import { CardToolbar } from '../components/cards/CardToolbar'
+import { emptyCard } from '../components/cards/emptyCard'
 
 export function CardsPage() {
   const [settings, setSettings] = useState<Settings | null>(null)
+  const [abilityCatalog, setAbilityCatalog] = useState<Ability[]>([])
+  const [keywordCatalog, setKeywordCatalog] = useState<Keyword[]>([])
   const [cards, setCards] = useState<Card[]>([])
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [draft, setDraft] = useState<Card | null>(null)
@@ -47,54 +30,83 @@ export function CardsPage() {
   const [rarity, setRarity] = useState('')
   const [status, setStatus] = useState('')
   const [error, setError] = useState('')
+  const [artNonce, setArtNonce] = useState(0)
+  const [artFileName, setArtFileName] = useState('')
+  const [artPreviewUrl, setArtPreviewUrl] = useState<string | null>(null)
+  const [artUploading, setArtUploading] = useState(false)
 
   const selected = useMemo(
     () => cards.find((c) => c.id === selectedId) ?? null,
     [cards, selectedId],
   )
 
-  async function loadCards(nextQ = q) {
-    const result = await api.cards({
-      q: nextQ,
-      type,
-      race,
-      rarity,
-    })
+  const abilityByName = useMemo(() => {
+    const map = new Map<string, Ability>()
+    for (const ability of abilityCatalog) {
+      map.set(ability.name, ability)
+    }
+    return map
+  }, [abilityCatalog])
+
+  const keywordByName = useMemo(() => {
+    const map = new Map<string, Keyword>()
+    for (const keyword of keywordCatalog) {
+      map.set(keyword.name, keyword)
+    }
+    return map
+  }, [keywordCatalog])
+
+  async function loadCards(search = q) {
+    const result = await api.cards({ q: search, type, race, rarity })
     setCards(result.cards)
     if (!selectedId && result.cards[0]) {
       setSelectedId(result.cards[0].id)
-      setDraft(result.cards[0])
-    } else if (selectedId) {
-      const still = result.cards.find((c) => c.id === selectedId)
-      if (still) setDraft(still)
     }
   }
 
   useEffect(() => {
     void (async () => {
-      try {
-        setSettings(await api.settings())
-        await loadCards('')
-      } catch (err) {
-        setError(err instanceof Error ? err.message : String(err))
-      }
+      const results = await Promise.allSettled([
+        api.settings(),
+        api.abilities(),
+        api.keywords(),
+      ])
+      const errors: string[] = []
+      if (results[0].status === 'fulfilled') setSettings(results[0].value)
+      else errors.push(results[0].reason instanceof Error ? results[0].reason.message : String(results[0].reason))
+      if (results[1].status === 'fulfilled') setAbilityCatalog(results[1].value.abilities ?? [])
+      else errors.push(results[1].reason instanceof Error ? results[1].reason.message : String(results[1].reason))
+      if (results[2].status === 'fulfilled') setKeywordCatalog(results[2].value.keywords ?? [])
+      else errors.push(results[2].reason instanceof Error ? results[2].reason.message : String(results[2].reason))
+      if (errors.length) setError(errors.join(' · '))
     })()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
-    const handle = window.setTimeout(() => {
-      void loadCards(q).catch((err) =>
-        setError(err instanceof Error ? err.message : String(err)),
-      )
-    }, 150)
-    return () => window.clearTimeout(handle)
+    void loadCards(q).catch((err) =>
+      setError(err instanceof Error ? err.message : String(err)),
+    )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [q, type, race, rarity])
 
   useEffect(() => {
-    if (selected) setDraft({ ...selected, abilities: [...selected.abilities], tags: [...selected.tags] })
+    if (selected) {
+      setDraft({
+        ...selected,
+        abilities: [...(selected.abilities || [])],
+        keywords: [...(selected.keywords || [])],
+        tags: [...(selected.tags || [])],
+      })
+      setArtFileName(selected.hasArt ? 'Saved image' : '')
+      setArtPreviewUrl(null)
+    }
   }, [selected])
+
+  useEffect(() => {
+    return () => {
+      if (artPreviewUrl) URL.revokeObjectURL(artPreviewUrl)
+    }
+  }, [artPreviewUrl])
 
   function patch<K extends keyof Card>(key: K, value: Card[K]) {
     setDraft((prev) => (prev ? { ...prev, [key]: value } : prev))
@@ -102,8 +114,59 @@ export function CardsPage() {
 
   async function save() {
     if (!draft) return
+    if (countCardAbilitySlots(draft.abilities ?? [], draft.ultimate) > MAX_CARD_ABILITIES) {
+      setError(
+        `Cards can have at most ${MAX_CARD_ABILITIES} abilities (including ultimate).`,
+      )
+      return
+    }
+    if (draft.cardType === 'Unit') {
+      const passiveCount = (draft.abilities ?? []).filter(
+        (name) => abilityDisplayRank(abilityByName.get(name)) === 0,
+      ).length
+      if (passiveCount > MAXIMUM_UNIT_PASSIVES) {
+        setError(
+          `Units can have at most ${MAXIMUM_UNIT_PASSIVES} passives (got ${passiveCount}).`,
+        )
+        return
+      }
+    }
+    const maxKw = maxKeywordsForRarity(draft.rarity)
+    const uniqueKeywords = [
+      ...new Set((draft.keywords ?? []).map((k) => k.trim()).filter(Boolean)),
+    ]
+    if (uniqueKeywords.length > maxKw) {
+      setError(
+        `${draft.rarity || 'Card'} can have at most ${maxKw} keywords (got ${uniqueKeywords.length}).`,
+      )
+      return
+    }
+    const combatRequired = ['Unit', 'Officer', 'Commander'].includes(draft.cardType)
+    if (combatRequired) {
+      const missing = (
+        [
+          ['move', draft.move],
+          ['damage', draft.damage],
+          ['range', draft.range],
+          ['toughness', draft.toughness],
+        ] as const
+      )
+        .filter(([, v]) => v == null || Number(v) <= 0)
+        .map(([k]) => k)
+      if (missing.length) {
+        setError(
+          `${draft.cardType} cards require Move, Damage, Range, and Toughness (all > 0). Missing/invalid: ${missing.join(', ')}.`,
+        )
+        return
+      }
+    }
     try {
-      const { card } = await api.saveCard(draft)
+      const ordered = {
+        ...draft,
+        keywords: uniqueKeywords,
+        abilities: orderedAbilityNames(draft.abilities ?? [], abilityByName),
+      }
+      const { card } = await api.saveCard(ordered)
       setStatus(`Saved ${card.name}`)
       setError('')
       await loadCards(q)
@@ -121,6 +184,51 @@ export function CardsPage() {
       await loadCards(q)
       setSelectedId(card.id)
       setDraft(card)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err))
+    }
+  }
+
+  async function uploadArt(file: File | null) {
+    if (!draft || !file) return
+    setArtUploading(true)
+    setError('')
+    try {
+      const prepared = await prepareCardArtFile(file)
+      if (artPreviewUrl) URL.revokeObjectURL(artPreviewUrl)
+      const preview = URL.createObjectURL(prepared)
+      setArtPreviewUrl(preview)
+      setArtFileName(prepared.name)
+      const { card } = await api.uploadArt(draft.id, prepared)
+      setStatus(`Art uploaded for ${card.name}`)
+      setArtNonce((n) => n + 1)
+      setDraft(card)
+      setCards((prev) => prev.map((item) => (item.id === card.id ? card : item)))
+      setArtFileName(prepared.name)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err))
+      if (artPreviewUrl) {
+        URL.revokeObjectURL(artPreviewUrl)
+      }
+      setArtPreviewUrl(null)
+      setArtFileName('')
+    } finally {
+      setArtUploading(false)
+    }
+  }
+
+  async function clearArt() {
+    if (!draft?.hasArt && !artPreviewUrl) return
+    if (!window.confirm(`Remove art for ${draft?.name}?`)) return
+    try {
+      if (!draft) return
+      const { card } = await api.clearArt(draft.id)
+      setStatus(`Cleared art for ${card.name}`)
+      setArtNonce((n) => n + 1)
+      setArtPreviewUrl(null)
+      setArtFileName('')
+      setDraft(card)
+      setCards((prev) => prev.map((item) => (item.id === card.id ? card : item)))
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err))
     }
@@ -160,339 +268,46 @@ export function CardsPage() {
         </div>
       </div>
 
-      <div className="toolbar">
-        <input
-          type="search"
-          placeholder="Search any card value…"
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-        />
-        <select value={type} onChange={(e) => setType(e.target.value)}>
-          <option value="">All types</option>
-          {(settings?.cardTypes ?? []).map((value) => (
-            <option key={value} value={value}>
-              {value}
-            </option>
-          ))}
-        </select>
-        <select value={race} onChange={(e) => setRace(e.target.value)}>
-          <option value="">All races</option>
-          {(settings?.races ?? []).map((value) => (
-            <option key={value} value={value}>
-              {value}
-            </option>
-          ))}
-        </select>
-        <select value={rarity} onChange={(e) => setRarity(e.target.value)}>
-          <option value="">All rarities</option>
-          {(settings?.rarities ?? []).map((value) => (
-            <option key={value} value={value}>
-              {value}
-            </option>
-          ))}
-        </select>
-      </div>
+      <CardToolbar
+        q={q}
+        type={type}
+        race={race}
+        rarity={rarity}
+        settings={settings}
+        onQueryChange={setQ}
+        onTypeChange={setType}
+        onRaceChange={setRace}
+        onRarityChange={setRarity}
+      />
       <p className="muted">
         {cards.length} shown{status ? ` · ${status}` : ''}
       </p>
       {error ? <p className="error">{error}</p> : null}
 
       <div className="layout-split">
-        <div className="panel">
-          <div className="panel-scroll">
-            {cards.map((card) => (
-              <button
-                key={card.id}
-                className={`list-item${card.id === selectedId ? ' active' : ''}`}
-                onClick={() => setSelectedId(card.id)}
-              >
-                <div>{card.name}</div>
-                <div className="meta">
-                  {card.cardType} · {card.rarity} · {card.race} · UV {card.uv ?? '—'}
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-
+        <CardList cards={cards} selectedId={selectedId} onSelect={setSelectedId} />
         <div className="panel">
           {draft ? (
-            <div className="panel-scroll">
-              <CardFace card={draft} />
-              <div className="form-grid">
-                <Field label="Name" className="span-2">
-                  <input value={draft.name} onChange={(e) => patch('name', e.target.value)} />
-                </Field>
-                <Field label="Card Type">
-                  <select
-                    value={draft.cardType}
-                    onChange={(e) => patch('cardType', e.target.value)}
-                  >
-                    {(settings?.cardTypes ?? []).map((value) => (
-                      <option key={value}>{value}</option>
-                    ))}
-                  </select>
-                </Field>
-                <Field label="Rarity">
-                  <select
-                    value={draft.rarity ?? ''}
-                    onChange={(e) => patch('rarity', e.target.value || null)}
-                  >
-                    <option value="">—</option>
-                    {(settings?.rarities ?? []).map((value) => (
-                      <option key={value}>{value}</option>
-                    ))}
-                  </select>
-                </Field>
-                <Field label="Unique">
-                  <select
-                    value={draft.unique ? 'true' : 'false'}
-                    onChange={(e) => patch('unique', e.target.value === 'true')}
-                  >
-                    <option value="false">false</option>
-                    <option value="true">true</option>
-                  </select>
-                </Field>
-                <Field label="Race">
-                  <select
-                    value={draft.race ?? ''}
-                    onChange={(e) => patch('race', e.target.value || null)}
-                  >
-                    <option value="">—</option>
-                    {(settings?.races ?? []).map((value) => (
-                      <option key={value}>{value}</option>
-                    ))}
-                  </select>
-                </Field>
-                <Field label="Primary Type">
-                  <select
-                    value={draft.primaryType ?? ''}
-                    onChange={(e) => patch('primaryType', e.target.value || null)}
-                  >
-                    <option value="">—</option>
-                    {(settings?.primaryTypes ?? []).map((value) => (
-                      <option key={value}>{value}</option>
-                    ))}
-                  </select>
-                </Field>
-                <Field label="Secondary Type">
-                  <select
-                    value={draft.secondaryType ?? ''}
-                    onChange={(e) => patch('secondaryType', e.target.value || null)}
-                  >
-                    <option value="">—</option>
-                    {(settings?.secondaryTypes ?? []).map((value) => (
-                      <option key={value}>{value}</option>
-                    ))}
-                  </select>
-                </Field>
-                <Field label="Role">
-                  <select
-                    value={draft.role ?? ''}
-                    onChange={(e) => patch('role', e.target.value || null)}
-                  >
-                    <option value="">—</option>
-                    {(settings?.roles ?? []).map((value) => (
-                      <option key={value}>{value}</option>
-                    ))}
-                  </select>
-                </Field>
-                <Field label="UV">
-                  <input
-                    value={draft.uv ?? ''}
-                    onChange={(e) => patch('uv', numOrNull(e.target.value))}
-                  />
-                </Field>
-                <Field label="Move">
-                  <input
-                    value={draft.move ?? ''}
-                    onChange={(e) => patch('move', numOrNull(e.target.value))}
-                  />
-                </Field>
-                <Field label="Damage">
-                  <input
-                    value={draft.damage ?? ''}
-                    onChange={(e) => patch('damage', numOrNull(e.target.value))}
-                  />
-                </Field>
-                <Field label="Range (1 = Melee)">
-                  <input
-                    value={
-                      draft.range === 1 ? 'Melee' : draft.range == null ? '' : String(draft.range)
-                    }
-                    onChange={(e) => patch('range', numOrNull(e.target.value))}
-                  />
-                </Field>
-                <Field label="Toughness">
-                  <input
-                    value={draft.toughness ?? ''}
-                    onChange={(e) => patch('toughness', numOrNull(e.target.value))}
-                  />
-                </Field>
-                <Field label="Complexity">
-                  <input
-                    value={draft.complexity ?? ''}
-                    onChange={(e) => patch('complexity', numOrNull(e.target.value))}
-                  />
-                </Field>
-                <Field label="Company AP">
-                  <input
-                    value={draft.companyAp ?? ''}
-                    onChange={(e) => patch('companyAp', numOrNull(e.target.value))}
-                  />
-                </Field>
-                <Field label="Company Cap.">
-                  <input
-                    value={draft.companyCapacity ?? ''}
-                    onChange={(e) => patch('companyCapacity', numOrNull(e.target.value))}
-                  />
-                </Field>
-                <Field label="Cmd Radius">
-                  <input
-                    value={draft.commandRadius ?? ''}
-                    onChange={(e) => patch('commandRadius', numOrNull(e.target.value))}
-                  />
-                </Field>
-                <Field label="AP Gen">
-                  <input
-                    value={draft.apGeneration ?? ''}
-                    onChange={(e) => patch('apGeneration', numOrNull(e.target.value))}
-                  />
-                </Field>
-                <Field label="CC Gen">
-                  <input
-                    value={draft.ccGeneration ?? ''}
-                    onChange={(e) => patch('ccGeneration', numOrNull(e.target.value))}
-                  />
-                </Field>
-                <Field label="Abilities (comma-separated)" className="span-3">
-                  <input
-                    value={draft.abilities.join(', ')}
-                    onChange={(e) =>
-                      patch(
-                        'abilities',
-                        e.target.value
-                          .split(',')
-                          .map((part) => part.trim())
-                          .filter(Boolean),
-                      )
-                    }
-                  />
-                </Field>
-                <Field label="Ultimate" className="span-2">
-                  <input
-                    value={draft.ultimate ?? ''}
-                    onChange={(e) => patch('ultimate', e.target.value || null)}
-                  />
-                </Field>
-                <Field label="Tags">
-                  <input
-                    value={draft.tags.join(', ')}
-                    onChange={(e) =>
-                      patch(
-                        'tags',
-                        e.target.value
-                          .split(',')
-                          .map((part) => part.trim())
-                          .filter(Boolean),
-                      )
-                    }
-                  />
-                </Field>
-                <Field label="Flavor Text" className="span-3">
-                  <textarea
-                    rows={3}
-                    value={draft.flavorText ?? ''}
-                    onChange={(e) => patch('flavorText', e.target.value || null)}
-                  />
-                </Field>
-                <Field label="Card ID" className="span-3">
-                  <input value={draft.id} readOnly />
-                </Field>
-              </div>
-            </div>
+            <CardEditor
+              draft={draft}
+              settings={settings}
+              abilityByName={abilityByName}
+              keywordByName={keywordByName}
+              artNonce={artNonce}
+              artPreviewUrl={artPreviewUrl}
+              artFileName={artFileName}
+              artUploading={artUploading}
+              onPatch={patch}
+              onError={setError}
+              onUploadArt={(file) => void uploadArt(file)}
+              onClearArt={() => void clearArt()}
+            />
           ) : (
             <p className="muted" style={{ padding: '1rem' }}>
               Select a card
             </p>
           )}
         </div>
-      </div>
-    </div>
-  )
-}
-
-function Field({
-  label,
-  children,
-  className = '',
-}: {
-  label: string
-  children: ReactNode
-  className?: string
-}) {
-  return (
-    <label className={`field ${className}`.trim()}>
-      <span>{label}</span>
-      {children}
-    </label>
-  )
-}
-
-function CardFace({ card }: { card: Card }) {
-  const stats: [string, string][] = [
-    ['UV', card.uv == null ? '—' : String(card.uv)],
-    ['Move', card.move == null ? '—' : String(card.move)],
-    ['Damage', card.damage == null ? '—' : String(card.damage)],
-    ['Range', formatRange(card.range)],
-    ['Toughness', card.toughness == null ? '—' : String(card.toughness)],
-  ]
-  if (card.cardType === 'Officer') {
-    stats.push(
-      ['Company AP', card.companyAp == null ? '—' : String(card.companyAp)],
-      ['Company Cap.', card.companyCapacity == null ? '—' : String(card.companyCapacity)],
-      ['Cmd Radius', card.commandRadius == null ? '—' : String(card.commandRadius)],
-    )
-  }
-  if (card.cardType === 'Commander') {
-    stats.push(
-      ['AP Gen', card.apGeneration == null ? '—' : String(card.apGeneration)],
-      ['CC Gen', card.ccGeneration == null ? '—' : String(card.ccGeneration)],
-      ['Cmd Radius', card.commandRadius == null ? '—' : String(card.commandRadius)],
-    )
-  }
-
-  return (
-    <div className="card-face">
-      <div className="banner">
-        <div>
-          <h3>{card.name}</h3>
-          <div className="type-line">
-            {[card.race, card.primaryType, card.secondaryType].filter(Boolean).join(' · ')}
-          </div>
-        </div>
-        <div className="muted">
-          {card.cardType}
-          {card.unique ? ' · Unique' : ''}
-          <div>{card.rarity}</div>
-        </div>
-      </div>
-      <div className="stat-row">
-        {stats.slice(0, 8).map(([label, value]) => (
-          <div className="stat-pill" key={label}>
-            <span>{label}</span>
-            <strong>{value}</strong>
-          </div>
-        ))}
-      </div>
-      <div className="muted" style={{ fontSize: '0.9rem' }}>
-        {card.abilities.length
-          ? card.abilities.map((name) => <div key={name}>• {name}</div>)
-          : 'No abilities'}
-        {card.ultimate ? <div style={{ marginTop: '0.4rem' }}>Ultimate — {card.ultimate}</div> : null}
-        {card.flavorText ? (
-          <em style={{ display: 'block', marginTop: '0.7rem' }}>{card.flavorText}</em>
-        ) : null}
       </div>
     </div>
   )

@@ -1,0 +1,473 @@
+{
+  "total": 52,
+  "cards": [
+    {
+      "id": "33b9acd03a574dbc9a7796c038f3cd98",
+      "name": "Anvil-Thane Korrik",
+      "card_type": "Commander",
+      "race": "Dwarf",
+      "rarity": "Legendary",
+      "primary_type": "Infantry",
+      "secondary_type": "Heavy"
+    },
+    {
+      "id": "e0d2d2cb00f24719b5e129433c8d7423",
+      "name": "Forge-Marshal Flintpick",
+      "card_type": "Commander",
+      "race": "Dwarf",
+      "rarity": "Epic",
+      "primary_type": "Infantry",
+      "secondary_type": null
+    },
+    {
+      "id": "4213abc410bd404fbba4fe1e8e5b675f",
+      "name": "Hold-Lord Granite",
+      "card_type": "Commander",
+      "race": "Dwarf",
+      "rarity": "Rare",
+      "primary_type": "Infantry",
+      "secondary_type": "Heavy"
+    },
+    {
+      "id": "8f35dc10a68349d191fa58bc6ae76792",
+      "name": "Thane of All Holds",
+      "card_type": "Commander",
+      "race": "Dwarf",
+      "rarity": "Epic",
+      "primary_type": "Infantry",
+      "secondary_type": null
+    },
+    {
+      "id": "0b9e728538f94accb21f04e0de602c15",
+      "name": "Cannon Officer Durik",
+      "card_type": "Officer",
+      "race": "Dwarf",
+      "rarity": "Uncommon",
+      "primary_type": "Siege",
+      "secondary_type": "Ranged"
+    },
+    {
+      "id": "3f433c7e8bc54ee3acfaff72f09c6cbe",
+      "name": "Engineer Warden Thilda",
+      "card_type": "Officer",
+      "race": "Dwarf",
+      "rarity": "Uncommon",
+      "primary_type": "Infantry",
+      "secondary_type": null
+    },
+    {
+      "id": "2d3c6ceece564bf3ae58c38d2179ed39",
+      "name": "Gate Warden Hroth",
+      "card_type": "Officer",
+      "race": "Dwarf",
+      "rarity": "Uncommon",
+      "primary_type": "Infantry",
+      "secondary_type": null
+    },
+    {
+      "id": "e175ed8df34b477689557bed9d3161c4",
+      "name": "Ironbreaker Lead Mog",
+      "card_type": "Officer",
+      "race": "Dwarf",
+      "rarity": "Rare",
+      "primary_type": "Infantry",
+      "secondary_type": "Heavy"
+    },
+    {
+      "id": "1baeb653b8b34fe0a893b8a93c10fc67",
+      "name": "Oathkeeper Ysra",
+      "card_type": "Officer",
+      "race": "Dwarf",
+      "rarity": "Rare",
+      "primary_type": "Infantry",
+      "secondary_type": null
+    },
+    {
+      "id": "2786ebef06944676852a1115b3b3eef5",
+      "name": "Quartermaster Stonekeg",
+      "card_type": "Officer",
+      "race": "Dwarf",
+      "rarity": "Uncommon",
+      "primary_type": "Infantry",
+      "secondary_type": null
+    },
+    {
+      "id": "fe83c48544f949bcabd71d61976cec73",
+      "name": "Shield Captain Brann",
+      "card_type": "Officer",
+      "race": "Dwarf",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Heavy"
+    },
+    {
+      "id": "151f278277ed439cad830c0d482f7ddf",
+      "name": "Stonewright Kel",
+      "card_type": "Officer",
+      "race": "Dwarf",
+      "rarity": "Epic",
+      "primary_type": "Infantry",
+      "secondary_type": null
+    },
+    {
+      "id": "40f04a07413a4a4c951faf1071d9e192",
+      "name": "Anvil Guard",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Uncommon",
+      "primary_type": "Infantry",
+      "secondary_type": "Heavy"
+    },
+    {
+      "id": "c4e0b192e9fc41c9b62431b76e550045",
+      "name": "Barrelshields",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Heavy"
+    },
+    {
+      "id": "bc3dbd19021b4124b3bf2dac603e09e8",
+      "name": "Brewguard Militia",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": null
+    },
+    {
+      "id": "e16717493a954aeea7bc4d1052eeb111",
+      "name": "Cliffbow Veterans",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Rare",
+      "primary_type": "Ranged",
+      "secondary_type": null
+    },
+    {
+      "id": "7d8a88c6e8a74fae929c0a16d184daf8",
+      "name": "Deep Lanterns",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Uncommon",
+      "primary_type": "Magic",
+      "secondary_type": null
+    },
+    {
+      "id": "a943afcebe274268a234f6ecae6c6f6a",
+      "name": "Deepforge Ancients",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Epic",
+      "primary_type": "Infantry",
+      "secondary_type": "Elite"
+    },
+    {
+      "id": "f04f725c93444902a84e1e818ebbd6a2",
+      "name": "Deepguard Axes",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Uncommon",
+      "primary_type": "Infantry",
+      "secondary_type": "Heavy"
+    },
+    {
+      "id": "927170cba11741b2a54cad1970d34a1d",
+      "name": "Delve Levy",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "356a07307d2f4eaeabac401b6fd5cf5d",
+      "name": "Dustfoot Scouts",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "deb7217cfb094df5b95893661099dbe0",
+      "name": "Forgebreakers",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Uncommon",
+      "primary_type": "Infantry",
+      "secondary_type": "Heavy"
+    },
+    {
+      "id": "06633fc9ceca42f49464cb7fe5616434",
+      "name": "Granite Wardens",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Uncommon",
+      "primary_type": "Infantry",
+      "secondary_type": "Heavy"
+    },
+    {
+      "id": "f7cae35952ef4b458ed6b3cec69399f4",
+      "name": "Grudge Bearers",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": null
+    },
+    {
+      "id": "0f9574ae0dca4c8e82b14c968035038b",
+      "name": "Grudge Bolters",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Uncommon",
+      "primary_type": "Ranged",
+      "secondary_type": "Heavy"
+    },
+    {
+      "id": "b51e1f17fc284b1aa05d07aafeb87fd4",
+      "name": "Grudge Lord Champions",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Rare",
+      "primary_type": "Infantry",
+      "secondary_type": "Elite"
+    },
+    {
+      "id": "4270673526704006bce1528080d7cb47",
+      "name": "Hold Crossbows",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Uncommon",
+      "primary_type": "Ranged",
+      "secondary_type": null
+    },
+    {
+      "id": "9b73e862449e4587a4a27c3b5d580658",
+      "name": "Hold Spearmen",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": null
+    },
+    {
+      "id": "cc513841df1a4bcdbeb22be9b4230a09",
+      "name": "Holdbreaker Hammers",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Rare",
+      "primary_type": "Infantry",
+      "secondary_type": "Heavy"
+    },
+    {
+      "id": "8667f53c4c564bd8bc6a24567eba624b",
+      "name": "Holdmark Archers",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Uncommon",
+      "primary_type": "Ranged",
+      "secondary_type": null
+    },
+    {
+      "id": "ac0d25c794824133ae61ce93ebbe35c0",
+      "name": "Ironbreaker Cannon",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Rare",
+      "primary_type": "Siege",
+      "secondary_type": "Heavy"
+    },
+    {
+      "id": "7df2f890d0c84a7db09cf6179fbcf294",
+      "name": "Ironbreaker Phalanx",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Rare",
+      "primary_type": "Infantry",
+      "secondary_type": "Heavy"
+    },
+    {
+      "id": "25d3fcf457734491a32d80297a5f0c9e",
+      "name": "Ironpike Line",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Uncommon",
+      "primary_type": "Infantry",
+      "secondary_type": "Heavy"
+    },
+    {
+      "id": "29818af5022142cfa6088a9e2540f052",
+      "name": "King's Gatekeepers",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Rare",
+      "primary_type": "Infantry",
+      "secondary_type": "Elite"
+    },
+    {
+      "id": "0fe1a1d279ce47ed8de7c97e6b7c5c68",
+      "name": "Mine Wardens",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": null
+    },
+    {
+      "id": "652d547bcb0646b881d5dcb114e6f9f0",
+      "name": "Mountain Hearthkin",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Uncommon",
+      "primary_type": "Infantry",
+      "secondary_type": null
+    },
+    {
+      "id": "c7d70ee24c254f6b9cf331fee23a203e",
+      "name": "Oathbound Sappers",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Rare",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "a1feaa11a95846d8a38f7c54689dd7cf",
+      "name": "Oathsworn Blades",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Uncommon",
+      "primary_type": "Infantry",
+      "secondary_type": null
+    },
+    {
+      "id": "47690aa3a5be474d87719a43b007daef",
+      "name": "Powder Handlers",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Uncommon",
+      "primary_type": "Ranged",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "f2b0a7e101d748cebe133547fef7fdca",
+      "name": "Rivet Boys",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "ba1fadc95e964e189701ecb1e4e5da09",
+      "name": "Rune Halberds",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Uncommon",
+      "primary_type": "Infantry",
+      "secondary_type": "Heavy"
+    },
+    {
+      "id": "1efa781fe329421c93b9f6ca751d1319",
+      "name": "Rune Priest of the Deep",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Rare",
+      "primary_type": "Magic",
+      "secondary_type": null
+    },
+    {
+      "id": "7e70984926404a09bd3929087c8a4a33",
+      "name": "Runed Mortar",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Rare",
+      "primary_type": "Siege",
+      "secondary_type": null
+    },
+    {
+      "id": "3def631c5e3c456ca7b5c2d95671314e",
+      "name": "Shield Thralls",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Heavy"
+    },
+    {
+      "id": "37da14bb06304523ac73b970d9e61724",
+      "name": "Siege Sappers",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Uncommon",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "42f22d8b2be54f4697f5f5b3b3ed4172",
+      "name": "Sling Crews",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Common",
+      "primary_type": "Ranged",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "5a585a6b1f0d4759a159b8c0a6fa3ca9",
+      "name": "Stone Miners",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Uncommon",
+      "primary_type": "Infantry",
+      "secondary_type": null
+    },
+    {
+      "id": "bcb9e70254c04af79d22155660b77065",
+      "name": "Stonechip Archers",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Common",
+      "primary_type": "Ranged",
+      "secondary_type": null
+    },
+    {
+      "id": "a0b2c8cc9a1f47d48eb01ea3bbdadec0",
+      "name": "Stoneheart Defenders",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Rare",
+      "primary_type": "Infantry",
+      "secondary_type": "Heavy"
+    },
+    {
+      "id": "7b06a5ae8603466dad9f7fc5bb886afb",
+      "name": "Thunderpeak Marksmen",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Rare",
+      "primary_type": "Ranged",
+      "secondary_type": "Elite"
+    },
+    {
+      "id": "1931edf5d4ae4243b730b2a2f9ecd577",
+      "name": "Tunnel Runners",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "2f14da0d99ac49f9a5e12054b497755e",
+      "name": "Vault Spearmen",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Uncommon",
+      "primary_type": "Infantry",
+      "secondary_type": null
+    }
+  ]
+}

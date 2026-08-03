@@ -4,6 +4,7 @@ const links = [
   ['/', 'Dashboard'],
   ['/cards', 'Cards'],
   ['/abilities', 'Abilities'],
+  ['/keywords', 'Keywords'],
   ['/races', 'Races'],
   ['/design-bible', 'Design Bible'],
   ['/rules', 'Rules'],

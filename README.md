@@ -33,3 +33,26 @@ Override with `KINGDOMS_DATA=...` if needed.
 - Rules
 
 The old KingdomsBuilder desktop app can stay as a YAML source until this kit fully replaces it.
+
+## Battle Sim Reports
+
+Generate race win-share tables and matchup matrices from battle simulations:
+
+```bash
+# Run sim and generate report (saves to sim/sim-matchup-report.md)
+npm run sim:report
+
+# Generate report from existing sim output
+node scripts/simReport.mjs --from sim/sim-200-latest.json
+
+# Include flat matchup list with W-L records
+node scripts/simReport.mjs --from sim/sim-200-latest.json --flat
+
+# Custom output file
+node scripts/simReport.mjs --from sim/sim-200-latest.json --out sim/my-report.md
+```
+
+Reports include:
+- **Race Win Share Table** — Ranked by win %, with total wins and appearances
+- **Full NxN Matchup Matrix** — Row race win % vs column race
+- **Optional Flat Matchup List** — All race vs race with W-L-D records (use `--flat`)

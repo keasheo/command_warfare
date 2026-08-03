@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { api, type Dashboard } from './api'
+import { api, type Dashboard } from '../api'
 
 export function DashboardPage() {
   const [data, setData] = useState<Dashboard | null>(null)
@@ -26,7 +26,7 @@ export function DashboardPage() {
     try {
       const result = await api.importYaml()
       setMessage(
-        `Imported ${result.cards} cards, ${result.abilities} abilities, ${result.documents} docs`,
+        `Imported ${result.cards} cards, ${result.abilities} abilities, ${result.keywords ?? 0} keywords, ${result.documents} docs`,
       )
       await load()
     } catch (err) {

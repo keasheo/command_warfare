@@ -1,0 +1,473 @@
+{
+  "total": 52,
+  "cards": [
+    {
+      "id": "a9ef572519124c378d64752881e7ac5e",
+      "name": "Blood Moon Alpha",
+      "card_type": "Commander",
+      "race": "Beastfolk",
+      "rarity": "Rare",
+      "primary_type": "Beast",
+      "secondary_type": null
+    },
+    {
+      "id": "e5603605f3af647fb41256adc98794f8",
+      "name": "High Alpha of Tribes",
+      "card_type": "Commander",
+      "race": "Beastfolk",
+      "rarity": "Epic",
+      "primary_type": "Beast",
+      "secondary_type": null
+    },
+    {
+      "id": "b6b3c6ac4b7b48618b1c5d2a8ed4e836",
+      "name": "Howling Matriarch",
+      "card_type": "Commander",
+      "race": "Beastfolk",
+      "rarity": "Legendary",
+      "primary_type": "Beast",
+      "secondary_type": null
+    },
+    {
+      "id": "ae4883dd1d5d4239b58394624f42a522",
+      "name": "Wild Hunt Lord",
+      "card_type": "Commander",
+      "race": "Beastfolk",
+      "rarity": "Epic",
+      "primary_type": "Cavalry",
+      "secondary_type": "Beast"
+    },
+    {
+      "id": "0963f5ffb5f74c90828fdae9f28b44aa",
+      "name": "Beastmaster Rowan",
+      "card_type": "Officer",
+      "race": "Beastfolk",
+      "rarity": "Uncommon",
+      "primary_type": "Beast",
+      "secondary_type": null
+    },
+    {
+      "id": "250a72d807cc4f948850018dd2ef29c7",
+      "name": "Centaur Marshal",
+      "card_type": "Officer",
+      "race": "Beastfolk",
+      "rarity": "Common",
+      "primary_type": "Cavalry",
+      "secondary_type": "Beast"
+    },
+    {
+      "id": "788db66e226b4c3d9700c634a339d282",
+      "name": "Minotaur Champion",
+      "card_type": "Officer",
+      "race": "Beastfolk",
+      "rarity": "Uncommon",
+      "primary_type": "Beast",
+      "secondary_type": "Heavy"
+    },
+    {
+      "id": "773d1b4fe4aa4d4e936dffb82372654b",
+      "name": "Scout Tracker Fen",
+      "card_type": "Officer",
+      "race": "Beastfolk",
+      "rarity": "Epic",
+      "primary_type": "Beast",
+      "secondary_type": null
+    },
+    {
+      "id": "a7fe0fd4831644f38e2f50e6524ebd5b",
+      "name": "Skirmish Pack Lead",
+      "card_type": "Officer",
+      "race": "Beastfolk",
+      "rarity": "Uncommon",
+      "primary_type": "Beast",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "b66b5d4cb30c45f0a65c90fec5db7108",
+      "name": "Stampede Caller",
+      "card_type": "Officer",
+      "race": "Beastfolk",
+      "rarity": "Rare",
+      "primary_type": "Cavalry",
+      "secondary_type": "Beast"
+    },
+    {
+      "id": "edb012e0238a469086ef3976ee786d08",
+      "name": "Totem Shaman",
+      "card_type": "Officer",
+      "race": "Beastfolk",
+      "rarity": "Rare",
+      "primary_type": "Magic",
+      "secondary_type": "Beast"
+    },
+    {
+      "id": "95fb56b492fb4d64ab114398118095cb",
+      "name": "Wolfkin Alpha",
+      "card_type": "Officer",
+      "race": "Beastfolk",
+      "rarity": "Uncommon",
+      "primary_type": "Beast",
+      "secondary_type": null
+    },
+    {
+      "id": "3b9793087e8e4263826781320d126224",
+      "name": "Alpha Werewolves",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Rare",
+      "primary_type": "Beast",
+      "secondary_type": "Elite"
+    },
+    {
+      "id": "2bef989e22494c29a3047b77a6664dc9",
+      "name": "Axe Wolfkin",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Uncommon",
+      "primary_type": "Beast",
+      "secondary_type": null
+    },
+    {
+      "id": "4a50f03b4ee34bc68d593ad0b20fc8cf",
+      "name": "Blood Moon Chosen",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Epic",
+      "primary_type": "Beast",
+      "secondary_type": "Elite"
+    },
+    {
+      "id": "985639568bc6489f8124ba83332b6323",
+      "name": "Blood Pack",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Uncommon",
+      "primary_type": "Beast",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "264c78592e95498caed10fc1459d353c",
+      "name": "Boar Boys",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Common",
+      "primary_type": "Beast",
+      "secondary_type": null
+    },
+    {
+      "id": "d52cc4a7fba843af9d5d835cdcab3825",
+      "name": "Brush Stalkers",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Common",
+      "primary_type": "Beast",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "be3aed29709645498b60b63a28f57cc7",
+      "name": "Camp Archers",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Common",
+      "primary_type": "Ranged",
+      "secondary_type": null
+    },
+    {
+      "id": "284299a8bce94456a84c03d2f11437a1",
+      "name": "Centaur Kings",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Rare",
+      "primary_type": "Cavalry",
+      "secondary_type": "Elite"
+    },
+    {
+      "id": "f7be0c62614c47819e95025d6feee575",
+      "name": "Centaur Lancers",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Uncommon",
+      "primary_type": "Cavalry",
+      "secondary_type": "Beast"
+    },
+    {
+      "id": "6379ec5a4e704ad1a3519212d08d6abb",
+      "name": "Centaur Outriders",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Common",
+      "primary_type": "Cavalry",
+      "secondary_type": "Beast"
+    },
+    {
+      "id": "9204e128b1ef4f87a3766811dc054d29",
+      "name": "Den Mothers",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Rare",
+      "primary_type": "Beast",
+      "secondary_type": null
+    },
+    {
+      "id": "35d94e3c399748c7b73c93758261098d",
+      "name": "Great War Beast",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Epic",
+      "primary_type": "Beast",
+      "secondary_type": "Elite"
+    },
+    {
+      "id": "3a214788565248079fa82b2c222b7c8d",
+      "name": "Grove Chanters",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Uncommon",
+      "primary_type": "Magic",
+      "secondary_type": "Beast"
+    },
+    {
+      "id": "d6fb6c0961604b198ae664e3eb243448",
+      "name": "Herd Guard",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Common",
+      "primary_type": "Beast",
+      "secondary_type": null
+    },
+    {
+      "id": "61b9c42608a54315a0f9564a6e4ce120",
+      "name": "Herdbreaker Rams",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Rare",
+      "primary_type": "Beast",
+      "secondary_type": "Heavy"
+    },
+    {
+      "id": "e2525f898cb144698352258380e60569",
+      "name": "Horned Avalanche",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Rare",
+      "primary_type": "Beast",
+      "secondary_type": "Heavy"
+    },
+    {
+      "id": "c3bab7a63fd845cab56dd3a77e27aa9b",
+      "name": "Horned Militia",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Common",
+      "primary_type": "Beast",
+      "secondary_type": null
+    },
+    {
+      "id": "a16a9dba4a7e4c13adc761ce3ce3ac1f",
+      "name": "Howl Choir",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Common",
+      "primary_type": "Beast",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "46b38ef5d1ba4c64b96e1b5ac303a328",
+      "name": "Hunt Masters",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Uncommon",
+      "primary_type": "Beast",
+      "secondary_type": null
+    },
+    {
+      "id": "6f873f06f0f546c0b1ccc6a33cc9cdf3",
+      "name": "Longfang Archers",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Uncommon",
+      "primary_type": "Ranged",
+      "secondary_type": "Beast"
+    },
+    {
+      "id": "7f317a7fce8f453397bf345189eb30f1",
+      "name": "Minotaur Hammers",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Uncommon",
+      "primary_type": "Beast",
+      "secondary_type": "Heavy"
+    },
+    {
+      "id": "1f80b286f90e4b5bbf0f8c310c9440bf",
+      "name": "Minotaur Warlords",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Rare",
+      "primary_type": "Beast",
+      "secondary_type": "Elite"
+    },
+    {
+      "id": "b27b2b72a2b54a579062602d581542c1",
+      "name": "Moon Pack",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Rare",
+      "primary_type": "Beast",
+      "secondary_type": "Elite"
+    },
+    {
+      "id": "3f171607a97f492cb8a4982f1dc5daa0",
+      "name": "Pack Flankers",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Uncommon",
+      "primary_type": "Beast",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "7c77ad9c670946fd8ed47c0060115927",
+      "name": "Pack Pups",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Common",
+      "primary_type": "Beast",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "d9d77bded5d0437c9a481fdeea30121d",
+      "name": "Shield Rams",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Uncommon",
+      "primary_type": "Beast",
+      "secondary_type": "Heavy"
+    },
+    {
+      "id": "83eb22d9701b44d8bf5f7d1a1a02d973",
+      "name": "Silent Stalkers",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Rare",
+      "primary_type": "Beast",
+      "secondary_type": "Elite"
+    },
+    {
+      "id": "62dc7650f76442d497f7ddc8fc2a9a24",
+      "name": "Sling Wolfkin",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Common",
+      "primary_type": "Ranged",
+      "secondary_type": "Beast"
+    },
+    {
+      "id": "19dda22651ed46e08db67589e36235e6",
+      "name": "Spear Centaurs",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Uncommon",
+      "primary_type": "Cavalry",
+      "secondary_type": "Beast"
+    },
+    {
+      "id": "810cc50f27f04495bceaef2433b691fa",
+      "name": "Stampede Herd",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Uncommon",
+      "primary_type": "Beast",
+      "secondary_type": null
+    },
+    {
+      "id": "0d37dad863cf451fb6f3c578aa7bd848",
+      "name": "Thornbow Pack",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Rare",
+      "primary_type": "Ranged",
+      "secondary_type": "Beast"
+    },
+    {
+      "id": "7de09565464346b9bf0b102742fdcd0d",
+      "name": "Totem Bearers",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Uncommon",
+      "primary_type": "Beast",
+      "secondary_type": null
+    },
+    {
+      "id": "8f5fdd1bde1a4383863c48880deb71c6",
+      "name": "Totem High Shaman",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Rare",
+      "primary_type": "Magic",
+      "secondary_type": "Elite"
+    },
+    {
+      "id": "4c131d8805f245edb7e963f6f532bd76",
+      "name": "Totem Onager",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Uncommon",
+      "primary_type": "Siege",
+      "secondary_type": "Beast"
+    },
+    {
+      "id": "f2988ebf00b64dbfa45b6c304d57573b",
+      "name": "Trail Wardens",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Beast"
+    },
+    {
+      "id": "435268939b9642d0bf70b725f99ddd53",
+      "name": "Tribal Spears",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "deb11c779e8140aeba83f527fcfb69ac",
+      "name": "Tusk Guard",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Uncommon",
+      "primary_type": "Beast",
+      "secondary_type": "Heavy"
+    },
+    {
+      "id": "4fcf8f88c13c4310bc6643503dd4e142",
+      "name": "War Beast",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Uncommon",
+      "primary_type": "Beast",
+      "secondary_type": "Heavy"
+    },
+    {
+      "id": "11c2777775c44d959dd594c021f4af41",
+      "name": "Werewolf Kin",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Uncommon",
+      "primary_type": "Beast",
+      "secondary_type": null
+    },
+    {
+      "id": "9775e6dbb86e40e590caee5a2a4b4470",
+      "name": "Wolfkin Runners",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Common",
+      "primary_type": "Beast",
+      "secondary_type": "Light"
+    }
+  ]
+}

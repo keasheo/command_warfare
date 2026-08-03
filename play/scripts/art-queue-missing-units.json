@@ -1,0 +1,491 @@
+{
+  "total": 54,
+  "cards": [
+    {
+      "id": "3774f4e8fc6e4dea953a790461640340",
+      "name": "Den Sergeant",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Common",
+      "primary_type": "Beast",
+      "secondary_type": null
+    },
+    {
+      "id": "badeabb5005a475ca0836ba5949c99f7",
+      "name": "Fang Pair Alpha",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Common",
+      "primary_type": "Beast",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "d2c5d225c5954a1f8e3b5be291a9cf18",
+      "name": "Flank Link",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Common",
+      "primary_type": "Beast",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "228f0d4ca2b04e81a4697637690c38bf",
+      "name": "Pack Horn",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Common",
+      "primary_type": "Beast",
+      "secondary_type": null
+    },
+    {
+      "id": "5d1e7a46453842d486359d929fcda265",
+      "name": "Pup Drill",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Common",
+      "primary_type": "Beast",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "e855bd9bd6954ff9bcae870ba22195bb",
+      "name": "Trail Pacekeeper",
+      "card_type": "Unit",
+      "race": "Beastfolk",
+      "rarity": "Common",
+      "primary_type": "Beast",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "8f4e3fb08d4d4818a2a51d59391bbc76",
+      "name": "Clamp Pair Lead",
+      "card_type": "Unit",
+      "race": "Construct",
+      "rarity": "Common",
+      "primary_type": "Construct",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "c9f1fb9a3afd46e3957a50644f39e62f",
+      "name": "Conveyor Guide",
+      "card_type": "Unit",
+      "race": "Construct",
+      "rarity": "Common",
+      "primary_type": "Construct",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "751b34290efd4609b482e8421592f244",
+      "name": "Gear Horn",
+      "card_type": "Unit",
+      "race": "Construct",
+      "rarity": "Common",
+      "primary_type": "Construct",
+      "secondary_type": null
+    },
+    {
+      "id": "bef13f5c31794594b93fd59dc3de333f",
+      "name": "Line Sergeant Frame",
+      "card_type": "Unit",
+      "race": "Construct",
+      "rarity": "Common",
+      "primary_type": "Construct",
+      "secondary_type": null
+    },
+    {
+      "id": "54d30df4477a4c1bad43729aea0809fc",
+      "name": "Plate Link",
+      "card_type": "Unit",
+      "race": "Construct",
+      "rarity": "Common",
+      "primary_type": "Construct",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "5c04cf349e4a4c2d9d4611918f4a96da",
+      "name": "Rivet Drill Unit",
+      "card_type": "Unit",
+      "race": "Construct",
+      "rarity": "Common",
+      "primary_type": "Construct",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "c020f5d09ec145b4b5c7379c083b4709",
+      "name": "Ash Drill Imp",
+      "card_type": "Unit",
+      "race": "Demon",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "2869f2e7a9794927b7750b6b8222a3d5",
+      "name": "Brim Hornling",
+      "card_type": "Unit",
+      "race": "Demon",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": null
+    },
+    {
+      "id": "ad70b2c8f336410aa7fc70b420b7a58b",
+      "name": "Chain Link Fiend",
+      "card_type": "Unit",
+      "race": "Demon",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "844b84558f0f4de4bde56a2b241c5821",
+      "name": "Cinder Pair Boss",
+      "card_type": "Unit",
+      "race": "Demon",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "7a3ed0ebdfcb4cc7bb3c40628856a73c",
+      "name": "March Overseer",
+      "card_type": "Unit",
+      "race": "Demon",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "e30c96d440804a659e8d0e10534b39f1",
+      "name": "Pit Sergeant",
+      "card_type": "Unit",
+      "race": "Demon",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": null
+    },
+    {
+      "id": "1c2cfccd32b043c2b3f09e0eb8dc62cb",
+      "name": "Claw Pair Tutor",
+      "card_type": "Unit",
+      "race": "Dragon",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "bf0cb85e86934cfeb256771b63e74553",
+      "name": "Clutch Drillling",
+      "card_type": "Unit",
+      "race": "Dragon",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "17cbff34cf42498b8ec49a20efe741fd",
+      "name": "Clutch Sergeant",
+      "card_type": "Unit",
+      "race": "Dragon",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": null
+    },
+    {
+      "id": "c46df2e5376244bea5289d7ba77b2b91",
+      "name": "Nest Horn Whelp",
+      "card_type": "Unit",
+      "race": "Dragon",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": null
+    },
+    {
+      "id": "b2ddae77666c4957aaa3a4dfdb5a94af",
+      "name": "Rook Guide",
+      "card_type": "Unit",
+      "race": "Dragon",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "af69f2edc4ee4eb3b26fa049bd372a4d",
+      "name": "Scale Link Whelp",
+      "card_type": "Unit",
+      "race": "Dragon",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "672f4f4f851f4e89b8a15e11e1162ff7",
+      "name": "Anvil Drum",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": null
+    },
+    {
+      "id": "8229a4ff65da4c9c8dc1821288b9c355",
+      "name": "Delve Drill Lad",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "a65e9b981fe5403a9473b6381b95ed1b",
+      "name": "Hold Sergeant",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Heavy"
+    },
+    {
+      "id": "dee88d3edf9746ebac4c7deb88f9d1a6",
+      "name": "Shaft Guide",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": null
+    },
+    {
+      "id": "5f4fddd74b704e64b5b67dc4f96a0574",
+      "name": "Shield Link Thrall",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Heavy"
+    },
+    {
+      "id": "929fe52575bb4745afb176f9fd1e2cb5",
+      "name": "Tunnel Pair Lead",
+      "card_type": "Unit",
+      "race": "Dwarf",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "bc2afeb4111743cca3cf21be6515c1ee",
+      "name": "Bow Pair Tutor",
+      "card_type": "Unit",
+      "race": "Elf",
+      "rarity": "Common",
+      "primary_type": "Ranged",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "6c97c6574c5a4c5b8515813cd008d2a1",
+      "name": "Grove Sergeant",
+      "card_type": "Unit",
+      "race": "Elf",
+      "rarity": "Common",
+      "primary_type": "Nature",
+      "secondary_type": null
+    },
+    {
+      "id": "e9b8f2073ad3497897bddf6d81d2c393",
+      "name": "Leafsignal Runner",
+      "card_type": "Unit",
+      "race": "Elf",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "20aad986c6e64966b2543b03e05c753c",
+      "name": "Sapling Drill",
+      "card_type": "Unit",
+      "race": "Elf",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "57b86578c4f4406193d16324c20ae839",
+      "name": "Thorn Link",
+      "card_type": "Unit",
+      "race": "Elf",
+      "rarity": "Common",
+      "primary_type": "Nature",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "16cc568de75d4145981a7519238a1161",
+      "name": "Trail Warden",
+      "card_type": "Unit",
+      "race": "Elf",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "11616a6d923544b1bfc74f9683f607fc",
+      "name": "Buckler Link",
+      "card_type": "Unit",
+      "race": "Human",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "003375bd521c4817925392d4a535a6f5",
+      "name": "Column Guide",
+      "card_type": "Unit",
+      "race": "Human",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "ad545fdf3eaf4aee8a09400bb2e5e3a5",
+      "name": "Drill Cadet",
+      "card_type": "Unit",
+      "race": "Human",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "917e0e0709f743ccb94c194944bcacbc",
+      "name": "Drum Corporal",
+      "card_type": "Unit",
+      "race": "Human",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": null
+    },
+    {
+      "id": "76375da793f2495bb137760a5e4dd082",
+      "name": "Lance Pair Leader",
+      "card_type": "Unit",
+      "race": "Human",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "8c2a8f12e0bb4e978d5cbe1b2c90b659",
+      "name": "Sergeant-at-Arms",
+      "card_type": "Unit",
+      "race": "Human",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": null
+    },
+    {
+      "id": "23974e0554264d999eb62b9ac0bcba53",
+      "name": "Bog Pacekeeper",
+      "card_type": "Unit",
+      "race": "Lizardman",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "06e617a1ceb74aaf8462a9b8fde09e01",
+      "name": "Brood Sergeant",
+      "card_type": "Unit",
+      "race": "Lizardman",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": null
+    },
+    {
+      "id": "4b0cee135dd74fee9dd943687d7a2e4f",
+      "name": "Fang Pair Boss",
+      "card_type": "Unit",
+      "race": "Lizardman",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "9a734fc804474241a04e8aa0cc05436a",
+      "name": "Hatchling Drill",
+      "card_type": "Unit",
+      "race": "Lizardman",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "b85e5c397ef04fe08357583c696af20c",
+      "name": "Reed Horn Skink",
+      "card_type": "Unit",
+      "race": "Lizardman",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": null
+    },
+    {
+      "id": "1b7895d7d05e4f1d86d3952559bf65ee",
+      "name": "Scale Link",
+      "card_type": "Unit",
+      "race": "Lizardman",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "7c1a10cff649404480a4b30085d7d65e",
+      "name": "Bone Drill Thrall",
+      "card_type": "Unit",
+      "race": "Undead",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "321d1bb42c984922a71b7ee915235d86",
+      "name": "Crypt Pair Lead",
+      "card_type": "Unit",
+      "race": "Undead",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "c8e20cd9e85c49dcba51750d0623e866",
+      "name": "Dirge Horn",
+      "card_type": "Unit",
+      "race": "Undead",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": null
+    },
+    {
+      "id": "7ad066ddf4cb4a1d8906f7e70976929a",
+      "name": "Grave Sergeant",
+      "card_type": "Unit",
+      "race": "Undead",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": null
+    },
+    {
+      "id": "3b89d4870d5a4f0d86d8717dce4d3dcd",
+      "name": "Procession Guide",
+      "card_type": "Unit",
+      "race": "Undead",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    },
+    {
+      "id": "4b1dffa5da08484aa4c65cf4f657a481",
+      "name": "Rib Link",
+      "card_type": "Unit",
+      "race": "Undead",
+      "rarity": "Common",
+      "primary_type": "Infantry",
+      "secondary_type": "Light"
+    }
+  ]
+}

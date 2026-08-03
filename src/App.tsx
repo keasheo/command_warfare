@@ -4,6 +4,7 @@ import { AbilitiesPage } from './pages/AbilitiesPage'
 import { CardsPage } from './pages/CardsPage'
 import { DashboardPage } from './pages/DashboardPage'
 import { DocumentPage } from './pages/DocumentPage'
+import { KeywordsPage } from './pages/KeywordsPage'
 import { RacesPage } from './pages/RacesPage'
 
 export default function App() {
@@ -14,6 +15,7 @@ export default function App() {
           <Route index element={<DashboardPage />} />
           <Route path="cards" element={<CardsPage />} />
           <Route path="abilities" element={<AbilitiesPage />} />
+          <Route path="keywords" element={<KeywordsPage />} />
           <Route path="races" element={<RacesPage />} />
           <Route
             path="design-bible"

@@ -48,12 +48,15 @@ function migrate(database: Database.Database): void {
       command_radius REAL,
       ap_generation REAL,
       cc_generation REAL,
+      favored_terrain TEXT,
       abilities_json TEXT NOT NULL DEFAULT '[]',
+      keywords_json TEXT NOT NULL DEFAULT '[]',
       ultimate TEXT,
       flavor_text TEXT,
       complexity REAL,
       role TEXT,
       tags_json TEXT NOT NULL DEFAULT '[]',
+      support_json TEXT NOT NULL DEFAULT '{}',
       search_blob TEXT NOT NULL DEFAULT ''
     );
 
@@ -74,11 +77,21 @@ function migrate(database: Database.Database): void {
       radius_from TEXT,
       radius_size REAL,
       used_by TEXT,
+      cooldown INTEGER,
       tags_json TEXT NOT NULL DEFAULT '[]',
       search_blob TEXT NOT NULL DEFAULT ''
     );
 
     CREATE INDEX IF NOT EXISTS idx_abilities_search ON abilities(search_blob);
+
+    CREATE TABLE IF NOT EXISTS keywords (
+      name TEXT PRIMARY KEY,
+      description TEXT,
+      tags_json TEXT NOT NULL DEFAULT '[]',
+      search_blob TEXT NOT NULL DEFAULT ''
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_keywords_search ON keywords(search_blob);
 
     CREATE TABLE IF NOT EXISTS documents (
       slug TEXT PRIMARY KEY,
@@ -86,6 +99,20 @@ function migrate(database: Database.Database): void {
       body_json TEXT NOT NULL
     );
   `)
+  const cols = database.prepare(`PRAGMA table_info(abilities)`).all() as { name: string }[]
+  if (!cols.some((c) => c.name === 'cooldown')) {
+    database.exec(`ALTER TABLE abilities ADD COLUMN cooldown INTEGER`)
+  }
+  const cardCols = database.prepare(`PRAGMA table_info(cards)`).all() as { name: string }[]
+  if (!cardCols.some((c) => c.name === 'support_json')) {
+    database.exec(`ALTER TABLE cards ADD COLUMN support_json TEXT NOT NULL DEFAULT '{}'`)
+  }
+  if (!cardCols.some((c) => c.name === 'keywords_json')) {
+    database.exec(`ALTER TABLE cards ADD COLUMN keywords_json TEXT NOT NULL DEFAULT '[]'`)
+  }
+  if (!cardCols.some((c) => c.name === 'favored_terrain')) {
+    database.exec(`ALTER TABLE cards ADD COLUMN favored_terrain TEXT`)
+  }
 }
 
 export type CardRow = {
@@ -107,12 +134,15 @@ export type CardRow = {
   command_radius: number | null
   ap_generation: number | null
   cc_generation: number | null
+  favored_terrain: string | null
   abilities_json: string
+  keywords_json?: string
   ultimate: string | null
   flavor_text: string | null
   complexity: number | null
   role: string | null
   tags_json: string
+  support_json?: string
   search_blob: string
 }
 
@@ -128,6 +158,14 @@ export type AbilityRow = {
   radius_from: string | null
   radius_size: number | null
   used_by: string | null
+  cooldown: number | null
+  tags_json: string
+  search_blob: string
+}
+
+export type KeywordRow = {
+  name: string
+  description: string | null
   tags_json: string
   search_blob: string
 }
@@ -155,6 +193,13 @@ export function buildAbilitySearchBlob(ability: Record<string, unknown>): string
 }
 
 export function cardFromRow(row: CardRow) {
+  const support = JSON.parse(row.support_json || '{}') as {
+    races?: string[]
+    types?: string[]
+    keywords?: string[]
+  }
+  const abilities = JSON.parse(row.abilities_json || '[]') as string[]
+  const keywords = JSON.parse(row.keywords_json || '[]') as string[]
   return {
     id: row.id,
     name: row.name,
@@ -174,12 +219,17 @@ export function cardFromRow(row: CardRow) {
     commandRadius: row.command_radius,
     apGeneration: row.ap_generation,
     ccGeneration: row.cc_generation,
-    abilities: JSON.parse(row.abilities_json || '[]') as string[],
+    favoredTerrain: row.favored_terrain,
+    abilities: Array.isArray(abilities) ? abilities : [],
+    keywords: Array.isArray(keywords) ? keywords : [],
     ultimate: row.ultimate,
     flavorText: row.flavor_text,
     complexity: row.complexity,
     role: row.role,
     tags: JSON.parse(row.tags_json || '[]') as string[],
+    supportedRaces: Array.isArray(support.races) ? support.races : [],
+    supportedTypes: Array.isArray(support.types) ? support.types : [],
+    supportedKeywords: Array.isArray(support.keywords) ? support.keywords : [],
   }
 }
 
@@ -196,6 +246,75 @@ export function abilityFromRow(row: AbilityRow) {
     radiusFrom: row.radius_from,
     radiusSize: row.radius_size,
     usedBy: row.used_by,
+    cooldown: row.cooldown ?? null,
     tags: JSON.parse(row.tags_json || '[]') as string[],
   }
+}
+
+export function keywordFromRow(row: KeywordRow) {
+  return {
+    name: row.name,
+    description: row.description,
+    tags: JSON.parse(row.tags_json || '[]') as string[],
+  }
+}
+
+export function buildKeywordSearchBlob(keyword: Record<string, unknown>): string {
+  return Object.values(keyword)
+    .filter((v) => v != null && v !== '')
+    .map(String)
+    .join(' ')
+    .toLowerCase()
+}
+
+/** Cards that list this keyword in keywords_json (exact or parameterized rank). */
+export function cardsUsingKeyword(keywordName: string): {
+  id: string
+  name: string
+  cardType: string
+  race: string | null
+  rarity: string | null
+}[] {
+  const name = keywordName.trim()
+  if (!name) return []
+  const rows = getDb()
+    .prepare(
+      `SELECT id, name, card_type, race, rarity, keywords_json
+       FROM cards
+       ORDER BY name`,
+    )
+    .all() as {
+    id: string
+    name: string
+    card_type: string
+    race: string | null
+    rarity: string | null
+    keywords_json: string
+  }[]
+
+  return rows
+    .filter((row) => {
+      try {
+        const keywords = JSON.parse(row.keywords_json || '[]') as unknown
+        if (!Array.isArray(keywords)) return false
+        return keywords.some((k) => keywordRefMatches(String(k).trim(), name))
+      } catch {
+        return false
+      }
+    })
+    .map((row) => ({
+      id: row.id,
+      name: row.name,
+      cardType: row.card_type,
+      race: row.race,
+      rarity: row.rarity,
+    }))
+}
+
+/** Exact match, or library "Harden" matches printed "Harden 1" / "Harden 2". */
+function keywordRefMatches(printed: string, query: string): boolean {
+  if (printed === query) return true
+  if (query === 'Harden' && /^Harden \d+$/.test(printed)) return true
+  if (printed === 'Harden' && /^Harden \d+$/.test(query)) return true
+  return false
 }

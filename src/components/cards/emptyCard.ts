@@ -1,0 +1,37 @@
+import type { Card } from '../../api'
+
+export function emptyCard(): Card {
+  return {
+    id: crypto.randomUUID().replaceAll('-', ''),
+    name: 'New Card',
+    cardType: 'Unit',
+    rarity: 'Common',
+    unique: false,
+    race: null,
+    primaryType: null,
+    secondaryType: null,
+    uv: null,
+    move: null,
+    damage: null,
+    range: null,
+    toughness: null,
+    companyAp: null,
+    companyCapacity: null,
+    commandRadius: null,
+    apGeneration: null,
+    ccGeneration: null,
+    favoredTerrain: null,
+    abilities: [],
+    keywords: [],
+    ultimate: null,
+    flavorText: null,
+    complexity: null,
+    role: null,
+    tags: [],
+    supportedRaces: [],
+    supportedTypes: [],
+    supportedKeywords: [],
+    hasArt: false,
+    artUrl: null,
+  }
+}

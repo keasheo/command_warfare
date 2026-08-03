@@ -5,12 +5,15 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { randomUUID } from 'node:crypto'
 import { fileURLToPath } from 'node:url'
-import yaml from 'js-yaml'
+import { load as loadYaml } from 'js-yaml'
 import {
   buildAbilitySearchBlob,
   buildCardSearchBlob,
   getDb,
 } from './db.ts'
+import { copyArtIfPresent } from './art.ts'
+import { orderedAbilityNames, abilityCreatesNewUnit, abilityUsedByAllowsCard, isUltimateAbilityLike } from './abilityOrder.ts'
+import { MINIMUM_COMMANDER_CC_GENERATION } from './constants.ts'
 
 const DEFAULT_SOURCE = path.resolve(
   process.env.KINGDOMS_DATA ?? 'C:\\Users\\keash\\Projects\\KingdomsBuilder\\data',
@@ -18,7 +21,7 @@ const DEFAULT_SOURCE = path.resolve(
 
 function readYamlFile(filePath: string): unknown {
   if (!fs.existsSync(filePath)) return null
-  return yaml.load(fs.readFileSync(filePath, 'utf8'))
+  return loadYaml(fs.readFileSync(filePath, 'utf8'))
 }
 
 function asRecord(value: unknown): Record<string, unknown> {
@@ -30,6 +33,7 @@ function asRecord(value: unknown): Record<string, unknown> {
 export function importFromKingdoms(sourceRoot = DEFAULT_SOURCE): {
   cards: number
   abilities: number
+  keywords: number
   documents: number
   source: string
 } {
@@ -41,12 +45,13 @@ export function importFromKingdoms(sourceRoot = DEFAULT_SOURCE): {
 
   const cardsDir = path.join(sourceRoot, 'cards')
   const abilitiesPath = path.join(sourceRoot, 'abilities.yaml')
+  const keywordsPath = path.join(sourceRoot, 'keywords.yaml')
   const settingsPath = path.join(sourceRoot, 'settings.yaml')
   const docsDir = path.join(sourceRoot, 'docs')
 
   const run = db.transaction(() => {
     db.exec(
-      'DELETE FROM cards; DELETE FROM abilities; DELETE FROM documents; DELETE FROM settings;',
+      'DELETE FROM cards; DELETE FROM abilities; DELETE FROM keywords; DELETE FROM documents; DELETE FROM settings;',
     )
 
     const settings = asRecord(readYamlFile(settingsPath))
@@ -59,13 +64,25 @@ export function importFromKingdoms(sourceRoot = DEFAULT_SOURCE): {
 
     const abilitiesRaw = asRecord(readYamlFile(abilitiesPath))
     let abilityCount = 0
+    const abilityLibrary = new Map<
+      string,
+      {
+        name: string
+        type: string | null
+        cost: string | null
+        costResource: string | null
+        costAmount: number | null
+        description: string | null
+        usedBy: string | null
+      }
+    >()
     const insertAbility = db.prepare(`
       INSERT INTO abilities (
         name, ability_type, cost, cost_amount, cost_resource, description,
-        affects, affect_count, radius_from, radius_size, used_by, tags_json, search_blob
+        affects, affect_count, radius_from, radius_size, used_by, cooldown, tags_json, search_blob
       ) VALUES (
         @name, @ability_type, @cost, @cost_amount, @cost_resource, @description,
-        @affects, @affect_count, @radius_from, @radius_size, @used_by, @tags_json, @search_blob
+        @affects, @affect_count, @radius_from, @radius_size, @used_by, @cooldown, @tags_json, @search_blob
       )
     `)
     for (const [name, raw] of Object.entries(abilitiesRaw)) {
@@ -83,25 +100,69 @@ export function importFromKingdoms(sourceRoot = DEFAULT_SOURCE): {
         radius_from: (a.radius_from as string) ?? null,
         radius_size: (a.radius_size as number) ?? null,
         used_by: (a.used_by as string) ?? null,
+        cooldown: (a.cooldown as number) ?? null,
+        tags_json: JSON.stringify(tags),
+        search_blob: '',
+      }
+      if (
+        abilityCreatesNewUnit({ name, description: row.description }) &&
+        !isUltimateAbilityLike({ type: row.ability_type, cost: row.cost })
+      ) {
+        console.warn(
+          `Skipping ability '${name}' — creates new units (resurrect-only policy).`,
+        )
+        continue
+      }
+      row.search_blob = buildAbilitySearchBlob(row)
+      insertAbility.run(row)
+      abilityLibrary.set(name, {
+        name,
+        type: row.ability_type,
+        cost: row.cost,
+        costResource: row.cost_resource,
+        costAmount: row.cost_amount,
+        description: row.description,
+        usedBy: row.used_by,
+      })
+      abilityCount += 1
+    }
+
+    const keywordsRaw = asRecord(readYamlFile(keywordsPath))
+    let keywordCount = 0
+    const insertKeyword = db.prepare(`
+      INSERT INTO keywords (name, description, tags_json, search_blob)
+      VALUES (@name, @description, @tags_json, @search_blob)
+    `)
+    for (const [name, raw] of Object.entries(keywordsRaw)) {
+      const k = asRecord(raw)
+      const tags = Array.isArray(k.tags) ? k.tags : []
+      const description = String(k.description ?? '').trim()
+      if (!description) {
+        console.warn(`Skipping keyword '${name}' — missing description.`)
+        continue
+      }
+      const row = {
+        name,
+        description,
         tags_json: JSON.stringify(tags),
         search_blob: '',
       }
       row.search_blob = buildAbilitySearchBlob(row)
-      insertAbility.run(row)
-      abilityCount += 1
+      insertKeyword.run(row)
+      keywordCount += 1
     }
 
     const insertCard = db.prepare(`
       INSERT INTO cards (
         id, name, card_type, rarity, unique_flag, race, primary_type, secondary_type,
         uv, move, damage, range_value, toughness, company_ap, company_capacity,
-        command_radius, ap_generation, cc_generation, abilities_json, ultimate,
-        flavor_text, complexity, role, tags_json, search_blob
+        command_radius, ap_generation, cc_generation, favored_terrain, abilities_json, keywords_json, ultimate,
+        flavor_text, complexity, role, tags_json, support_json, search_blob
       ) VALUES (
         @id, @name, @card_type, @rarity, @unique_flag, @race, @primary_type, @secondary_type,
         @uv, @move, @damage, @range_value, @toughness, @company_ap, @company_capacity,
-        @command_radius, @ap_generation, @cc_generation, @abilities_json, @ultimate,
-        @flavor_text, @complexity, @role, @tags_json, @search_blob
+        @command_radius, @ap_generation, @cc_generation, @favored_terrain, @abilities_json, @keywords_json, @ultimate,
+        @flavor_text, @complexity, @role, @tags_json, @support_json, @search_blob
       )
     `)
 
@@ -116,7 +177,27 @@ export function importFromKingdoms(sourceRoot = DEFAULT_SOURCE): {
           const cards = Array.isArray(payload.cards) ? payload.cards : []
           for (const raw of cards) {
             const c = asRecord(raw)
-            const abilities = Array.isArray(c.abilities) ? c.abilities : []
+            const abilities = orderedAbilityNames(
+              (Array.isArray(c.abilities) ? c.abilities : []).map(String),
+              abilityLibrary,
+            ).filter((name) => {
+              const ab = abilityLibrary.get(name)
+              if (!ab) return false
+              return abilityUsedByAllowsCard(ab, String(c.card_type ?? 'Unit'))
+            })
+            let ultimate = (c.ultimate as string) ?? null
+            if (ultimate && abilityCreatesNewUnit(abilityLibrary.get(ultimate))) {
+              ultimate = null
+            }
+            if (
+              ultimate &&
+              String(c.card_type ?? 'Unit') !== 'Commander'
+            ) {
+              ultimate = null
+            }
+            const keywords = uniqueNames(
+              (Array.isArray(c.keywords) ? c.keywords : []).map(String),
+            )
             const tags = Array.isArray(c.tags) ? c.tags : []
             const row = {
               id: String(c.id ?? randomUUID().replaceAll('-', '')),
@@ -137,21 +218,37 @@ export function importFromKingdoms(sourceRoot = DEFAULT_SOURCE): {
               command_radius: (c.command_radius as number) ?? null,
               ap_generation: (c.ap_generation as number) ?? null,
               cc_generation: (c.cc_generation as number) ?? null,
+              favored_terrain: (c.favored_terrain as string) ?? null,
               abilities_json: JSON.stringify(abilities),
-              ultimate: (c.ultimate as string) ?? null,
+              keywords_json: JSON.stringify(keywords),
+              ultimate,
               flavor_text: (c.flavor_text as string) ?? null,
               complexity: (c.complexity as number) ?? null,
               role: (c.role as string) ?? null,
               tags_json: JSON.stringify(tags),
+              support_json: JSON.stringify({
+                races: Array.isArray(c.supported_races) ? c.supported_races : [],
+                types: Array.isArray(c.supported_types) ? c.supported_types : [],
+                keywords: Array.isArray(c.supported_keywords) ? c.supported_keywords : [],
+              }),
               search_blob: '',
+            }
+            if (
+              row.card_type === 'Commander' &&
+              (row.cc_generation == null ||
+                row.cc_generation < MINIMUM_COMMANDER_CC_GENERATION)
+            ) {
+              row.cc_generation = MINIMUM_COMMANDER_CC_GENERATION
             }
             row.search_blob = buildCardSearchBlob({
               ...row,
               abilities,
+              keywords,
               tags,
               unique: Boolean(row.unique_flag),
             })
             insertCard.run(row)
+            copyArtIfPresent(row.id, path.join(sourceRoot, 'art'))
             cardCount += 1
           }
         }
@@ -170,11 +267,28 @@ export function importFromKingdoms(sourceRoot = DEFAULT_SOURCE): {
       docCount += 1
     }
 
-    return { cards: cardCount, abilities: abilityCount, documents: docCount }
+    return {
+      cards: cardCount,
+      abilities: abilityCount,
+      keywords: keywordCount,
+      documents: docCount,
+    }
   })
 
   const counts = run()
   return { ...counts, source: sourceRoot }
+}
+
+function uniqueNames(names: string[]): string[] {
+  const seen = new Set<string>()
+  const out: string[] = []
+  for (const raw of names) {
+    const name = raw.trim()
+    if (!name || seen.has(name)) continue
+    seen.add(name)
+    out.push(name)
+  }
+  return out
 }
 
 const isDirectRun =
@@ -184,6 +298,6 @@ const isDirectRun =
 if (isDirectRun) {
   const result = importFromKingdoms()
   console.log(
-    `Imported ${result.cards} cards, ${result.abilities} abilities, ${result.documents} docs from ${result.source}`,
+    `Imported ${result.cards} cards, ${result.abilities} abilities, ${result.keywords} keywords, ${result.documents} docs from ${result.source}`,
   )
 }
