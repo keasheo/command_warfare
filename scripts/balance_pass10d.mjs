@@ -8,7 +8,7 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data/cards')
+const KB = path.resolve('data/cards')
 const REV = 13
 
 const changes = []
@@ -32,7 +32,7 @@ function tuneBeastfolk(card) {
   const before = card.uv
   if (bump(card, 'uv', 1, 1)) {
     ch = true
-    log(card, `UV ${before}→${card.uv} (revert 10c)`)
+    log(card, `UV ${before}â†’${card.uv} (revert 10c)`)
   }
   return ch
 }
@@ -44,14 +44,14 @@ function tuneDemon(card) {
     const before = card.uv
     if (bump(card, 'uv', -1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   } else if (card.card_type === 'Officer' && (card.uv || 0) >= 10 && bump(card, 'uv', -1, 1)) {
     ch = true
-    log(card, `UV→${card.uv}`)
+    log(card, `UVâ†’${card.uv}`)
   } else if (card.card_type === 'Unit' && (card.toughness || 0) <= 4 && bump(card, 'toughness', 1, 1, 7)) {
     ch = true
-    log(card, `T→${card.toughness}`)
+    log(card, `Tâ†’${card.toughness}`)
   }
   return ch
 }
@@ -60,10 +60,10 @@ function tuneUndead(card) {
   let ch = false
   if (card.card_type === 'Unit' && (card.damage || 0) <= 3 && bump(card, 'damage', 1, 1, 5)) {
     ch = true
-    log(card, `D→${card.damage}`)
+    log(card, `Dâ†’${card.damage}`)
   } else if (card.card_type === 'Officer' && (card.toughness || 0) <= 4 && bump(card, 'toughness', 1, 1, 7)) {
     ch = true
-    log(card, `T→${card.toughness}`)
+    log(card, `Tâ†’${card.toughness}`)
   }
   return ch
 }
@@ -72,7 +72,7 @@ function tuneLizardman(card) {
   let ch = false
   if (card.card_type === 'Commander' && (card.uv || 0) >= 12 && bump(card, 'uv', -1, 1)) {
     ch = true
-    log(card, `UV→${card.uv}`)
+    log(card, `UVâ†’${card.uv}`)
   }
   return ch
 }

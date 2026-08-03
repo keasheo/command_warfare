@@ -1,0 +1,21 @@
+Common:
+  max_uv: 12
+  max_active_abilities: 3
+  max_keywords: 1
+Uncommon:
+  max_uv: 14
+  max_active_abilities: 4
+  max_keywords: 2
+Rare:
+  max_uv: 20
+  max_active_abilities: 5
+  max_keywords: 2
+Epic:
+  max_uv: 28
+  max_active_abilities: 6
+  max_keywords: 3
+Legendary:
+  max_uv: 30
+  max_active_abilities: 6
+  max_keywords: 3
+  unique_required: true

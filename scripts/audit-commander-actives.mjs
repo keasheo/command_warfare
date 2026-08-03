@@ -8,7 +8,7 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data')
+const KB = path.resolve('data')
 const abPath = path.join(KB, 'abilities.yaml')
 const abilities = yaml.load(fs.readFileSync(abPath, 'utf8'))
 

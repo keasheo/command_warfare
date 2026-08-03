@@ -1,0 +1,141 @@
+cards:
+  - id: c46d77159a3648709faf1cb817c37351
+    name: Gravemind Orth
+    card_type: Commander
+    rarity: Rare
+    unique: false
+    race: Undead
+    primary_type: Magic
+    secondary_type: null
+    uv: 7
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: 6
+    ap_generation: 6
+    cc_generation: 7
+    keywords:
+      - Fear
+      - Spellcaster
+    abilities:
+      - Shadow Orb
+      - Phantom Rally
+      - Gravespan Call
+      - Rally
+      - Master Strategist
+    ultimate: Gravemind
+    flavor_text: Death is a revolving door.
+    complexity: 4
+    role: Support
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 14
+  - id: 266dbd575f58488595e6d5d33cd44b0c
+    name: Eclipse Lich Vesper
+    card_type: Commander
+    rarity: Epic
+    unique: false
+    race: Undead
+    primary_type: Magic
+    secondary_type: null
+    uv: 9
+    move: 3
+    damage: 2
+    range: 2
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: 6
+    ap_generation: 6
+    cc_generation: 7
+    keywords:
+      - Fear
+      - Spellcaster
+      - Reach
+    abilities:
+      - Sturdy Bones
+      - Still March
+      - Shadow Orb
+      - Dread Wave
+      - Master Strategist
+    ultimate: Eclipse of Fear
+    flavor_text: Light fails on schedule.
+    complexity: 5
+    role: Control
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 17
+  - id: a0b06e3fe66b8f5a1ddd8cf76daf886d
+    name: Lord of the Still Host
+    card_type: Commander
+    rarity: Epic
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: null
+    uv: 9
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: 7
+    ap_generation: 6
+    cc_generation: 7
+    keywords: []
+    abilities:
+      - Undead Compact
+      - Still Paths
+      - Spectral Strike
+      - Rally
+      - Grave Bind
+    ultimate: Still Host Rise
+    flavor_text: The dead march for their own.
+    complexity: 4
+    role: Control
+    tags:
+      - undead
+      - kinship
+      - compact
+    favored_terrain: swamp
+    balance_rev: 17
+  - id: bd7878601f3747ca968b13c635a772cc
+    name: Bone Harvester Mire
+    card_type: Commander
+    rarity: Legendary
+    unique: true
+    race: Undead
+    primary_type: Infantry
+    secondary_type: null
+    uv: 12
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: 6
+    ap_generation: 6
+    cc_generation: 6
+    keywords:
+      - Fear
+    abilities:
+      - Soul Harvest
+      - Grave Fortify
+      - Gravespan Call
+      - Spectral Strike
+      - Master Strategist
+    ultimate: Bone Harvest
+    flavor_text: Fortifications are just future skeletons.
+    complexity: 5
+    role: Damage
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 12

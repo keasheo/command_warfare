@@ -10,7 +10,7 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data')
+const KB = path.resolve('data')
 const abPath = path.join(KB, 'abilities.yaml')
 
 /** Retarget existing actives: AP for strikes/debuffs, simplified text. */
@@ -64,7 +64,7 @@ const PATCH_ABILITIES = {
     cost_amount: 1,
     cost_resource: 'AP',
     description:
-      'Choose an enemy within 4 hexes. It gains Slow and −1 Damage until round refresh.',
+      'Choose an enemy within 4 hexes. It gains Slow and âˆ’1 Damage until round refresh.',
     tags: ['elf', 'control'],
   },
   'Basilisk Glare': {
@@ -144,7 +144,7 @@ function patchAbilities(doc) {
       description: spec.description,
       tags: spec.tags,
     }
-    console.log('patched →', spec.cost_resource, name)
+    console.log('patched â†’', spec.cost_resource, name)
     changed++
   }
   return changed
@@ -171,7 +171,7 @@ function appendNewAbilities(doc) {
       cooldown: spec.cooldown,
       tags: spec.tags,
     }
-    console.log('new CC +', name, '→', spec.commanders.join(', '))
+    console.log('new CC +', name, 'â†’', spec.commanders.join(', '))
     added++
   }
   return added
@@ -201,7 +201,7 @@ function assignCcAbilities() {
       for (const a of adds) {
         if (!card.abilities.includes(a)) {
           card.abilities.push(a)
-          console.log('assign', card.name, '←', a)
+          console.log('assign', card.name, 'â†', a)
           changed = true
         }
       }

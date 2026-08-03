@@ -1,0 +1,423 @@
+cards:
+  - id: 37c53357b9ff449c9dcccb55bd76e609
+    name: Fen Guide
+    card_type: Officer
+    rarity: Common
+    unique: false
+    race: Lizardman
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 10
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 3
+    company_ap: 5
+    company_capacity: 16
+    command_radius: 3
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Inspire
+      - Repair
+    ultimate: null
+    flavor_text: Wade where he wades. The fen forgives him.
+    complexity: 1
+    role: Frontline
+    tags:
+      - lizardman
+      - officer
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: 6221be01af6b4d6e87c02da62eaa5f0c
+    name: Brood Liaison
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Lizardman
+    primary_type: Nature
+    secondary_type: Ranged
+    uv: 11
+    move: 3
+    damage: 2
+    range: 2
+    toughness: 3
+    company_ap: 5
+    company_capacity: 19
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities:
+      - Inspire
+      - Coordinated Volley
+    ultimate: null
+    flavor_text: He negotiates with nests. The nests negotiate back.
+    complexity: 2
+    role: Damage
+    tags:
+      - lizardman
+      - officer
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: 617ace37c1184d22a8663e05d90c924a
+    name: Mud Handler
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Lizardman
+    primary_type: Cavalry
+    secondary_type: null
+    uv: 12
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Inspiring Presence
+      - Battle Orders
+    ultimate: null
+    flavor_text: He speaks crocodile. The crocs pretend not to.
+    complexity: 2
+    role: Tank
+    tags:
+      - lizardman
+      - officer
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: 83ae27c1069442469c8f40278b89e5bc
+    name: Silt Watcher
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Lizardman
+    primary_type: Ranged
+    secondary_type: Heavy
+    uv: 12
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 4
+    company_ap: 5
+    company_capacity: 17
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities:
+      - Disciplined Advance
+      - Suppressive Fire
+      - Snare
+    ultimate: null
+    flavor_text: If the mud bubbles, do not ask why. Move.
+    complexity: 2
+    role: Support
+    tags:
+      - lizardman
+      - officer
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: 1ed71cb94b7b4ef4a2caf7e4a98a95c5
+    name: Arena Handler
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Lizardman
+    primary_type: Magic
+    secondary_type: Light
+    uv: 13
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: 6
+    company_capacity: 20
+    command_radius: 5
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Inspire
+      - Defensive Formation
+      - Press Forward
+    ultimate: null
+    flavor_text: The pit is deep. His patience is deeper.
+    complexity: 4
+    role: Control
+    tags:
+      - lizardman
+      - officer
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: 1f12d4b71bd8438d9420bd17448c4ecb
+    name: Marshstone Guide
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Lizardman
+    primary_type: Beast
+    secondary_type: Heavy
+    uv: 14
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 6
+    company_capacity: 21
+    command_radius: 5
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Disciplined Advance
+      - Forced March
+      - Rapid Redeployment
+    ultimate: null
+    flavor_text: Stone that grew up in water still remembers teeth.
+    complexity: 4
+    role: Scout
+    tags:
+      - lizardman
+      - officer
+    supported_races:
+      - Lizardman
+    supported_types:
+      - Beast
+      - Heavy
+    supported_keywords:
+      - Amphibious
+      - Nature
+      - Charge
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: 9c10affcf7004c6c9cf710fdbefa5275
+    name: Brood Watcher
+    card_type: Officer
+    rarity: Epic
+    unique: false
+    race: Lizardman
+    primary_type: Infantry
+    secondary_type: null
+    uv: 14
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 3
+    company_ap: 6
+    company_capacity: 22
+    command_radius: 5
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Inspire
+      - Inspiring Presence
+      - Harden Order
+      - Repair
+    ultimate: null
+    flavor_text: Count the heads. Then count again. Then run.
+    complexity: 5
+    role: Healer
+    tags:
+      - lizardman
+      - officer
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: 7a69f6dcb7df400389cbcf48102a188b
+    name: Coil Handler
+    card_type: Officer
+    rarity: Epic
+    unique: false
+    race: Lizardman
+    primary_type: Ranged
+    secondary_type: Ranged
+    uv: 15
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 4
+    company_ap: 6
+    company_capacity: 23
+    command_radius: 5
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities:
+      - Inspire
+      - Hold the Line
+      - Suppressive Fire
+    ultimate: null
+    flavor_text: Coil once for warning. Twice for supper.
+    complexity: 5
+    role: Artillery
+    tags:
+      - lizardman
+      - officer
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: 1532059949a946d0aa2991f307236f52
+    name: Reeddrift Scout Lead
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Lizardman
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 11
+    move: 4
+    damage: 2
+    range: 1
+    toughness: 3
+    company_ap: 5
+    company_capacity: 17
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Amphibious
+      - Scout
+    abilities:
+      - Inspire
+      - Forced March
+      - Rapid Redeployment
+    ultimate: null
+    flavor_text: The reed parts. So does the line.
+    complexity: 2
+    role: Scout
+    tags:
+      - lizardman
+      - officer
+    supported_types:
+      - Infantry
+      - Light
+    supported_keywords:
+      - Amphibious
+      - Scout
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: 7c133f52ca904ed8bf4c0e25baf69fd0
+    name: Venom Coil Overseer
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Lizardman
+    primary_type: Magic
+    secondary_type: Nature
+    uv: 13
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 3
+    company_ap: 6
+    company_capacity: 19
+    command_radius: 5
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities:
+      - Inspire
+      - Suppressive Fire
+      - Defensive Formation
+      - Snare
+    ultimate: null
+    flavor_text: A drop in the water is an argument settled.
+    complexity: 3
+    role: Control
+    tags:
+      - lizardman
+      - officer
+    supported_types:
+      - Magic
+      - Nature
+    supported_keywords:
+      - Nature
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: 476e9c5ce3864f6f87089e324148d8f0
+    name: Broodbeast Driver
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Lizardman
+    primary_type: Beast
+    secondary_type: Heavy
+    uv: 12
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 4
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Disciplined Advance
+      - Press Forward
+      - Inspire
+    ultimate: null
+    flavor_text: If it hisses, it is ready. If it does not, poke harder.
+    complexity: 2
+    role: Damage
+    tags:
+      - lizardman
+      - officer
+    supported_types:
+      - Beast
+      - Heavy
+    supported_keywords:
+      - Amphibious
+      - Charge
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: 9a8f690a01114e4d933b8792c022190c
+    name: Shellback Warden
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Lizardman
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 13
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 19
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities:
+      - Inspiring Presence
+      - Hold the Line
+      - Harden Order
+    ultimate: null
+    flavor_text: The marsh keeps what the shell claims.
+    complexity: 3
+    role: Tank
+    tags:
+      - lizardman
+      - officer
+    supported_types:
+      - Infantry
+      - Heavy
+    supported_keywords:
+      - Amphibious
+      - Harden
+    favored_terrain: swamp
+    balance_rev: 12

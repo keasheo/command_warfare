@@ -9,7 +9,7 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data/cards')
+const KB = path.resolve('data/cards')
 const REV = 9
 
 /** Partial undo of pass-8 commander UV bumps */
@@ -44,7 +44,7 @@ const CONSTRUCT_UV = new Set([
   'Siege Brain',
 ])
 
-/** Fragile construct cores — +1 T */
+/** Fragile construct cores â€” +1 T */
 const CONSTRUCT_T = new Set(['Overclock Blades', 'Null Juggernaut'])
 
 const changes = []
@@ -69,27 +69,27 @@ function tuneDragon(card) {
     const before = card.uv
     if (bump(card, 'uv', DRAGON_CMD_UV[name], 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   } else if (card.card_type === 'Officer' && DRAGON_OFFICER_UV.has(name)) {
     const before = card.uv
     if (bump(card, 'uv', -1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   } else if (card.card_type === 'Unit' && name in DRAGON_UNIT) {
     const spec = DRAGON_UNIT[name]
     if (spec.uv && bump(card, 'uv', spec.uv, 1)) {
       ch = true
-      log(card, `UV→${card.uv}`)
+      log(card, `UVâ†’${card.uv}`)
     }
     if (spec.damage && bump(card, 'damage', spec.damage, 1)) {
       ch = true
-      log(card, `D→${card.damage}`)
+      log(card, `Dâ†’${card.damage}`)
     }
     if (spec.toughness && bump(card, 'toughness', spec.toughness, 1)) {
       ch = true
-      log(card, `T→${card.toughness}`)
+      log(card, `Tâ†’${card.toughness}`)
     }
   }
 
@@ -104,13 +104,13 @@ function tuneConstruct(card) {
     const before = card.uv
     if (bump(card, 'uv', -1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   }
 
   if (CONSTRUCT_T.has(name) && bump(card, 'toughness', 1, 1, 8)) {
     ch = true
-    log(card, `T+1→${card.toughness}`)
+    log(card, `T+1â†’${card.toughness}`)
   }
 
   return ch

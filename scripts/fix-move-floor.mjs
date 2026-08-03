@@ -14,7 +14,7 @@ const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
-const kbCards = path.resolve(root, '../KingdomsBuilder/data/cards')
+const kbCards = path.resolve(root, 'data/cards')
 const dbPath = path.join(root, 'data/command-warfare.sqlite')
 const FLOOR = 3
 
@@ -63,7 +63,7 @@ function bumpMoveInText(text, cardName, fromMove) {
   if (!m) return { text, ok: false }
   // Only rewrite if this name's following move is still the low value
   // (nameRe already anchors to that move). Cap the middle span so we don't
-  // jump into the next card — stop at the next top-level "- id:" / "id:".
+  // jump into the next card â€” stop at the next top-level "- id:" / "id:".
   const start = m.index
   const head = text.slice(0, start)
   const rest = text.slice(start)
@@ -143,7 +143,7 @@ for (const r of keep) {
 }
 console.log('BUMP to move', FLOOR, ':', bump.length)
 for (const r of bump) {
-  console.log(`  ${r.name} [${r.card_type}/${r.race}] ${r.from} → ${FLOOR}`)
+  console.log(`  ${r.name} [${r.card_type}/${r.race}] ${r.from} â†’ ${FLOOR}`)
 }
 console.log('YAML files touched:', yamlFilesTouched)
 

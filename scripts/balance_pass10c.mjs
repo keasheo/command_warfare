@@ -1,5 +1,5 @@
 /**
- * Balance pass 10c: final floor pass — lift Dwarf / Undead / Beastfolk,
+ * Balance pass 10c: final floor pass â€” lift Dwarf / Undead / Beastfolk,
  * trim Lizardman / Dragon overshoot from 10b. balance_rev >= 12.
  */
 import fs from 'node:fs'
@@ -8,7 +8,7 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data/cards')
+const KB = path.resolve('data/cards')
 const REV = 12
 
 const changes = []
@@ -29,10 +29,10 @@ function tuneDwarf(card) {
   let ch = false
   if (card.card_type === 'Commander' && (card.uv || 0) >= 6 && bump(card, 'uv', -1, 1)) {
     ch = true
-    log(card, `UV→${card.uv}`)
+    log(card, `UVâ†’${card.uv}`)
   } else if (card.card_type === 'Officer' && (card.uv || 0) >= 9 && bump(card, 'uv', -1, 1)) {
     ch = true
-    log(card, `UV→${card.uv}`)
+    log(card, `UVâ†’${card.uv}`)
   } else if (
     card.card_type === 'Unit' &&
     (card.rarity || '') === 'Rare' &&
@@ -40,7 +40,7 @@ function tuneDwarf(card) {
     bump(card, 'uv', -1, 1)
   ) {
     ch = true
-    log(card, `UV→${card.uv}`)
+    log(card, `UVâ†’${card.uv}`)
   }
   return ch
 }
@@ -49,10 +49,10 @@ function tuneUndead(card) {
   let ch = false
   if (card.card_type === 'Commander' && (card.uv || 0) >= 12 && bump(card, 'uv', -1, 1)) {
     ch = true
-    log(card, `UV→${card.uv}`)
+    log(card, `UVâ†’${card.uv}`)
   } else if (card.card_type === 'Officer' && (card.uv || 0) >= 9 && bump(card, 'uv', -1, 1)) {
     ch = true
-    log(card, `UV→${card.uv}`)
+    log(card, `UVâ†’${card.uv}`)
   } else if (
     card.card_type === 'Unit' &&
     ['Rare', 'Epic'].includes(card.rarity || '') &&
@@ -60,7 +60,7 @@ function tuneUndead(card) {
     bump(card, 'uv', -1, 1)
   ) {
     ch = true
-    log(card, `UV→${card.uv}`)
+    log(card, `UVâ†’${card.uv}`)
   }
   return ch
 }
@@ -69,7 +69,7 @@ function tuneBeastfolk(card) {
   let ch = false
   if (card.card_type === 'Officer' && (card.uv || 0) >= 10 && bump(card, 'uv', -1, 1)) {
     ch = true
-    log(card, `UV→${card.uv}`)
+    log(card, `UVâ†’${card.uv}`)
   } else if (
     card.card_type === 'Unit' &&
     ['Uncommon', 'Rare'].includes(card.rarity || '') &&
@@ -77,7 +77,7 @@ function tuneBeastfolk(card) {
     bump(card, 'uv', -1, 1)
   ) {
     ch = true
-    log(card, `UV→${card.uv}`)
+    log(card, `UVâ†’${card.uv}`)
   }
   return ch
 }
@@ -86,13 +86,13 @@ function tuneLizardman(card) {
   let ch = false
   if (card.card_type === 'Officer' && (card.uv || 0) >= 9 && bump(card, 'uv', 1, 1)) {
     ch = true
-    log(card, `UV→${card.uv}`)
+    log(card, `UVâ†’${card.uv}`)
   } else if (card.card_type === 'Unit' && (card.uv || 0) >= 7 && bump(card, 'uv', 1, 1)) {
     ch = true
-    log(card, `UV→${card.uv}`)
+    log(card, `UVâ†’${card.uv}`)
   } else if (card.card_type === 'Commander' && (card.uv || 0) >= 12 && bump(card, 'uv', 1, 1)) {
     ch = true
-    log(card, `UV→${card.uv}`)
+    log(card, `UVâ†’${card.uv}`)
   }
   return ch
 }
@@ -107,10 +107,10 @@ function tuneDragon(card) {
     bump(card, 'toughness', -1, 2)
   ) {
     ch = true
-    log(card, `T→${card.toughness}`)
+    log(card, `Tâ†’${card.toughness}`)
   } else if (card.card_type === 'Officer' && (card.uv || 0) >= 10 && bump(card, 'uv', 1, 1)) {
     ch = true
-    log(card, `UV→${card.uv}`)
+    log(card, `UVâ†’${card.uv}`)
   }
   return ch
 }

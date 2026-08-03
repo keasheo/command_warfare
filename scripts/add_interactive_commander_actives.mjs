@@ -9,10 +9,10 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data')
+const KB = path.resolve('data')
 const abPath = path.join(KB, 'abilities.yaml')
 
-/** New commander actives (description ≤175 chars). */
+/** New commander actives (description â‰¤175 chars). */
 const NEW_ABILITIES = {
   'Alpha Rush': {
     type: 'Active',
@@ -91,7 +91,7 @@ const NEW_ABILITIES = {
     cost_amount: 2,
     cost_resource: 'CC',
     description:
-      'Choose an enemy within 4 hexes. It gains Slow and −1 Damage until round refresh.',
+      'Choose an enemy within 4 hexes. It gains Slow and âˆ’1 Damage until round refresh.',
     affects: 'single',
     used_by: 'Commander',
     cooldown: 2,
@@ -158,7 +158,7 @@ const NEW_ABILITIES = {
   },
 }
 
-/** Commander → ability to add (skip if already present). */
+/** Commander â†’ ability to add (skip if already present). */
 const COMMANDER_ADDS = {
   'High Alpha of Tribes': ['Alpha Rush'],
   'Prime Directive Core': ['Arc Discharge'],
@@ -213,7 +213,7 @@ function updateCommanders() {
         if (!card.abilities.includes(a)) card.abilities.push(a)
       }
       if (JSON.stringify(before) !== JSON.stringify(card.abilities)) {
-        console.log(card.name, '→', adds.join(', '))
+        console.log(card.name, 'â†’', adds.join(', '))
         fileChanged = true
         changed++
       }

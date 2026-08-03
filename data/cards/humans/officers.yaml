@@ -1,0 +1,425 @@
+cards:
+  - id: 3e8a9b88217a40c6a71f0bf5dcecfec9
+    name: Quartermaster Vale
+    card_type: Officer
+    rarity: Common
+    unique: false
+    race: Human
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 9
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 3
+    company_ap: 5
+    company_capacity: 16
+    command_radius: 3
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Inspire
+      - Hold the Line
+    ultimate: null
+    flavor_text: Quarters, rations, and who sleeps with a spear.
+    complexity: 1
+    role: Frontline
+    tags:
+      - human
+      - officer
+    favored_terrain: plains
+  - id: 34fff4b68a874e909413f2bbee4df0af
+    name: Cadence Drillmaster
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Human
+    primary_type: Nature
+    secondary_type: Ranged
+    uv: 12
+    move: 3
+    damage: 2
+    range: 2
+    toughness: 3
+    company_ap: 5
+    company_capacity: 19
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities:
+      - Inspire
+      - Line Cadence
+    ultimate: null
+    flavor_text: Left, left, left-right-left — until fear marches too.
+    complexity: 2
+    role: Damage
+    tags:
+      - human
+      - officer
+      - formation
+    favored_terrain: plains
+    balance_rev: 11
+  - id: 8d56822834fc4154baf41da24c8b9ea2
+    name: Pike Row Instructor
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Human
+    primary_type: Ranged
+    secondary_type: Heavy
+    uv: 13
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 4
+    company_ap: 5
+    company_capacity: 17
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities:
+      - Disciplined Advance
+      - Medic
+    ultimate: null
+    flavor_text: Elbows in. Points out. Prayers optional.
+    complexity: 2
+    role: Support
+    tags:
+      - human
+      - officer
+    favored_terrain: plains
+    balance_rev: 11
+  - id: 5f32cb69c2b74604990bbf912a8c582e
+    name: Shieldkin Tutor
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Human
+    primary_type: Cavalry
+    secondary_type: null
+    uv: 13
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Inspiring Presence
+      - Press Forward
+    ultimate: null
+    flavor_text: Raise the shield like you mean to keep your face.
+    complexity: 2
+    role: Tank
+    tags:
+      - human
+      - officer
+    favored_terrain: plains
+    balance_rev: 11
+  - id: 1be8ca571183450fb696e08a24192ecc
+    name: Column Cartographer
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Human
+    primary_type: Magic
+    secondary_type: Light
+    uv: 14
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: 6
+    company_capacity: 20
+    command_radius: 5
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Inspire
+      - Press Forward
+      - Repair
+    ultimate: null
+    flavor_text: He draws the map in chalk and certainty.
+    complexity: 4
+    role: Control
+    tags:
+      - human
+      - officer
+    favored_terrain: plains
+    balance_rev: 11
+  - id: b80663be9d244c83beecefa706b7c9d9
+    name: Tuskline Handler
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Human
+    primary_type: Beast
+    secondary_type: Heavy
+    uv: 15
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: 6
+    company_capacity: 21
+    command_radius: 5
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Disciplined Advance
+      - Rapid Redeployment
+      - Suppressive Fire
+      - Snare
+    ultimate: null
+    flavor_text: If the tusks turn, everyone turns. No debate.
+    complexity: 4
+    role: Scout
+    tags:
+      - human
+      - officer
+    supported_types:
+      - Beast
+      - Cavalry
+      - Heavy
+    supported_keywords:
+      - Charge
+      - Frenzy
+    favored_terrain: plains
+    balance_rev: 11
+  - id: 7f4a226b8a5e4191850a298cadf7a8fa
+    name: Cohort Standard
+    card_type: Officer
+    rarity: Epic
+    unique: false
+    race: Human
+    primary_type: Infantry
+    secondary_type: null
+    uv: 15
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 3
+    company_ap: 6
+    company_capacity: 22
+    command_radius: 5
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Inspire
+      - Inspiring Presence
+      - Battle Orders
+      - Repair
+    ultimate: null
+    flavor_text: The pole is oak. The oath is iron.
+    complexity: 5
+    role: Healer
+    tags:
+      - human
+      - officer
+    supported_races:
+      - Human
+    supported_types:
+      - Infantry
+    favored_terrain: plains
+    balance_rev: 11
+  - id: a0afc216d8c341719ab88c477eacecd3
+    name: Flamebanner Bearer
+    card_type: Officer
+    rarity: Epic
+    unique: false
+    race: Human
+    primary_type: Ranged
+    secondary_type: Ranged
+    uv: 16
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 4
+    company_ap: 6
+    company_capacity: 23
+    command_radius: 5
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities:
+      - Inspire
+      - Coordinated Volley
+      - Suppressive Fire
+      - Snare
+    ultimate: null
+    flavor_text: As long as the banner burns, the line does not break.
+    complexity: 5
+    role: Artillery
+    tags:
+      - human
+      - officer
+    supported_types:
+      - Ranged
+    supported_keywords:
+      - Ranged
+    favored_terrain: plains
+    balance_rev: 11
+  - id: 259f1b401d9e47d38d7cd9f8fac19141
+    name: Siege Hauler Merek
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Human
+    primary_type: Siege
+    secondary_type: Heavy
+    uv: 13
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 4
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Haul Lines
+      - Repair
+      - Limber Up
+    ultimate: null
+    flavor_text: Wheels first. Glory later.
+    complexity: 2
+    role: Artillery
+    tags:
+      - human
+      - officer
+    supported_types:
+      - Siege
+      - Heavy
+    supported_keywords:
+      - Siege
+    favored_terrain: plains
+    balance_rev: 11
+  - id: 8c52138615044590ab80f8dc7ffd276a
+    name: Pavise Wall Captain
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Human
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 14
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 19
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Shieldwall
+    abilities:
+      - Inspire
+      - Hold the Line
+      - Harden Order
+    ultimate: null
+    flavor_text: The wall walks. You hide behind it.
+    complexity: 3
+    role: Tank
+    tags:
+      - human
+      - officer
+    supported_types:
+      - Infantry
+    supported_keywords:
+      - Shieldwall
+      - Defender
+    favored_terrain: plains
+    balance_rev: 11
+  - id: 6588b0d9faad494d9a86c4a7789517d4
+    name: Outrider Marshal Kade
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Human
+    primary_type: Cavalry
+    secondary_type: Light
+    uv: 14
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Inspire
+      - Rapid Redeployment
+      - Press Forward
+      - Spur Order
+    ultimate: null
+    flavor_text: Dust on the horizon is already an order.
+    complexity: 2
+    role: Scout
+    tags:
+      - human
+      - officer
+    supported_types:
+      - Cavalry
+      - Light
+    supported_keywords:
+      - Charge
+      - Scout
+      - Mounted
+    favored_terrain: plains
+    balance_rev: 11
+  - id: c720d280b50147f1b20448c27520b78e
+    name: Field Chirurgeon Wren
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Human
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 14
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 3
+    company_ap: 6
+    company_capacity: 20
+    command_radius: 5
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Medic
+      - Inspiring Presence
+      - Battle Orders
+    ultimate: null
+    flavor_text: Stitch the line before you scold it.
+    complexity: 3
+    role: Healer
+    tags:
+      - human
+      - officer
+    supported_races:
+      - Human
+    supported_types:
+      - Infantry
+    favored_terrain: plains
+    balance_rev: 11

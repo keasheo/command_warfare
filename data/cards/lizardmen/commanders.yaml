@@ -1,0 +1,142 @@
+cards:
+  - id: 65d1a75f19f442d489f5972dfb1c32ff
+    name: Scalefen Summit
+    card_type: Commander
+    rarity: Rare
+    unique: false
+    race: Lizardman
+    primary_type: Nature
+    secondary_type: null
+    uv: 8
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: 6
+    ap_generation: 6
+    cc_generation: 6
+    keywords: []
+    abilities:
+      - Swamp Kinship
+      - Rally
+      - Poison Tide
+      - Summit Currents
+      - Basilisk Glare
+    ultimate: Fen Unity
+    flavor_text: The fen claims all who wade without respect.
+    complexity: 4
+    role: Support
+    tags:
+      - lizardman
+      - amphibious
+      - swamp
+    favored_terrain: swamp
+    balance_rev: 14
+  - id: 829cae12d03a0657c509b711624edcdb
+    name: Fenbrood Scale-King
+    card_type: Commander
+    rarity: Epic
+    unique: false
+    race: Lizardman
+    primary_type: Infantry
+    secondary_type: null
+    uv: 13
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: 7
+    ap_generation: 6
+    cc_generation: 6
+    keywords: []
+    abilities:
+      - Fen Drift
+      - Lizardman Compact
+      - Rally
+      - Poison Tide
+    ultimate: Fenbrood Drum
+    flavor_text: The clutch hears only the king's drum.
+    complexity: 4
+    role: Control
+    tags:
+      - lizardman
+      - kinship
+      - compact
+    favored_terrain: swamp
+    balance_rev: 13
+  - id: fb5cc122c9274c418738a03154df75ca
+    name: Hydra Broodmother
+    card_type: Commander
+    rarity: Epic
+    unique: false
+    race: Lizardman
+    primary_type: Beast
+    secondary_type: null
+    uv: 10
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 7
+    company_ap: null
+    company_capacity: null
+    command_radius: 7
+    ap_generation: 6
+    cc_generation: 7
+    keywords:
+      - Adaptive Attack
+    abilities:
+      - Many-Headed Resilience
+      - Reposition
+      - Tactical Withdrawal
+      - Regenerative Surge
+      - Regen Paths
+    ultimate: Hydra Wrath
+    flavor_text: Cut one head and two more drink the rain.
+    complexity: 5
+    role: Healer
+    tags:
+      - lizardman
+      - beast
+      - hydra
+    favored_terrain: swamp
+  - id: f501dee416574a03a20808551c898d66
+    name: Gorgon Basalt Matriarch
+    card_type: Commander
+    rarity: Legendary
+    unique: true
+    race: Lizardman
+    primary_type: Magic
+    secondary_type: null
+    uv: 12
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: 7
+    ap_generation: 6
+    cc_generation: 7
+    keywords: []
+    abilities:
+      - Master Strategist
+      - Petrifying Gaze Field
+      - Counterattack
+      - Focused Assault
+      - Last Stand
+      - Serpent Coil
+      - Basilisk Ward
+    ultimate: Stone Serpent Stand
+    flavor_text: Stone is merely flesh that forgot to blink.
+    complexity: 5
+    role: Control
+    tags:
+      - lizardman
+      - gorgon
+      - legend
+    favored_terrain: swamp
+    balance_rev: 13

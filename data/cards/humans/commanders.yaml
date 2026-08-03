@@ -1,0 +1,142 @@
+cards:
+  - id: 575b42870d7e4f0c81e089373ba7bfaf
+    name: Hearthstone Covenant
+    card_type: Commander
+    rarity: Rare
+    unique: false
+    race: Human
+    primary_type: Infantry
+    secondary_type: null
+    uv: 7
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: 7
+    ap_generation: 6
+    cc_generation: 8
+    keywords: []
+    abilities:
+      - Hearthfort Aegis
+      - Line Decree
+      - Rally
+      - Shield Column
+      - Hearth Roads
+    ultimate: Unbroken Hearth
+    flavor_text: The hearth does not flicker while she stands.
+    complexity: 4
+    role: Support
+    tags:
+      - human
+      - infantry
+      - formation
+    favored_terrain: plains
+    balance_rev: 14
+  - id: bc9be6b3883e19520b855f27ff390b5e
+    name: Realmward High Marshal
+    card_type: Commander
+    rarity: Epic
+    unique: false
+    race: Human
+    primary_type: Infantry
+    secondary_type: null
+    uv: 16
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 7
+    company_ap: null
+    company_capacity: null
+    command_radius: 7
+    ap_generation: 5
+    cc_generation: 8
+    keywords: []
+    abilities:
+      - Human Compact
+      - Realmward March
+      - Line Decree
+      - Rally
+      - Marshal's Shot
+    ultimate: Realmward Unity
+    flavor_text: One banner. Every hearth answers.
+    complexity: 4
+    role: Support
+    tags:
+      - human
+      - kinship
+      - compact
+    favored_terrain: plains
+    balance_rev: 19
+  - id: 89231155022744888f9f52b67caee6b8
+    name: Thunderhoof Caller
+    card_type: Commander
+    rarity: Epic
+    unique: false
+    race: Human
+    primary_type: Beast
+    secondary_type: null
+    uv: 9
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: 7
+    ap_generation: 6
+    cc_generation: 8
+    keywords:
+      - Charge
+    abilities:
+      - Mammoth Thunder
+      - Battle Cry
+      - Horn of Advance
+      - Open Ground
+    ultimate: Thunder Stampede
+    flavor_text: Dust rises before the herd is seen.
+    complexity: 5
+    role: Damage
+    tags:
+      - human
+      - cavalry
+      - beast
+    favored_terrain: plains
+    balance_rev: 19
+  - id: aeca0712895443379cf701493b16d0f1
+    name: Iron Covenant Spear
+    card_type: Commander
+    rarity: Legendary
+    unique: true
+    race: Human
+    primary_type: Infantry
+    secondary_type: null
+    uv: 15
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: 7
+    ap_generation: 6
+    cc_generation: 8
+    keywords: []
+    abilities:
+      - Iron Covenant
+      - Master Strategist
+      - Covenant Drill
+      - Last Stand
+      - Spearpoint Advance
+      - Spear Thrust
+    ultimate: Iron Covenant Charge
+    flavor_text: Every shield remembers the same oath.
+    complexity: 5
+    role: Frontline
+    tags:
+      - human
+      - infantry
+      - legend
+    favored_terrain: plains
+    balance_rev: 19

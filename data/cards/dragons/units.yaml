@@ -1,0 +1,1397 @@
+cards:
+  - id: 559bb25bb4894466a126b5b94a1ed7ed
+    name: Ashkin Militia
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dragon
+    primary_type: Infantry
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Defender
+    abilities: []
+    ultimate: null
+    flavor_text: Smoke-stained spears.
+    complexity: 1
+    role: Frontline
+    tags:
+      - dragon
+      - infantry
+    favored_terrain: volcanic
+    balance_rev: 12
+  - id: 801d66801870425394104207bc974da5
+    name: Cave Brood
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dragon
+    primary_type: Infantry
+    secondary_type: null
+    uv: 3
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Stealth
+    abilities: []
+    ultimate: null
+    flavor_text: Dark-adapted.
+    complexity: 1
+    role: Frontline
+    tags:
+      - dragon
+      - infantry
+    favored_terrain: volcanic
+    balance_rev: 12
+  - id: e47120bbdc684093994dab678f7fc3b8
+    name: Clutch Archers
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dragon
+    primary_type: Ranged
+    secondary_type: Light
+    uv: 3
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Short bows, long practice.
+    complexity: 1
+    role: Artillery
+    tags:
+      - dragon
+      - ranged
+    favored_terrain: volcanic
+    balance_rev: 12
+  - id: ba7de625313548d69f263ef62111fe96
+    name: Clutchlings
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dragon
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Scout
+    abilities: []
+    ultimate: null
+    flavor_text: Still learning teeth.
+    complexity: 1
+    role: Frontline
+    tags:
+      - dragon
+      - infantry
+    favored_terrain: volcanic
+    balance_rev: 12
+  - id: 7d65620a8840498cb34a3117cb54f063
+    name: Drakelets
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dragon
+    primary_type: Flying
+    secondary_type: Light
+    uv: 3
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Flying
+    abilities: []
+    ultimate: null
+    flavor_text: Almost dragons.
+    complexity: 1
+    role: Frontline
+    tags:
+      - dragon
+      - flying
+    favored_terrain: volcanic
+    balance_rev: 12
+  - id: 85a04c1b964647428cfbb3da85754859
+    name: Egg Guard
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dragon
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 3
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Guard
+    abilities: []
+    ultimate: null
+    flavor_text: Nothing touches the clutch.
+    complexity: 1
+    role: Frontline
+    tags:
+      - dragon
+      - infantry
+    favored_terrain: volcanic
+    balance_rev: 12
+  - id: d507c6fd884e438fa8b12fba41c41ab3
+    name: Hatchling Swarm
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dragon
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Scout
+    abilities: []
+    ultimate: null
+    flavor_text: Quantity before quality.
+    complexity: 1
+    role: Frontline
+    tags:
+      - dragon
+      - infantry
+    favored_terrain: volcanic
+    balance_rev: 12
+  - id: 6841ae17d2044971ad9fe54c1f8e9b11
+    name: Kindling Mages
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dragon
+    primary_type: Magic
+    secondary_type: Light
+    uv: 3
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Spellcaster
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Sparks before storms.
+    complexity: 1
+    role: Support
+    tags:
+      - dragon
+      - magic
+    favored_terrain: volcanic
+    balance_rev: 12
+  - id: 8a34acbb0a3a47179adec672a870c447
+    name: Scale Runners
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dragon
+    primary_type: Infantry
+    secondary_type: null
+    uv: 3
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Scout
+    abilities: []
+    ultimate: null
+    flavor_text: Bipedal hurry.
+    complexity: 1
+    role: Frontline
+    tags:
+      - dragon
+      - infantry
+    favored_terrain: volcanic
+    balance_rev: 25
+  - id: 251e8a590bce423d95dabdc14ca12f38
+    name: Spire Slingers
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dragon
+    primary_type: Ranged
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Pebbles with attitude.
+    complexity: 1
+    role: Artillery
+    tags:
+      - dragon
+      - ranged
+    favored_terrain: volcanic
+    balance_rev: 12
+  - id: 78b35110441942dc94dac5a45ee2ad89
+    name: Tailguard Recruits
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dragon
+    primary_type: Infantry
+    secondary_type: null
+    uv: 3
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Defender
+    abilities: []
+    ultimate: null
+    flavor_text: Learn by surviving.
+    complexity: 1
+    role: Frontline
+    tags:
+      - dragon
+      - infantry
+    favored_terrain: volcanic
+    balance_rev: 12
+  - id: bbf152d6b6a2481299cae9d0569c9678
+    name: Winged Scouts
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dragon
+    primary_type: Flying
+    secondary_type: Light
+    uv: 3
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Flying
+      - Scout
+    abilities: []
+    ultimate: null
+    flavor_text: Eyes above the dust.
+    complexity: 1
+    role: Frontline
+    tags:
+      - dragon
+      - flying
+    favored_terrain: volcanic
+    balance_rev: 12
+  - id: fd8f92ed4e33450b82d0f76c6ae74b4d
+    name: Ashwing Patrol
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dragon
+    primary_type: Flying
+    secondary_type: Light
+    uv: 5
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Flying
+      - Scout
+    abilities: []
+    ultimate: null
+    flavor_text: Brood-blood shows.
+    complexity: 2
+    role: Scout
+    tags:
+      - dragon
+      - flying
+    favored_terrain: volcanic
+  - id: 67685e0fe26d4205adb5e37a1e40021d
+    name: Bonebreak Infantry
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dragon
+    primary_type: Infantry
+    secondary_type: null
+    uv: 5
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Defender
+    abilities: []
+    ultimate: null
+    flavor_text: Brood-blood shows.
+    complexity: 2
+    role: Frontline
+    tags:
+      - dragon
+      - infantry
+    favored_terrain: volcanic
+  - id: 1684bcbee21148f689a5259a3422084f
+    name: Breath Spitters
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dragon
+    primary_type: Ranged
+    secondary_type: null
+    uv: 5
+    move: 3
+    damage: 3
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Blast
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Brood-blood shows.
+    complexity: 2
+    role: Artillery
+    tags:
+      - dragon
+      - ranged
+    favored_terrain: volcanic
+  - id: b83b90c71dda48d5bd5032a248ec8e37
+    name: Brood Skirmishers
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dragon
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 4
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Harass
+    abilities: []
+    ultimate: null
+    flavor_text: Brood-blood shows.
+    complexity: 2
+    role: Scout
+    tags:
+      - dragon
+      - infantry
+    favored_terrain: volcanic
+    balance_rev: 21
+  - id: 81abdbf950674c3ba947ca8c6ea59994
+    name: Clutch Longbows
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dragon
+    primary_type: Ranged
+    secondary_type: null
+    uv: 5
+    move: 3
+    damage: 3
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Brood-blood shows.
+    complexity: 2
+    role: Artillery
+    tags:
+      - dragon
+      - ranged
+    favored_terrain: volcanic
+  - id: b5b3eaa00ee640c7b72b41c5eaa5770c
+    name: Clutch Spearmen
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dragon
+    primary_type: Infantry
+    secondary_type: null
+    uv: 4
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Brood-blood shows.
+    complexity: 2
+    role: Frontline
+    tags:
+      - dragon
+      - infantry
+    favored_terrain: volcanic
+    balance_rev: 18
+  - id: d175a2d9be9845338cbf1369ea3a7238
+    name: Dragonkin Warriors
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dragon
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 5
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Defender
+    abilities: []
+    ultimate: null
+    flavor_text: Brood-blood shows.
+    complexity: 2
+    role: Frontline
+    tags:
+      - dragon
+      - infantry
+    favored_terrain: volcanic
+  - id: d18ff66393664cf985c1e295e4e7c165
+    name: Drake Riders' Kin
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dragon
+    primary_type: Infantry
+    secondary_type: null
+    uv: 6
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+    abilities: []
+    ultimate: null
+    flavor_text: Brood-blood shows.
+    complexity: 2
+    role: Damage
+    tags:
+      - dragon
+      - infantry
+    favored_terrain: volcanic
+  - id: df8c26a6329d4d23a41dcd7ee16932b6
+    name: Ember Chanters
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dragon
+    primary_type: Magic
+    secondary_type: null
+    uv: 5
+    move: 3
+    damage: 4
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Spellcaster
+      - Blast
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Brood-blood shows.
+    complexity: 2
+    role: Artillery
+    tags:
+      - dragon
+      - magic
+    favored_terrain: volcanic
+    balance_rev: 25
+  - id: cdbd0464b9ac4ac9abb0cb1b272b2982
+    name: Landward Scale Guard
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dragon
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 5
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Harden 1
+    abilities: []
+    ultimate: null
+    flavor_text: Brood-blood shows.
+    complexity: 2
+    role: Tank
+    tags:
+      - dragon
+      - infantry
+    favored_terrain: volcanic
+    balance_rev: 26
+  - id: 83133197fa2e41b7bffbd542e26db64a
+    name: Pyre Acolytes
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dragon
+    primary_type: Magic
+    secondary_type: Light
+    uv: 4
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Spellcaster
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Brood-blood shows.
+    complexity: 2
+    role: Support
+    tags:
+      - dragon
+      - magic
+    favored_terrain: volcanic
+  - id: caa424049efb453aa9ad9ed4b92bb9db
+    name: Scale Mages
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dragon
+    primary_type: Magic
+    secondary_type: null
+    uv: 5
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Spellcaster
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Brood-blood shows.
+    complexity: 2
+    role: Support
+    tags:
+      - dragon
+      - magic
+    favored_terrain: volcanic
+  - id: 44234470f429425c9f161d704973764f
+    name: Scalebearers
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dragon
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 5
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Shieldwall
+    abilities: []
+    ultimate: null
+    flavor_text: Brood-blood shows.
+    complexity: 2
+    role: Tank
+    tags:
+      - dragon
+      - infantry
+    favored_terrain: volcanic
+  - id: 0d28fa2919324ce7b0af6fee48af6a2f
+    name: Spire Marksmen
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dragon
+    primary_type: Ranged
+    secondary_type: null
+    uv: 5
+    move: 3
+    damage: 4
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Piercing
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Brood-blood shows.
+    complexity: 2
+    role: Artillery
+    tags:
+      - dragon
+      - ranged
+    favored_terrain: volcanic
+  - id: 6db41e5a4ddc47f896bf98fe21c14069
+    name: Wing Raiders
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dragon
+    primary_type: Flying
+    secondary_type: null
+    uv: 5
+    move: 4
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Flying
+      - Fear
+    abilities: []
+    ultimate: null
+    flavor_text: Brood-blood shows.
+    complexity: 2
+    role: Damage
+    tags:
+      - dragon
+      - flying
+    favored_terrain: volcanic
+  - id: 75ca1ddc9d0b4322a6e5d639ba4e7083
+    name: Wyrmling Flyers
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dragon
+    primary_type: Flying
+    secondary_type: null
+    uv: 6
+    move: 4
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Flying
+    abilities: []
+    ultimate: null
+    flavor_text: Brood-blood shows.
+    complexity: 2
+    role: Damage
+    tags:
+      - dragon
+      - flying
+    favored_terrain: volcanic
+  - id: fe16a5702d534048973d6836e26e933c
+    name: Bipedal Champion
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Dragon
+    primary_type: Infantry
+    secondary_type: Elite
+    uv: 8
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+      - Cleave
+    abilities: []
+    ultimate: null
+    flavor_text: The sky keeps receipts.
+    complexity: 3
+    role: Damage
+    tags:
+      - dragon
+      - infantry
+    favored_terrain: volcanic
+    balance_rev: 14
+  - id: 4952d5ad5d424a7ab100eeaf5da466ee
+    name: Clutch Flamebows
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Dragon
+    primary_type: Ranged
+    secondary_type: null
+    uv: 5
+    move: 3
+    damage: 4
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Piercing
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: The sky keeps receipts.
+    complexity: 3
+    role: Artillery
+    tags:
+      - dragon
+      - ranged
+    favored_terrain: volcanic
+    balance_rev: 14
+  - id: 20b2b778f9904815a16bc6cb1bcd1cb2
+    name: High Scale Mage
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Dragon
+    primary_type: Magic
+    secondary_type: Elite
+    uv: 8
+    move: 3
+    damage: 4
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Spellcaster
+      - Blast
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: The sky keeps receipts.
+    complexity: 3
+    role: Artillery
+    tags:
+      - dragon
+      - magic
+    favored_terrain: volcanic
+  - id: 7722685ed05c40cba44963704311add9
+    name: Hoard Guardians
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Dragon
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 8
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Guard
+      - Harden 1
+    abilities: []
+    ultimate: null
+    flavor_text: The sky keeps receipts.
+    complexity: 3
+    role: Tank
+    tags:
+      - dragon
+      - infantry
+    favored_terrain: volcanic
+  - id: d9ff5f0a0920437db0ed2ad436fbeaa6
+    name: Scale Lexicon Mages
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Dragon
+    primary_type: Magic
+    secondary_type: null
+    uv: 6
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Spellcaster
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: The sky keeps receipts.
+    complexity: 3
+    role: Support
+    tags:
+      - dragon
+      - magic
+    favored_terrain: volcanic
+  - id: 6f5a83c9a58a488ba410457459fd7751
+    name: Spire Master Archers
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Dragon
+    primary_type: Ranged
+    secondary_type: Elite
+    uv: 7
+    move: 3
+    damage: 4
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Piercing
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: The sky keeps receipts.
+    complexity: 3
+    role: Artillery
+    tags:
+      - dragon
+      - ranged
+    favored_terrain: volcanic
+  - id: 5247be7fed49496ba6f6a05cbeb981ad
+    name: Stormwing Elite
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Dragon
+    primary_type: Flying
+    secondary_type: Elite
+    uv: 8
+    move: 5
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Flying
+      - Harass
+      - Fear
+    abilities: []
+    ultimate: null
+    flavor_text: The sky keeps receipts.
+    complexity: 3
+    role: Scout
+    tags:
+      - dragon
+      - flying
+    favored_terrain: volcanic
+    balance_rev: 19
+  - id: 7b96f5ba339a452ba399f24b35dfc1bc
+    name: Terror Wyrm
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Dragon
+    primary_type: Flying
+    secondary_type: null
+    uv: 10
+    move: 4
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Flying
+      - Fear
+      - Frenzy
+    abilities: []
+    ultimate: null
+    flavor_text: The sky keeps receipts.
+    complexity: 3
+    role: Damage
+    tags:
+      - dragon
+      - flying
+    favored_terrain: volcanic
+    balance_rev: 8
+  - id: ea008aa0b1914fa1b7cbcab5ac71898b
+    name: Wyrmbone Onager
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Dragon
+    primary_type: Siege
+    secondary_type: null
+    uv: 7
+    move: 2
+    damage: 4
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Siege
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: The sky keeps receipts.
+    complexity: 3
+    role: Artillery
+    tags:
+      - dragon
+      - siege
+    favored_terrain: volcanic
+  - id: 86ea87e4915e405ab76f2e05dfcaad97
+    name: Ancient Winged Brood
+    card_type: Unit
+    rarity: Epic
+    unique: false
+    race: Dragon
+    primary_type: Flying
+    secondary_type: Elite
+    uv: 9
+    move: 4
+    damage: 5
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Flying
+      - Fear
+      - Cleave
+    abilities: []
+    ultimate: null
+    flavor_text: The sky keeps receipts.
+    complexity: 4
+    role: Damage
+    tags:
+      - dragon
+      - flying
+    favored_terrain: volcanic
+    balance_rev: 12
+  - id: 28c551a7c7314dad859662a8e3a3a566
+    name: Ashen Colossus Kin
+    card_type: Unit
+    rarity: Epic
+    unique: false
+    race: Dragon
+    primary_type: Infantry
+    secondary_type: Elite
+    uv: 10
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Trample
+      - Fear
+    abilities: []
+    ultimate: null
+    flavor_text: The sky keeps receipts.
+    complexity: 4
+    role: Damage
+    tags:
+      - dragon
+      - infantry
+    favored_terrain: volcanic
+  - id: a9304a987f2e48029b37bb155ab9ba02
+    name: Catastrophic Ancient
+    card_type: Unit
+    rarity: Epic
+    unique: true
+    race: Dragon
+    primary_type: Flying
+    secondary_type: Elite
+    uv: 12
+    move: 3
+    damage: 5
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Flying
+      - Fear
+      - Blast
+      - Trample
+    abilities: []
+    ultimate: null
+    flavor_text: The sky keeps receipts.
+    complexity: 4
+    role: Damage
+    tags:
+      - dragon
+      - flying
+    favored_terrain: volcanic
+    balance_rev: 9
+  - id: bf0cb85e86934cfeb256771b63e74553
+    name: Clutch Drillling
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dragon
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 1
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Drill
+    abilities: []
+    ultimate: null
+    flavor_text: Learns to breathe together.
+    complexity: 1
+    role: Support
+    tags:
+      - dragon
+      - support
+      - formation
+    favored_terrain: volcanic
+    balance_rev: 11
+  - id: af69f2edc4ee4eb3b26fa049bd372a4d
+    name: Scale Link Whelp
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dragon
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 1
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Guard
+    abilities: []
+    ultimate: null
+    flavor_text: Small scales still overlap.
+    complexity: 1
+    role: Support
+    tags:
+      - dragon
+      - support
+      - formation
+    favored_terrain: volcanic
+    balance_rev: 12
+  - id: c46df2e5376244bea5289d7ba77b2b91
+    name: Nest Horn Whelp
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dragon
+    primary_type: Infantry
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation March
+    abilities: []
+    ultimate: null
+    flavor_text: A chirp that means advance.
+    complexity: 1
+    role: Support
+    tags:
+      - dragon
+      - support
+      - formation
+    favored_terrain: volcanic
+    balance_rev: 12
+  - id: 1c2cfccd32b043c2b3f09e0eb8dc62cb
+    name: Claw Pair Tutor
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dragon
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Drill
+    abilities: []
+    ultimate: null
+    flavor_text: Two claws, one weak point.
+    complexity: 1
+    role: Support
+    tags:
+      - dragon
+      - support
+      - formation
+    favored_terrain: volcanic
+    balance_rev: 12
+  - id: 17cbff34cf42498b8ec49a20efe741fd
+    name: Clutch Sergeant
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dragon
+    primary_type: Infantry
+    secondary_type: null
+    uv: 3
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Guard
+    abilities: []
+    ultimate: null
+    flavor_text: Keeps the clutch from breaking.
+    complexity: 1
+    role: Support
+    tags:
+      - dragon
+      - support
+      - formation
+    favored_terrain: volcanic
+    balance_rev: 12
+  - id: b2ddae77666c4957aaa3a4dfdb5a94af
+    name: Rook Guide
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dragon
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 3
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation March
+    abilities: []
+    ultimate: null
+    flavor_text: Never outflies the nestlings.
+    complexity: 1
+    role: Support
+    tags:
+      - dragon
+      - support
+      - formation
+    favored_terrain: volcanic
+    balance_rev: 12

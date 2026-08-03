@@ -9,7 +9,7 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data/cards')
+const KB = path.resolve('data/cards')
 const REV = 11
 
 const changes = []
@@ -26,7 +26,7 @@ function log(card, note) {
   changes.push({ race: card.race, type: card.card_type, name: card.name, note })
 }
 
-/** Dwarf — core line UV + punch (officer trim alone didn't move needle) */
+/** Dwarf â€” core line UV + punch (officer trim alone didn't move needle) */
 function tuneDwarf(card) {
   let ch = false
   const type = card.card_type
@@ -35,20 +35,20 @@ function tuneDwarf(card) {
     const r = card.rarity || 'Common'
     if (['Common', 'Uncommon'].includes(r) && uv >= 3 && uv <= 5 && bump(card, 'uv', -1, 1)) {
       ch = true
-      log(card, `UV ${uv}→${card.uv}`)
+      log(card, `UV ${uv}â†’${card.uv}`)
     }
     if ((card.damage || 0) <= 4 && ['Rare', 'Epic'].includes(r) && bump(card, 'damage', 1, 1, 6)) {
       ch = true
-      log(card, `D→${card.damage}`)
+      log(card, `Dâ†’${card.damage}`)
     }
   } else if (type === 'Commander' && (card.uv || 0) >= 14 && bump(card, 'uv', -1, 1)) {
     ch = true
-    log(card, `UV→${card.uv}`)
+    log(card, `UVâ†’${card.uv}`)
   }
   return ch
 }
 
-/** Undead — economy + line durability */
+/** Undead â€” economy + line durability */
 const UNDEAD_CMD_UV = new Set(['Bone Harvester Mire', 'Eclipse Lich Vesper'])
 const UNDEAD_OFFICER_UV = new Set([
   'Grave Marshal',
@@ -66,35 +66,35 @@ function tuneUndead(card) {
     const before = card.uv
     if (bump(card, 'uv', -1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   } else if (type === 'Officer') {
     if (UNDEAD_OFFICER_UV.has(name) || (card.uv || 0) >= 10) {
       const before = card.uv
       if (bump(card, 'uv', -1, 1)) {
         ch = true
-        log(card, `UV ${before}→${card.uv}`)
+        log(card, `UV ${before}â†’${card.uv}`)
       }
     }
     if ((card.toughness || 0) <= 4 && bump(card, 'toughness', 1, 1, 7)) {
       ch = true
-      log(card, `T→${card.toughness}`)
+      log(card, `Tâ†’${card.toughness}`)
     }
   } else if (type === 'Unit') {
     const uv = card.uv || 0
     if (['Common', 'Uncommon'].includes(card.rarity || '') && uv >= 3 && uv <= 5 && bump(card, 'uv', -1, 1)) {
       ch = true
-      log(card, `UV→${card.uv}`)
+      log(card, `UVâ†’${card.uv}`)
     }
     if ((card.toughness || 0) <= 4 && bump(card, 'toughness', 1, 1, 7)) {
       ch = true
-      log(card, `T→${card.toughness}`)
+      log(card, `Tâ†’${card.toughness}`)
     }
   }
   return ch
 }
 
-/** Dragon — small restore after pass-9 partial undo */
+/** Dragon â€” small restore after pass-9 partial undo */
 const DRAGON_UNIT_UV = new Set([
   'Stormwing Elite',
   'Ancient Winged Brood',
@@ -110,17 +110,17 @@ function tuneDragon(card) {
     const before = card.uv
     if (bump(card, 'uv', -1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   } else if (card.card_type === 'Officer' && DRAGON_OFFICER_UV.has(name)) {
     const before = card.uv
     if (bump(card, 'uv', -1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   } else if (card.card_type === 'Unit' && (card.toughness || 0) <= 4 && bump(card, 'toughness', 1, 1, 7)) {
     ch = true
-    log(card, `T→${card.toughness}`)
+    log(card, `Tâ†’${card.toughness}`)
   }
   return ch
 }
@@ -164,14 +164,14 @@ function tuneHuman(card) {
     const before = card.uv
     if (bump(card, 'uv', 1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   } else if (card.card_type === 'Officer' && (card.uv || 0) >= 10 && bump(card, 'uv', 1, 1)) {
     ch = true
-    log(card, `UV→${card.uv}`)
+    log(card, `UVâ†’${card.uv}`)
   } else if (card.card_type === 'Unit' && (card.uv || 0) >= 8 && bump(card, 'uv', 1, 1)) {
     ch = true
-    log(card, `UV→${card.uv}`)
+    log(card, `UVâ†’${card.uv}`)
   }
   return ch
 }
@@ -183,13 +183,13 @@ function tuneElf(card) {
     const before = card.uv
     if (bump(card, 'uv', 1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv} (trim overshoot)`)
+      log(card, `UV ${before}â†’${card.uv} (trim overshoot)`)
     }
   } else if (card.card_type === 'Officer' && ['Greensignal', 'Longshot Choir Lead', 'Beastwhisper Liaison'].includes(name)) {
     const before = card.uv
     if (bump(card, 'uv', 1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv} (trim overshoot)`)
+      log(card, `UV ${before}â†’${card.uv} (trim overshoot)`)
     }
   }
   return ch
@@ -202,11 +202,11 @@ function tuneDemon(card) {
     const before = card.uv
     if (bump(card, 'uv', 1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   } else if (card.card_type === 'Unit' && (card.uv || 0) >= 7 && bump(card, 'uv', 1, 1)) {
     ch = true
-    log(card, `UV→${card.uv}`)
+    log(card, `UVâ†’${card.uv}`)
   }
   return ch
 }
@@ -218,13 +218,13 @@ function tuneBeastfolk(card) {
     const before = card.uv
     if (bump(card, 'uv', 1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   } else if (card.card_type === 'Unit' && BEAST_UV_BUMP.has(name)) {
     const before = card.uv
     if (bump(card, 'uv', 1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   }
   return ch

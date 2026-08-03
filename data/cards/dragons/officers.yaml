@@ -1,0 +1,419 @@
+cards:
+  - id: 4525cbbc9540443f9e8cfaadc8becb35
+    name: Brood Lieutenant Sath
+    card_type: Officer
+    rarity: Common
+    unique: false
+    race: Dragon
+    primary_type: Infantry
+    secondary_type: null
+    uv: 11
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Inspire
+      - Brood Call
+    ultimate: null
+    flavor_text: Kin first. Kill second.
+    complexity: 2
+    role: Support
+    tags:
+      - dragon
+      - officer
+    supported_races:
+      - Dragon
+    favored_terrain: volcanic
+    balance_rev: 12
+  - id: be436919ddf643d0982d71ecfc660eba
+    name: Scale Guard Officer Brak
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Dragon
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 13
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Inspire
+      - Harden Order
+      - Scale Ward
+    ultimate: null
+    flavor_text: Feet on ground. Eyes on sky.
+    complexity: 2
+    role: Frontline
+    tags:
+      - dragon
+      - officer
+    supported_types:
+      - Infantry
+    favored_terrain: volcanic
+    balance_rev: 12
+  - id: ec4259573543456cbb89a580c0d87b46
+    name: Terror Herald Nyx
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Dragon
+    primary_type: Flying
+    secondary_type: null
+    uv: 11
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Flying
+      - Fear
+    abilities:
+      - Inspire
+      - Terror Dive
+    ultimate: null
+    flavor_text: Fear is the opening move.
+    complexity: 2
+    role: Control
+    tags:
+      - dragon
+      - officer
+    supported_keywords:
+      - Fear
+    favored_terrain: volcanic
+    balance_rev: 12
+  - id: 786dac9bcfae48b9b1e14db4999a8dd9
+    name: Wing Captain Aeris
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Dragon
+    primary_type: Flying
+    secondary_type: null
+    uv: 11
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Flying
+    abilities:
+      - Brood Call
+      - Wing Buffet
+    ultimate: null
+    flavor_text: Altitude is an argument.
+    complexity: 2
+    role: Scout
+    tags:
+      - dragon
+      - officer
+    supported_types:
+      - Flying
+    supported_keywords:
+      - Flying
+    favored_terrain: volcanic
+    balance_rev: 12
+  - id: 952022be2f22464fae181d66418df063
+    name: Breath Trainer Cinder
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Dragon
+    primary_type: Ranged
+    secondary_type: null
+    uv: 14
+    move: 3
+    damage: 3
+    range: 3
+    toughness: 4
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities:
+      - Ember Burst
+      - Scorch Mark
+      - Inferno Cone
+    ultimate: null
+    flavor_text: Inhale discipline. Exhale ruin.
+    complexity: 2
+    role: Artillery
+    tags:
+      - dragon
+      - officer
+    supported_keywords:
+      - Blast
+    favored_terrain: volcanic
+    balance_rev: 12
+  - id: 7dba9f39db464dd890228d99b53fe6fc
+    name: Clutch Marshal Tor
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Dragon
+    primary_type: Infantry
+    secondary_type: null
+    uv: 12
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 6
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Inspire
+      - Battle Orders
+      - Ember Burst
+    ultimate: null
+    flavor_text: Bipedal pride, dragon blood.
+    complexity: 2
+    role: Damage
+    tags:
+      - dragon
+      - officer
+    favored_terrain: volcanic
+    balance_rev: 12
+  - id: d79e59748140487d9bb15ff9a9d76699
+    name: Wyrm Priest Solace
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Dragon
+    primary_type: Magic
+    secondary_type: null
+    uv: 14
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 4
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Spellcaster
+      - Reach
+    abilities:
+      - Ember Burst
+      - Medic
+      - Scale Ward
+    ultimate: null
+    flavor_text: Prayers that smell like ozone.
+    complexity: 2
+    role: Support
+    tags:
+      - dragon
+      - officer
+    supported_types:
+      - Magic
+    favored_terrain: volcanic
+    balance_rev: 12
+  - id: 03c1618ae53645b29034e78e737e076c
+    name: Spire Archer Captain Quill
+    card_type: Officer
+    rarity: Epic
+    unique: false
+    race: Dragon
+    primary_type: Ranged
+    secondary_type: null
+    uv: 15
+    move: 3
+    damage: 3
+    range: 3
+    toughness: 4
+    company_ap: 5
+    company_capacity: 19
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities:
+      - Inspire
+      - Coordinated Volley
+      - Suppressive Fire
+    ultimate: null
+    flavor_text: Arrows taught by dragons.
+    complexity: 4
+    role: Artillery
+    tags:
+      - dragon
+      - officer
+    supported_types:
+      - Ranged
+    favored_terrain: volcanic
+    balance_rev: 12
+  - id: ab15cae3320748f7bbcd24eb12842997
+    name: Skywake Lieutenant
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Dragon
+    primary_type: Flying
+    secondary_type: Light
+    uv: 15
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: 5
+    company_capacity: 19
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Flying
+    abilities:
+      - Inspire
+      - Wing Buffet
+      - Terror Dive
+    ultimate: null
+    flavor_text: Altitude is an opinion you enforce.
+    complexity: 3
+    role: Scout
+    tags:
+      - dragon
+      - officer
+    supported_types:
+      - Flying
+    supported_keywords:
+      - Flying
+    favored_terrain: volcanic
+    balance_rev: 12
+  - id: 56a84bb3649b44fd9ccb4224c231e8ae
+    name: Ashlung Drillmaster
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Dragon
+    primary_type: Ranged
+    secondary_type: Fire
+    uv: 13
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 4
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities:
+      - Scorch Mark
+      - Ember Burst
+      - Inspire
+    ultimate: null
+    flavor_text: Inhale on three. Exhale on the problem.
+    complexity: 2
+    role: Damage
+    tags:
+      - dragon
+      - officer
+    supported_keywords:
+      - Fire
+      - Blast
+    favored_terrain: volcanic
+    balance_rev: 12
+  - id: 655b11ac6530422e81e00449f35125dd
+    name: Eggvault Marshal
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Dragon
+    primary_type: Infantry
+    secondary_type: null
+    uv: 12
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Brood Call
+      - Inspiring Presence
+      - Hold the Line
+    ultimate: null
+    flavor_text: The clutch is the kingdom.
+    complexity: 2
+    role: Support
+    tags:
+      - dragon
+      - officer
+    supported_races:
+      - Dragon
+    favored_terrain: volcanic
+    balance_rev: 12
+  - id: 19ee86e0deae4d5e9c9b4a77b642ba2f
+    name: Basalt Scale Captain
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Dragon
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 13
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 6
+    company_capacity: 20
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Scale Ward
+      - Harden Order
+      - Inspire
+    ultimate: null
+    flavor_text: Stone that learned to bleed fire.
+    complexity: 3
+    role: Tank
+    tags:
+      - dragon
+      - officer
+    supported_types:
+      - Infantry
+      - Heavy
+    favored_terrain: volcanic
+    balance_rev: 12

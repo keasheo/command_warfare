@@ -1,0 +1,426 @@
+cards:
+  - id: fe83c48544f949bcabd71d61976cec73
+    name: Shield Captain Brann
+    card_type: Officer
+    rarity: Common
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 8
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Inspire
+      - Shield Brotherhood
+    ultimate: null
+    flavor_text: Shields kiss; gaps die.
+    complexity: 2
+    role: Frontline
+    tags:
+      - dwarf
+      - officer
+    supported_types:
+      - Infantry
+    supported_keywords:
+      - Shieldwall
+    favored_terrain: hills
+    balance_rev: 10
+  - id: 0b9e728538f94accb21f04e0de602c15
+    name: Cannon Officer Durik
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Dwarf
+    primary_type: Siege
+    secondary_type: Ranged
+    uv: 8
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 5
+    company_ap: 6
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities:
+      - Cannon Drill
+      - Haul Lines
+      - Repair
+    ultimate: null
+    flavor_text: Elevation, powder, silence.
+    complexity: 2
+    role: Artillery
+    tags:
+      - dwarf
+      - officer
+    supported_types:
+      - Siege
+    supported_keywords:
+      - Siege
+    favored_terrain: hills
+    balance_rev: 12
+  - id: 3f433c7e8bc54ee3acfaff72f09c6cbe
+    name: Engineer Warden Thilda
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: null
+    uv: 8
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 17
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Entrench
+      - Fortify Works
+      - Limber Up
+    ultimate: null
+    flavor_text: A shovel is a kind of oath.
+    complexity: 2
+    role: Support
+    tags:
+      - dwarf
+      - officer
+      - fortify
+    supported_types:
+      - Siege
+      - Infantry
+    favored_terrain: hills
+    balance_rev: 10
+  - id: 2d3c6ceece564bf3ae58c38d2179ed39
+    name: Gate Warden Hroth
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: null
+    uv: 8
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Inspire
+      - Hold the Gate
+      - Stoneworks
+    ultimate: null
+    flavor_text: Objectives are just gates with opinions.
+    complexity: 2
+    role: Tank
+    tags:
+      - dwarf
+      - officer
+    supported_keywords:
+      - Harden
+    favored_terrain: hills
+    balance_rev: 12
+  - id: 2786ebef06944676852a1115b3b3eef5
+    name: Quartermaster Stonekeg
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: null
+    uv: 8
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Haul Lines
+      - Medic
+      - Repair
+    ultimate: null
+    flavor_text: Spare parts and spare patience.
+    complexity: 2
+    role: Healer
+    tags:
+      - dwarf
+      - officer
+    supported_types:
+      - Siege
+    favored_terrain: hills
+    balance_rev: 10
+  - id: e175ed8df34b477689557bed9d3161c4
+    name: Ironbreaker Lead Mog
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 9
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 20
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Unyielding
+      - Reach
+    abilities:
+      - Inspire
+      - Harden Order
+      - Holdfast
+    ultimate: null
+    flavor_text: Heavy as a promise.
+    complexity: 2
+    role: Tank
+    tags:
+      - dwarf
+      - officer
+    supported_types:
+      - Infantry
+    favored_terrain: hills
+    balance_rev: 12
+  - id: 1baeb653b8b34fe0a893b8a93c10fc67
+    name: Oathkeeper Ysra
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: null
+    uv: 8
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 6
+    company_capacity: 18
+    command_radius: 5
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Inspiring Presence
+      - Anvil Advance
+      - Stone Line
+    ultimate: null
+    flavor_text: Oaths are measured in scars.
+    complexity: 2
+    role: Support
+    tags:
+      - dwarf
+      - officer
+    favored_terrain: hills
+    balance_rev: 10
+  - id: 151f278277ed439cad830c0d482f7ddf
+    name: Stonewright Kel
+    card_type: Officer
+    rarity: Epic
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: null
+    uv: 10
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 21
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Fortify Works
+      - Refresh Works
+      - Stoneworks
+      - Sappers
+    ultimate: null
+    flavor_text: He builds the ground you fight on.
+    complexity: 4
+    role: Control
+    tags:
+      - dwarf
+      - officer
+      - fortify
+    supported_keywords:
+      - Harden
+    favored_terrain: hills
+    balance_rev: 12
+  - id: fcc22e39057d41baa82c5d6055117407
+    name: Trenchwright Olna
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: null
+    uv: 8
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 4
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Entrench
+      - Fortify Works
+      - Stoneworks
+    ultimate: null
+    flavor_text: Dig once. Argue never.
+    complexity: 2
+    role: Support
+    tags:
+      - dwarf
+      - officer
+    supported_types:
+      - Infantry
+      - Siege
+    supported_keywords:
+      - Harden
+    favored_terrain: hills
+    balance_rev: 12
+  - id: 4d223ffc63844de4982b53bfb492a13f
+    name: Battery Sergeant Korr
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Dwarf
+    primary_type: Siege
+    secondary_type: Ranged
+    uv: 10
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 4
+    company_ap: 6
+    company_capacity: 19
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities:
+      - Cannon Drill
+      - Haul Lines
+      - Repair
+    ultimate: null
+    flavor_text: Count the powder. Count the dead. Same number, if you are lucky.
+    complexity: 3
+    role: Artillery
+    tags:
+      - dwarf
+      - officer
+    supported_types:
+      - Siege
+    supported_keywords:
+      - Siege
+    favored_terrain: hills
+    balance_rev: 12
+  - id: bcebea8aa3e44138a13eb865ac75d3de
+    name: Anvil Guard Durn
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 9
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 19
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Shieldwall
+    abilities:
+      - Inspire
+      - Shield Brotherhood
+      - Holdfast
+    ultimate: null
+    flavor_text: The anvil does not step back.
+    complexity: 2
+    role: Frontline
+    tags:
+      - dwarf
+      - officer
+    supported_types:
+      - Infantry
+    supported_keywords:
+      - Shieldwall
+    favored_terrain: hills
+    balance_rev: 12
+  - id: 6d6bc7827978404f8365ab67b6ba07ad
+    name: Oathbinder Mira
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: null
+    uv: 8
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 4
+    company_ap: 6
+    company_capacity: 18
+    command_radius: 5
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Inspiring Presence
+      - Anvil Advance
+      - Medic
+    ultimate: null
+    flavor_text: A spoken oath weighs more than ore.
+    complexity: 3
+    role: Healer
+    tags:
+      - dwarf
+      - officer
+    supported_races:
+      - Dwarf
+    favored_terrain: hills
+    balance_rev: 10

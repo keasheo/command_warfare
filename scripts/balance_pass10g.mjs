@@ -7,7 +7,7 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data/cards')
+const KB = path.resolve('data/cards')
 const REV = 16
 
 const changes = []
@@ -31,10 +31,10 @@ function tune(card) {
   let ch = false
   if (card.card_type === 'Commander' && UNDEAD_CMD_UV.has(card.name) && bump(card, 'uv', -1, 1)) {
     ch = true
-    log(card, `UV→${card.uv}`)
+    log(card, `UVâ†’${card.uv}`)
   } else if (card.card_type === 'Unit' && UNDEAD_UNIT[card.name] && bump(card, 'uv', -1, 1)) {
     ch = true
-    log(card, `UV→${card.uv}`)
+    log(card, `UVâ†’${card.uv}`)
   }
   if (ch) card.balance_rev = REV
   return ch

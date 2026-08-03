@@ -8,40 +8,40 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data/cards')
+const KB = path.resolve('data/cards')
 const REV = 14
 
 const changes = []
 
-/** Human — +0.1pp nudge */
+/** Human â€” +0.1pp nudge */
 const HUMAN_CMD_UV = new Set(['Hearthstone Covenant'])
 
-/** Lizardman — deploy + line durability */
+/** Lizardman â€” deploy + line durability */
 const LIZ_CMD_UV = new Set(['Scalefen Summit'])
 const LIZ_UNIT = {
   'Chameleon Warden': { toughness: 1 },
 }
 
-/** Beastfolk — commander deploy + elite punch */
+/** Beastfolk â€” commander deploy + elite punch */
 const BEAST_CMD_UV = new Set(['Wild Hunt Lord'])
 const BEAST_UNIT = {
   'Blood Moon Chosen': { toughness: 1 },
 }
 
-/** Undead — economy + common line */
+/** Undead â€” economy + common line */
 const UNDEAD_CMD_UV = new Set(['Gravemind Orth'])
 const UNDEAD_UNIT = {
   'Marrow Crossbows': { uv: -1 },
 }
 
-/** Dragon — biggest shortfall: commander + core line */
+/** Dragon â€” biggest shortfall: commander + core line */
 const DRAGON_CMD_UV = new Set(['Sky Tyrant Vexis'])
 const DRAGON_UNIT = {
   'Bipedal Champion': { toughness: 1 },
   'Clutch Flamebows': { uv: -1 },
 }
 
-/** Demon — soft nerf, one commander only */
+/** Demon â€” soft nerf, one commander only */
 const DEMON_CMD_UV_BUMP = new Set(['Ashen Blood Sovereign'])
 
 function bump(card, field, amount, min = 0, max = 99) {
@@ -66,7 +66,7 @@ function applyUnitMap(card, map) {
     const before = card[field]
     if (bump(card, field, amount, min, max)) {
       ch = true
-      log(card, `${field === 'uv' ? 'UV' : field[0].toUpperCase()} ${before}→${card[field]}`)
+      log(card, `${field === 'uv' ? 'UV' : field[0].toUpperCase()} ${before}â†’${card[field]}`)
     }
   }
   return ch
@@ -74,7 +74,7 @@ function applyUnitMap(card, map) {
 
 function tuneHuman(card) {
   if (card.card_type === 'Commander' && HUMAN_CMD_UV.has(card.name) && bump(card, 'uv', -1, 1)) {
-    log(card, `UV→${card.uv}`)
+    log(card, `UVâ†’${card.uv}`)
     return true
   }
   return false
@@ -84,7 +84,7 @@ function tuneLizardman(card) {
   let ch = false
   if (card.card_type === 'Commander' && LIZ_CMD_UV.has(card.name) && bump(card, 'uv', -1, 1)) {
     ch = true
-    log(card, `UV→${card.uv}`)
+    log(card, `UVâ†’${card.uv}`)
   } else if (card.card_type === 'Unit') ch = applyUnitMap(card, LIZ_UNIT)
   return ch
 }
@@ -93,7 +93,7 @@ function tuneBeastfolk(card) {
   let ch = false
   if (card.card_type === 'Commander' && BEAST_CMD_UV.has(card.name) && bump(card, 'uv', -1, 1)) {
     ch = true
-    log(card, `UV→${card.uv}`)
+    log(card, `UVâ†’${card.uv}`)
   } else if (card.card_type === 'Unit') ch = applyUnitMap(card, BEAST_UNIT)
   return ch
 }
@@ -102,7 +102,7 @@ function tuneUndead(card) {
   let ch = false
   if (card.card_type === 'Commander' && UNDEAD_CMD_UV.has(card.name) && bump(card, 'uv', -1, 1)) {
     ch = true
-    log(card, `UV→${card.uv}`)
+    log(card, `UVâ†’${card.uv}`)
   } else if (card.card_type === 'Unit') ch = applyUnitMap(card, UNDEAD_UNIT)
   return ch
 }
@@ -111,14 +111,14 @@ function tuneDragon(card) {
   let ch = false
   if (card.card_type === 'Commander' && DRAGON_CMD_UV.has(card.name) && bump(card, 'uv', -1, 1)) {
     ch = true
-    log(card, `UV→${card.uv}`)
+    log(card, `UVâ†’${card.uv}`)
   } else if (card.card_type === 'Unit') ch = applyUnitMap(card, DRAGON_UNIT)
   return ch
 }
 
 function tuneDemon(card) {
   if (card.card_type === 'Commander' && DEMON_CMD_UV_BUMP.has(card.name) && bump(card, 'uv', 1, 1)) {
-    log(card, `UV→${card.uv}`)
+    log(card, `UVâ†’${card.uv}`)
     return true
   }
   return false

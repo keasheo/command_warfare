@@ -8,7 +8,7 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data/cards')
+const KB = path.resolve('data/cards')
 
 const FILES = [
   'undead/units.yaml',
@@ -50,7 +50,7 @@ function tune(card) {
       else if (d0 === 3 && (card.toughness || 0) >= 5) {
         if (bump(card, 'damage', 1, { max: 5 })) changes.push('D+1elite')
       }
-      // Slight tempo — still slow vs Human
+      // Slight tempo â€” still slow vs Human
       if (bump(card, 'move', 1, { max: 3, onlyIf: (m, c) => m === 2 && (c.uv || 0) >= 4 }))
         changes.push('M+1')
     } else if (race === 'Construct') {
@@ -64,7 +64,7 @@ function tune(card) {
       }
       if (bump(card, 'toughness', 1, { max: 5, onlyIf: (t) => t <= 2 })) changes.push('T+1')
     } else if (race === 'Dragon') {
-      // Efficiency was worst — raise punch; keep steep UV curve.
+      // Efficiency was worst â€” raise punch; keep steep UV curve.
       if (bump(card, 'damage', 1, { max: 5, onlyIf: (d) => d <= 3 })) changes.push('D+1')
       if (bump(card, 'toughness', 1, { max: 7, onlyIf: (t, c) => t <= 3 && (c.uv || 0) >= 4 }))
         changes.push('T+1')

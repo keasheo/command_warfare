@@ -1,0 +1,414 @@
+cards:
+  - id: 3ad5dda4873c4c24bfc240c3fb2c992d
+    name: Thornpath Guide
+    card_type: Officer
+    rarity: Common
+    unique: false
+    race: Elf
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 8
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 4
+    company_ap: 5
+    company_capacity: 16
+    command_radius: 3
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Inspire
+      - Forced March
+    ultimate: null
+    flavor_text: The path is narrow. The thorns are editorial.
+    complexity: 1
+    role: Frontline
+    tags:
+      - elf
+      - officer
+    favored_terrain: forest
+    balance_rev: 10
+  - id: 6747c755fdd34f529b16fd98272cdc3c
+    name: Leafsignal
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Elf
+    primary_type: Ranged
+    secondary_type: Heavy
+    uv: 10
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 5
+    company_ap: 5
+    company_capacity: 17
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities:
+      - Disciplined Advance
+      - Harden Order
+    ultimate: null
+    flavor_text: Two flashes mean advance. Three mean the moon agrees.
+    complexity: 2
+    role: Support
+    tags:
+      - elf
+      - officer
+    favored_terrain: forest
+    balance_rev: 10
+  - id: a0b57afdeea94ad8b408f14b02509104
+    name: Ley Watcher
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Elf
+    primary_type: Nature
+    secondary_type: Ranged
+    uv: 9
+    move: 3
+    damage: 2
+    range: 2
+    toughness: 4
+    company_ap: 5
+    company_capacity: 19
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities:
+      - Inspire
+      - Medic
+    ultimate: null
+    flavor_text: The roots tell her who stepped wrong an hour ago.
+    complexity: 2
+    role: Damage
+    tags:
+      - elf
+      - officer
+    favored_terrain: forest
+    balance_rev: 10
+  - id: e74d4eeae2f74d8f90c8b9ca9a199909
+    name: Moonspotter
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Elf
+    primary_type: Cavalry
+    secondary_type: null
+    uv: 10
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Inspiring Presence
+      - Hold the Line
+    ultimate: null
+    flavor_text: If she sees you, the night already chose a side.
+    complexity: 2
+    role: Tank
+    tags:
+      - elf
+      - officer
+    favored_terrain: forest
+    balance_rev: 10
+  - id: fb8fe23a7bcf4bf38e1fc2628cc51986
+    name: Beastwhisper Liaison
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Elf
+    primary_type: Beast
+    secondary_type: Heavy
+    uv: 13
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 6
+    company_capacity: 21
+    command_radius: 5
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Disciplined Advance
+      - Rapid Redeployment
+      - Snare
+    ultimate: null
+    flavor_text: Beasts listen when she forgets to speak softly.
+    complexity: 4
+    role: Scout
+    tags:
+      - elf
+      - officer
+    favored_terrain: forest
+    balance_rev: 11
+  - id: a4e463812579476ba9b9319d31007738
+    name: Gale String
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Elf
+    primary_type: Magic
+    secondary_type: Light
+    uv: 11
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 6
+    company_capacity: 20
+    command_radius: 5
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Inspire
+      - Press Forward
+    ultimate: null
+    flavor_text: She tunes the wind until the arrows hum in key.
+    complexity: 4
+    role: Control
+    tags:
+      - elf
+      - officer
+    favored_terrain: forest
+    balance_rev: 10
+  - id: 4b035698d3b546119e45bcdea5d007be
+    name: Greensignal
+    card_type: Officer
+    rarity: Epic
+    unique: false
+    race: Elf
+    primary_type: Ranged
+    secondary_type: Ranged
+    uv: 13
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 5
+    company_ap: 6
+    company_capacity: 23
+    command_radius: 5
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities:
+      - Inspire
+      - Suppressive Fire
+    ultimate: null
+    flavor_text: Green smoke means hope. Green fire means hurry.
+    complexity: 5
+    role: Artillery
+    tags:
+      - elf
+      - officer
+    supported_types:
+      - Ranged
+    supported_keywords:
+      - Nature
+      - Ranged
+    favored_terrain: forest
+    balance_rev: 11
+  - id: d89d4957b0674123ae481b118e86eca7
+    name: Startrail Tracker
+    card_type: Officer
+    rarity: Epic
+    unique: false
+    race: Elf
+    primary_type: Infantry
+    secondary_type: null
+    uv: 12
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 4
+    company_ap: 6
+    company_capacity: 22
+    command_radius: 5
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Inspire
+      - Inspiring Presence
+      - Repair
+    ultimate: null
+    flavor_text: He tracks by starlight and unfinished stories.
+    complexity: 5
+    role: Healer
+    tags:
+      - elf
+      - officer
+    favored_terrain: forest
+    balance_rev: 10
+  - id: 73461c208e634aa68eefadb02d65c87f
+    name: Mistveil Pathfinder
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Elf
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 10
+    move: 4
+    damage: 2
+    range: 1
+    toughness: 3
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Scout
+      - Stealth
+    abilities:
+      - Inspire
+      - Forced March
+      - Rapid Redeployment
+    ultimate: null
+    flavor_text: If you can see the path, you are already late.
+    complexity: 2
+    role: Scout
+    tags:
+      - elf
+      - officer
+    supported_types:
+      - Infantry
+      - Light
+    supported_keywords:
+      - Scout
+      - Stealth
+    favored_terrain: forest
+    balance_rev: 10
+  - id: 3c25a1362b544f6b9e99c7425c3aee8a
+    name: Longshot Choir Lead
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Elf
+    primary_type: Ranged
+    secondary_type: Ranged
+    uv: 13
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 3
+    company_ap: 6
+    company_capacity: 20
+    command_radius: 5
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities:
+      - Inspire
+      - Coordinated Volley
+      - Suppressive Fire
+      - Snare
+    ultimate: null
+    flavor_text: One breath. Many strings.
+    complexity: 3
+    role: Artillery
+    tags:
+      - elf
+      - officer
+    supported_types:
+      - Ranged
+    supported_keywords:
+      - Ranged
+    favored_terrain: forest
+    balance_rev: 11
+  - id: 395d4122a7714811835617daf33e3f36
+    name: Mossweave Adept
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Elf
+    primary_type: Nature
+    secondary_type: Light
+    uv: 10
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 3
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Medic
+      - Inspire
+      - Harden Order
+    ultimate: null
+    flavor_text: Green stitches hold better than iron ones.
+    complexity: 2
+    role: Support
+    tags:
+      - elf
+      - officer
+    supported_types:
+      - Nature
+      - Infantry
+    supported_keywords:
+      - Nature
+    favored_terrain: forest
+    balance_rev: 10
+  - id: c0182aaad7d14373b94c657c694e5a22
+    name: Glaive Circlet Rider
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Elf
+    primary_type: Cavalry
+    secondary_type: Light
+    uv: 11
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: 5
+    company_capacity: 19
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Mounted
+    abilities:
+      - Inspiring Presence
+      - Press Forward
+      - Disciplined Advance
+      - Spur Order
+    ultimate: null
+    flavor_text: The circle closes before the shout finishes.
+    complexity: 3
+    role: Damage
+    tags:
+      - elf
+      - officer
+    supported_types:
+      - Cavalry
+    supported_keywords:
+      - Flanking
+      - Charge
+      - Mounted
+    favored_terrain: forest
+    balance_rev: 10

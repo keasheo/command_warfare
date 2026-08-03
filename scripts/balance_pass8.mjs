@@ -1,6 +1,6 @@
 /**
  * Balance pass 8: lift bottom 3 (Undead hardest, Dwarf, Demon), soft-nerf Dragon + Human.
- * High-leverage UV / Damage / Toughness / Reach — idempotent via balance_rev >= 8.
+ * High-leverage UV / Damage / Toughness / Reach â€” idempotent via balance_rev >= 8.
  */
 import fs from 'node:fs'
 import path from 'node:path'
@@ -8,7 +8,7 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data/cards')
+const KB = path.resolve('data/cards')
 const REV = 8
 
 const BUFF = new Set(['Undead', 'Dwarf', 'Demon'])
@@ -63,11 +63,11 @@ function tuneUndead(card) {
     const r = card.rarity || 'Common'
     if (['Common', 'Uncommon'].includes(r) && uv >= 3 && uv <= 5 && bump(card, 'uv', -1, 1)) {
       ch = true
-      log(card, `UV ${uv}→${card.uv}`)
+      log(card, `UV ${uv}â†’${card.uv}`)
     }
     if ((card.toughness || 0) <= 4 && bump(card, 'toughness', 1, 1, 8)) {
       ch = true
-      log(card, `T+1→${card.toughness}`)
+      log(card, `T+1â†’${card.toughness}`)
     }
     if (
       UNDEAD_REACH_NAMES.has(card.name) &&
@@ -80,17 +80,17 @@ function tuneUndead(card) {
   } else if (type === 'Officer') {
     if ((card.uv || 0) >= 10 && bump(card, 'uv', -1, 1)) {
       ch = true
-      log(card, `UV→${card.uv}`)
+      log(card, `UVâ†’${card.uv}`)
     }
     if ((card.toughness || 0) <= 4 && bump(card, 'toughness', 1, 1, 7)) {
       ch = true
-      log(card, `T+1→${card.toughness}`)
+      log(card, `T+1â†’${card.toughness}`)
     }
   } else if (type === 'Commander' && UNDEAD_CMD_UV_TRIM.has(card.name)) {
     const before = card.uv
     if (bump(card, 'uv', -2, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   }
 
@@ -104,15 +104,15 @@ function tuneDwarf(card) {
     const r = card.rarity || 'Common'
     if (['Common', 'Uncommon', 'Rare'].includes(r) && uv >= 5 && uv <= 7 && bump(card, 'uv', -1, 1)) {
       ch = true
-      log(card, `UV ${uv}→${card.uv}`)
+      log(card, `UV ${uv}â†’${card.uv}`)
     }
     if ((card.move || 0) <= 2 && bump(card, 'move', 1, 1, 4)) {
       ch = true
-      log(card, `M+1→${card.move}`)
+      log(card, `M+1â†’${card.move}`)
     }
   } else if (card.card_type === 'Officer' && (card.uv || 0) >= 10 && bump(card, 'uv', -1, 1)) {
     ch = true
-    log(card, `UV→${card.uv}`)
+    log(card, `UVâ†’${card.uv}`)
   }
   return ch
 }
@@ -125,24 +125,24 @@ function tuneDemon(card) {
     const isLine = ['Uncommon', 'Rare', 'Epic'].includes(r) || uv >= 3
     if (isLine && (card.toughness || 0) <= 3 && bump(card, 'toughness', 1, 1, 7)) {
       ch = true
-      log(card, `T+1→${card.toughness}`)
+      log(card, `T+1â†’${card.toughness}`)
     }
     if ((card.damage || 0) <= 2 && bump(card, 'damage', 1, 1, 5)) {
       ch = true
-      log(card, `D+1→${card.damage}`)
+      log(card, `D+1â†’${card.damage}`)
     }
     if (uv >= 8 && (card.toughness || 0) <= 3 && bump(card, 'uv', -1, 1)) {
       ch = true
-      log(card, `UV→${card.uv}`)
+      log(card, `UVâ†’${card.uv}`)
     }
   } else if (card.card_type === 'Officer') {
     if ((card.uv || 0) >= 10 && bump(card, 'uv', -1, 1)) {
       ch = true
-      log(card, `UV→${card.uv}`)
+      log(card, `UVâ†’${card.uv}`)
     }
     if ((card.toughness || 0) <= 4 && bump(card, 'toughness', 1, 1, 7)) {
       ch = true
-      log(card, `T+1→${card.toughness}`)
+      log(card, `T+1â†’${card.toughness}`)
     }
   }
   return ch
@@ -155,25 +155,25 @@ function tuneDragon(card) {
     const uv = card.uv || 0
     if (kws.includes('Flying') && uv >= 8 && bump(card, 'uv', 1, 1)) {
       ch = true
-      log(card, `UV→${card.uv}`)
+      log(card, `UVâ†’${card.uv}`)
     }
     if ((card.damage || 0) >= 5 && bump(card, 'damage', -1, 1)) {
       ch = true
-      log(card, `D→${card.damage}`)
+      log(card, `Dâ†’${card.damage}`)
     }
     if ((card.toughness || 0) >= 6 && bump(card, 'toughness', -1, 2)) {
       ch = true
-      log(card, `T→${card.toughness}`)
+      log(card, `Tâ†’${card.toughness}`)
     }
   } else if (card.card_type === 'Officer' && (card.uv || 0) >= 10 && bump(card, 'uv', 1, 1)) {
     ch = true
-    log(card, `UV→${card.uv}`)
+    log(card, `UVâ†’${card.uv}`)
   } else if (card.card_type === 'Commander' && DRAGON_CMD_UV_BUMP.has(card.name)) {
     const amt = card.name === 'Hoard Sovereign Khar' ? 2 : 1
     const before = card.uv
     if (bump(card, 'uv', amt, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   }
   return ch
@@ -186,28 +186,28 @@ function tuneHuman(card) {
     const uv = card.uv || 0
     if (uv >= 9 && bump(card, 'uv', 1, 1)) {
       ch = true
-      log(card, `UV→${card.uv}`)
+      log(card, `UVâ†’${card.uv}`)
     } else if (kws.includes('Flying') && uv >= 7 && bump(card, 'uv', 1, 1)) {
       ch = true
-      log(card, `UV→${card.uv}`)
+      log(card, `UVâ†’${card.uv}`)
     }
     if ((card.damage || 0) >= 5 && bump(card, 'damage', -1, 1)) {
       ch = true
-      log(card, `D→${card.damage}`)
+      log(card, `Dâ†’${card.damage}`)
     }
     if ((card.toughness || 0) >= 7 && bump(card, 'toughness', -1, 2)) {
       ch = true
-      log(card, `T→${card.toughness}`)
+      log(card, `Tâ†’${card.toughness}`)
     }
   } else if (card.card_type === 'Officer' && (card.uv || 0) >= 10 && bump(card, 'uv', 1, 1)) {
     ch = true
-    log(card, `UV→${card.uv}`)
+    log(card, `UVâ†’${card.uv}`)
   } else if (card.card_type === 'Commander' && HUMAN_CMD_UV_BUMP.has(card.name)) {
     const amt = card.name === 'Realmward High Marshal' ? 2 : 1
     const before = card.uv
     if (bump(card, 'uv', amt, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   }
   return ch

@@ -3,8 +3,8 @@ import path from 'path';
 import * as yaml from 'js-yaml';
 
 // Paths
-const abilitiesPath = path.join('..', 'KingdomsBuilder', 'data', 'abilities.yaml');
-const cardsDir = path.join('..', 'KingdomsBuilder', 'data', 'cards');
+const abilitiesPath = path.join('data', 'abilities.yaml');
+const cardsDir = path.join('data', 'cards');
 
 // Load abilities.yaml
 const abilitiesContent = fs.readFileSync(abilitiesPath, 'utf8');
@@ -65,15 +65,15 @@ results.sort((a, b) => b.exceeds - a.exceeds);
 
 // Output results
 console.log(`\nFound ${results.length} ultimate abilities exceeding 175 characters:\n`);
-console.log('═'.repeat(100));
+console.log('â•'.repeat(100));
 
 for (const result of results) {
   console.log(`\n${result.name}`);
   console.log(`  Current length: ${result.length} chars (${result.exceeds} over limit)`);
   console.log(`  Text: "${result.description}"`);
-  console.log('─'.repeat(100));
+  console.log('â”€'.repeat(100));
 }
 
 // Also output as JSON for easier processing
 fs.writeFileSync('ultimate-lengths.json', JSON.stringify(results, null, 2));
-console.log(`\n✓ Results saved to ultimate-lengths.json`);
+console.log(`\nâœ“ Results saved to ultimate-lengths.json`);

@@ -1,5 +1,6 @@
 /**
- * Import KingdomsBuilder YAML data into SQLite.
+ * Import game YAML data (cards, abilities, keywords, docs) into SQLite.
+ * Default source: repo `data/` (override with KINGDOMS_DATA).
  */
 import fs from 'node:fs'
 import path from 'node:path'
@@ -16,7 +17,8 @@ import { orderedAbilityNames, abilityCreatesNewUnit, abilityUsedByAllowsCard, is
 import { MINIMUM_COMMANDER_CC_GENERATION } from './constants.ts'
 
 const DEFAULT_SOURCE = path.resolve(
-  process.env.KINGDOMS_DATA ?? 'C:\\Users\\keash\\Projects\\KingdomsBuilder\\data',
+  process.env.KINGDOMS_DATA ??
+    path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'data'),
 )
 
 function readYamlFile(filePath: string): unknown {

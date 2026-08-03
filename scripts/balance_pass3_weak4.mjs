@@ -8,7 +8,7 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data/cards')
+const KB = path.resolve('data/cards')
 const REV = 3
 const FILES = [
   'dragons/units.yaml',
@@ -40,7 +40,7 @@ function tune(card) {
       if (bump(card, 'damage', 1, 6)) changes.push('D+1')
       if ((card.toughness || 0) <= 4 && bump(card, 'toughness', 1, 8)) changes.push('T+1')
     } else if (race === 'Dwarf') {
-      // Stats already strong — tempo + a bit more T for fortify holders
+      // Stats already strong â€” tempo + a bit more T for fortify holders
       if ((card.move || 0) <= 2 && bump(card, 'move', 1, 3)) changes.push('M+1')
       if ((card.toughness || 0) <= 4 && bump(card, 'toughness', 1, 7)) changes.push('T+1')
     } else if (race === 'Construct') {

@@ -1,0 +1,416 @@
+cards:
+  - id: 43b337299ae64e568c07f1dbeda769ae
+    name: Gear Warden Axle
+    card_type: Officer
+    rarity: Common
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: null
+    uv: 9
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+    abilities:
+      - Rebuild Protocol
+      - Repair
+    ultimate: null
+    flavor_text: Oil is a prayer.
+    complexity: 2
+    role: Healer
+    tags:
+      - construct
+      - officer
+    supported_types:
+      - Construct
+      - Siege
+    favored_terrain: plains
+  - id: 1d6c7d309e7d401fb00ccc55b2fbdf6d
+    name: Line Binder Rivet
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: null
+    uv: 10
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+    abilities:
+      - Disciplined Advance
+      - Inspire
+      - Lockstep
+      - Hold the Line
+    ultimate: null
+    flavor_text: Formation is firmware.
+    complexity: 2
+    role: Frontline
+    tags:
+      - construct
+      - officer
+    favored_terrain: plains
+    balance_rev: 18
+  - id: 8956d4ef15dd4855ab68a8b15e14b41d
+    name: Overdrive Chief Spark
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: null
+    uv: 10
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+    abilities:
+      - Inspire
+      - Motive Overdrive
+      - Overdrive
+    ultimate: null
+    flavor_text: Speed is a spent coil.
+    complexity: 2
+    role: Damage
+    tags:
+      - construct
+      - officer
+    favored_terrain: plains
+    balance_rev: 19
+  - id: 32879589b15c454e836ed8184332b70d
+    name: Phalanx Automaton Lead
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: Heavy
+    uv: 11
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Shieldwall
+    abilities:
+      - Inspire
+      - Sealant Coat
+    ultimate: null
+    flavor_text: Identical steps. Different wars.
+    complexity: 2
+    role: Frontline
+    tags:
+      - construct
+      - officer
+    supported_types:
+      - Construct
+      - Infantry
+    favored_terrain: plains
+  - id: 4b639251fe1f4ddead5aa7f9263d90a3
+    name: Siege Conductor Bolt
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Construct
+    primary_type: Siege
+    secondary_type: null
+    uv: 10
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 5
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Reach
+    abilities:
+      - Haul Lines
+      - Lockstep
+      - Siege Elevation
+    ultimate: null
+    flavor_text: Cadence for cannons.
+    complexity: 2
+    role: Artillery
+    tags:
+      - construct
+      - officer
+    supported_types:
+      - Siege
+    supported_keywords:
+      - Siege
+    favored_terrain: plains
+    balance_rev: 24
+  - id: 9feb5d08821546338d2e36f207ea0618
+    name: Battery Captain Cell
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Construct
+    primary_type: Siege
+    secondary_type: null
+    uv: 12
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 5
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Reach
+    abilities:
+      - Battery Link
+      - Cannon Drill
+      - Repair
+    ultimate: null
+    flavor_text: Charge shared is charge spent.
+    complexity: 2
+    role: Artillery
+    tags:
+      - construct
+      - officer
+    supported_types:
+      - Siege
+    favored_terrain: plains
+  - id: 016840c1bfaa489e9767677d41fb0d83
+    name: Sealant Officer Lacquer
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: null
+    uv: 12
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 6
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+    abilities:
+      - Medic
+      - Rebuild Protocol
+      - Sealant Coat
+    ultimate: null
+    flavor_text: Fear peels off like paint.
+    complexity: 2
+    role: Support
+    tags:
+      - construct
+      - officer
+    favored_terrain: plains
+  - id: d5c44fd2d6dc45de8648f42676dad2e9
+    name: Null Sentinel Prime
+    card_type: Officer
+    rarity: Epic
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: null
+    uv: 12
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 20
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Harden 1
+    abilities:
+      - Inspiring Presence
+      - Holdfast
+      - Null Pulse
+    ultimate: null
+    flavor_text: Interference ends here.
+    complexity: 4
+    role: Control
+    tags:
+      - construct
+      - officer
+    favored_terrain: plains
+  - id: 18ef8472279a499aa26958f09b4698c9
+    name: Torque Surge Lead
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: null
+    uv: 11
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+    abilities:
+      - Motive Overdrive
+      - Overdrive
+      - Inspire
+    ultimate: null
+    flavor_text: Redline is a suggestion. Torque is law.
+    complexity: 2
+    role: Damage
+    tags:
+      - construct
+      - officer
+    supported_types:
+      - Construct
+    favored_terrain: plains
+  - id: 6c4eb8e8da5d44e2846b083be80085e6
+    name: Magazine Conductor
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Construct
+    primary_type: Siege
+    secondary_type: null
+    uv: 12
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 4
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Reach
+    abilities:
+      - Battery Link
+      - Cannon Drill
+      - Siege Elevation
+    ultimate: null
+    flavor_text: Feed the magazine. Starve the skyline.
+    complexity: 3
+    role: Artillery
+    tags:
+      - construct
+      - officer
+    supported_types:
+      - Siege
+    supported_keywords:
+      - Siege
+    favored_terrain: plains
+  - id: bb774fbd72444fadb72f9db3d1464d38
+    name: Lacquer Medic Frame
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: null
+    uv: 11
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 3
+    company_ap: 6
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+    abilities:
+      - Sealant Coat
+      - Rebuild Protocol
+      - Medic
+    ultimate: null
+    flavor_text: Crack sealed. Purpose restored.
+    complexity: 2
+    role: Healer
+    tags:
+      - construct
+      - officer
+    supported_types:
+      - Construct
+      - Siege
+    favored_terrain: plains
+  - id: 535502e5792344d6ae30a8accec3631d
+    name: Null Lattice Warden
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: Heavy
+    uv: 12
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 20
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Harden 1
+    abilities:
+      - Null Pulse
+      - Holdfast
+      - Inspiring Presence
+    ultimate: null
+    flavor_text: Silence is a weapon with perfect discipline.
+    complexity: 3
+    role: Control
+    tags:
+      - construct
+      - officer
+    supported_types:
+      - Construct
+    favored_terrain: plains

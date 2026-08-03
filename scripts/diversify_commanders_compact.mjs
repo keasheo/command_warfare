@@ -10,7 +10,7 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data')
+const KB = path.resolve('data')
 const abPath = path.join(KB, 'abilities.yaml')
 
 const COMPACT_KEEPERS = {
@@ -25,7 +25,7 @@ const COMPACT_KEEPERS = {
   Construct: 'Prime Directive Core',
 }
 
-/** New commander passives (description ≤175 chars). */
+/** New commander passives (description â‰¤175 chars). */
 const NEW_ABILITIES = {
   'Hearth Roads': {
     type: 'Passive',
@@ -154,7 +154,7 @@ const NEW_ABILITIES = {
     type: 'Passive',
     cost: 'Passive',
     description:
-      'Enemies adjacent to two or more Lizardman units in your army within Command Radius suffer −1 Hit on attacks.',
+      'Enemies adjacent to two or more Lizardman units in your army within Command Radius suffer âˆ’1 Hit on attacks.',
     affects: 'self',
     used_by: 'Commander',
     tags: ['passive', 'lizardman', 'control'],
@@ -330,7 +330,7 @@ function updateCommanders() {
             card.name,
             ':',
             spec.remove.join(', '),
-            '→',
+            'â†’',
             spec.add.join(', '),
           )
           changed = true

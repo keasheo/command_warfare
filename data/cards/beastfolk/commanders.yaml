@@ -1,0 +1,135 @@
+cards:
+  - id: a9ef572519124c378d64752881e7ac5e
+    name: Blood Moon Alpha
+    card_type: Commander
+    rarity: Rare
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: null
+    uv: 16
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: 6
+    ap_generation: 5
+    cc_generation: 5
+    keywords:
+      - Pack
+      - Frenzy
+    abilities:
+      - Howl
+      - Pack Reform
+      - Rally
+    ultimate: Blood Moon
+    flavor_text: When the moon is red, the pack does not ask.
+    complexity: 4
+    role: Damage
+    tags:
+      - beastfolk
+      - beast
+    favored_terrain: forest
+  - id: e5603605f3af647fb41256adc98794f8
+    name: High Alpha of Tribes
+    card_type: Commander
+    rarity: Epic
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: null
+    uv: 20
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 7
+    company_ap: null
+    company_capacity: null
+    command_radius: 7
+    ap_generation: 5
+    cc_generation: 5
+    keywords: []
+    abilities:
+      - Beastfolk Compact
+      - Tribal Cadence
+      - Rally
+      - Alpha Rush
+    ultimate: Tribal Convergence
+    flavor_text: Many packs. One howl.
+    complexity: 4
+    role: Damage
+    tags:
+      - beastfolk
+      - kinship
+      - compact
+    favored_terrain: forest
+  - id: ae4883dd1d5d4239b58394624f42a522
+    name: Wild Hunt Lord
+    card_type: Commander
+    rarity: Epic
+    unique: false
+    race: Beastfolk
+    primary_type: Cavalry
+    secondary_type: Beast
+    uv: 15
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: 6
+    ap_generation: 5
+    cc_generation: 5
+    keywords:
+      - Charge
+      - Pack
+    abilities:
+      - Beast Banner
+      - Beast Haul
+      - Pack Mark
+      - Horn of Advance
+    ultimate: Wild Hunt
+    flavor_text: The trail is a sentence.
+    complexity: 5
+    role: Damage
+    tags:
+      - beastfolk
+      - cavalry
+    favored_terrain: forest
+    balance_rev: 14
+  - id: b6b3c6ac4b7b48618b1c5d2a8ed4e836
+    name: Howling Matriarch
+    card_type: Commander
+    rarity: Legendary
+    unique: true
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: null
+    uv: 24
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: 6
+    ap_generation: 5
+    cc_generation: 5
+    keywords:
+      - Pack
+      - Fear
+    abilities:
+      - Matriarch's Pace
+      - Matriarch's Protection
+      - Alpha Howl Call
+      - Rally
+    ultimate: Alpha Howl
+    flavor_text: One voice. Many teeth.
+    complexity: 5
+    role: Control
+    tags:
+      - beastfolk
+    favored_terrain: forest

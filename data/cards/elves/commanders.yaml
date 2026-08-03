@@ -1,0 +1,144 @@
+cards:
+  - id: e87939187b6d48adb45c7eb3e6af6c23
+    name: Whispercanopy Huntress
+    card_type: Commander
+    rarity: Rare
+    unique: false
+    race: Elf
+    primary_type: Ranged
+    secondary_type: null
+    uv: 9
+    move: 3
+    damage: 2
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: 6
+    ap_generation: 5
+    cc_generation: 6
+    keywords:
+      - Reach
+    abilities:
+      - Canopy Veil
+      - Tactical Withdrawal
+      - Arrowstorm Command
+      - Canopy Lanes
+    ultimate: Moonlit Volley
+    flavor_text: Arrows fall where moonlight finds a path.
+    complexity: 4
+    role: Scout
+    tags:
+      - elf
+      - ranged
+      - scout
+    favored_terrain: forest
+    balance_rev: 10
+  - id: 4f7daeffe77c2131112f0670ff4e8e9e
+    name: Green Court Sovereign
+    card_type: Commander
+    rarity: Epic
+    unique: false
+    race: Elf
+    primary_type: Ranged
+    secondary_type: null
+    uv: 14
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: 7
+    ap_generation: 5
+    cc_generation: 5
+    keywords: []
+    abilities:
+      - Elf Compact
+      - Court Paths
+      - Rally
+      - Arrowstorm Command
+      - Moonbind
+    ultimate: Ancient Canopy Stand
+    flavor_text: The forest crowns only its own.
+    complexity: 4
+    role: Artillery
+    tags:
+      - elf
+      - kinship
+      - compact
+    favored_terrain: forest
+    balance_rev: 10
+  - id: af7ef4d6e45546079d6bfa4f1493595e
+    name: Rootweave Mystic
+    card_type: Commander
+    rarity: Epic
+    unique: false
+    race: Elf
+    primary_type: Nature
+    secondary_type: null
+    uv: 13
+    move: 3
+    damage: 2
+    range: 2
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: 7
+    ap_generation: 5
+    cc_generation: 6
+    keywords:
+      - Reach
+    abilities:
+      - Rootways
+      - Living Grove
+      - Rally
+      - Reposition
+      - Entangling Roots
+      - Grove Lattice
+    ultimate: Rootweave Surge
+    flavor_text: Roots answer before the question is asked.
+    complexity: 5
+    role: Control
+    tags:
+      - elf
+      - nature
+      - magic
+    favored_terrain: forest
+    balance_rev: 10
+  - id: 59c04bc1a4b3422cb2f0a3bb61d78032
+    name: Starfall Huntress
+    card_type: Commander
+    rarity: Legendary
+    unique: true
+    race: Elf
+    primary_type: Flying
+    secondary_type: null
+    uv: 15
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: 7
+    ap_generation: 5
+    cc_generation: 6
+    keywords: []
+    abilities:
+      - Master Strategist
+      - Starfall Pact
+      - Focused Assault
+      - Gale Reposition
+      - Battle Cry
+      - Starlit Stride
+    ultimate: Forest Unbound
+    flavor_text: She reads the wind like scripture.
+    complexity: 5
+    role: Damage
+    tags:
+      - elf
+      - flying
+      - legend
+    favored_terrain: forest
+    balance_rev: 10

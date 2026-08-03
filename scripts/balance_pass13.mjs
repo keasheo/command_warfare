@@ -1,8 +1,8 @@
 /**
  * Balance pass 13: Dragon / Demon floor lift from pass-12c sim diagnosis.
- * Dragon — weak commanders (Sky Tyrant, Hoard Sovereign), low-kill ranged,
+ * Dragon â€” weak commanders (Sky Tyrant, Hoard Sovereign), low-kill ranged,
  *   high-death scouts vs Construct/Beastfolk matchups.
- * Demon — weak commanders (Voidclaw, Doomforge), low-hit siege/ranged,
+ * Demon â€” weak commanders (Voidclaw, Doomforge), low-hit siege/ranged,
  *   damage deficit vs Beastfolk/Dwarf.
  * Undead untouched. Construct already nerfed in 12c. balance_rev >= 25.
  */
@@ -12,28 +12,28 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data/cards')
+const KB = path.resolve('data/cards')
 const REV = 25
 
 const changes = []
 
-/** Dragon — floor commanders (35–44% win in pass-12c) */
+/** Dragon â€” floor commanders (35â€“44% win in pass-12c) */
 const DRAGON_CMD_UV = new Set(['Sky Tyrant Vexis', 'Hoard Sovereign Khar'])
 
-/** Dragon — core units: scout deaths + low-hit ranged */
+/** Dragon â€” core units: scout deaths + low-hit ranged */
 const DRAGON_UNIT = {
   'Scale Runners': { toughness: 1 },
   'Ember Chanters': { damage: 1 },
   'Landward Scale Guard': { toughness: 1 },
 }
 
-/** Demon — floor commanders */
+/** Demon â€” floor commanders */
 const DEMON_CMD = {
   'Voidclaw Tormentor': { uv: -1 },
   'Doomforge Tyrant': { toughness: 1 },
 }
 
-/** Demon — low-hit deployed cores (Gatebreak 36%, Magma Spitter 37%) */
+/** Demon â€” low-hit deployed cores (Gatebreak 36%, Magma Spitter 37%) */
 const DEMON_UNIT = {
   'Gatebreak Engine': { damage: 1, move: 1 },
   'Magma Spitter': { damage: 1 },
@@ -65,7 +65,7 @@ function applyMap(card, map) {
       ch = true
       const label =
         field === 'uv' ? 'UV' : field[0].toUpperCase() + field.slice(1)
-      log(card, `${label} ${before}→${card[field]}`)
+      log(card, `${label} ${before}â†’${card[field]}`)
     }
   }
   return ch
@@ -77,7 +77,7 @@ function tuneDragon(card) {
     const before = card.uv
     if (bump(card, 'uv', -1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   } else if (card.card_type === 'Unit') {
     ch = applyMap(card, DRAGON_UNIT)

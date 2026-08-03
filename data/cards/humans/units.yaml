@@ -1,0 +1,1383 @@
+cards:
+  - id: ea245e74554b46da826b1077f3bc14db
+    name: Boltstorm Company
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Human
+    primary_type: Ranged
+    secondary_type: Heavy
+    uv: 3
+    move: 3
+    damage: 3
+    range: 3
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Siege
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: A conversation in bolt-form.
+    complexity: 1
+    role: Artillery
+    tags:
+      - human
+      - ranged
+      - siege
+    favored_terrain: plains
+  - id: 2a463f98db56490a89f1a0de4abc9373
+    name: Dusthorn Scouts
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Human
+    primary_type: Cavalry
+    secondary_type: Light
+    uv: 3
+    move: 5
+    damage: 2
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Mounted
+    abilities: []
+    ultimate: null
+    flavor_text: Hooves announce the news before the rider.
+    complexity: 1
+    role: Scout
+    tags:
+      - human
+      - cavalry
+    favored_terrain: plains
+  - id: 54022879230547c494cfe9e9b381d5e9
+    name: Fencepost Pikes
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Human
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: 'The classic: long stick, short conversation.'
+    complexity: 1
+    role: Frontline
+    tags:
+      - human
+      - infantry
+    favored_terrain: plains
+  - id: 386616135495499fb648523e4c6efe84
+    name: Grand Tusker
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Human
+    primary_type: Beast
+    secondary_type: Heavy
+    uv: 4
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Trample
+    abilities: []
+    ultimate: null
+    flavor_text: War, but bigger and smellier.
+    complexity: 1
+    role: Tank
+    tags:
+      - human
+      - beast
+      - mammoth
+    favored_terrain: plains
+  - id: ab1e0c431b0e4b3aa90e8dffb1f90726
+    name: Keepguard
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Human
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 3
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Shieldwall
+      - Harden 1
+    abilities: []
+    ultimate: null
+    flavor_text: Guards the hearth. Judges your posture.
+    complexity: 1
+    role: Tank
+    tags:
+      - human
+      - infantry
+    favored_terrain: plains
+    balance_rev: 20
+  - id: a3369e7b270143a3bada4c810881d313
+    name: Keystone Guard
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Human
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 3
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Harden 1
+    abilities: []
+    ultimate: null
+    flavor_text: Stone for skin. Warmth for motive.
+    complexity: 1
+    role: Tank
+    tags:
+      - human
+      - infantry
+    favored_terrain: plains
+  - id: e8d45469a03047559f7eff87a99333e3
+    name: Lockstep Cohort
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Human
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 3
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Defender
+    abilities: []
+    ultimate: null
+    flavor_text: They do not advance. They insist.
+    complexity: 1
+    role: Tank
+    tags:
+      - human
+      - infantry
+    favored_terrain: plains
+    balance_rev: 18
+  - id: fa2df7f4facf41bd91fd770cf6d5b15e
+    name: Marchland Outriders
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Human
+    primary_type: Cavalry
+    secondary_type: Light
+    uv: 3
+    move: 6
+    damage: 3
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Mounted
+    abilities: []
+    ultimate: null
+    flavor_text: Scout, courier, and occasional hurricane.
+    complexity: 1
+    role: Scout
+    tags:
+      - human
+      - cavalry
+    favored_terrain: plains
+  - id: 2007f626eb1c4c35b6c907ebcc526c59
+    name: Market Slingers
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Human
+    primary_type: Ranged
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 3
+    range: 3
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Pebbles with patriotism.
+    complexity: 1
+    role: Artillery
+    tags:
+      - human
+      - ranged
+    favored_terrain: plains
+  - id: 6cc9f739074c4c05b106eae2a30c6010
+    name: Oathbill Halberdiers
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Human
+    primary_type: Infantry
+    secondary_type: null
+    uv: 3
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Axe, hook, and a firm opinion about cavalry.
+    complexity: 1
+    role: Damage
+    tags:
+      - human
+      - infantry
+    favored_terrain: plains
+    balance_rev: 19
+  - id: a3b13a1d1ab04a2cab301177a45e36f3
+    name: Parish Levy
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Human
+    primary_type: Infantry
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Defender
+    abilities: []
+    ultimate: null
+    flavor_text: Farmers yesterday. Heroes by lunch.
+    complexity: 1
+    role: Frontline
+    tags:
+      - human
+      - infantry
+    favored_terrain: plains
+  - id: a85b277e701548b7a803c8406e53f50a
+    name: Quarryside Crossbows
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Human
+    primary_type: Ranged
+    secondary_type: null
+    uv: 3
+    move: 3
+    damage: 3
+    range: 3
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Piercing
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Bolts stamped with civic pride and bad news.
+    complexity: 1
+    role: Artillery
+    tags:
+      - human
+      - ranged
+    favored_terrain: plains
+  - id: b5f79804d51f49678691556ec79a1958
+    name: Redpike Line
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Human
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Flanking
+      - Defender
+    abilities: []
+    ultimate: null
+    flavor_text: They flank like accountants with spears.
+    complexity: 1
+    role: Frontline
+    tags:
+      - human
+      - infantry
+    favored_terrain: plains
+  - id: 04b1407041b04f139185086fac930546
+    name: Shieldkin
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Human
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 3
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Shieldwall
+    abilities: []
+    ultimate: null
+    flavor_text: Born under a shield. Raised under orders.
+    complexity: 1
+    role: Tank
+    tags:
+      - human
+      - infantry
+    favored_terrain: plains
+  - id: 5f72f27eefcc4cfe82951e1d61527639
+    name: Spur Lancers
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Human
+    primary_type: Cavalry
+    secondary_type: null
+    uv: 3
+    move: 5
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Mounted
+      - Charge
+    abilities: []
+    ultimate: null
+    flavor_text: Iron manners. Soft landing optional.
+    complexity: 1
+    role: Damage
+    tags:
+      - human
+      - cavalry
+    favored_terrain: plains
+  - id: ba6cb806c6cd40ed834d6e24ac0b3f4c
+    name: Stockyard Tusker
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Human
+    primary_type: Beast
+    secondary_type: null
+    uv: 3
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Trample
+    abilities: []
+    ultimate: null
+    flavor_text: Friendly until stepped on. Then geology.
+    complexity: 1
+    role: Tank
+    tags:
+      - human
+      - beast
+    favored_terrain: plains
+  - id: 2005f77c239f4915b0edf682027046db
+    name: Votive Lancers
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Human
+    primary_type: Cavalry
+    secondary_type: Heavy
+    uv: 3
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Mounted
+      - Charge
+    abilities: []
+    ultimate: null
+    flavor_text: Pointed diplomacy on four legs.
+    complexity: 1
+    role: Damage
+    tags:
+      - human
+      - cavalry
+    favored_terrain: plains
+  - id: 0a2bc93e41f544d6b9f56ebf5c0dfbda
+    name: Warmarch Longbows
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Human
+    primary_type: Ranged
+    secondary_type: Light
+    uv: 2
+    move: 4
+    damage: 3
+    range: 3
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Keeps the home fires… over there.
+    complexity: 1
+    role: Artillery
+    tags:
+      - human
+      - ranged
+    favored_terrain: plains
+  - id: 585dbc5854eb4387b3b5d23b9d66364d
+    name: Brandram
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Human
+    primary_type: Siege
+    secondary_type: Heavy
+    uv: 5
+    move: 2
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Siege
+      - Slow
+    abilities: []
+    ultimate: null
+    flavor_text: Slow, loud, and historically persuasive.
+    complexity: 2
+    role: Artillery
+    tags:
+      - human
+      - siege
+    favored_terrain: plains
+  - id: d6878ce46af34dc9af6616699dc3aa02
+    name: Column Veterans
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Human
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 5
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Guard
+      - Shieldwall
+    abilities: []
+    ultimate: null
+    flavor_text: Has seen worse. Will make you see it too.
+    complexity: 2
+    role: Frontline
+    tags:
+      - human
+      - infantry
+    favored_terrain: plains
+    balance_rev: 20
+  - id: c7402acd5e9f4ccfb0cb06e5af8f52ba
+    name: Firstfire Vanguard
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Human
+    primary_type: Infantry
+    secondary_type: null
+    uv: 5
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Charge
+    abilities: []
+    ultimate: null
+    flavor_text: First through the door. Last to apologize.
+    complexity: 2
+    role: Frontline
+    tags:
+      - human
+      - infantry
+    favored_terrain: plains
+  - id: 92912bf2191e4a44993107c94c2ad56c
+    name: Gatebrace Line
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Human
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 5
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Defender
+      - Shieldwall
+    abilities: []
+    ultimate: null
+    flavor_text: Shields kiss. Enemies learn manners.
+    complexity: 2
+    role: Tank
+    tags:
+      - human
+      - infantry
+    favored_terrain: plains
+  - id: 519bbeb1c8474556977da3c3960ba700
+    name: Homeguard Ballista
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Human
+    primary_type: Siege
+    secondary_type: null
+    uv: 5
+    move: 2
+    damage: 4
+    range: 3
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Piercing
+      - Siege
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Home defense, if home includes a fortress.
+    complexity: 2
+    role: Artillery
+    tags:
+      - human
+      - siege
+    favored_terrain: plains
+  - id: 9b5e2393bc3e4bea86f5bd03d16f04a8
+    name: Oathbound Hounds
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Human
+    primary_type: Beast
+    secondary_type: null
+    uv: 4
+    move: 5
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Frenzy
+    abilities: []
+    ultimate: null
+    flavor_text: Loyalty with teeth and a work ethic.
+    complexity: 2
+    role: Damage
+    tags:
+      - human
+      - beast
+    favored_terrain: plains
+  - id: 95baaf602fa042a0be41671ba4864302
+    name: Platebreakers
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Human
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 5
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Cleave
+    abilities: []
+    ultimate: null
+    flavor_text: Breaks lines the way winters break rivers.
+    complexity: 2
+    role: Damage
+    tags:
+      - human
+      - infantry
+    favored_terrain: plains
+  - id: 595a636a9de943f9b9ba0312ddb967f4
+    name: Ridgewind Rider
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Human
+    primary_type: Flying
+    secondary_type: null
+    uv: 5
+    move: 5
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Flying
+      - Mounted
+    abilities: []
+    ultimate: null
+    flavor_text: Dinner conversation at altitude.
+    complexity: 2
+    role: Damage
+    tags:
+      - human
+      - flying
+    favored_terrain: plains
+  - id: 975af7631eba4e30a7a51b4539871add
+    name: Siege Mammoth
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Human
+    primary_type: Beast
+    secondary_type: Heavy
+    uv: 6
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Slow
+      - Trample
+    abilities: []
+    ultimate: null
+    flavor_text: Siege engine that breathes and sulks.
+    complexity: 2
+    role: Tank
+    tags:
+      - human
+      - beast
+      - mammoth
+    favored_terrain: plains
+    balance_rev: 8
+  - id: 8289d9eb986549bf91933b60d05e7d90
+    name: Siege Psalm
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Human
+    primary_type: Siege
+    secondary_type: Heavy
+    uv: 6
+    move: 3
+    damage: 4
+    range: 3
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Siege
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Throws rocks. Also throws policy.
+    complexity: 2
+    role: Artillery
+    tags:
+      - human
+      - siege
+    favored_terrain: plains
+    balance_rev: 8
+  - id: 35704019fcd14e63af2535ddc679801e
+    name: Skypike Lancers
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Human
+    primary_type: Flying
+    secondary_type: Light
+    uv: 5
+    move: 6
+    damage: 2
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Flying
+      - Harass
+    abilities: []
+    ultimate: null
+    flavor_text: Lances from above. Gravity helps.
+    complexity: 2
+    role: Scout
+    tags:
+      - human
+      - flying
+    favored_terrain: plains
+  - id: facc447f1ee44e278c8b42e5e81e9b0c
+    name: Sparkmastiffs
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Human
+    primary_type: Beast
+    secondary_type: Light
+    uv: 4
+    move: 5
+    damage: 2
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Scout
+      - Harass
+    abilities: []
+    ultimate: null
+    flavor_text: Finds the soft target. Marks it. Smiles.
+    complexity: 2
+    role: Scout
+    tags:
+      - human
+      - beast
+    favored_terrain: plains
+  - id: 50aa8059ede542228a3b0bcc88532c78
+    name: Anvil Champion
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Human
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 7
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Shieldwall
+    abilities:
+      - Inspire
+    ultimate: null
+    flavor_text: Champion by title. Anvil by personality.
+    complexity: 3
+    role: Support
+    tags:
+      - human
+      - infantry
+    favored_terrain: plains
+  - id: 6d6324f06a1f404d8862119373f91474
+    name: Bastion Wardens
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Human
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 7
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Defender
+      - Harden 1
+    abilities: []
+    ultimate: null
+    flavor_text: They hold the door. The door holds civilization.
+    complexity: 3
+    role: Tank
+    tags:
+      - human
+      - infantry
+    favored_terrain: plains
+  - id: bf4947615eb7475ebe1395587025996f
+    name: Cinderlance Cohort
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Human
+    primary_type: Cavalry
+    secondary_type: Heavy
+    uv: 9
+    move: 4
+    damage: 4
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Charge
+      - Mounted
+    abilities: []
+    ultimate: null
+    flavor_text: Lances lit. Horses committed.
+    complexity: 4
+    role: Damage
+    tags:
+      - human
+      - cavalry
+    favored_terrain: plains
+    balance_rev: 11
+  - id: 828e6c71b56e43289f69184df45e0263
+    name: Cleaving Oathsworn
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Human
+    primary_type: Infantry
+    secondary_type: null
+    uv: 7
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Cleave
+    abilities: []
+    ultimate: null
+    flavor_text: One blade. Several opinions. All loud.
+    complexity: 3
+    role: Damage
+    tags:
+      - human
+      - infantry
+    favored_terrain: plains
+  - id: 8121a1ed257947c78ededd858a4c3415
+    name: Hearthfall Colossus
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Human
+    primary_type: Beast
+    secondary_type: Heavy
+    uv: 11
+    move: 3
+    damage: 5
+    range: 1
+    toughness: 7
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Siege
+      - Trample
+    abilities: []
+    ultimate: null
+    flavor_text: The hearth, but make it tectonic.
+    complexity: 4
+    role: Tank
+    tags:
+      - human
+      - beast
+      - legend
+    favored_terrain: plains
+    balance_rev: 11
+  - id: 324f41e4d3a04115a6cfd54f7bcb29c6
+    name: Ordnance Culverin
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Human
+    primary_type: Siege
+    secondary_type: null
+    uv: 7
+    move: 2
+    damage: 3
+    range: 3
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Siege
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Doctrine delivered at high velocity.
+    complexity: 3
+    role: Artillery
+    tags:
+      - human
+      - siege
+    favored_terrain: plains
+  - id: 1a3e42b88972416a982daa39d9039d26
+    name: Gearworks Engine
+    card_type: Unit
+    rarity: Epic
+    unique: false
+    race: Human
+    primary_type: Construct
+    secondary_type: Heavy
+    uv: 12
+    move: 3
+    damage: 4
+    range: 3
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Harden 1
+      - Siege
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Gears, oaths, and a very large crank.
+    complexity: 4
+    role: Artillery
+    tags:
+      - human
+      - siege
+      - construct
+    favored_terrain: plains
+    balance_rev: 11
+  - id: d8e1f90b59ca440ea7bbd72b1d3c7d0c
+    name: Oathstandard
+    card_type: Unit
+    rarity: Epic
+    unique: false
+    race: Human
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 11
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Inspire
+    ultimate: null
+    flavor_text: Where it plants, courage files paperwork.
+    complexity: 4
+    role: Support
+    tags:
+      - human
+      - infantry
+    favored_terrain: plains
+    balance_rev: 11
+  - id: 976fb45abbbf4fe496c522a0bcfe40d8
+    name: Tollgate Longspears
+    card_type: Unit
+    rarity: Epic
+    unique: false
+    race: Human
+    primary_type: Infantry
+    secondary_type: null
+    uv: 11
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+      - Shieldwall
+    abilities: []
+    ultimate: null
+    flavor_text: A polite way to keep the world at arm’s length.
+    complexity: 4
+    role: Frontline
+    tags:
+      - human
+      - infantry
+    favored_terrain: plains
+    balance_rev: 11
+  - id: 3d8e5a89ac2442f38c990b2b8aa38501
+    name: Aegis Skybreaker
+    card_type: Unit
+    rarity: Legendary
+    unique: true
+    race: Human
+    primary_type: Flying
+    secondary_type: Heavy
+    uv: 14
+    move: 4
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Flying
+      - Trample
+    abilities: []
+    ultimate: null
+    flavor_text: When the sky needs breaking, call covenant.
+    complexity: 5
+    role: Damage
+    tags:
+      - human
+      - flying
+    favored_terrain: plains
+    balance_rev: 11
+  - id: ad545fdf3eaf4aee8a09400bb2e5e3a5
+    name: Drill Cadet
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Human
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 1
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 1
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Drill
+    abilities: []
+    ultimate: null
+    flavor_text: Counts steps until the line stops wobbling.
+    complexity: 1
+    role: Support
+    tags:
+      - human
+      - support
+      - formation
+    favored_terrain: plains
+  - id: 11616a6d923544b1bfc74f9683f607fc
+    name: Buckler Link
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Human
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 1
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Guard
+    abilities: []
+    ultimate: null
+    flavor_text: Two shields are a wall. One is a prayer.
+    complexity: 1
+    role: Support
+    tags:
+      - human
+      - support
+      - formation
+    favored_terrain: plains
+  - id: 917e0e0709f743ccb94c194944bcacbc
+    name: Drum Corporal
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Human
+    primary_type: Infantry
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation March
+    abilities: []
+    ultimate: null
+    flavor_text: The beat is orders you can hear.
+    complexity: 1
+    role: Support
+    tags:
+      - human
+      - support
+      - formation
+    favored_terrain: plains
+  - id: 76375da793f2495bb137760a5e4dd082
+    name: Lance Pair Leader
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Human
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Drill
+    abilities: []
+    ultimate: null
+    flavor_text: Points at the same hole. Every time.
+    complexity: 1
+    role: Support
+    tags:
+      - human
+      - support
+      - formation
+    favored_terrain: plains
+  - id: 8c2a8f12e0bb4e978d5cbe1b2c90b659
+    name: Sergeant-at-Arms
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Human
+    primary_type: Infantry
+    secondary_type: null
+    uv: 3
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Guard
+    abilities: []
+    ultimate: null
+    flavor_text: Keeps the cheap seats alive.
+    complexity: 1
+    role: Support
+    tags:
+      - human
+      - support
+      - formation
+    favored_terrain: plains
+  - id: 003375bd521c4817925392d4a535a6f5
+    name: Column Guide
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Human
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 3
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation March
+    abilities: []
+    ultimate: null
+    flavor_text: Walks slow so the line can keep up.
+    complexity: 1
+    role: Support
+    tags:
+      - human
+      - support
+      - formation
+    favored_terrain: plains

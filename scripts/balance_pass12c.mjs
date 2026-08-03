@@ -1,5 +1,5 @@
 /**
- * Balance pass 12c: Construct-only soft nerf — ranged/siege UV +1, top shooter −1 D.
+ * Balance pass 12c: Construct-only soft nerf â€” ranged/siege UV +1, top shooter âˆ’1 D.
  * Targets anti-Dragon ranged/siege (Reach trim on melee did little).
  * Undead untouched. balance_rev >= 24.
  */
@@ -9,7 +9,7 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data/cards')
+const KB = path.resolve('data/cards')
 const REV = 24
 
 const changes = []
@@ -55,7 +55,7 @@ function applyUnitMap(card, map) {
     if (bump(card, field, amount, min, max)) {
       ch = true
       const label = field === 'uv' ? 'UV' : field[0].toUpperCase() + field.slice(1)
-      log(card, `${label} ${before}→${card[field]}`)
+      log(card, `${label} ${before}â†’${card[field]}`)
     }
   }
   return ch
@@ -70,7 +70,7 @@ function tuneConstruct(card) {
     const before = card.uv
     if (bump(card, 'uv', 1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   } else if (card.card_type === 'Unit') {
     ch = applyUnitMap(card, CONSTRUCT_UNIT_NERF)
@@ -78,7 +78,7 @@ function tuneConstruct(card) {
     const before = card.uv
     if (bump(card, 'uv', 1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   }
 

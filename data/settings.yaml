@@ -1,0 +1,75 @@
+workbook:
+  title: Kingdoms Development Kit
+  output_filename: Kingdoms Development Kit.xlsx
+
+card_types:
+  - Commander
+  - Officer
+  - Unit
+
+races:
+  - Human
+  - Elf
+  - Dwarf
+  - Demon
+  - Construct
+  - Dragon
+  - Lizardman
+  - Undead
+  - Beastfolk
+  - Siege
+
+rarities:
+  - Common
+  - Uncommon
+  - Rare
+  - Epic
+  - Legendary
+
+roles:
+  - Frontline
+  - Support
+  - Tank
+  - Damage
+  - Control
+  - Scout
+  - Healer
+  - Artillery
+
+primary_types:
+  - Infantry
+  - Ranged
+  - Cavalry
+  - Nature
+  - Fire
+  - Magic
+  - Beast
+  - Construct
+  - Flying
+  - Siege
+
+secondary_types:
+  - Heavy
+  - Light
+  - Ranged
+  - Fire
+  - Nature
+  - Magic
+  - Flying
+  - Amphibious
+  - Elite
+
+# Banner strip colors, keyed by Card Type only.
+banner_colors:
+  Commander: "#9B2C2C"
+  Officer: "#1B3A5F"
+  Unit: "#F5EFE0"
+  default: "#1B3A5F"
+
+# Rarity gem colors for card faces.
+rarity_colors:
+  Common: "#1A1A1A"
+  Uncommon: "#A8A9AD"
+  Rare: "#D4AF37"
+  Epic: "#EA580C"
+  Legendary: "#7C3AED"

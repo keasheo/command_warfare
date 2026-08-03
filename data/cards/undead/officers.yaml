@@ -1,0 +1,415 @@
+cards:
+  - id: 45fb9d2b68fe49b187bb94edcf65a260
+    name: Wight Captain Rasp
+    card_type: Officer
+    rarity: Common
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: null
+    uv: 8
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+    abilities:
+      - Inspire
+      - Death March
+    ultimate: null
+    flavor_text: Orders that outlive the voice.
+    complexity: 2
+    role: Frontline
+    tags:
+      - undead
+      - officer
+    supported_types:
+      - Infantry
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: f8d13d944e734faaa16a2f3e37c4e928
+    name: Crypt Engineer Bone
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Undead
+    primary_type: Siege
+    secondary_type: null
+    uv: 8
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Haul Lines
+      - Crypt Demolish
+      - Decay
+    ultimate: null
+    flavor_text: Catapults assembled from leftovers.
+    complexity: 2
+    role: Artillery
+    tags:
+      - undead
+      - officer
+    supported_types:
+      - Siege
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: f92feda91bed4cbea5c1653a72a03d7d
+    name: Fear Herald Hush
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Undead
+    primary_type: Magic
+    secondary_type: null
+    uv: 8
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 5
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+      - Reach
+    abilities:
+      - Necrotic Bolt
+      - Bone Prison
+      - Mass Fear
+    ultimate: null
+    flavor_text: Whispers with teeth.
+    complexity: 2
+    role: Control
+    tags:
+      - undead
+      - officer
+    supported_keywords:
+      - Fear
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: e26f93a9cc59472e8842fe3c45fc7aaa
+    name: Necromancer Quill
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Undead
+    primary_type: Magic
+    secondary_type: null
+    uv: 8
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 5
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Spellcaster
+      - Reach
+    abilities:
+      - Raise Thrall
+      - Necrotic Bolt
+    ultimate: null
+    flavor_text: Once per battle is enough.
+    complexity: 2
+    role: Support
+    tags:
+      - undead
+      - officer
+    supported_keywords:
+      - Revenant
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: 3dc90d0d31f34e84b5460a345022f822
+    name: Thrall Driver Lash
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: null
+    uv: 8
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Inspire
+      - Death March
+      - Reaper's Touch
+    ultimate: null
+    flavor_text: The whip is ceremonial. The fear is not.
+    complexity: 2
+    role: Frontline
+    tags:
+      - undead
+      - officer
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: 8fdb622c33da41cdbbe104a264c7d8f4
+    name: Death Knight Lead
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 9
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 20
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+    abilities:
+      - Inspire
+      - Barrow Ward
+      - Crypt Discipline
+    ultimate: null
+    flavor_text: Armor older than nations.
+    complexity: 2
+    role: Damage
+    tags:
+      - undead
+      - officer
+    favored_terrain: swamp
+    balance_rev: 23
+  - id: b8a7d10ce282487989aab9b9bc8f557e
+    name: Soul Tither Coin
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: null
+    uv: 9
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 6
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Soul Tithe
+      - Rally
+      - Inspire
+    ultimate: null
+    flavor_text: Every fall pays the company.
+    complexity: 2
+    role: Support
+    tags:
+      - undead
+      - officer
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: da211c5f41ec43209da806e5282a228f
+    name: Tomb Guard Officer
+    card_type: Officer
+    rarity: Epic
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 10
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+      - Guard
+    abilities:
+      - Inspiring Presence
+      - Death March
+      - Hold the Line
+    ultimate: null
+    flavor_text: The tomb still has a duty roster.
+    complexity: 4
+    role: Tank
+    tags:
+      - undead
+      - officer
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: 183f1cf78acf46dcba231f7f188fef7c
+    name: Dirge Herald Vellum
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Undead
+    primary_type: Magic
+    secondary_type: null
+    uv: 8
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+    abilities:
+      - Mass Fear
+      - Decay
+      - Inspire
+    ultimate: null
+    flavor_text: The song has no living audience left.
+    complexity: 2
+    role: Control
+    tags:
+      - undead
+      - officer
+    supported_keywords:
+      - Fear
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: a8b66c84e19c4cb797124d51a63b6f6b
+    name: Ossuary Binder
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Undead
+    primary_type: Magic
+    secondary_type: null
+    uv: 9
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 5
+    company_ap: 6
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Raise Thrall
+      - Soul Tithe
+      - Medic
+    ultimate: null
+    flavor_text: Bones are just unfinished orders.
+    complexity: 3
+    role: Support
+    tags:
+      - undead
+      - officer
+    supported_keywords:
+      - Revenant
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: 4eb1eeeb2c7242f99d81bdfddb00543f
+    name: Catapult Wight Lead
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Undead
+    primary_type: Siege
+    secondary_type: null
+    uv: 8
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 5
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities:
+      - Haul Lines
+      - Battery Link
+      - Repair
+    ultimate: null
+    flavor_text: Dead hands do not tire on the ropes.
+    complexity: 2
+    role: Artillery
+    tags:
+      - undead
+      - officer
+    supported_types:
+      - Siege
+    supported_keywords:
+      - Siege
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: 9027362f04df4b35927329ce2be8ab7d
+    name: Barrow Blade Captain
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 10
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 20
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+      - Guard
+    abilities:
+      - Reaper's Touch
+      - Crypt Discipline
+      - Hold the Line
+      - Inspire
+    ultimate: null
+    flavor_text: The barrow door opens outward only.
+    complexity: 3
+    role: Tank
+    tags:
+      - undead
+      - officer
+    supported_types:
+      - Infantry
+      - Heavy
+    favored_terrain: swamp
+    balance_rev: 12

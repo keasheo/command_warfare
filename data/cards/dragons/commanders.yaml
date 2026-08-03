@@ -1,0 +1,142 @@
+cards:
+  - id: 316517fd1b8448339e2d3f69ad322d5e
+    name: Sky Tyrant Vexis
+    card_type: Commander
+    rarity: Rare
+    unique: false
+    race: Dragon
+    primary_type: Flying
+    secondary_type: null
+    uv: 13
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 7
+    company_ap: null
+    company_capacity: null
+    command_radius: 6
+    ap_generation: 5
+    cc_generation: 5
+    keywords:
+      - Flying
+      - Fear
+    abilities:
+      - Brood Banner
+      - Scale Aegis
+      - Terror Mandate
+    ultimate: Sky Tyrant
+    flavor_text: Shadow first. Teeth second.
+    complexity: 4
+    role: Damage
+    tags:
+      - dragon
+      - flying
+    favored_terrain: volcanic
+    balance_rev: 26
+  - id: ea7d3c1f1eec479e84cef036b19058a7
+    name: Cataclysm Elder Pyrr
+    card_type: Commander
+    rarity: Epic
+    unique: false
+    race: Dragon
+    primary_type: Flying
+    secondary_type: null
+    uv: 16
+    move: 3
+    damage: 4
+    range: 3
+    toughness: 7
+    company_ap: null
+    company_capacity: null
+    command_radius: 6
+    ap_generation: 5
+    cc_generation: 6
+    keywords:
+      - Flying
+      - Fear
+      - Blast
+      - Reach
+    abilities:
+      - Ember Mandate
+      - Scorch Decree
+      - Inferno Mandate
+    ultimate: Cataclysm Breath
+    flavor_text: The horizon learns humility.
+    complexity: 5
+    role: Artillery
+    tags:
+      - dragon
+      - blast
+    favored_terrain: volcanic
+    balance_rev: 19
+  - id: dcb98c0372a289f999d2520b42071e69
+    name: Kindred Tyrant
+    card_type: Commander
+    rarity: Epic
+    unique: false
+    race: Dragon
+    primary_type: Infantry
+    secondary_type: null
+    uv: 14
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: 7
+    ap_generation: 5
+    cc_generation: 5
+    keywords: []
+    abilities:
+      - Dragon Compact
+      - Brood Banner
+      - Rally
+      - Kindred Flightpaths
+      - Wyrm Lash
+      - Kindred Roar
+    ultimate: Tyrant's Command
+    flavor_text: Wings answer only their own sky.
+    complexity: 4
+    role: Damage
+    tags:
+      - dragon
+      - kinship
+      - compact
+    favored_terrain: volcanic
+    balance_rev: 19
+  - id: 3466060d28df459891f8c8a75bcd75d8
+    name: Hoard Sovereign Khar
+    card_type: Commander
+    rarity: Legendary
+    unique: true
+    race: Dragon
+    primary_type: Flying
+    secondary_type: Elite
+    uv: 26
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 8
+    company_ap: null
+    company_capacity: null
+    command_radius: 5
+    ap_generation: 5
+    cc_generation: 5
+    keywords:
+      - Flying
+      - Fear
+      - Cleave
+    abilities:
+      - Brood Banner
+      - Scale Aegis
+      - Wing Gust
+      - Hoard Routes
+    ultimate: Hoard Claim
+    flavor_text: Treasure is a battlefield with better lighting.
+    complexity: 5
+    role: Damage
+    tags:
+      - dragon
+    favored_terrain: volcanic
+    balance_rev: 25

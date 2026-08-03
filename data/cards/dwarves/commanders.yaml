@@ -1,0 +1,140 @@
+cards:
+  - id: 4213abc410bd404fbba4fe1e8e5b675f
+    name: Hold-Lord Granite
+    card_type: Commander
+    rarity: Rare
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 5
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: 6
+    ap_generation: 6
+    cc_generation: 8
+    keywords: []
+    abilities:
+      - Anvil Advance
+      - Holdfast Gate
+      - Rally
+      - Master Strategist
+      - Holdfast Doctrine
+    ultimate: Unbreakable Hold
+    flavor_text: The mountain does not retreat; neither does he.
+    complexity: 4
+    role: Tank
+    tags:
+      - dwarf
+      - fortify
+    favored_terrain: hills
+    balance_rev: 12
+  - id: e0d2d2cb00f24719b5e129433c8d7423
+    name: Forge-Marshal Flintpick
+    card_type: Commander
+    rarity: Epic
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: null
+    uv: 6
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: 6
+    ap_generation: 6
+    cc_generation: 7
+    keywords: []
+    abilities:
+      - Anvil Advance
+      - Cannon Order
+      - Rally
+      - Master Strategist
+      - Siege Sync
+      - Forge Mend
+    ultimate: Depth Charge
+    flavor_text: He maps walls by how they fail.
+    complexity: 5
+    role: Control
+    tags:
+      - dwarf
+      - siege
+    favored_terrain: hills
+    balance_rev: 12
+  - id: 8f35dc10a68349d191fa58bc6ae76792
+    name: Thane of All Holds
+    card_type: Commander
+    rarity: Epic
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: null
+    uv: 12
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: 7
+    ap_generation: 6
+    cc_generation: 7
+    keywords: []
+    abilities:
+      - Dwarf Compact
+      - Stone Highways
+      - Anvil Advance
+      - Rally
+      - Anvil Strike
+    ultimate: Anvil Decree
+    flavor_text: Every hold under one oath.
+    complexity: 4
+    role: Tank
+    tags:
+      - dwarf
+      - kinship
+      - compact
+    favored_terrain: hills
+    balance_rev: 12
+  - id: 33b9acd03a574dbc9a7796c038f3cd98
+    name: Anvil-Thane Korrik
+    card_type: Commander
+    rarity: Legendary
+    unique: true
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 12
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: 6
+    ap_generation: 6
+    cc_generation: 7
+    keywords:
+      - Unyielding
+      - Harden 1
+    abilities:
+      - Anvil Advance
+      - Holdfast Gate
+      - Last Stand
+      - Master Strategist
+      - Oath Anvil
+    ultimate: Korrik's Stand
+    flavor_text: When the anvil rings, the line remembers.
+    complexity: 5
+    role: Tank
+    tags:
+      - dwarf
+    favored_terrain: hills
+    balance_rev: 12

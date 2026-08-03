@@ -1,6 +1,6 @@
 /**
  * Soft nerf pass: everyone except Human & Beastfolk.
- * Prefer trimming recent over-buffs (high D/T) — balance_rev 6.
+ * Prefer trimming recent over-buffs (high D/T) â€” balance_rev 6.
  */
 import fs from 'node:fs'
 import path from 'node:path'
@@ -8,7 +8,7 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data/cards')
+const KB = path.resolve('data/cards')
 const REV = 6
 const SKIP = new Set(['Human', 'Beastfolk'])
 

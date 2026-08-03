@@ -9,10 +9,10 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data')
+const KB = path.resolve('data')
 const abPath = path.join(KB, 'abilities.yaml')
 
-/** Passive → Active conversions (same name, new spend + cast text). */
+/** Passive â†’ Active conversions (same name, new spend + cast text). */
 const CONVERT_TO_ACTIVE = {
   'Directive Tempo': {
     type: 'Active',
@@ -82,7 +82,7 @@ function patchAbilities() {
       cooldown: spec.cooldown,
       tags: spec.tags,
     }
-    console.log('converted → active:', name, '→', spec.commanders.join(', '))
+    console.log('converted â†’ active:', name, 'â†’', spec.commanders.join(', '))
     changed++
   }
   if (changed) {

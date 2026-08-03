@@ -1,0 +1,2342 @@
+title: Card Design Bible
+sections:
+- id: 82add593f7
+  title: Card Design Bible
+  body: Card Design Bible
+- id: cb6857fb35
+  title: Vision
+  body: 'Tactical Command Wargame is intended to be a strategy-first tabletop miniature card game where
+    battlefield decisions matter more than individual dice rolls.
+
+
+    The game should reward:
+
+
+    Positioning
+
+
+    Army composition
+
+
+    Resource management
+
+
+    Tactical planning
+
+
+    Long-term strategy
+
+
+    rather than luck or excessive complexity.
+
+
+    Every rule should reinforce this vision.'
+- id: ca7ed30559
+  title: Core Design Philosophy
+  body: 'Whenever a new mechanic is considered, it should satisfy as many of these principles as possible.
+
+
+    Simplicity First
+
+
+    Individual cards should remain simple.
+
+
+    Depth should emerge from interactions between cards rather than paragraphs of unique rules.
+
+
+    Strategic Decisions
+
+
+    Every turn should present meaningful choices.
+
+
+    Examples include:
+
+
+    Which Officer to activate.
+
+
+    Where to spend Company AP.
+
+
+    Which attack method to use.
+
+
+    When to spend CC.
+
+
+    Whether to promote a replacement Officer.
+
+
+    Reduce Bookkeeping
+
+
+    Avoid tracking resources on dozens of units.
+
+
+    Resources should exist at higher organizational levels.
+
+
+    Current resource ownership:
+
+
+    Commander
+
+    → CC
+
+    → Commander AP
+
+
+    Officer
+
+    → Company AP
+
+
+    Combat Units
+
+    → No AP
+
+
+    Reusable Systems
+
+
+    Whenever possible,
+
+
+    create reusable mechanics instead of unique card text.
+
+
+    Bad:
+
+
+    "This unit attacks three times against one target."
+
+
+    Good:
+
+
+    MultiStrike 3
+
+
+    Expandability
+
+
+    New mechanics should fit into existing systems.
+
+
+    The game should not require rewriting core rules to add future content.'
+- id: '5477895296'
+  title: Design Pillars
+  body: 'The entire game rests upon five pillars.
+
+
+    Command
+
+
+    The command structure is the most valuable resource in the game.
+
+
+    Players are rewarded for maintaining:
+
+
+    Commander
+
+
+    ↓
+
+
+    Officer
+
+
+    ↓
+
+
+    Company
+
+
+    Destroying command should create tactical problems rather than immediately ending the game.
+
+
+    Positioning
+
+
+    Positioning should matter more than statistics.
+
+
+    Movement should create opportunities.
+
+
+    Terrain should matter.
+
+
+    Command Radius should matter.
+
+
+    Formation should matter.
+
+
+    Resource Management
+
+
+    Every meaningful action costs something.
+
+
+    Movement.
+
+
+    Attacks.
+
+
+    Abilities.
+
+
+    Defensive Reactions.
+
+
+    Everything competes for Company AP.
+
+
+    Card Identity
+
+
+    Every card should feel unique.
+
+
+    A card should have:
+
+
+    a battlefield role
+
+
+    strengths
+
+
+    weaknesses
+
+
+    No card should simply be "better."
+
+
+    Future Proofing
+
+
+    Every mechanic should leave room for future mechanics.
+
+
+    Never design a system that prevents future expansion.'
+- id: 86f1e4916c
+  title: Army Structure
+  body: 'Default army size
+
+
+    200 UV
+
+
+    Expected composition
+
+
+    1 Commander
+
+
+    Approximately
+
+
+    8 Officers
+
+
+    Approximately
+
+
+    40 Combat Units
+
+
+    This serves as the balancing baseline.'
+- id: 3ed1e746d1
+  title: Card Types
+  body: 'There are only three playable card types.
+
+
+    Commander
+
+
+    Represents strategic leadership.
+
+
+    Responsibilities
+
+
+    Generate CC.
+
+
+    Support Officers.
+
+
+    Fight directly.
+
+
+    Officer
+
+
+    Represents tactical leadership.
+
+
+    Responsibilities
+
+
+    Generate Company AP.
+
+
+    Lead a Company.
+
+
+    Support nearby units.
+
+
+    Maintain battlefield control.
+
+
+    Combat Unit
+
+
+    Represents individual battlefield troops.
+
+
+    Responsibilities
+
+
+    Deal damage.
+
+
+    Capture objectives.
+
+
+    Protect Officers.
+
+
+    Carry specialized abilities.'
+- id: a6ffadaa2b
+  title: Rarity Philosophy
+  body: 'Rarity is not intended to represent collectibility.
+
+
+    Rarity represents:
+
+
+    Power Budget
+
+
+    Complexity Budget
+
+
+    Ability Budget
+
+
+    Common
+
+
+    Purpose
+
+
+    Core battlefield units.
+
+
+    Generally possess:
+
+
+    No abilities
+
+
+    or
+
+
+    One simple Passive.
+
+
+    Cheap UV.
+
+
+    Simple battlefield role.
+
+
+    Easy to understand.
+
+
+    Examples
+
+
+    Militia
+
+
+    Skeleton
+
+
+    Spearman
+
+
+    Wolf
+
+
+    Goblin
+
+
+    Uncommon
+
+
+    Purpose
+
+
+    Specialists.
+
+
+    Usually possess:
+
+
+    One passive.
+
+
+    One activated ability.
+
+
+    or
+
+
+    Two Passives.
+
+
+    Moderate UV.
+
+
+    More specialized role.
+
+
+    Examples
+
+
+    Priest
+
+
+    Scout
+
+
+    Crossbowman
+
+
+    Assassin
+
+
+    Shaman
+
+
+    Rare
+
+
+    Purpose
+
+
+    Battlefield centerpieces.
+
+
+    May possess:
+
+
+    Multiple abilities.
+
+
+    Several Passives.
+
+
+    Activated abilities.
+
+
+    Company support.
+
+
+    Unique mechanics.
+
+
+    Higher UV.
+
+
+    Examples
+
+
+    Commanders
+
+
+    Elite Officers
+
+
+    Hydras
+
+
+    Ancient Dragons
+
+
+    Legendary Heroes'
+- id: 638b0be9e8
+  title: UV Philosophy
+  body: 'UV represents a unit''s total battlefield value.
+
+
+    UV is determined by:
+
+
+    Statistics.
+
+
+    Abilitys.
+
+
+    Abilities.
+
+
+    Synergies.
+
+
+    Utility.
+
+
+    Not by rarity alone.
+
+
+    Higher rarity usually allows more design budget,
+
+
+    not necessarily more raw statistics.'
+- id: d4cb248e2b
+  title: Statistics Philosophy
+  body: 'Combat Units intentionally possess very few statistics.
+
+
+    Current stats
+
+
+    Movement
+
+
+    Damage
+
+
+    Toughness
+
+
+    Range
+
+
+    UV
+
+
+
+    Abilities
+
+
+    Nothing else.
+
+
+    No AP.
+
+
+    No Armor.
+
+
+    No Initiative.
+
+
+    No Accuracy stat.
+
+
+    This keeps cards readable.'
+- id: 734a1a4e35
+  title: Company Design
+  body: 'The Company is the fundamental gameplay element.
+
+
+    The player is not commanding forty individual units.
+
+
+    The player is commanding
+
+
+    approximately
+
+
+    eight Companies.
+
+
+    Combat Units exist to support Company tactics.
+
+
+    Every Company should feel different.
+
+
+    Examples
+
+
+    Shield Wall
+
+
+    Fast Cavalry
+
+
+    Archers
+
+
+    Monsters
+
+
+    Skirmishers
+
+
+    Undead Horde'
+- id: 218756f3a2
+  title: Commander Design Philosophy
+  body: 'The Commander represents the player''s strategic identity.
+
+
+    Every Commander should immediately change how an army plays.
+
+
+    Commanders should have
+
+
+    Several passive abilities.
+
+
+    Several activated abilities.
+
+
+    Faction-defining mechanics.
+
+
+    Commanders should rarely provide direct statistical bonuses.
+
+
+    Instead they should change:
+
+
+    Resource management.
+
+
+    Army strategy.
+
+
+    Company interaction.
+
+
+    Activation order.
+
+
+    Battlefield objectives.
+
+
+    Commander Budget
+
+
+    Highest UV in the army.
+
+
+    Highest complexity.
+
+
+    Largest rules footprint.
+
+
+    Should still fit comfortably on a single card.'
+- id: e7e131111f
+  title: Officer Design Philosophy
+  body: 'Officers define Companies.
+
+
+    A player should feel excited to activate an Officer.
+
+
+    An Officer should typically provide:
+
+
+    One passive ability.
+
+
+    One activated ability.
+
+
+    Company AP.
+
+
+    Company UV Capacity.
+
+
+    Command Radius.
+
+
+    Reasonable combat statistics.
+
+
+    Officer abilities should primarily affect
+
+
+    their own Company.
+
+
+    Global Officer effects should be extremely rare.
+
+
+    Officer personalities should matter.
+
+
+    Examples
+
+
+    Captain
+
+
+    Aggressive.
+
+
+    Marshal
+
+
+    Defensive.
+
+
+    Priest
+
+
+    Support.
+
+
+    Hunter
+
+
+    Skirmish.
+
+
+    Necromancer
+
+
+    Summoning.'
+- id: 6ac550331d
+  title: Combat Unit Design Philosophy
+  body: 'Combat Units should remain intentionally simple.
+
+
+    The majority of units should have one ability.
+
+
+    Only exceptional units should possess multiple mechanics.
+
+
+    Combat Units should fit recognizable battlefield roles.
+
+
+    Examples
+
+
+    Tank
+
+
+    Fast attacker
+
+
+    Ranged damage
+
+
+    Support
+
+
+    Objective holder
+
+
+    Monster
+
+
+    Scout
+
+
+    Assassin
+
+
+    A player should understand a Combat Unit after reading it once.
+
+
+    If the card requires rereading multiple times,
+
+
+    it is probably too complicated.
+
+
+    Design Goal
+
+
+    The average Combat Unit should explain itself in under 10 seconds.
+
+
+    That simplicity allows the Commander and Officer cards to carry the majority of the game''s strategic
+    complexity while keeping the battlefield readable, even with dozens of units in play.'
+- id: d6e61e2b52
+  title: Card Construction
+  body: 'Every card should communicate its battlefield role at a glance.
+
+
+    A player should understand:
+
+
+    What the unit is.
+
+
+    What it does.
+
+
+    Why it is valuable.
+
+
+    within a few seconds.
+
+
+    No card should require reading a paragraph to understand.
+
+
+    Commander Layout
+
+
+    The Commander card is the most information-dense card in the game.
+
+
+    Contains:
+
+
+    Name
+
+
+    Card Type (Commander)
+
+
+    Unit Types
+
+
+    Artwork
+
+
+    UV
+
+
+    Movement
+
+
+    Damage
+
+
+    Toughness
+
+
+    Range
+
+
+    Commander AP
+
+
+    Command Radius
+
+
+    CC Generation
+
+
+    4–6 abilities
+
+
+    Flavor text
+
+
+    Rarity icon
+
+
+    Commander cards intentionally have the largest text box.
+
+
+    Officer Layout
+
+
+    Officer cards mirror Commander cards but are simplified.
+
+
+    Contains:
+
+
+    Name
+
+
+    Card Type (Officer)
+
+
+    Unit Types
+
+
+    Artwork
+
+
+    UV
+
+
+    Movement
+
+
+    Damage
+
+
+    Toughness
+
+
+    Range
+
+
+    Company AP
+
+
+    Company UV Capacity
+
+
+    Command Radius
+
+
+    1–3 abilities
+
+
+    Flavor text
+
+
+    Rarity icon
+
+
+    Officers never display CC.
+
+
+    Combat Unit Layout
+
+
+    Combat Units should be extremely readable.
+
+
+    Contains:
+
+
+    Name
+
+
+    Card Type (Unit)
+
+
+    Unit Types
+
+
+    Large artwork
+
+
+    UV
+
+
+    Movement
+
+
+    Damage
+
+
+    Toughness
+
+
+    Range
+
+
+    One ability block
+
+
+    Flavor text
+
+
+    Rarity icon
+
+
+    Combat Units intentionally do not display AP.'
+- id: 122850c6c6
+  title: Card Layout Philosophy
+  body: 'Cards should prioritize readability over decoration.
+
+
+    Information Hierarchy
+
+
+    A player should naturally read a card in this order:
+
+
+    Card Type
+
+
+    Name
+
+
+    Artwork
+
+
+    Statistics
+
+
+    Abilities
+
+
+    Flavor Text
+
+
+    Rarity
+
+
+    Border Colors
+
+
+    Card borders communicate unit type immediately.
+
+
+    Commander
+
+
+    Red
+
+
+    Officer
+
+
+    Blue
+
+
+    Combat Unit
+
+
+    White
+
+
+    Rarity Icons
+
+
+    Only an icon is displayed.
+
+
+    Never write:
+
+
+    "Rare"
+
+
+    "Common"
+
+
+    "Uncommon"
+
+
+    Instead use:
+
+
+    ⚫ Common
+
+
+    ⚪ Uncommon
+
+
+    🟡 Rare
+
+
+    (Final icons to be determined.)
+
+
+    Flavor Text
+
+
+    Flavor text exists purely for immersion.
+
+
+    Flavor text never has gameplay meaning.
+
+
+    Flavor text should:
+
+
+    Be one to two sentences.
+
+
+    Reinforce the unit''s personality.
+
+
+    Never explain mechanics.'
+- id: e7f95c84b4
+  title: Ability Design
+  body: 'Abilities should be concise.
+
+
+    Whenever possible,
+
+
+    abilities should reuse shared Passive and Active definitions instead of rewriting mechanics.
+
+
+    Good Example
+
+
+    Passive
+
+
+    Regenerate 1.
+
+
+    Instead of
+
+
+    "At the end of every activation this creature restores one lost Toughness."
+
+
+    Active Abilities
+
+
+    Activated abilities should generally follow this structure:
+
+
+    Ability Name
+
+
+    Cost: X Company AP
+
+
+    Effect
+
+
+    Example
+
+
+    Battle Cry
+
+
+    Cost: 2 AP
+
+
+    Friendly units in this Company gain +1 Damage until end of activation.
+
+
+    Passive Abilities
+
+
+    Passive abilities should always be active unless otherwise stated.
+
+
+    Avoid conditional text whenever possible.
+
+
+    Triggered Abilities
+
+
+    Triggered abilities should begin with:
+
+
+    "When..."
+
+
+    "After..."
+
+
+    "At the beginning..."
+
+
+    "At the end..."
+
+
+    Use consistent timing language throughout the game.'
+- id: 693555f2ac
+  title: Attack Method Design
+  body: 'Attack Methods fundamentally change how an attack resolves.
+
+
+    Every attack chooses exactly one Attack Method.
+
+
+    Current Attack Methods
+
+
+    Standard
+
+
+    Cleave
+
+
+    Trample
+
+
+    MultiStrike
+
+
+    Attack Methods may never be combined during a single attack.
+
+
+    If a unit possesses multiple Attack Methods,
+
+
+    its controller chooses one when declaring the attack.
+
+
+    Why?
+
+
+    Prevent complicated interactions.
+
+
+    Prevent rules bloat.
+
+
+    Encourage tactical decision making.
+
+
+    Example
+
+
+    Ancient Dragon
+
+
+    Cleave
+
+
+    Trample
+
+
+    Breath (when printed)
+
+
+    Blast / Splash (Dragon — when printed): Damage the primary target and each enemy within radius 1
+    of that target. Separate Hit roll per enemy. Blast does not scale.
+
+
+    When attacking,
+
+
+    choose one.
+
+
+    Never both (never combine Attack Methods).
+
+
+    Future Attack Methods should follow this same principle.
+
+
+    Attack Sequence Philosophy
+
+
+    An Attack Sequence should completely resolve before another attacking unit begins.
+
+
+    This is now considered a core design rule.
+
+
+    Future mechanics should fit inside Attack Sequences rather than interrupting the overall combat structure.'
+- id: d031921d80
+  title: Balancing Guidelines
+  body: 'Raw statistics are only one component of a card''s value.
+
+
+    Balance should consider:
+
+
+    Damage
+
+
+    Movement
+
+
+    Range
+
+
+    Toughness
+
+
+    Abilities
+
+
+    Synergies
+
+
+    Utility
+
+
+    Reliability
+
+
+    Damage
+
+
+    Higher Damage becomes exponentially more valuable when combined with:
+
+
+    Trample
+
+
+    Cleave
+
+
+    Hit bonuses
+
+
+    Adaptive Attack
+
+
+    Toughness
+
+
+    Higher Toughness increases:
+
+
+    Survivability
+
+
+    Board control
+
+
+    Adaptive Attack value
+
+
+    Regeneration value
+
+
+    Movement
+
+
+    Movement creates tactical flexibility.
+
+
+    Movement is often stronger than raw Damage.
+
+
+    Range
+
+
+    Melee is always Range 1 (displayed as Melee).
+
+
+    Hard printed maximum: Range 3. No card may print Range 4 or higher as a base statistic.
+
+
+    Effective Range above 3 is allowed only as a temporary bonus from Active abilities. Passives must
+    not grant permanent printed Range above 3.
+
+
+    Who gets +Range Actives: Elves are the primary owners (precision archery identity — e.g. Spanned
+    Shot / Volley Stretch). Siege crews may have a narrow siege-only version (e.g. Siege Elevation) that
+    only buffs Siege units. Other races should not casually print temporary Range extension; that is Elf
+    (and limited Siege) design space.
+
+
+    Longer printed range (within 1–3) should generally reduce raw combat statistics.
+
+
+    Abilities
+
+
+    Passives and Actives are often worth more than +1 Damage.
+
+
+    Never underestimate ability value.
+
+
+    Utility
+
+
+    Support abilities often justify lower combat statistics.
+
+
+    Examples
+
+
+    Healing
+
+
+    Movement buffs
+
+
+    AP generation
+
+
+    Debuff removal
+
+
+    Objective control
+
+
+    Complexity Budget
+
+
+    Every card has a complexity budget.
+
+
+    Higher rarity allows more complexity.
+
+
+    Complexity should never exceed what comfortably fits on a card.'
+- id: 5ddebb1bcc
+  title: Faction Identity
+  body: 'Each faction should have a distinct battlefield identity.
+
+
+    Avoid giving every faction access to every mechanic.
+
+
+    Mechanics create identity.
+
+
+    Contrast matrix (implemented + designed)
+
+
+    Human — Discipline, officers, shieldwalls, flexible teamwork.
+
+
+    Elf — Mobility, range, precision, skirmishing. Primary owners of temporary +Range Actives.
+
+
+    Lizardman — Amphibious, swamp control, poison, regeneration.
+
+
+    Demon — Tempo, fire, Fear, aggression.
+
+
+    Dwarf — Defense, Harden, formation, native Fortify, short-mid range attrition.
+
+
+    Construct — Machines, Repair, Fearless, Siege synergy, slow durable lines.
+
+
+    Dragon — Few high-UV monsters (flyers and ground broods), Attack Method choices, Fear, splash Blast
+    radius 1–2, breaks forts rather than builds them.
+
+
+    Undead — Attrition, sacrifice, Revenant recursion, Fear.
+
+
+    Beastfolk — Pack tactics, Charge/Flanking/Frenzy, Beast-typed warbands (centaurs, wolfkin, minotaurs).
+
+
+    Naming
+
+
+    Beastfolk is the race (commanders, officers, army identity).
+
+
+    Beast is a unit type used by Beastfolk (and others) for synergy — not a separate race.
+
+
+    Dragon is the race name (not Drakes); lesser brood units may be named drakes in flavor.
+
+
+    Do not give every faction Fortify, Pack, and Revenant. Identity comes from which tools they own.'
+- id: b2f4ct10n01
+  title: 'Faction Design: Dwarf'
+  body: 'Fantasy: Stubborn infantry, engineers, mountain and hold warfare.
+
+
+    Play pattern: Low Move, high Toughness, Harden and Shieldwall density, native Fortify, short-to-mid
+    range. Win attrition on objectives and bridges.
+
+
+    Fortification focus: Dwarves should have the densest Fortify toolkit in the game — more ways to place,
+    refresh, and fight from Fortified hexes than other races. Multiple engineer/officer actives that
+    Fortify (self, adjacent, objective, or radius), plus ultimates that drop two Fortifications at once.
+    Other races Fortify sparingly; Dwarves Fortify as a core plan.
+
+
+    Avoid: Matching Elf ranged superiority or Demon tempo spikes.
+
+
+    Signature: Harden, Shieldwall, Fortify hex, adjacent-Dwarf formation Toughness, Repair for cannon
+    teams, Unyielding on elites.
+
+
+    Company shape: Heavy Infantry majority; few cavalry; engineer officers; Runed Mortar / Ironbreaker
+    Cannon as unique siege.
+
+
+    Commander archetypes: Hold (Unbreakable Hold), Engineer (Depth Charge), Anvil (Anvil Decree).'
+- id: b2f4ct10n02
+  title: 'Faction Design: Construct'
+  body: 'Fantasy: Animated war engines and automata. No flesh, no panic.
+
+
+    Play pattern: High Toughness, Repair instead of Medic/Regenerate, Fearless (and often Poison
+    resistance), slow repositioning, strong shared-Siege attachment.
+
+
+    Avoid: Soft swarm (Undead) or glass-cannon elites (Dragon).
+
+
+    Signature: Repair, Siege, Fearless, Overdrive (+Damage / −Toughness until end of round), Arc Projector
+    and Walking Battery.
+
+
+    Company shape: Construct infantry plus attached shared siege; officers discount Siege AP or extend
+    Repair.
+
+
+    Commander archetypes: Rebuild (Full Rebuild), Barrage (Lockstep Barrage), Control (Null Field).'
+- id: b2f4ct10n03
+  title: 'Faction Design: Dragon'
+  body: 'Fantasy: Ancient commanders and brood-lieutenants leading lesser kin — winged wyrms, bipedal
+    dragonkin (dragon-people), and other ground broods. Quality over quantity. Not every Dragon unit
+    Flies. Not every Dragon unit has Breath or an element.
+
+
+    Two layers (locked):
+    Dragonkin — bipedal / people-shaped Infantry and Heavy. Often non-elemental; fight like monstrous
+    foot troops (Cleave, Harden, Fear on some). No Breath tax.
+    Breath-line — wyrms and spitters that print Breath and/or Blast, usually with one primary element
+    (Fire, Ice, Poison, Lightning). Blast = splash delivery; element = rider. Mono-element armies are a
+    long-term roster goal on a shared dragonkin core.
+
+
+    Play pattern: Low model count, high UV elites. Dragonkin hold the line; breath-line elites define
+    list flavor. Fear projection. Break Fortifications; do not specialize in building them.
+
+
+    Body types: Flying is common on mid/elite aerials, not mandatory. Bipedal dragonkin use Infantry
+    (or Heavy). Mages (Magic) and archers (Ranged 2–3) are valid non-breath specialists. Prefer Flying
+    and element as keywords on some cards, not faction-wide assumptions.
+
+
+    Avoid Cavalry: Mounted/Cavalry packages do not fit the Dragon fantasy (they are not a horse culture).
+    Do not print Dragon Cavalry. Mobility comes from Flying, mid Move on infantry, or Actives — not
+    Charge cavalry companies.
+
+
+    Raw stats guidance (recommended): Yes — elite Dragons and mid-brood should sit above peer UV on
+    Damage and Toughness per model. That is the fantasy. Keep a steep curve: weaker hatchlings, scary
+    mid dragonkin / drakes, catastrophic ancients. Balance with fewer copies, higher UV, and Attack
+    Method choice (power without stacking Cleave+Trample). Prefer raw stats on the body over piles of
+    unique text. If sims wipe tables, cut copies or UV first, then shave top-tier Damage by 1 — not a
+    faction-wide softener of Move/Fear.
+
+
+    Splash / Blast (breath-line signature): On cards that print it — Damage to a primary target and every
+    enemy within radius 1 or 2. Radius 1 common/cheap; Radius 2 expensive. Separate Hit per enemy.
+    Friendly units not hit unless the card says so. Do not combine with Cleave or Trample. Not automatic
+    on dragonkin.
+
+
+    Breath (Attack Method): Limited ranged (typically Range 2–3), often Breath (Blast 1). Optional
+    element rider. Optional Siege-vs-Fortified when the card says so. Breath-line only — do not print on
+    every dragonkin warrior.
+
+
+    Elements (opt-in): Fire (v1 face), Ice, Poison, Lightning. One primary element per card; hybrids
+    rare. Officer tools that soft-support an element reward mono lists without splitting Dragon into
+    four races.
+
+
+    Avoid: Filling the board with cheap bodies; matching Dwarf Fortify games; unrestricted radius-2 spam
+    on cheap units; requiring Flying or an element on every card; Dragon Cavalry.
+
+
+    Signature: Fear; optional Blast/Breath on breath-line; Cleave/Trample on dragonkin and elites;
+    optional Flying; optional Wyrmbone Onager.
+
+
+    Company shape: Dragonkin infantry core, optional aerials, optional breath spine, Ranged/Magic
+    support; no Cavalry. Officers: brood-wide auras, ground-line, Flying cadres, and later element
+    specialists.
+
+
+    Commander archetypes: Sky Tyrant (Flying package), Cataclysm Breath (Blast / Fire face), Hoard Claim.
+
+
+    Note: Fewer models on the table via higher UV and lower company copies — not fewer card names.'
+- id: b2f4ct10n04
+  title: 'Faction Design: Undead'
+  body: 'Fantasy: Endless pressure. Death feeds the line.
+
+
+    Play pattern: Weaker baseline bodies than peer UV, paid back by once-per-battle recursion and Fear.
+    Wide cheap Infantry plus elite Wights. Sacrifice feeds AP/Damage.
+
+
+    Resurrection budget: Prefer once-per-battle (or once-per-game ultimate) raises — Revenant on select
+    units, officer Raise Thrall once, commander Gravemind once. Avoid infinite loops. Returns come back
+    diminished (1 Toughness or half). Stat compensation: typical Undead combat units should run about
+    −1 Toughness and/or −1 Damage vs a same-UV Human/Elf peer so the raise is not free value. Exact
+    numbers need sim passes after cards exist.
+
+
+    Avoid: Highest raw Toughness (Construct/Dwarf) or clean elite skew (Dragon).
+
+
+    Signature: Fear, Revenant (once), Soul Tithe, Bone Catapult / Crypt Ram.
+
+
+    Company shape: Wide chaff companies, elite hammers, unique bone siege.
+
+
+    Commander archetypes: Gravemind (raise once), Eclipse of Fear, Bone Harvest.'
+- id: b2f4ct10n05
+  title: 'Faction Design: Beastfolk'
+  body: '    Fantasy: Centaurs, wolfkin, minotaurs — tribal warbands. Beast-typed units under Beastfolk
+    command.
+
+
+    Design lane: Between Human and Elf. From Humans take readable company play, officer-led packages,
+    and mid durability — not shieldwall bunkers. From Elves take skirmish mobility, flanking angles, and
+    tempo — not a Range arms race (printed Range caps at 3 for everyone). Pack, Charge, and Flanking
+    replace Shieldwall/Fortify as the identity glue.
+
+
+    Play pattern: Mid Move (often 3–4), Charge/Flanking/Frenzy/Pack density, mixed Cavalry and Infantry.
+    Rush bridges; weak at static Fortify games.
+
+
+    Avoid: Undead recursion loops or Dwarf bunker lines as primary identity; Range arms race (no race
+    prints Range 4 — see Range rules).
+
+
+    Signature: Pack, Charge, Flanking, Frenzy; Totem Onager and War Beast (living siege: Trample + Siege).
+
+
+    Company shape: Centaur cavalry, wolfkin skirmishers, minotaur hammers. Officers are Alphas /
+    Beastmasters (supported_types: Beast).
+
+
+    Commander archetypes: Blood Moon, Wild Hunt, Alpha Howl.'
+- id: b2f4ct10n06
+  title: Fortification & Siege Design Intent
+  body: 'Fortifications are hex tokens, not unit buffs.
+
+
+    The officer ability formerly named Fortify Position / Brace Order is Harden Order (unit gains Harden 2).
+    Brace remains a Defensive Reaction only — abilities never grant Brace.
+
+
+    Fortify (verb) always means place a Fortification on a hex.
+
+
+    Siege weapons and rams create a counterplay loop: defenders hold bridges/objectives behind Fortify;
+    attackers bring Siege to Demolish or overkill Fortified hexes.
+
+
+    Shared siege pool is available to every race. Race-unique engines add identity without removing the
+    shared kit.
+
+
+    Siege Movement: default Move 2 (typical infantry is Move 3+). Only Siege may print Move 2 or
+    lower — every other primary type floors at Move 3. Keep engines slow on the card; use
+    Limber Up, Haul Lines, Tow Hitch, Draft Beasts, Motive Overdrive, and similar actives to reposition
+    them. Do not erase the Move 2 identity with permanent Move buffs.
+
+
+    Occupying a Fortified hex grants Harden 1 (same Harden state as keywords/abilities). Defensive
+    Reaction Brace also grants Harden 1 — track one Harden value per unit.'
+- id: 4c4fe93901
+  title: UV Budget Philosophy
+  body: 'UV (Unit Value) is the single balancing currency used throughout the game.
+
+
+    Every point of UV should represent a meaningful increase in battlefield value.
+
+
+    A card''s UV should be determined by the combination of:
+
+
+    Raw statistics
+
+
+    Passive abilities
+
+
+    Activated abilities
+
+
+    Synergies
+
+
+    Reliability
+
+
+    Battlefield role
+
+
+    No individual factor should determine UV by itself.
+
+
+    Statistics Before Abilities
+
+
+    Statistics establish the baseline cost of a unit.
+
+
+    Abilities modify that baseline.
+
+
+    This prevents abilities from becoming the sole balancing factor.
+
+
+    Diminishing Returns
+
+
+    Stacking similar strengths should become progressively more expensive.
+
+
+    Examples:
+
+
+    High Damage + Trample
+
+
+    High Toughness + Regenerate
+
+
+    Range 3 + Cleave
+
+
+    High Movement + MultiStrike
+
+
+    These combinations are worth significantly more than the sum of their individual parts.
+
+
+    Synergy Tax
+
+
+    When two mechanics amplify one another, their combined UV should increase.
+
+
+    Example:
+
+
+    Adaptive Attack
+
+
+    Regenerate
+
+
+    This combination is stronger than either mechanic alone.
+
+
+    Future balancing should account for these interactions.'
+- id: 6c3b194307
+  title: Commander Design Standards
+  body: 'Commanders define the identity of an army.
+
+
+    A Commander should change how the player approaches the game, not simply provide stronger numbers.
+
+
+    Commander Priorities
+
+
+    A Commander should primarily influence:
+
+
+    Resource management
+
+
+    Company coordination
+
+
+    Battlefield positioning
+
+
+    Army identity
+
+
+    Rather than simply increasing combat statistics.
+
+
+    Commander Ability Budget
+
+
+    Typical Rare Commander:
+
+
+    2–3 Passive abilities
+
+
+    2–3 Activated abilities
+
+
+    1 Ultimate
+
+
+    Several Passive abilities
+
+
+    Avoid exceeding six total abilities unless shared Passives keep the card readable.
+
+
+    Commander Statistics
+
+
+    Commanders should be capable combatants but should not overshadow dedicated combat units.
+
+
+    They are force multipliers first and frontline fighters second.
+
+
+    Commander Design Questions
+
+
+    Every Commander should answer:
+
+
+    What kind of army do they encourage?
+
+
+    What tactical decisions do they reward?
+
+
+    What weaknesses do they introduce?
+
+
+    What makes them unique among all other Commanders?
+
+
+    If two Commanders play similarly, one should be redesigned.'
+- id: 6dfcb87ad6
+  title: Officer Design Standards
+  body: 'Officers are the heart of the tactical game.
+
+
+    The player should look forward to activating every Officer.
+
+
+    Officer Responsibilities
+
+
+    Each Officer should provide:
+
+
+    Company AP
+
+
+    Company UV Capacity
+
+
+    Command Radius
+
+
+    Tactical identity
+
+
+    One meaningful decision each activation
+
+
+    Company Themes
+
+
+    Each Officer should encourage a distinct Company playstyle.
+
+
+    Examples:
+
+
+    Shield Captain
+
+
+    Formation fighting.
+
+
+    Scout Captain
+
+
+    Mobility.
+
+
+    Battle Priest
+
+
+    Healing.
+
+
+    Hunter
+
+
+    Ambushes.
+
+
+    Necromancer
+
+
+    Summoning.
+
+
+    Beastmaster
+
+
+    Monster support.
+
+
+    Officer Complexity
+
+
+    An Officer should rarely exceed:
+
+
+    One passive
+
+
+    Two activated abilities
+
+
+    One Passive
+
+
+    The complexity of a Company should primarily come from the interaction between the Officer and its
+    Combat Units.'
+- id: 36beda87c6
+  title: Combat Unit Design Standards
+  body: 'Combat Units are the foundation of the battlefield.
+
+
+    Most units should be understandable in less than ten seconds.
+
+
+    Typical Combat Unit
+
+
+    Should have:
+
+
+    One battlefield role
+
+
+    Zero or one ability
+
+
+    One or two Passives at most
+
+
+    Most Common units should have no activated abilities.
+
+
+    Battlefield Roles
+
+
+    Every Combat Unit should clearly fit one role.
+
+
+    Examples:
+
+
+    Frontline
+
+
+    Skirmisher
+
+
+    Support
+
+
+    Ranged
+
+
+    Monster
+
+
+    Objective Holder
+
+
+    Assassin
+
+
+    Scout
+
+
+    Artillery
+
+
+    Tank
+
+
+    If a unit attempts to fill several roles, it should be redesigned.
+
+
+    Elite Units
+
+
+    Rare Combat Units may break normal expectations.
+
+
+    Examples:
+
+
+    Hydras
+
+
+    Dragons
+
+
+    Giants
+
+
+    Legendary Heroes
+
+
+    These units justify additional complexity because they are memorable centerpiece models.'
+- id: 23834682e7
+  title: Card Creation Workflow
+  body: 'Every new card should be designed using the following process.
+
+
+    Step 1
+
+
+    Determine battlefield role.
+
+
+    "What job does this unit perform?"
+
+
+    Step 2
+
+
+    Assign statistics.
+
+
+    Movement
+
+
+    Damage
+
+
+    Toughness
+
+
+    Range
+
+
+    Step 3
+
+
+    Add abilities.
+
+
+    Prefer existing Passive and Active abilities whenever possible.
+
+
+    Only create a new ability if it has broad future usefulness.
+
+
+    Avoid redundant abilities.
+
+
+    Abilities should reinforce the battlefield role.
+
+
+    Step 4
+
+
+    Assign rarity.
+
+
+    Complexity should determine rarity more than raw strength.
+
+
+    Step 5
+
+
+    Assign UV.
+
+
+    Consider:
+
+
+    Statistics
+
+
+    Abilities
+
+
+    Synergies
+
+
+    Utility
+
+
+    Reliability
+
+
+    Step 6
+
+
+    Playtest.
+
+
+    Every card should answer:
+
+
+    Is this fun?
+
+
+    Is this understandable?
+
+
+    Is this balanced?
+
+
+    Does it create meaningful decisions?'
+- id: 556237392d
+  title: Future Expansion Philosophy
+  body: 'Every expansion should add options rather than invalidate existing content.
+
+
+    Avoid power creep.
+
+
+    Expansion Goals
+
+
+    Introduce:
+
+
+    New factions
+
+
+    New scenarios
+
+
+    New terrain
+
+
+    New objectives
+
+
+    New abilities
+
+
+    New Officers
+
+
+    New Commanders
+
+
+    without increasing overall complexity.
+
+
+    New Abilities
+
+
+    Before introducing an ability, ask:
+
+
+    Can an existing Passive or Active accomplish this?
+
+
+    If yes, do not create a new one.
+
+
+    Ability inflation should be avoided.
+
+
+    New Factions
+
+
+    A new faction should introduce a new strategic identity, not simply stronger cards.'
+- id: c33f060645
+  title: Game Balance Philosophy
+  body: 'Perfect balance is not the goal.
+
+
+    Interesting decisions are.
+
+
+    Players should win because they made better strategic decisions, not because they chose the objectively
+    strongest faction.
+
+
+    Strengths Require Weaknesses
+
+
+    Every powerful mechanic should introduce an exploitable weakness.
+
+
+    Examples:
+
+
+    High Damage
+
+
+    ↓
+
+
+    Lower Toughness
+
+
+    High Mobility
+
+
+    ↓
+
+
+    Lower Durability
+
+
+    Exceptional Support
+
+
+    ↓
+
+
+    Lower Personal Combat Ability
+
+
+    Counterplay
+
+
+    Every strategy should have reasonable counterplay.
+
+
+    No mechanic should feel unavoidable or unfair.
+
+
+    Internal Balance
+
+
+    Every card within a faction should have a reason to exist.
+
+
+    Players should not feel forced to include the same cards every game.'
+- id: 82e91f723c
+  title: Long-Term Design Goals
+  body: 'The game should support years of growth without requiring fundamental rule changes.
+
+
+    Future content should naturally plug into the existing framework.
+
+
+    Stable Foundations
+
+
+    The following systems should remain stable:
+
+
+    Company AP
+
+
+    Commander CC
+
+
+    Attack Sequences
+
+
+    Attack Methods
+
+
+    Command Radius
+
+
+    Company UV Capacity
+
+
+    Ability Framework
+
+
+    These systems form the backbone of the game.
+
+
+    Design for Discovery
+
+
+    Players should continue discovering new combinations and strategies as more cards are released.
+
+
+    Complexity should emerge from interactions, not increasingly complicated rules.'
+- id: 71e0d9418e
+  title: Development Checklist
+  body: 'Before finalizing any card, review the following:
+
+
+    Identity
+
+
+    Does the card have a clear battlefield role?
+
+
+    Does it fit its faction''s identity?
+
+
+    Readability
+
+
+    Can the card be understood quickly?
+
+
+    Is any text unnecessary?
+
+
+    Abilities
+
+
+    Can an existing Passive or Active replace custom text?
+
+
+    Is a new ability truly needed?
+
+
+    Balance
+
+
+    Are the statistics appropriate?
+
+
+    Does the UV reflect its true value?
+
+
+    Does it create unhealthy combinations?
+
+
+    Gameplay
+
+
+    Does the card encourage meaningful decisions?
+
+
+    Is there clear counterplay?
+
+
+    Does it support multiple playstyles?
+
+
+    Expansion
+
+
+    Does the design leave room for future mechanics?
+
+
+    Does it interact cleanly with the core rules?
+
+
+    Final Design Principles
+
+
+    Every decision made during development should support these guiding principles:
+
+
+    Simple units, deep strategy.
+
+
+    Command is more important than individual strength.
+
+
+    Positioning wins battles.
+
+
+    Reusable abilities replace paragraphs.
+
+
+    Cards should create choices, not solve them.
+
+
+    Complexity belongs in interactions, not in individual cards.
+
+
+    Every faction should feel mechanically unique.
+
+
+    The game should scale naturally as new content is added.
+
+
+    Elegant systems are preferable to exhaustive rules.
+
+
+    If a mechanic requires several exceptions, redesign the mechanic instead.'

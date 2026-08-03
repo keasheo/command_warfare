@@ -1,0 +1,1819 @@
+title: Rulebook
+sections:
+- id: 7b18915d0e
+  title: Introduction
+  body: 'Tactical Command Wargame is a tactical tabletop wargame centered around battlefield positioning,
+    command hierarchy, and strategic resource management.
+
+
+    Players do not directly control every soldier individually. Instead, they command Companies through
+    Officers while directing the overall battle through a Commander.
+
+
+    Victory belongs to the player who best manages positioning, battlefield resources, and coordinated
+    attacks.'
+- id: d31e7ef15f
+  title: Core Philosophy
+  body: 'The game is built upon five pillars.
+
+
+    Command Wins Battles
+
+
+    Maintaining your command structure is more valuable than simply fielding stronger units.
+
+
+    Position Matters
+
+
+    Movement, flanking, terrain and formations determine victory more than dice rolls.
+
+
+    Tactical Simplicity
+
+
+    Individual units remain simple.
+
+
+    Strategic depth comes from:
+
+
+    Commanders
+
+
+    Officers
+
+
+    Positioning
+
+
+    Abilities
+
+
+    Company management
+
+
+    Reusable Abilities
+
+
+    Shared effects should be represented by reusable Passive (and Active) abilities whenever possible.
+
+
+    Abilities are defined once in the ability library rather than rewritten on every card.
+
+
+    Large Battles
+
+
+    The system is designed to comfortably support armies of approximately:
+
+
+    1 Commander
+
+
+    8 Officers
+
+
+    40 Combat Units
+
+
+    without excessive bookkeeping.'
+- id: 9b43d0585f
+  title: Army Construction
+  body: 'Each player builds an army worth 200 Unit Value (UV).
+
+
+    A legal army contains:
+
+
+    Exactly 1 Commander
+
+
+    One or more Officers
+
+
+    Combat Units assigned to Officers
+
+
+    A player''s army may never exceed 200 UV.'
+  children:
+  - id: bd1e4139aa
+    title: Unit Value (UV)
+    body: 'Every card has a Unit Value.
+
+
+      The sum of all cards may not exceed the agreed army size.
+
+
+      Default game:
+
+
+      200 UV'
+  - id: 85e605e7f6
+    title: Commander
+    body: 'Each army contains exactly one Commander.
+
+
+      Commanders:
+
+
+      Generate Command Cost (CC)
+
+
+      Activate once each round
+
+
+      May move and fight
+
+
+      Have their own AP
+
+
+      Never spend CC to activate themselves'
+  - id: edf9d73a5b
+    title: Officers
+    body: 'Officers command Companies.
+
+
+      Each Officer possesses:
+
+
+      UV
+
+
+      Company UV Capacity
+
+
+      Company AP
+
+
+      Command Radius
+
+
+      Passive abilities
+
+
+      Activated abilities
+
+
+      Officers never generate CC.'
+  - id: 7057533c75
+    title: Combat Units
+    body: 'Combat Units belong to exactly one Company.
+
+
+      Combat Units remain assigned to that Company for the entire battle unless another rule changes this.'
+- id: fede593faf
+  title: Unit Types
+  body: 'There are three card types.
+
+
+    Commander
+
+
+    Leads the army.
+
+
+    Provides strategic abilities.
+
+
+    Generates CC.
+
+
+    Acts once each round.
+
+
+    Officer
+
+
+    Leads a Company.
+
+
+    Provides Company AP.
+
+
+    Supports nearby units.
+
+
+    Combat Unit
+
+
+    Forms the majority of the army.
+
+
+    Combat Units use Company AP instead of individual AP.'
+- id: b5ee23f637
+  title: Rarity
+  body: 'Rarity represents complexity and power budget.
+
+
+    It is not intended to represent collectible rarity.
+
+
+    Common
+
+
+    Black Gem
+
+
+    Usually:
+
+
+    Few or no abilities
+
+
+    Lower UV
+
+
+    Simple battlefield role
+
+
+    Uncommon
+
+
+    Silver Gem
+
+
+    Usually:
+
+
+    One or two abilities
+
+
+    Specialized battlefield role
+
+
+    Rare
+
+
+    Gold Gem
+
+
+    Usually:
+
+
+    Multiple abilities
+
+
+    Strong battlefield presence
+
+
+    Higher UV
+
+
+    More complex interactions'
+- id: 6dc39b0068
+  title: Battlefield Setup
+  body: 'Players prepare the board and their armies in this order.
+
+
+    Setup Order
+
+
+    1. Commander placement
+
+
+    2. Objective placement
+
+
+    3. Terrain placement
+
+
+    4. Unit placement (Officers, then Companies)
+
+
+    Army Reveal (before or with step 1)
+
+
+    Reveal Commander, Officers, and Company assignments. Choose Deployed Units and Reserve Units (if
+    the scenario allows).
+
+
+    1. Commander Placement
+
+
+    Each player places their Commander on their edge seat (or as the scenario directs).
+
+
+    Command Radius is measured from the Commander''s hex for later terrain builds and Officer deploy.
+
+
+    Mark the Center
+
+
+    Mark the board''s center hex (the mid hex of an odd-sized board, e.g. hex 17,17 on 35×35) with a
+    permanent or reusable center reference token.
+
+
+    This center mark is not an objective unless an Objective Card says so. It exists so Objective Cards
+    and terrain alignment stay easy to track at a glance.
+
+
+    2. Objective Placement
+
+
+    Objectives are placed using Objective Cards before any land or barrier terrain.
+
+
+    Objective Cards
+
+
+    Each Objective Card shows 1, 2, or 3 objective markers printed on a mini-map that aligns to the
+    battlefield hex grid (same orientation as the board: edge seats N / W / S / E, and the center
+    reference mark).
+
+
+    Cards with 1 objective are single contested points. Cards with 2 or 3 use pre-balanced spacing so
+    no seat is systematically starved.
+
+
+    Draw Procedure
+
+
+    Shuffle the Objective Card deck.
+
+
+    Draw one card. That card is the layout for this game.
+
+
+    Align the card''s center mark to the board''s center reference, and its edge marks to N / W / S / E,
+    then place objective markers on the matching hexes.
+
+
+    Optional: after drawing, roll for orientation — rotate the card 180° (or flip, if the card allows)
+    so the same layout can face different seats without redrawing. Keep the centers aligned when
+    rotating.
+
+
+    Do not draw a second card unless the scenario says otherwise.
+
+
+    Restrictions
+
+
+    Objective hexes are reserved: Water and Wall terrain may not be placed on them.
+
+
+    Fortified outlines and other passable terrain may sit adjacent to objectives, but must not replace
+    the marker.
+
+
+    All markers from the drawn card are placed — you do not pick a subset.
+
+
+    Why cards
+
+
+    No player chooses VP sites, so placement stays fair. Variety comes from the deck (1 / 2 / 3
+    objectives and different geometries), not from freehand sitting.
+
+
+    3. Terrain Placement
+
+
+    Base board is Plains. Each player shapes their own Command Radius (CR) before
+    deployment — either flood the entire CR with one terrain type, or place a fixed
+    quota of pieces inside it.
+
+
+    Command Radius setup (choose one per player)
+
+
+    Flood: pick one terrain type and fill every hex in your CR with it (commander
+    hex keeps soft land only if the type cannot cover commanders — Water never
+    covers your commander hex).
+
+
+    Pieces: place shapes entirely inside your CR. Quota by player count:
+
+
+    - 2 players: 1 large + 2 medium + 2 small
+
+
+    - 4 players: 1 medium + 2 small (no large pieces)
+
+
+    Water appears only as small pieces. Same-kind overlap is allowed on a hex;
+    different kinds cannot share a hex (exception: small land pieces may overwrite
+    Water to create land bridges). Water/Wall may not seal your commander in or
+    cut any commander off from objectives. Water and Wall may not be placed on
+    objective hexes.
+
+
+    After all players finish CR terrain, remaining open hexes stay Plains and
+    deployment begins.
+
+
+    Legacy note: older setups used shared neutral large/medium/small land drops
+    after CR placement; the live client uses CR-only terrain.
+
+
+    Water and Walls cannot be placed on objective hexes. Objectives are always neutral land (Plains)
+    for gameplay purposes — terrain may visually overlap an objective hex, but that hex remains
+    passable neutral ground.
+
+
+    If a rolled or chosen piece would cover an objective with Water or Wall, it does not fit — use
+    the failure ladder (smaller same type, then skip).
+
+
+    Land Bridges: Small land pieces (not medium or large) may be placed over existing
+    water hexes inside your CR to create land bridges. This converts those water
+    hexes to the land type being placed.
+
+
+    4. Unit Placement
+
+
+    Deployment follows the command chain.
+
+
+    Officers within Commander Radius (not on the outer Command Radius ring if that restriction is in
+    use).
+
+
+    Units within Officer Radius.
+
+
+    No unit may begin Isolated.
+
+
+    Objective Distance
+
+
+    No unit (Officer or Combat Unit) may begin the game within 5 hexes of an objective marker.
+
+
+    Commanders are exempt from this 5-hex restriction if their edge seat would otherwise violate it
+    (edge seats normally will not).
+
+
+    After setup, units may move freely toward objectives during play.'
+- id: d64d02651b
+  title: Unit Statistics
+  body: 'Combat Units possess:
+
+
+    UV
+
+
+    Movement
+
+
+    Damage
+
+
+    Toughness
+
+
+    Range
+
+
+    Melee attacks always have Range 1 (shown as Melee).
+
+
+    Ranged attacks use printed Range 2–3.
+
+
+    Printed Range may never exceed 3. No unit prints Range 4 or higher as a base statistic.
+
+
+    Active abilities may grant temporary +Range (for example +1 Range this activation), which can raise
+    effective Range above 3 for that effect only. Passives must not permanently raise printed Range above 3.
+
+
+    Temporary +Range is primarily an Elf tool (precision archery). Siege may use a narrow Siege-only
+    elevation Active. Other factions should not freely access Range extension.
+
+
+    Abilities (if any)
+
+
+    Combat Units do not have AP.
+
+
+    Officer Statistics
+
+
+    Officers possess:
+
+
+    UV
+
+
+    Company UV Capacity
+
+
+    Company AP
+
+
+    Movement
+
+
+    Damage
+
+
+    Toughness
+
+
+    Range
+
+
+    Command Radius
+
+
+
+    Abilities
+
+
+    Commander Statistics
+
+
+    Commanders possess:
+
+
+    UV
+
+
+    CC Generation
+
+
+    AP
+
+
+    Movement
+
+
+    Damage
+
+
+    Toughness
+
+
+    Range
+
+
+    Command Radius
+
+
+    Abilities'
+- id: e8aad5a3da
+  title: Company Structure
+  body: 'Every Officer commands exactly one Company.
+
+
+    Combat Units remain assigned to that Company.
+
+
+    Company UV Capacity
+
+
+    Every Officer has a Company UV Capacity.
+
+
+    The combined UV of assigned Combat Units may not exceed this value.
+
+
+    Example
+
+
+    Captain Rowan
+
+
+    Company UV Capacity: 24
+
+
+    Legal:
+
+
+    8 Spearmen (3 UV each)
+
+
+    Illegal:
+
+
+    5 Knights (6 UV each)
+
+
+    Company AP
+
+
+    Each Officer generates Company AP.
+
+
+    Company AP refreshes at the beginning of every round.
+
+
+    Most actions performed by a unit in that Company spend Company AP.
+
+
+    Examples include:
+
+
+    Attack
+
+
+    Brace
+
+
+    Evade
+
+
+    Retaliate
+
+
+    Activated abilities
+
+
+    Movement is free while the unit is inside its Officer''s Command Radius.
+    Movement costs Company AP only when the unit is outside Command Radius
+    (including when Isolated).
+
+
+    Combat Units never possess individual AP.
+
+
+    Command Radius
+
+
+    A Company functions normally while its units remain inside the Officer''s Command Radius.
+
+
+    Command Radius also determines which Combat Units benefit from Officer abilities.
+    Officer Actives and Passives affect only Combat Units of that Officer''s company (typically those in Command Radius), never units of other companies.
+    Combat Unit abilities that target a friendly model (for example Heal) may affect any friendly creature within the ability''s printed Range — Combat Units, Officers, or Commanders.
+    Commander abilities may affect any model in that Commander''s army (within the ability''s printed Range or Command Radius).
+
+    Isolated Units
+
+
+    A unit becomes Isolated when it ends its activation outside its Officer''s Command Radius.
+
+
+    Isolated units:
+
+
+    Remain members of their Company.
+
+
+    Still spend Company AP.
+
+
+    Cannot benefit from Officer abilities.
+
+
+    Every action costs +1 Company AP (Movement still only costs AP because the
+    unit is outside Command Radius; Isolated adds the usual +1).
+
+
+    A unit is no longer Isolated once it begins an activation inside Command Radius again.'
+- id: 86b7791dfa
+  title: Command System
+  body: 'Command is divided into two separate resources:
+
+
+    Command Cost (CC) represents strategic leadership and is generated by the Commander.
+
+
+    Company AP represents tactical execution and is generated by each Officer.
+
+
+    This separation minimizes bookkeeping while preserving tactical depth.'
+  children:
+  - id: c319c7f2b3
+    title: Command Cost (CC)
+    body: 'CC is generated by the Commander at the start of every round.
+
+
+      Unused CC is lost at the end of the round unless another rule states otherwise.
+
+
+      CC is never used for standard movement or attacks.'
+  - id: 4182237a74
+    title: Spending CC
+    body: 'CC may only be spent to:
+
+
+      Activate an Officer.
+
+
+      Activate an Isolated Unit independently.
+
+
+      Temporarily promote a replacement Officer.
+
+
+      Resolve effects that explicitly require CC.
+
+
+      Unless specifically stated, Officers and Combat Units may never spend CC.'
+  - id: 5222dc791c
+    title: Commander Activation
+    body: 'Each Commander activates once per round.
+
+
+      The Commander:
+
+
+      Does not spend CC to activate.
+
+
+      Generates and spends their own AP.
+
+
+      May move.
+
+
+      May attack.
+
+
+      May use Commander abilities.
+
+
+      Unless another rule states otherwise, a Commander may attack once per round.'
+- id: f243cd2c95
+  title: Turn Structure
+  body: "Each round follows this sequence.\n\nPhase 1 — Refresh\n\nGenerate Commander CC.\n\nRefresh every\
+    \ Officer's Company AP.\n\nRefresh Commander AP.\n\nResolve Start of Round effects.\n\nPhase 2 — Initiative\n\
+    \nRound One\n\nEach player rolls a D6.\n\nHighest roll chooses who activates first.\n\nRe-roll ties.\n\
+    \nLater Rounds\n\nInitiative moves clockwise of the last initiative.\n\nPhase 3 — Officer Activations\n\
+    \nPlayers alternate activating Officers.\n\nEach Officer activation costs CC.\n\nEach Officer may activate\
+    \ once per round.\n\nContinue until:\n\nBoth players pass consecutively, or\n\nNeither player can legally\
+    \ activate another Officer.\n\nCommander Activation (independent)\n\nEach Commander activates once per\
+    \ round on their own track (no CC). This does not replace an Officer activation — the Commander may\
+    \ activate at any time during the round (before, between, or after Officers).\n\nPhase 4 — End of Round\n\
+    \nResolve End of Round effects.\n\nRemove temporary modifiers.\n\nPrepare for the next round."
+- id: 418a3060d5
+  title: Officer Activation
+  body: 'Each Officer activation consists of five phases.
+
+
+    Phase 1 — Activation
+
+
+    Spend CC.
+
+
+    Declare the Officer.
+
+
+    Confirm the Company being activated.
+
+
+    Phase 2 — Main Phase 1
+
+
+    Company AP may be spent for:
+
+
+    Movement outside Command Radius (Movement inside Command Radius is free)
+
+
+    Activated abilities
+
+
+    Positioning
+
+
+    Combat attacks may not occur during this phase.
+
+
+    Phase 3 — Combat Phase
+
+
+    Combat is divided into four steps.
+
+
+    Step 1 — Declare Attacks
+
+
+    The active player declares every attacking unit.
+
+
+    For each attacker declare:
+
+
+    Target
+
+
+    Attack Method
+
+
+    Damage assignment (if required)
+
+
+    Every attacking unit may perform one attack unless another rule states otherwise.
+
+
+    A unit may only use 1 activated offensive ability from itself.
+
+
+    Abilities may stack if other friendly units provide the ability.
+
+
+    Standard Attack
+
+
+    Attack one target.
+
+
+    Excess Damage is lost.
+
+
+    Cleave
+
+
+    When using Cleave:
+
+
+    You may divide this unit''s Damage among up to as many targets as its Damage value (each target at least 1). Example — Damage 3: one target for 3; two for 2 and 1; or three for 1 each.
+
+
+    Declare every target and assignment before any Hit rolls.
+
+
+    Roll separately against every target.
+
+
+    Missed attacks lose their assigned Damage.
+
+
+    Cleave may be used by melee or ranged attacks if the card allows it.
+
+
+    Trample
+
+
+    Trample is a melee-only Attack Method.
+
+
+    When a Trample attack destroys an adjacent enemy:
+
+
+    Remaining Damage is retained.
+
+
+    The attacker may move into the defeated unit''s hex.
+
+
+    If it does not move, Trample immediately ends.
+
+
+    If it moves, it may immediately attack another adjacent enemy using the remaining Damage.
+
+
+    A new Hit roll is made for every Trample attack.
+
+
+    The Trample chain ends when:
+
+
+    No Damage remains.
+
+
+    A Hit roll fails.
+
+
+    The attacking player chooses not to advance.
+
+
+    There are no adjacent enemy units.
+
+
+    MultiStrike
+
+
+    MultiStrike X
+
+
+    This attack makes X attacks against the same target.
+
+
+    Roll separately for each attack.
+
+
+    If the target is destroyed before all attacks are completed, any remaining attacks are lost.
+
+
+    Step 2 — Declare Defensive Reactions
+
+
+    After all attacks have been declared,
+
+
+    the defending player declares Defensive Reactions.
+
+
+    Each defending unit may declare one Defensive Reaction.
+
+
+    Examples include:
+
+
+    Brace
+
+
+    Evade
+
+
+    Retaliate
+
+
+    Each Defensive Reaction costs Company AP.
+
+
+    Step 3 — Resolve Attack Sequences
+
+
+    After all attacks and Defensive Reactions have been declared, the active player chooses the order
+    in which attacking units resolve their attacks.
+
+
+    Each attacking unit resolves its entire Attack Sequence before another attacking unit begins resolving
+    theirs.
+
+
+    Attack Sequence
+
+
+    An Attack Sequence includes every effect generated by a unit''s declared attack, including:
+
+
+    Hit rolls
+
+
+    Damage
+
+
+    Defensive Reactions
+
+
+    Triggered abilities
+
+
+    Passive effects
+
+
+    Additional attacks generated by the attack
+
+
+    Movement generated by the attack
+
+
+    Only after the Attack Sequence has completely finished does the next attacking unit begin resolving
+    its attack.
+
+
+    Example
+
+
+    Declared attacks:
+
+
+    Soldier attacks Wolf A.
+
+
+    Mammoth (Trample) attacks Wolf B.
+
+
+    The active player chooses to resolve the Mammoth first.
+
+
+    The Mammoth:
+
+
+    Hits Wolf B.
+
+
+    Destroys Wolf B.
+
+
+    Retains remaining Damage.
+
+
+    Moves into Wolf B''s hex.
+
+
+    Attacks Wolf A.
+
+
+    Continues Trample until the chain ends.
+
+
+    Only after the Mammoth''s entire Attack Sequence is complete does the Soldier resolve its attack.
+
+
+    If Wolf A has already been destroyed, the Soldier''s attack is lost.
+
+
+    Step 4 — Combat Cleanup
+
+
+    After every Attack Sequence has resolved:
+
+
+    Remove destroyed units.
+
+
+    Resolve "after combat" abilities.
+
+
+    Resolve any remaining triggered effects.
+
+
+    Combat Phase then ends.
+
+
+    Phase 4 — Main Phase 2
+
+
+    Company AP may again be spent for:
+
+
+    Movement outside Command Radius (Movement inside Command Radius is free)
+
+
+    Activated abilities
+
+
+    Positioning
+
+
+    Combat attacks may not occur during this phase.
+
+
+    Phase 5 — End Phase
+
+
+    Resolve:
+
+
+    Isolated checks.
+
+
+    End-of-activation abilities.
+
+
+    Status duration changes.'
+- id: 5cac5ffd38
+  title: Movement
+  body: 'Each unit has a Movement value.
+
+
+    Movement is measured in hexes.
+
+
+    Movement may be split between Main Phase 1 and Main Phase 2.
+
+
+    Company AP Cost
+
+
+    Moving inside the Officer''s Command Radius costs 0 Company AP.
+
+
+    Moving while outside the Officer''s Command Radius costs Company AP
+    (plus Isolated''s +1 if applicable).
+
+
+    Terrain Costs
+
+
+    Non-water terrain has no movement penalty. All passable land (Plains, Forest, Swamp, Desert,
+    Volcanic, Hills) costs 1 Movement to enter.
+
+
+    Water remains impassable unless a unit has an ability that allows water movement.
+
+
+    Roads
+
+
+    The first time a unit enters a Road during an activation,
+
+
+    it gains
+
+
+    +1 Movement
+
+
+    for the remainder of that activation.
+
+
+    Favored Terrain
+
+
+    Units on their favored terrain gain +1 Hit. Each race has a favored terrain type:
+
+
+    Human, Construct → Plains
+
+
+    Beastfolk, Elf → Forest
+
+
+    Dragon, Demon → Volcanic
+
+
+    Undead, Lizardman → Swamp
+
+
+    Dwarf → Hills
+
+
+    Units may also gain favored terrain bonuses through terrain keywords (Open Ground, Woodwalker,
+    Bogstrider, Duneborn, Ashborn, Hillborn, Deepwalker) which grant the bonus on their matching
+    terrain type regardless of race.
+
+
+    Occupancy
+
+
+    Only one model may occupy a hex.
+
+
+    Friendly models may not share a hex.
+
+
+    Enemy models block movement.
+
+
+    Disengagement
+
+
+    Leaving adjacency with an enemy provokes a Disengagement Strike: that enemy may
+    immediately perform one melee attack against the moving unit.
+
+
+    Alternatively, the moving unit may spend +1 Company AP before leaving adjacency
+    to leave cleanly (no Strike).
+
+
+    Guard: If the enemy being left has Guard, the moving unit must take that unit''s
+    Disengagement Strike and cannot buy it off with +1 Company AP.
+
+
+    Harass: A Move granted by Harass (Move 1 after attacking) ignores Disengagement,
+    including Guard.'
+- id: 2b6f2d406e
+  title: Combat
+  body: 'Combat is intentionally deterministic.
+
+
+    Damage is flat.
+
+
+    There is no Armor statistic.
+
+
+    Toughness determines survivability.
+
+
+    Hit Rolls
+
+
+    Roll 2d6. The attack hits if the sum is equal to or greater than the Hit Requirement.
+
+
+    Base Hit Requirement:
+
+
+    Apply modifiers after determining the base requirement. Final requirements are clamped between 5+ and 11+.
+
+
+    Damage
+
+
+    Successful attacks deal Damage equal to the attacker''s current Damage.
+
+
+    Damage reduces Toughness.
+
+
+    If Toughness reaches zero, the unit is destroyed.
+
+
+    Excess Damage
+
+
+    Excess Damage is normally lost.
+
+
+    Only rules that explicitly state otherwise (such as Trample) may retain or redistribute excess Damage.'
+- id: a1f0rt1fy01
+  title: Fortifications
+  body: 'A Fortification is a hex token that represents prepared defenses (barricades, earthworks, or
+    held works).
+
+
+    Placing Fortifications
+
+
+    Effects that say Fortify place a Fortification on a hex.
+
+
+    A hex may have at most one Fortification.
+
+
+    Fortify does not move with a unit. If the unit leaves the hex, the Fortification remains.
+
+
+    Occupying a Fortified Hex
+
+
+    While a unit occupies a Fortified hex, it has Harden 1 (Piercing ignores Harden as usual).
+
+
+    This is the same Harden state as printed keywords and abilities — track one Harden value per unit.
+
+
+    Damage may never be reduced below 1.
+
+
+    Demolish
+
+
+    When declaring an attack against a Fortified hex, a unit with Siege (or another rule that allows
+    Demolish) may choose one mode:
+
+
+    Attack the unit — Resolve combat normally. The occupant still benefits from the Fortification''s
+    Damage reduction.
+
+
+    Demolish the Fortification — Make a Hit roll using the normal Distance | Roll table against the
+    occupant (or 7+ if the hex is empty). On a hit, remove the Fortification and deal no Damage to the
+    unit unless the attacker''s card says otherwise.
+
+
+    Siege Bonus
+
+
+    When a unit with Siege deals Damage to a unit on a Fortified hex (Attack the unit mode), increase
+    that Damage by 1 unless the card states a higher bonus (for example +2).
+
+
+    Design intent: Fortifications reward holding bridges and objectives against infantry, while catapults
+    and rams punish static bunkers.
+
+
+    Siege Units (movement)
+
+
+    Siege units are typically Move 2 — a step slower than most line infantry (Move 3+).
+    Only Siege may print Move 2 (or lower). All other card types floor at Move 3.
+
+
+    Heavier engines may also have Slow, or rarely Move 1.
+
+
+    Abilities such as Limber Up, Haul Lines, and Tow Hitch exist to help Siege reposition without raising
+    their printed Move.'
+- id: a1w4lls0001
+  title: Walls
+  body: 'A Wall is a hex terrain token (Wall Segment or Wall Corner) that blocks occupation.
+
+
+    Occupation
+
+
+    No unit may occupy a Wall hex — including Flying units.
+
+
+    Gaps
+
+
+    Leave a hex without a Wall token to create a passage. There is no separate Gate piece.
+
+
+    Movement and Flying
+
+
+    Non-Flying units cannot enter a Wall hex.
+
+
+    Flying units may path across Wall hexes while moving (they fly over), but cannot end a move or
+    otherwise occupy a Wall hex.
+
+
+    Demolish
+
+
+    Siege (and similar rules) may Demolish a Wall the same way they Demolish a Fortification: on a hit,
+    remove that Wall token. Demolish targets one Wall hex at a time.
+
+
+    Walls vs Fortifications
+
+
+    Walls cannot be occupied.
+
+
+    Fortified outlines can be occupied; the occupant gains the Fortification benefits (see Fortifications).
+
+
+    Objectives
+
+
+    Wall tokens may not be placed on an objective hex (objectives are placed before terrain).'
+- id: a1bl4st0d01
+  title: Blast (Splash Damage)
+  body: 'Blast is primarily a Dragon tool.
+
+
+    When a unit has Blast (or an effect grants Blast), choose a primary target and deal Damage to that
+    target and each enemy within 1 hex of it (the six adjacent hexes). Blast does not scale to a larger
+    radius.
+
+
+    Roll Hit separately against each enemy in the blast. A miss deals no Damage to that enemy.
+
+
+    Blast does not hit friendly units unless a card says so.
+
+
+    Blast is an Attack Method. It cannot be combined with Cleave or Trample in the same attack.'
+- id: 348572a398
+  title: Defensive Reactions
+  body: 'Each attacked unit may declare one Defensive Reaction.
+
+
+    Brace
+
+
+    Spend 1 Company AP.
+
+
+    This unit gains Harden 1 until its next activation or the next round, whichever comes first.
+
+
+    If the unit already has Harden 1 or higher, Brace does not increase it further.
+
+
+    Brace is a Defensive Reaction only. Abilities never grant Brace.
+
+
+    Evade
+
+
+    Spend 1 Company AP.
+
+
+    Attacks against this unit suffer +1 Hit Requirement.
+
+
+    Evade lasts until this unit''s next activation or the next round, whichever comes first.
+
+
+    A unit may not have Brace and Evade at the same time.
+
+
+    Retaliate
+
+
+    Spend 1 Company AP.
+
+
+    Immediately perform a simultaneous counterattack following all normal combat rules.
+
+
+    A unit may Retaliate only once per round.'
+- id: f8ce2436b9
+  title: Officer Death & Command Succession
+  body: 'The battlefield is built around maintaining a functioning command structure. Losing an Officer
+    disrupts a Company but should not immediately cripple an army.
+
+
+    Officer Death
+
+
+    When an Officer is destroyed:
+
+
+    Remove the Officer from play immediately.
+
+
+    Remove all passive abilities and aura effects granted by that Officer.
+
+
+    The Company remains intact.
+
+
+    All Combat Units remain assigned to that Company.
+
+
+    The Company continues to generate no Company AP until a replacement Officer is promoted.
+
+
+    Temporary Promotion
+
+
+    A player may spend 1 CC to temporarily promote a Combat Unit within the Company.
+
+
+    Promotion may occur immediately after the Officer is destroyed or during any later point that player
+    could normally spend CC.
+
+
+    The promoted unit becomes the Acting Officer.
+
+
+    Acting Officer
+
+
+    An Acting Officer gains:
+
+
+    Company AP generation.
+
+
+    A Command Radius.
+
+
+    The ability to activate the Company.
+
+
+    The ability to spend Company AP.
+
+
+    The Acting Officer does not gain the original Officer''s card abilities.
+
+
+    The Acting Officer keeps:
+
+
+    Original Damage
+
+
+    Original Toughness
+
+
+    Original Passive abilities
+
+
+    Temporary Command Radius
+
+
+    Acting Officers use a reduced Command Radius.
+
+
+    Default Command Radius: 2 hexes
+
+
+    This value may be adjusted during future balancing.
+
+
+    Promotion Duration
+
+
+    Temporary promotions last 2 rounds.
+
+
+    At the end of the second round:
+
+
+    The Acting Officer returns to being a normal Combat Unit.
+
+
+    If another Officer has not joined the Company, the Company becomes leaderless again.
+
+
+    Re-Promotion
+
+
+    A Company may be promoted multiple times during a battle by spending additional CC.
+
+
+    Leaderless Companies
+
+
+    A Company without an Officer or Acting Officer:
+
+
+    Generates no Company AP.
+
+
+    Cannot activate as a Company.
+
+
+    Units remain assigned to that Company.
+
+
+    Units may only activate individually by spending CC as Isolated Units.'
+- id: 456559d4e8
+  title: Commander Death
+  body: 'Commanders represent the strategic leadership of an army.
+
+
+    Losing the Commander should be significant without immediately ending the game.
+
+
+    Commander Destroyed
+
+
+    When the Commander is destroyed:
+
+
+    Remove the Commander from play.
+
+
+    Immediately stop generating CC.
+
+
+    Commander passive abilities are lost.
+
+
+    Officer Companies continue functioning normally.
+
+
+    Existing Company AP
+
+
+    Existing Company AP remains.
+
+
+    Officers continue to activate using any remaining CC already generated that round.
+
+
+    Beginning the following round:
+
+
+    No additional CC is generated.
+
+
+    Strategic Collapse
+
+
+    Without a Commander:
+
+
+    Officers continue commanding Companies.
+
+
+    Company AP continues functioning normally.
+
+
+    No new CC is generated.
+
+
+    This creates increasing strategic pressure without immediately ending the game.'
+- id: 1280e2c6ad
+  title: Entity Authority
+  body: 'Whenever two rules conflict, resolve them using the following hierarchy.
+
+
+    Higher authority always overrides lower authority.'
+- id: 1e89a5b24a
+  title: Core Rules
+  body: The Rulebook always takes precedence unless a card explicitly states it overrides a rule.
+- id: 58a738a4b2
+  title: Scenario Rules
+  body: Scenario-specific rules override standard game rules.
+- id: 5ac9114127
+  title: Commander Abilities
+  body: 'Commander abilities override:
+
+
+    Officer abilities
+
+
+    Unit abilities
+
+
+    unless another rule explicitly states otherwise.'
+- id: 69e1a00b35
+  title: Officer Abilities
+  body: 'Officer abilities override Combat Unit abilities.
+
+
+    Officer effects only apply to Combat Units assigned to that Officer unless otherwise stated.'
+- id: 82528eb100
+  title: Combat Unit Abilities
+  body: "Combat Unit abilities affect only that unit unless otherwise stated. Friendly single-target heals and buffs on a Combat Unit may target any friendly creature within the ability''s Range (Combat Units, Officers, or Commanders).
+    \nWhenever a specific rule conflicts with a general rule,\n\nthe specific rule always wins.\n\nA unit\
+    \ may only activate 1 offensive ability during their attack.\n\nA unit may gain activated effects\
+    \ from officers/commanders during their \n\nattack.  \n\nExample:\n\nGeneral Rule\n\nUnits attack\
+    \ once.\n\nSpecific Ability\n\n\"This unit may attack twice.\"\n\nThe specific ability overrides the\
+    \ general rule.\n\nAbilities Override Default Rules\n\nAbilities that explicitly change combat override\
+    \ normal combat rules.\n\nExamples:\n\nTrample overrides:\n\nExcess Damage is lost.\n\nAdaptive Attack\
+    \ overrides:\n\nPrinted Damage value.\n\nFuture abilities follow the same principle."
+- id: c27a91ab6d
+  title: Rarity
+  body: 'Rarity represents a card''s power budget and complexity.
+
+
+    It is not a collectible rarity.
+
+
+    Common
+
+
+    Black Gem
+
+
+    Generally has:
+
+
+    Lower UV
+
+
+    Few or no abilities
+
+
+    Straightforward battlefield role
+
+
+    Uncommon
+
+
+    Silver Gem
+
+
+    Generally has:
+
+
+    One or two abilities
+
+
+    Specialized role
+
+
+    Moderate UV
+
+
+    Rare
+
+
+    Gold Gem
+
+
+    Generally has:
+
+
+    Multiple abilities
+
+
+    Greater tactical complexity
+
+
+    Higher UV
+
+
+    Strong battlefield impact'
+- id: 5a79c65e2f
+  title: Glossary
+  body: 'AP (Action Points): Tactical resource generated by Officers or Commanders and spent to perform
+    actions.
+
+
+    Attack Sequence: All effects generated by a single declared attack, including Hit rolls, Damage, triggered
+    abilities, movement, and additional attacks.
+
+
+    CC (Command Cost): Strategic resource generated by the Commander and spent on command-level actions.
+
+
+    Combat Unit: Any non-Officer, non-Commander unit assigned to a Company.
+
+
+    Command Radius: The area in which an Officer effectively commands their Company.
+
+
+    Company: A group of Combat Units assigned to a single Officer.
+
+
+    Company AP: The shared Action Point pool generated by an Officer and used by units within that
+    Company. Attacks, reactions, and abilities spend Company AP. Movement spends Company AP only
+    while outside Command Radius.
+
+
+    Company UV Capacity: The maximum total UV of Combat Units an Officer may command.
+
+
+    Damage: The amount of Toughness removed by a successful attack.
+
+
+    Demolish: An attack mode available to Siege (and similar rules) that removes a Fortification or
+    Wall token on a hit (instead of damaging an occupying unit, when applicable).
+
+
+    Fortification / Fortified hex: An outline hex token. While occupied, the occupant has Harden 1.
+    Placed by effects that Fortify or by Fortified terrain pieces. Passable — units may occupy it.
+
+
+    Objective: A scenario marker. Place via a drawn Objective Card (after Commanders, before terrain).
+    Cards show 1–3 pre-balanced hexes aligned to the board grid. Water and Wall may not be placed on
+    an objective hex. Objective hexes are always neutral land (Plains) for gameplay purposes — terrain
+    may visually overlap but that hex remains passable. No Officer or Combat Unit may deploy within 5
+    hexes of an objective.
+
+
+    Objective Card: A setup card with a mini-map of 1, 2, or 3 objective locations and a center mark.
+    Draw one from the deck; align card center to the board center reference and edges to N/W/S/E; place
+    those markers. Optional roll to rotate/flip orientation (centers stay aligned).
+
+
+    Center reference: A marked mid-board hex used to align Objective Cards and read the map. Not an
+    objective unless a card places one there.
+
+
+    Wall: A blocking hex terrain token. No unit may occupy it (including Flying). Flying may path
+    across while moving but cannot end on it. Leave empty hexes for gaps. Siege may Demolish one Wall
+    hex at a time. May not be placed on an objective hex.
+
+
+    Hit Requirement: The 2d6 sum needed for an attack to succeed.
+
+
+    Harden X: Printed keyword. Reduce incoming Damage by X (highest Harden on the unit applies; do
+    not stack). Piercing ignores Harden. Always print the number (Harden 1, Harden 2, …).
+
+
+    Isolated: A unit outside its Officer''s Command Radius. Isolated units still belong to their Company
+    but pay +1 Company AP for every action and cannot benefit from Officer abilities. Movement only
+    costs Company AP when outside Command Radius; Isolated''s +1 still applies to that Move.
+
+
+    Officer: A unit that commands a Company, generates Company AP, and provides tactical leadership.
+
+
+    Range: Printed attack distance. Melee is Range 1. Printed Range never exceeds 3. Temporary +Range
+    from Actives may raise effective Range above 3 for that activation only. Those Actives are primarily
+    Elf (archery) or narrow Siege-elevation tools — not a shared toolbox for every race.
+
+
+    Siege (keyword): May Demolish Fortifications and Walls; deals +1 Damage (or more if printed) to
+    units on Fortified hexes.
+
+
+    Toughness: A unit''s health. When Toughness reaches 0, the unit is destroyed.
+
+
+    Favored Terrain: Each race has a favored terrain type (Human/Construct → Plains, Beastfolk/Elf
+    → Forest, Dragon/Demon → Volcanic, Undead/Lizardman → Swamp, Dwarf → Hills). Units on their
+    favored terrain gain +1 Hit. Units may also gain this bonus via terrain keywords.
+
+
+    Terrain Keywords: Keywords that grant favored terrain bonuses regardless of race: Open Ground
+    (Plains), Woodwalker (Forest), Bogstrider (Swamp), Duneborn (Desert), Ashborn (Volcanic),
+    Hillborn (Hills), Deepwalker (Water).
+
+
+    Unit Value (UV): The point value used when constructing armies.'
+- id: f8600fbe8a
+  title: 'Table: Terrain Types'
+  body: 'Terrain | Movement Cost | Notes
+
+
+    Plains | 1 | Default terrain, open ground
+
+
+    Forest | 1 | Favored by Beastfolk, Elf
+
+
+    Swamp | 1 | Favored by Undead, Lizardman
+
+
+    Desert | 1 | Favored by none (keyword: Duneborn)
+
+
+    Volcanic | 1 | Favored by Dragon, Demon
+
+
+    Hills | 1 | Favored by Dwarf
+
+
+    Water | Impassable | Unless unit has water movement
+
+
+    Wall | Impassable | Blocks occupation; Flying may path over but not end on
+
+
+    Road | 1 | First entry grants +1 Movement for activation
+
+
+    Favored Terrain Bonus: +1 Hit while on favored terrain (via race or terrain keyword).
+
+
+    Terrain Keywords: Open Ground (Plains), Woodwalker (Forest), Bogstrider (Swamp), Duneborn (Desert),
+    Ashborn (Volcanic), Hillborn (Hills), Deepwalker (Water) grant favored terrain bonuses on matching
+    terrain type regardless of race.'
+- id: 323503f965
+  title: 'Table: Distance | Roll'
+  body: 'Roll 2d6. Hit if the sum meets or exceeds the requirement.
+
+
+    Distance | Roll
+
+
+    Adjacent | 7+
+
+
+    2 Hexes | 8+
+
+
+    3 Hexes | 9+
+
+
+    4+ Hexes | 10+'

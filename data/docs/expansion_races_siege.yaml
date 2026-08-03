@@ -1,0 +1,422 @@
+title: Expansion Design — New Races, Siege Kit & Fortifications
+sections:
+- id: exp00000001
+  title: Purpose
+  body: 'Authoring reference for the five new races (Dwarf, Construct, Dragon, Undead, Beastfolk),
+    the hybrid shared+unique siege kit, Fortification rules, keywords, ability/ultimate name lists,
+    and 3/8/40 roster skeletons.
+
+
+    Scope: design reference + completed card YAML under data/cards/{dwarves,constructs,dragons,
+    undead,beastfolk,siege}/. See also cards_roster_plan.yaml for the authoring plan.
+
+
+    Related: rulebook Fortifications section; design bible Faction Design sections; keywords Siege,
+    Pack, Fearless, Revenant, Unyielding; ability Brace Order (renamed from Fortify Position).'
+- id: exp00000002
+  title: Naming Sheet
+  body: '    Race Dragon — not Drakes. Lesser units may use drake / dragonkin in the card name for flavor.
+    Flying is optional; bipedal Infantry, Ranged archers, and Magic mages are first-class. No Cavalry.
+
+
+    Dragon layers (locked): (1) Dragonkin — bipedal / people-shaped brood. Often non-elemental; fight
+    like Infantry/Heavy with Cleave, Harden, Fear, etc. Do not force Breath or an element onto them.
+    (2) Breath-line / wyrms — optional elemental lineage (Fire, Ice, Poison, Lightning). Blast/Breath is
+    their signature. Element is opt-in on cards, not a race-wide tax. Mono-element armies are a late
+    roster goal (enough Fire/Ice/Poison/Lightning spitters + officers), built on a shared dragonkin core.
+
+
+    Printed Range never exceeds 3 for any race. Effective Range 4+ only via Active abilities, and those
+    Actives belong primarily to Elves (Spanned Shot / Volley Stretch) or narrowly to Siege (Siege
+    Elevation — Siege units only). Do not give every race free Range extension.
+
+
+    Race Beastfolk — commanders, officers, army identity.
+
+
+    Type Beast — primary_type or secondary_type for centaurs, wolfkin, minotaurs, war beasts, etc.
+
+
+    Beast is not a race. Monster is reserved for a possible future race; not in the active race list.
+
+
+    Fortify (verb) = place a hex Fortification.
+
+
+    Brace Order = officer active that grants Harden 2 to a unit (not a hex).'
+- id: exp00000003
+  title: Shared Siege Kit
+  body: 'Shared pool (implement later as cards/siege/ or race Any). Every race may include these.
+    primary_type: Siege. Not Amphibious by default.
+
+
+    Movement baseline: Siege units are a step slower than typical infantry (most line units Move 3+).
+    Default Siege Move is 2. Only Siege may print Move 2 or lower — all other primary types floor at
+    Move 3. Heavier pieces may be Move 2 with Slow, or rarely Move 1. Do not print
+    Move 3+ on shared siege without a clear exception (e.g. a tow-assisted chassis).
+
+
+    Ballista — Role: anti-elite ranged. Sketch: Move 2, Damage 2–3, Range 3, Toughness 3–4, UV mid.
+    Keywords: Piercing or +1 Hit vs Toughness 5+ / Flying. No Siege bonus required (anti-large, not
+    anti-fort). May use Siege Elevation (Siege-only Active) for temporary +1 Range — not Elf Spanned Shot.
+
+
+    Catapult — Role: anti-fort / soft pressure. Sketch: Move 2, Damage 2, Range 3, Toughness 3, UV mid.
+    Keywords: Siege (+1 vs Fortified). May also have Slow.
+
+
+    Trebuchet — Role: heavy anti-fort. Sketch: Move 2 (or Move 1), Damage 3, Range 3, Toughness 3, UV
+    high. Keywords: Siege (+2 vs Fortified printed), Slow. Fragile if engaged in melee. Reach farther
+    only via Siege Elevation (Siege-only), never printed Range 4.
+
+
+    Battering Ram — Role: melee breach. Sketch: Move 2, Damage 2, Range 1, Toughness 5, UV mid.
+    Keywords: Siege (+2 vs Fortified). On hit may Demolish without choosing Attack-the-unit mode (card
+    text). Weak in open-field fights vs infantry.
+
+
+    Siege Tower — Role: approach tool. Sketch: Move 2, Damage 1, Range 1, Toughness 6, UV mid-high.
+    Simple effect (pick one at implement): adjacent friendlies gain Reach for melee this activation OR
+    company treats one water hex as Road while within 1 of the tower. Also a natural tow focus (see
+    Siege Mobility Assists).
+
+
+    Mantlet Crew — Role: mobile cover / Fortify. Sketch: Move 2, Damage 1, Range 1, Toughness 4, UV low.
+    Action: Fortify own hex (1 Company AP). Infantry/Siege hybrid — still Move 2, not a fast screen.
+
+
+    Officers should soft-support primary_type Siege. Repair already restores Siege Toughness. Every
+    siege-capable army should have access to at least one mobility assist (shared or officer).'
+- id: exp00000003b
+  title: Siege Mobility Assists
+  body: 'Siege is intentionally slow (Move 2). Counter that with reusable actives — not by raising
+    baseline Move on the engines themselves.
+
+
+    Shared / cross-race actives (author names):
+
+
+    Limber Up — 1 AP. Choose a friendly Siege in Command Radius. It gains +1 Move this activation. It
+    cannot attack this activation.
+
+
+    Haul Lines — 1 AP. Choose a friendly Siege adjacent to a friendly non-Siege unit. The Siege gains
+    +1 Move this activation (may still attack).
+
+
+    Tow Hitch — 1 AP. Move a friendly Siege up to 2 hexes if it begins adjacent to a Siege Tower,
+    Construct, Beast (War Beast), or unit with Tow / Engineer. Counts as the Siege''s move.
+
+
+    Engineer Escort — Officer passive or 1/round: one Siege in radius ignores Slow for movement this
+    round.
+
+
+    Draft Beasts — Beastfolk. Friendly Beast adjacent to Siege: that Siege +1 Move while adjacent.
+
+
+    Motive Overdrive — Construct. One Siege or Construct +2 Move this activation; then take 1 Damage
+    or lose 1 Toughness until repaired.
+
+
+    Siege Roll — Mirror of Forced March for engines: friendly Siege in radius +1 Move; those units gain
+    Slow after activating.
+
+
+    Design rule: mobility assists are temporary and usually cost AP or a downside. Do not erase the
+    Move 2 identity.'
+- id: exp00000004
+  title: Race-Unique Siege & Engines
+  body: 'Dwarf — Runed Mortar (Move 2, short Range 2, high Damage, Siege +1, loves Fortified friendly
+    hexes nearby); Ironbreaker Cannon (Move 2, Range 2–3, Siege +2, Unyielding crew flavor).
+
+
+    Construct — Arc Projector (Move 2, Range 3, Piercing, Fearless); Walking Battery (Move 2, Siege +1,
+    Repair 1 at start of activation).
+
+
+    Dragon — Wyrmbone Onager (optional light siege; Move 2, Range 3, Siege +1). Primary artillery is
+    Breath on breath-line / wyrm units — not on every Dragon card.
+
+
+    Undead — Bone Catapult (Move 2, Siege +1, Revenant once as Damage −1 / Toughness −1 copy); Crypt
+    Ram (Move 2, Siege +2 melee, Fear on hit).
+
+
+    Beastfolk — Totem Onager (Move 2, Siege +1, Pack synergy); War Beast (Move 3 exception as living
+    siege — primary_type Beast, Trample + Siege +1 vs Fortified; the only common Move 3 "siege"
+    piece).
+
+
+    Human / Elf / Lizardman / Demon — 0–1 unique siege later; not required for first authoring pass.'
+- id: exp00000005
+  title: New Keywords Summary
+  body: 'Siege — May Demolish Fortifications. +1 Damage vs units on Fortified hexes unless card prints
+    higher.
+
+
+    Blast / Splash — Dragon Attack Method/keyword. Primary target + enemies within X hexes. Separate
+    Hit per enemy. Blast 1 cheap; Blast 2 costly.
+
+
+    Pack — While adjacent to another friendly Beast, attacks gain +1 Hit.
+
+
+    Fearless — Immune to Fear. Default on most Constructs.
+
+
+    Revenant — First time destroyed each battle, return once with half starting Toughness (rounded down,
+    minimum 1) in the death hex or the closest unoccupied hex.
+
+
+    Unyielding — Cannot be moved by enemy effects. Rare; Dwarf/Construct elites.
+
+
+    Fortify — Ability verb / action text, not a passive keyword on every engineer.'
+- id: exp00000006
+  title: Shared & Hex Actives (author names)
+  body: 'Fortify Works — 1–2 AP. Fortify occupied or adjacent hex.
+
+
+    Raise Mantlets — 1 AP. Fortify own hex (Mantlet Crew).
+
+
+    Demolish Order — Officer. Friendly Siege in radius may Demolish this activation at −1 Hit or free
+    once.
+
+
+    Brace Order — Existing rename. Unit gains Harden 2 until next round.
+
+
+    Repair — Existing. Restore 2 Toughness to a Siege unit.
+
+
+    Limber Up / Haul Lines / Tow Hitch / Siege Roll — See Siege Mobility Assists. Prefer printing these
+    on engineer officers and shared siege support rather than on every engine card.
+
+
+    Spanned Shot / Volley Stretch — Elf signature. 1–2 AP. Choose a friendly unit in Command Radius
+    (prefer Ranged). It gains +1 Range this activation (may raise effective Range to 4). Usually cannot
+    move this activation. Do not print this on non-Elf officers.
+
+
+    Siege Elevation — Siege-only. 1–2 AP. Choose a friendly Siege unit in Command Radius. It gains +1
+    Range this activation. Cannot move this activation. Narrow exception to the Elf ownership of +Range.'
+- id: exp00000007
+  title: 'Dwarf — Abilities & Ultimates'
+  body: 'Actives: Fortify Works, Entrench (Fortify occupied hex; occupant Harden 1 until EOR), Hold
+    the Gate (Fortify an objective hex in radius), Stoneworks (Fortify adjacent hex), Refresh Works
+    (re-Fortify a hex that lost Fortification this round — 1/round), Stone Line (adjacent Dwarves +1
+    Toughness until round end), Anvil Advance (Harden 1 + forced short Move), Holdfast (Unyielding
+    until round end), Sappers (Fortify then Demolish enemy Fortify within 2), Cannon Drill (Siege in
+    radius +1 Damage once), Haul Lines / Limber Up (siege mobility), Shield Brotherhood (Shieldwall
+    grant).
+
+
+    Ultimates: Unbreakable Hold — Fortify up to 2 hexes in radius; friendly units there gain Harden 1
+    until next round. Depth Charge — Demolish all enemy Fortifications in Command Radius; deal 1 Damage
+    to each occupant. Anvil Decree — All friendly units in radius gain Harden 2 until next
+    round.
+
+
+    Author note: Prefer 3–4 distinct Fortify-placing actives across the officer suite so Dwarves clearly
+    lead the Fortification game.'
+- id: exp00000008
+  title: 'Construct — Abilities & Ultimates'
+  body: 'Actives: Overdrive (+1 Damage / −1 Toughness until EOR), Lockstep (Siege AP discount 1),
+    Sealant Coat (Fearless + ignore Poison until EOR), Rebuild Protocol (Repair 2 to Construct or
+    Siege), Magnetic Line (pull Self toward objective 1 hex), Null Pulse (enemy in radius cannot use
+    one Active this round — once), Battery Link (Siege free attack if none moved), Motive Overdrive
+    (Siege/Construct +2 Move this activation, then 1 Damage).
+
+
+    Ultimates: Full Rebuild — Repair 2 to all friendly Construct and Siege in radius. Lockstep Barrage
+    — Each friendly Siege in radius makes one free attack. Null Field — Enemy Actives and Ultimates
+    cannot be used in radius until next round.'
+- id: exp00000009
+  title: 'Dragon — Abilities & Ultimates'
+  body: 'Stat curve: Steep. Hatchlings below peer UV; mid-drakes and ancients above peer Damage/
+    Toughness for their UV. Pay with fewer copies and high UV. See design bible Dragon section.
+
+
+    Body mix: Flying is optional. Bipedal dragonkin Infantry/Heavy, Ranged archers, and Magic mages are
+    first-class. No Cavalry.
+
+
+    Two layers (locked):
+    Dragonkin — people-shaped / bipedal brood. Default: no element, no Breath. Fight like monstrous foot
+    (Cleave, Harden, Shield-adjacent tools, Fear on some elites). Broad officer support says "friendly
+    Dragon."
+    Breath-line — wyrms, spitters, ancients that print Breath and/or Blast. Optional one primary element
+    per card: Fire (v1 default), Ice, Poison, or Lightning. Blast is the splash delivery; element is the
+    rider (e.g. Ice→Slow, Poison→Poison, Lightning→Piercing / Harden ignore, Fire→raw Blast / Scorch).
+    Do not invent four separate splash keywords.
+
+
+    Army shapes: dragonkin-heavy (little or no breath); mono-element (dragonkin core + one element''s
+    breath spine); mixed brood (legal; element officers reward committing). Fire is the face of Dragon
+    until other lineages have enough cards. One element per card; hybrids rare.
+
+
+    Splash identity: Target + radius. Radius 1 = common/cheap. Radius 2 = costly (AP, ultimate, or elite
+    only). Separate Hit roll per enemy in the blast. Only on cards that print Blast/Breath — not automatic
+    on dragonkin.
+
+
+    Actives (shared brood): Brood Call (+1 Move to friendly Dragon), Terror Dive (Fear on Move 2+), Wing
+    Buffet (push 1), Roost Claim (temp Hit on objective), Scale Ward (Harden 2 on Dragons; 1 CC).
+
+
+    Actives (breath / Fire face — v1): Scorch Mark (Breath gains Siege +1), Ember Burst (Blast 1 on a
+    breath-line Dragon), Inferno Cone (Blast 2; once per round). Later: Ice/Poison/Lightning officer tools
+    that soft-support that element only (e.g. Frost Roost, Storm Brood).
+
+
+    Attack Methods: Dragonkin often Cleave / Trample / normal melee — no Breath required. Breath-line
+    prints Breath (often Breath Blast 1); elite may print Blast 2. Never combine Blast with Cleave or
+    Trample. Element keywords (Fire/Ice/Poison/Lightning) only on breath-line cards that need them.
+
+
+    Ultimates: Sky Tyrant — Friendly Flying Dragon units +1 Move and Fear on hit (aerial package).
+    Cataclysm Breath — Blast 2 on a chosen enemy (breath-line fantasy). Hoard Claim — Dragons in CR gain +2 Damage, a free attack, and Harden 1 per controlled objective (max 3).'
+- id: exp00000010
+  title: 'Undead — Abilities & Ultimates'
+  body: 'Stat compensation: Aim ~−1 Toughness and/or −1 Damage vs same-UV Human/Elf peers. Recursion
+    is the payoff — sims will tune the gap.
+
+
+    Resurrection (once budgets): Revenant keyword on select units (once per battle). Raise Thrall —
+    officer Active, once per battle per officer (or once per company): return one destroyed friendly
+    in radius at 1 Toughness. Gravemind — ultimate, once per game: raise up to N UV as 1-Toughness
+    Revenants. No infinite loops; returned units do not Revenant again that battle.
+
+
+    Actives: Soul Tithe (friendly destroyed in radius → 1 Company AP or +1 Damage to one unit), Raise
+    Thrall (once), Death March (Ignore Slow; +1 Move chaff), Withering Gaze (Fear ranged), Bone Harvest
+    (Demolish + thrall), Crypt Discipline (Fearless elites only), Mass Fear (short Fear pulse).
+
+
+    Ultimates: Gravemind (raise once). Eclipse of Fear — All enemies in radius gain Fear. Bone Harvest
+    — Demolish Fortifications in radius; raise 1 thrall per Demolish (still once-per-game ultimate).'
+- id: exp00000011
+  title: 'Beastfolk — Abilities & Ultimates'
+  body: 'Lane: Between Human and Elf — officer-led packages and mid durability (Human), skirmish Move
+    3–4 and flanking tempo (Elf), without Shieldwall bunkers or Range-4 archery identity.
+
+
+    Actives: Pack Hunt (Pack bonus also grants +1 Damage once), Alpha Mark (target enemy: Pack
+    attacks +1 Hit vs it), Wild Rush (Charge even after 1 Move), Howl (Fear adjacent), Beastmaster''s
+    Call (Beast in radius +1 Move), Totem Pulse (Siege Beast/Onager +1), Draft Beasts (adjacent Beast
+    grants Siege +1 Move), Blood Frenzy (Frenzy grant until EOR), Flank Sweep (Flanking also ignores
+    Harden once), Rally Pack (Human-like Rally but Beast-only).
+
+
+    Ultimates: Blood Moon — Friendly Beast in radius gain Frenzy and Charge until next round. Wild Hunt
+    — Each friendly Beast in radius may Move then make one free attack. Alpha Howl — Enemies in radius
+    Fear; friendly Pack attacks +1 Hit until next round.'
+- id: exp00000012
+  title: 'Roster Skeleton — Dwarf (3 / 8 / ~40)'
+  body: 'Commanders (3): Hold Lord (Unbreakable Hold); Forge Marshal (Depth Charge); Anvil Thane
+    (Anvil Decree).
+
+
+    Officers (8): Shield Captain (Shieldwall line); Engineer Warden (Fortify Works / Entrench); Gate
+    Warden (Hold the Gate); Cannon Officer (Siege support); Ironbreaker Lead (Heavy Infantry);
+    Quartermaster (Repair + Haul Lines); Oathkeeper (Harden aura); Stonewright (Stoneworks / Refresh
+    Works).
+
+
+    Units (~40 curve):
+    Cheap (10–12): Levy axemen, shield thralls, sling crews.
+    Mid (14–16): Heavy Infantry, crossbows Range 2–3, miners (Fortify Works on unit).
+    Elite (6–8): Ironbreakers (Unyielding), rune priests (Magic support), golem-adjacent allies none.
+    Unique siege (2): Runed Mortar, Ironbreaker Cannon.
+    Fill remaining with role variants (tank / damage / support) keeping Move low and Toughness high.'
+- id: exp00000013
+  title: 'Roster Skeleton — Construct (3 / 8 / ~40)'
+  body: 'Commanders (3): Rebuild Core (Full Rebuild); Barrage Mind (Lockstep Barrage); Null Architect
+    (Null Field).
+
+
+    Officers (8): Gear Warden (Repair); Siege Conductor (Siege AP); Phalanx Automaton Lead; Scout
+    Spyder (optional light); Overdrive Chief; Sealant Officer (Fearless aura); Battery Captain;
+    Line Binder (formation Move).
+
+
+    Units (~40):
+    Cheap: scrap drones, shield automata.
+    Mid: spear constructs, archer constructs Range 2, bulwark frames.
+    Elite: juggernauts, null sentinels (Fearless + Harden).
+    Unique siege (2): Arc Projector, Walking Battery.
+    Bias Toughness up, Move down; default Fearless on Construct primary_type.'
+- id: exp00000014
+  title: 'Roster Skeleton — Dragon (3 / 8 / ~40)'
+  body: 'Commanders (3): Sky Tyrant (aerial package); Cataclysm Elder (Blast / Fire face); Hoard Sovereign.
+
+
+    Officers (8): Brood Lieutenant (all Dragon); Terror Herald (Fear); Wing Captain (Flying); Scale Guard
+    Officer (dragonkin Infantry line); Clutch Marshal (bipedal dragonkin — no Breath required); Breath
+    Trainer (Fire/breath spine); Wyrm Priest (Magic); Spire Archer Captain (Ranged). Later expansions add
+    Ice/Poison/Lightning officers without replacing the dragonkin suite.
+
+
+    Units (~40 names, low copies) — bias toward non-elemental dragonkin:
+    Cheap: clutchlings / hatchling infantry (no element), lesser winged scouts (Flying; element optional).
+    Mid dragonkin (majority): bipedal warriors, scale guard, clutch archers (Ranged 2–3), scale mages —
+    Cleave/melee/support; no Breath/element by default.
+    Mid breath-line (minority): spitters with Breath Blast 1 + one element (v1 mostly Fire).
+    Elite dragonkin: bipedal champions (Cleave/Trample/Fear) — still often non-elemental.
+    Elite breath-line: winged ancients, terror wyrms (Breath/Blast 2 + element).
+    Unique siege (0–1): Wyrmbone Onager.
+    UV curve skewed high; fewer copies. Flying and element are both opt-in keywords. No Dragon Cavalry.
+    Long-term: grow each element''s breath spine until a mono-element list can fill deploy UV on a
+    dragonkin core.'
+- id: exp00000015
+  title: 'Roster Skeleton — Undead (3 / 8 / ~40)'
+  body: 'Commanders (3): Gravemind; Eclipse Lich; Bone Harvester.
+
+
+    Officers (8): Wight Captain; Necromancer (Raise); Fear Herald; Crypt Engineer (Bone siege);
+    Thrall Driver; Soul Tither; Death Knight Lead; Tomb Guard Officer.
+
+
+    Units (~40):
+    Cheap: skeletons, zombies (Revenant common on chaff carefully — limit density).
+    Mid: archers, wolves of bone, crypt guard.
+    Elite: wights, death knights, banshees (Fear / Magic).
+    Unique siege (2): Bone Catapult, Crypt Ram.
+    Mediocre stats; recursion and Fear carry value.'
+- id: exp00000016
+  title: 'Roster Skeleton — Beastfolk (3 / 8 / ~40)'
+  body: 'Commanders (3): Blood Moon Alpha; Wild Hunt Lord; Howling Matriarch (Alpha Howl).
+
+
+    Officers (8): Centaur Marshal (Cavalry); Wolfkin Alpha (Pack); Minotaur Champion; Beastmaster
+    (supported_types Beast); Skirmish Pack Lead; Totem Shaman (Onager); Stampede Caller; Scout
+    Tracker.
+
+
+    Units (~40):
+    Cheap: wolfkin runners, tribal infantry.
+    Mid: centaur lancers (Cavalry + Beast), axe wolfkin, totem bearers.
+    Elite: minotaurs, werewolf champions (Frenzy), stampeders (Trample).
+    Unique siege (2): Totem Onager, War Beast.
+    Most combat units primary_type or secondary_type Beast for Pack.'
+- id: exp00000017
+  title: Implementation Notes (later)
+  body: 'Settings races: Human, Elf, Dwarf, Demon, Construct, Dragon, Lizardman, Undead, Beastfolk.
+
+
+    factions.yaml entries for dwarves, constructs, dragons, undead, beastfolk.
+
+
+    RACE_TO_FACTION: Beastfolk → beastfolk (replace Beast → beasts).
+
+
+    Shared cards under data/cards/siege/.
+
+
+    Sim: hex.fortified; Siege bonus; Demolish mode; AI Fortify on bridges/objectives.
+
+
+    Phased build: rules Fortify+Siege → shared siege → Dwarf+Construct → Undead+Beastfolk → Dragon.'

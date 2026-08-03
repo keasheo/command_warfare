@@ -1,5 +1,5 @@
 /**
- * Dwarf-only micro buff (prior pass barely touched them — damage already high).
+ * Dwarf-only micro buff (prior pass barely touched them â€” damage already high).
  * balance_rev 5
  */
 import fs from 'node:fs'
@@ -8,7 +8,7 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data/cards/dwarves')
+const KB = path.resolve('data/cards/dwarves')
 const REV = 5
 
 for (const file of ['units.yaml', 'officers.yaml']) {

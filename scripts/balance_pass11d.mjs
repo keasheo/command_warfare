@@ -8,7 +8,7 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data/cards')
+const KB = path.resolve('data/cards')
 const REV = 21
 
 function bump(card, field, amount, min = 0, max = 99) {
@@ -24,13 +24,13 @@ function tune(card) {
   if (card.race === 'Construct' && card.name === 'Barrage Mind Helix' && card.card_type === 'Commander') {
     if (!bump(card, 'uv', 1, 1)) return false
     card.balance_rev = REV
-    console.log('Barrage Mind Helix UV→', card.uv)
+    console.log('Barrage Mind Helix UVâ†’', card.uv)
     return true
   }
   if (card.race === 'Dragon' && card.name === 'Brood Skirmishers' && card.card_type === 'Unit') {
     if (!bump(card, 'toughness', 1, 1, 7)) return false
     card.balance_rev = REV
-    console.log('Brood Skirmishers T→', card.toughness)
+    console.log('Brood Skirmishers Tâ†’', card.toughness)
     return true
   }
   return false

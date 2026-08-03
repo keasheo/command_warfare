@@ -1,0 +1,1386 @@
+cards:
+  - id: 74fb033817144ca7a37870c4ff3d0df6
+    name: Arena Croc
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Lizardman
+    primary_type: Infantry
+    secondary_type: Amphibious
+    uv: 3
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Amphibious
+    abilities: []
+    ultimate: null
+    flavor_text: 'Arena rules: there are no arena rules.'
+    complexity: 1
+    role: Tank
+    tags:
+      - lizardman
+      - crocodile
+    favored_terrain: swamp
+  - id: 2d24db67c8eb4a5789f5101db9df2bba
+    name: Bog Javelins
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Lizardman
+    primary_type: Ranged
+    secondary_type: Amphibious
+    uv: 2
+    move: 3
+    damage: 3
+    range: 3
+    toughness: 1
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Amphibious
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Throws sticks. Catches respect.
+    complexity: 1
+    role: Artillery
+    tags:
+      - lizardman
+      - ranged
+    favored_terrain: swamp
+  - id: 04f202c9091149faaa9d5162a42b03c5
+    name: Camo Ambusher
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Lizardman
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Stealth
+    abilities: []
+    ultimate: null
+    flavor_text: Was a bush. Became a problem.
+    complexity: 1
+    role: Scout
+    tags:
+      - lizardman
+      - skink
+    favored_terrain: swamp
+  - id: af389010aa8e4783ba4966e03e847006
+    name: Coil Serpent
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Lizardman
+    primary_type: Infantry
+    secondary_type: Nature
+    uv: 3
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Poison
+    abilities: []
+    ultimate: null
+    flavor_text: A rope that decided to have hobbies.
+    complexity: 1
+    role: Control
+    tags:
+      - lizardman
+      - serpent
+    favored_terrain: swamp
+  - id: b771faa959484c6589ce4bfb092483e7
+    name: Dart Skink
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Lizardman
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 2
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Harass
+    abilities: []
+    ultimate: null
+    flavor_text: Small, swift, and socially unimpressed.
+    complexity: 1
+    role: Scout
+    tags:
+      - lizardman
+      - skink
+    favored_terrain: swamp
+  - id: 30c5d095f504426f9500c5ec9803661b
+    name: Fang Slinger
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Lizardman
+    primary_type: Ranged
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 3
+    range: 3
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Poison
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Pebbles dipped in bad ideas.
+    complexity: 1
+    role: Artillery
+    tags:
+      - lizardman
+      - ranged
+    favored_terrain: swamp
+  - id: ee7887e2be534d24ab25bdea274bed62
+    name: Fang Stalker
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Lizardman
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 3
+    move: 5
+    damage: 3
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Poison
+    abilities: []
+    ultimate: null
+    flavor_text: Venom with a calendar and a plan.
+    complexity: 1
+    role: Damage
+    tags:
+      - lizardman
+      - serpent
+    favored_terrain: swamp
+  - id: 386caa06b43f4b9f8909c056e10222b0
+    name: Fenbow Hunter
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Lizardman
+    primary_type: Ranged
+    secondary_type: Light
+    uv: 3
+    move: 4
+    damage: 3
+    range: 3
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Amphibious
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Hunts from the reed line. Collects rumors.
+    complexity: 1
+    role: Scout
+    tags:
+      - lizardman
+      - ranged
+    favored_terrain: swamp
+  - id: 30227ce4be584316b33ca3a88dd364db
+    name: Gorgon Acolyte
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Lizardman
+    primary_type: Magic
+    secondary_type: Nature
+    uv: 3
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Spellcaster
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Still practicing the stare. Already effective.
+    complexity: 1
+    role: Control
+    tags:
+      - lizardman
+      - gorgon
+    favored_terrain: swamp
+  - id: 5525d10a472c49418043fc1b1f1d3d2e
+    name: Hydra Hatchling
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Lizardman
+    primary_type: Beast
+    secondary_type: Amphibious
+    uv: 3
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Adaptive Attack
+    abilities: []
+    ultimate: null
+    flavor_text: Cute. Temporary. Multiplying.
+    complexity: 1
+    role: Frontline
+    tags:
+      - lizardman
+      - hydra
+    favored_terrain: swamp
+  - id: 94f58e4e284942ab877b2b00fcbe952f
+    name: Lith Guard
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Lizardman
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 3
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Harden 1
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Hard as rock. Soft on nothing.
+    complexity: 1
+    role: Tank
+    tags:
+      - lizardman
+      - infantry
+    favored_terrain: swamp
+  - id: 337bf4b03cd54ce9947c0b9e5a4a765b
+    name: Marsh Spears
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Lizardman
+    primary_type: Infantry
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Simple tool. Complicated aftermath.
+    complexity: 1
+    role: Frontline
+    tags:
+      - lizardman
+      - infantry
+    favored_terrain: swamp
+  - id: d698c6bf5d684775983522f11c8e25d3
+    name: Mire Lurker
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Lizardman
+    primary_type: Infantry
+    secondary_type: Amphibious
+    uv: 3
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Amphibious
+    abilities: []
+    ultimate: null
+    flavor_text: Half submerged. Fully committed.
+    complexity: 1
+    role: Scout
+    tags:
+      - lizardman
+      - amphibious
+    favored_terrain: swamp
+  - id: 64d978718e144e74aa8b61a2288293ec
+    name: Pathcroc
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Lizardman
+    primary_type: Beast
+    secondary_type: Amphibious
+    uv: 3
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Amphibious
+    abilities: []
+    ultimate: null
+    flavor_text: The path is the croc. Watch your ankles.
+    complexity: 1
+    role: Tank
+    tags:
+      - lizardman
+      - crocodile
+    favored_terrain: swamp
+  - id: 83567bf35be64d078e66a97e7f74b46e
+    name: Reed Scout
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Lizardman
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 2
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Scout
+    abilities: []
+    ultimate: null
+    flavor_text: Maps the mud. Mud maps the scouts.
+    complexity: 1
+    role: Scout
+    tags:
+      - lizardman
+      - amphibious
+    favored_terrain: swamp
+  - id: e510a378c716498484f0ba4a8a414939
+    name: Scale Brute
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Lizardman
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 3
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Cleave
+    abilities: []
+    ultimate: null
+    flavor_text: Subtlety is for thinner lizards.
+    complexity: 1
+    role: Damage
+    tags:
+      - lizardman
+      - infantry
+    favored_terrain: swamp
+  - id: bb005ba87fbb4b15a441ba94e8c9dd06
+    name: Stonegaze Gorgon
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Lizardman
+    primary_type: Magic
+    secondary_type: Nature
+    uv: 3
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Spellcaster
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Look away. Then look away harder.
+    complexity: 1
+    role: Control
+    tags:
+      - lizardman
+      - gorgon
+    favored_terrain: swamp
+  - id: 01903b9eb7164a59b8ad6418c4696035
+    name: Stonejaw Crusher
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Lizardman
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 4
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Trample
+    abilities: []
+    ultimate: null
+    flavor_text: Turns terrain into punctuation.
+    complexity: 1
+    role: Tank
+    tags:
+      - lizardman
+      - infantry
+    favored_terrain: swamp
+  - id: 43a396307b6f458da0969151c0d2877b
+    name: Coil Priest
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Lizardman
+    primary_type: Magic
+    secondary_type: Nature
+    uv: 4
+    move: 3
+    damage: 2
+    range: 2
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Regenerate
+      - Spellcaster
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Prays in stone. Answers in venom.
+    complexity: 2
+    role: Support
+    tags:
+      - lizardman
+      - magic
+    favored_terrain: swamp
+  - id: 027462332ddb41a3967e68b95ec67937
+    name: Gorgon Eye
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Lizardman
+    primary_type: Magic
+    secondary_type: Nature
+    uv: 5
+    move: 3
+    damage: 3
+    range: 3
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+      - Spellcaster
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: One eye. Many regrets.
+    complexity: 2
+    role: Control
+    tags:
+      - lizardman
+      - gorgon
+    favored_terrain: swamp
+  - id: 373ad377c5ce4155bdfe026d1f7be0aa
+    name: Hydra Spawn
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Lizardman
+    primary_type: Beast
+    secondary_type: Amphibious
+    uv: 5
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Adaptive Attack
+      - Cleave
+    abilities: []
+    ultimate: null
+    flavor_text: Sibling rivalry with cleaving.
+    complexity: 2
+    role: Damage
+    tags:
+      - lizardman
+      - hydra
+    favored_terrain: swamp
+  - id: 098ceb366aff4ef8b85740b34bfd4e1b
+    name: Lith Pillar
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Lizardman
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 5
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Defender
+      - Harden 1
+    abilities: []
+    ultimate: null
+    flavor_text: A wall that grew a badge and a glare.
+    complexity: 2
+    role: Tank
+    tags:
+      - lizardman
+      - infantry
+    favored_terrain: swamp
+  - id: 90e3370181f24b86b93fa8ff1722e335
+    name: Marsh Naga
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Lizardman
+    primary_type: Infantry
+    secondary_type: Nature
+    uv: 5
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Poison
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Poisoned courtesy with excellent reach.
+    complexity: 2
+    role: Frontline
+    tags:
+      - lizardman
+      - serpent
+    favored_terrain: swamp
+  - id: 853debd789274d8eaca36c8c295337b9
+    name: Mire Beast
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Lizardman
+    primary_type: Beast
+    secondary_type: Amphibious
+    uv: 5
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Amphibious
+      - Regenerate
+    abilities: []
+    ultimate: null
+    flavor_text: Mud with a pulse and a diet plan.
+    complexity: 2
+    role: Frontline
+    tags:
+      - lizardman
+      - beast
+    favored_terrain: swamp
+  - id: 85f9f1c12e2a46a4bd9d7c3452e8b82b
+    name: Mudbrace Line
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Lizardman
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 5
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Amphibious
+      - Shieldwall
+    abilities: []
+    ultimate: null
+    flavor_text: Shields slick with swamp and resolve.
+    complexity: 2
+    role: Tank
+    tags:
+      - lizardman
+      - infantry
+    favored_terrain: swamp
+  - id: a225d22dedf64a7d97aeba82baaa8eb7
+    name: River Titan
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Lizardman
+    primary_type: Beast
+    secondary_type: Amphibious
+    uv: 5
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Amphibious
+      - Trample
+    abilities: []
+    ultimate: null
+    flavor_text: When the river stands up, evacuate.
+    complexity: 2
+    role: Tank
+    tags:
+      - lizardman
+      - crocodile
+    favored_terrain: swamp
+  - id: 3a6d8b2e49314777877b91b6d74a4a15
+    name: Swamp Hydra
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Lizardman
+    primary_type: Beast
+    secondary_type: Amphibious
+    uv: 6
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Adaptive Attack
+      - Cleave
+    abilities: []
+    ultimate: null
+    flavor_text: The swamp’s way of saying “enough.”
+    complexity: 2
+    role: Tank
+    tags:
+      - lizardman
+      - hydra
+    favored_terrain: swamp
+  - id: 3be7dc68175b4ea7be95261307fa7e59
+    name: Tide Ripper
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Lizardman
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 4
+    move: 5
+    damage: 3
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Amphibious
+      - Frenzy
+    abilities: []
+    ultimate: null
+    flavor_text: Rip first. Ask the fen later.
+    complexity: 2
+    role: Damage
+    tags:
+      - lizardman
+      - skink
+    favored_terrain: swamp
+  - id: bf13277766bd4012b31e6dc61d07d0b7
+    name: Venom Spitter
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Lizardman
+    primary_type: Ranged
+    secondary_type: null
+    uv: 4
+    move: 3
+    damage: 2
+    range: 3
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Poison
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Range is a courtesy. Poison is the point.
+    complexity: 2
+    role: Artillery
+    tags:
+      - lizardman
+      - ranged
+    favored_terrain: swamp
+  - id: 013fb346bc1d47079590530486b6813f
+    name: Viper Brood
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Lizardman
+    primary_type: Beast
+    secondary_type: Light
+    uv: 4
+    move: 5
+    damage: 2
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Poison
+      - Harass
+    abilities: []
+    ultimate: null
+    flavor_text: A nest that learned teamwork.
+    complexity: 2
+    role: Scout
+    tags:
+      - lizardman
+      - serpent
+    favored_terrain: swamp
+  - id: 1fbd4cf1306c4d4cb699a3de2b898748
+    name: Chameleon Warden
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Lizardman
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 6
+    move: 4
+    damage: 2
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Amphibious
+      - Stealth
+    abilities: []
+    ultimate: null
+    flavor_text: Present. Absent. Suddenly teeth.
+    complexity: 3
+    role: Scout
+    tags:
+      - lizardman
+      - skink
+    favored_terrain: swamp
+    balance_rev: 14
+  - id: 444865db4f5f427ba2b5855607ce62a1
+    name: Deathroll
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Lizardman
+    primary_type: Beast
+    secondary_type: Amphibious
+    uv: 9
+    move: 4
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Amphibious
+      - Cleave
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: A hug that rewrites anatomy.
+    complexity: 3
+    role: Damage
+    tags:
+      - lizardman
+      - crocodile
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: 132734f23fdd42ecbcc677611ff44414
+    name: Fen Basilisk
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Lizardman
+    primary_type: Beast
+    secondary_type: Nature
+    uv: 8
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+      - Poison
+    abilities: []
+    ultimate: null
+    flavor_text: Stare contest champion. Undefeated.
+    complexity: 4
+    role: Control
+    tags:
+      - lizardman
+      - beast
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: a30424fd478d495ca2b6d0be3c43c732
+    name: Obsidian Hydra Brood
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Lizardman
+    primary_type: Beast
+    secondary_type: Heavy
+    uv: 10
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 7
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Adaptive Attack
+      - Regenerate
+    abilities: []
+    ultimate: null
+    flavor_text: Family reunion with extra necks.
+    complexity: 4
+    role: Tank
+    tags:
+      - lizardman
+      - hydra
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: 21958b06db084bffba992e0a404f9b7c
+    name: Temple Scale Guard
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Lizardman
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 8
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Regenerate
+      - Shieldwall
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Guards the temple. Taxes the unworthy.
+    complexity: 3
+    role: Tank
+    tags:
+      - lizardman
+      - infantry
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: 74edf0ac30674277a6b48c04a6890e91
+    name: Viperfang Hydra
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Lizardman
+    primary_type: Beast
+    secondary_type: Amphibious
+    uv: 9
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Adaptive Attack
+      - Poison
+    abilities: []
+    ultimate: null
+    flavor_text: Heads for every flavor of misfortune.
+    complexity: 4
+    role: Damage
+    tags:
+      - lizardman
+      - hydra
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: b164ae761150477aadb7d329e5b931e6
+    name: Muck Stalker
+    card_type: Unit
+    rarity: Epic
+    unique: false
+    race: Lizardman
+    primary_type: Infantry
+    secondary_type: Amphibious
+    uv: 11
+    move: 5
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Poison
+      - Stealth
+    abilities: []
+    ultimate: null
+    flavor_text: Leaves no footprints. Leaves plenty of panic.
+    complexity: 5
+    role: Scout
+    tags:
+      - lizardman
+      - amphibious
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: 31d706eb5b904eef8e683ad0e5b7f6ab
+    name: Swamp Matriarch
+    card_type: Unit
+    rarity: Epic
+    unique: false
+    race: Lizardman
+    primary_type: Magic
+    secondary_type: Nature
+    uv: 11
+    move: 3
+    damage: 4
+    range: 2
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+      - Spellcaster
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Mother of stares. Queen of quiet dread.
+    complexity: 5
+    role: Control
+    tags:
+      - lizardman
+      - gorgon
+      - legend
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: ed91c705b4ac4aabbdce99f107c6cf32
+    name: Worldcoil Serpent
+    card_type: Unit
+    rarity: Epic
+    unique: false
+    race: Lizardman
+    primary_type: Beast
+    secondary_type: Amphibious
+    uv: 12
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 7
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+      - Regenerate
+    abilities: []
+    ultimate: null
+    flavor_text: The horizon that bites back.
+    complexity: 5
+    role: Tank
+    tags:
+      - lizardman
+      - serpent
+      - legend
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: 8456cb476f4f4b8782c8e61031dda4de
+    name: Spawning Pool
+    card_type: Unit
+    rarity: Legendary
+    unique: true
+    race: Lizardman
+    primary_type: Nature
+    secondary_type: Amphibious
+    uv: 13
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Amphibious
+      - Regenerate
+    abilities: []
+    ultimate: null
+    flavor_text: Where the fen writes new arguments.
+    complexity: 5
+    role: Support
+    tags:
+      - lizardman
+      - nature
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: 9a734fc804474241a04e8aa0cc05436a
+    name: Hatchling Drill
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Lizardman
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 1
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 1
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Drill
+    abilities: []
+    ultimate: null
+    flavor_text: Snaps jaws in unison.
+    complexity: 1
+    role: Support
+    tags:
+      - lizardman
+      - support
+      - formation
+    favored_terrain: swamp
+  - id: 1b7895d7d05e4f1d86d3952559bf65ee
+    name: Scale Link
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Lizardman
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 1
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Guard
+    abilities: []
+    ultimate: null
+    flavor_text: Overlap scales. Survive the first bite.
+    complexity: 1
+    role: Support
+    tags:
+      - lizardman
+      - support
+      - formation
+    favored_terrain: swamp
+  - id: b85e5c397ef04fe08357583c696af20c
+    name: Reed Horn Skink
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Lizardman
+    primary_type: Infantry
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation March
+    abilities: []
+    ultimate: null
+    flavor_text: The marsh moves when it calls.
+    complexity: 1
+    role: Support
+    tags:
+      - lizardman
+      - support
+      - formation
+    favored_terrain: swamp
+  - id: 4b0cee135dd74fee9dd943687d7a2e4f
+    name: Fang Pair Boss
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Lizardman
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Drill
+    abilities: []
+    ultimate: null
+    flavor_text: Strike the same vein twice.
+    complexity: 1
+    role: Support
+    tags:
+      - lizardman
+      - support
+      - formation
+    favored_terrain: swamp
+  - id: 06e617a1ceb74aaf8462a9b8fde09e01
+    name: Brood Sergeant
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Lizardman
+    primary_type: Infantry
+    secondary_type: null
+    uv: 3
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Guard
+    abilities: []
+    ultimate: null
+    flavor_text: Broodlings behind him live longer.
+    complexity: 1
+    role: Support
+    tags:
+      - lizardman
+      - support
+      - formation
+    favored_terrain: swamp
+  - id: 23974e0554264d999eb62b9ac0bcba53
+    name: Bog Pacekeeper
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Lizardman
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 3
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation March
+    abilities: []
+    ultimate: null
+    flavor_text: Never leaves the shoals behind.
+    complexity: 1
+    role: Support
+    tags:
+      - lizardman
+      - support
+      - formation
+    favored_terrain: swamp

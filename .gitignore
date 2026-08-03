@@ -15,8 +15,8 @@ data/*.sqlite
 data/*.sqlite-*
 data/*.db
 data/*.db-*
-data/art/
 data/command-warfare.db
+# Keep data/art, data/cards, and *.yaml tracked for a self-contained repo
 
 # Local HTTPS certs (mkcert) — regenerate with `npm run cert:dev`
 certs/

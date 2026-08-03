@@ -1,0 +1,1408 @@
+cards:
+  - id: 5f86e2413a0a4b6b91db75c4c70121c4
+    name: Barkwarden
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Elf
+    primary_type: Infantry
+    secondary_type: Nature
+    uv: 3
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Regenerate
+    abilities: []
+    ultimate: null
+    flavor_text: Bark for armor. Sap for stubbornness.
+    complexity: 1
+    role: Tank
+    tags:
+      - elf
+      - nature
+    favored_terrain: forest
+  - id: 60a1c4f7cdaf462c940e5dccd180d00c
+    name: Boughlong Archers
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Elf
+    primary_type: Ranged
+    secondary_type: null
+    uv: 3
+    move: 3
+    damage: 3
+    range: 3
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Piercing
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: The string remembers every name it has erased.
+    complexity: 1
+    role: Artillery
+    tags:
+      - elf
+      - ranged
+    favored_terrain: forest
+  - id: 0dbe926e0fa14e02b66f6839c6ceb37d
+    name: Glidersilk
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Elf
+    primary_type: Flying
+    secondary_type: null
+    uv: 3
+    move: 5
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Flying
+    abilities: []
+    ultimate: null
+    flavor_text: Wings of leaf-silk; attitude of a hawk.
+    complexity: 1
+    role: Scout
+    tags:
+      - elf
+      - flying
+    favored_terrain: forest
+  - id: a3a394e9d6824047b1698301980268d4
+    name: Greenspire Spears
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Elf
+    primary_type: Infantry
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Green wood. Red results.
+    complexity: 1
+    role: Frontline
+    tags:
+      - elf
+      - infantry
+    favored_terrain: forest
+  - id: 69d1ae45ba58474ea51de5dd46499b8b
+    name: Leafblade Duelist
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Elf
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 3
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Flanking
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: One cut. One bow. No encore needed.
+    complexity: 1
+    role: Damage
+    tags:
+      - elf
+      - infantry
+    favored_terrain: forest
+    balance_rev: 10
+  - id: 4c64553193604962a19f424a90101cf3
+    name: Leafcrown Archers
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Elf
+    primary_type: Ranged
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 3
+    range: 3
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: From the leaves, every helmet looks like a request.
+    complexity: 1
+    role: Artillery
+    tags:
+      - elf
+      - ranged
+    favored_terrain: forest
+  - id: 78fcc3cc4fc9452199f2a1b85db80fc4
+    name: Leyline Keeper
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Elf
+    primary_type: Nature
+    secondary_type: null
+    uv: 3
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Keeps the line. Also keeps score.
+    complexity: 1
+    role: Frontline
+    tags:
+      - elf
+      - nature
+    favored_terrain: forest
+  - id: b3e2a676766d48219ab8464abdc4f7a3
+    name: Moonfall Owl
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Elf
+    primary_type: Flying
+    secondary_type: null
+    uv: 3
+    move: 5
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Flying
+    abilities: []
+    ultimate: null
+    flavor_text: Night shift supervisor with a beak.
+    complexity: 1
+    role: Scout
+    tags:
+      - elf
+      - flying
+    favored_terrain: forest
+  - id: 0d8e43cbc07b4472bf5ed2a835ec284a
+    name: Mossweave Druid
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Elf
+    primary_type: Nature
+    secondary_type: Magic
+    uv: 3
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Spellcaster
+      - Reach
+    abilities:
+      - Heal
+    ultimate: null
+    flavor_text: Speaks tree. Trees speak back louder.
+    complexity: 1
+    role: Healer
+    tags:
+      - elf
+      - nature
+      - magic
+    favored_terrain: forest
+  - id: 65f1a8c9d1d048a8bc6e5ffb6524f7c2
+    name: Nightstem Stalker
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Elf
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 2
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Stealth
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Hides in silver. Strikes in certainty.
+    complexity: 1
+    role: Scout
+    tags:
+      - elf
+      - scout
+    favored_terrain: forest
+    balance_rev: 10
+  - id: eae4cf12462949bc9b3544473315f583
+    name: Startrail Hunter
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Elf
+    primary_type: Ranged
+    secondary_type: Light
+    uv: 3
+    move: 4
+    damage: 3
+    range: 3
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Stealth
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Hunts by constellation and coincidence.
+    complexity: 1
+    role: Scout
+    tags:
+      - elf
+      - ranged
+    favored_terrain: forest
+  - id: 8dc147e037bd4139b4fd9c3679b1db6e
+    name: Starwing Falcon
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Elf
+    primary_type: Flying
+    secondary_type: Light
+    uv: 3
+    move: 6
+    damage: 2
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Flying
+    abilities: []
+    ultimate: null
+    flavor_text: A comma in the sky that ends sentences.
+    complexity: 1
+    role: Scout
+    tags:
+      - elf
+      - flying
+    favored_terrain: forest
+    balance_rev: 10
+  - id: 24b855853dcd4175b5a92e8ac7f1f5ba
+    name: Thornbite Scout
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Elf
+    primary_type: Ranged
+    secondary_type: Light
+    uv: 3
+    move: 4
+    damage: 3
+    range: 3
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Scout
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Reports back. Usually with someone else’s blood.
+    complexity: 1
+    role: Scout
+    tags:
+      - elf
+      - ranged
+    favored_terrain: forest
+  - id: 731276a3fec54fbabc29eefc10bd2cec
+    name: Thornspike Trapline
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Elf
+    primary_type: Ranged
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 3
+    range: 3
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Poison
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: The ground looks friendly. It is lying.
+    complexity: 1
+    role: Control
+    tags:
+      - elf
+      - ranged
+    favored_terrain: forest
+  - id: 39dc70c7607f420a9213e8ddb2759ce2
+    name: Thornwall Sentinel
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Elf
+    primary_type: Infantry
+    secondary_type: Nature
+    uv: 3
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Harden 1
+    abilities: []
+    ultimate: null
+    flavor_text: A wall that grew a pulse and a grudge.
+    complexity: 1
+    role: Tank
+    tags:
+      - elf
+      - nature
+    favored_terrain: forest
+  - id: 5660333e42374135a7cf4c393c1df01c
+    name: Treant Sapling
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Elf
+    primary_type: Nature
+    secondary_type: Heavy
+    uv: 4
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Regenerate
+    abilities: []
+    ultimate: null
+    flavor_text: Small tree. Large future problems.
+    complexity: 1
+    role: Tank
+    tags:
+      - elf
+      - nature
+    favored_terrain: forest
+  - id: 94ce76450ca649aeb8d83690f1aeacf4
+    name: Whisperleaf Skirmisher
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Elf
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 2
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Harass
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Steps softer than second thoughts.
+    complexity: 1
+    role: Scout
+    tags:
+      - elf
+      - infantry
+    favored_terrain: forest
+    balance_rev: 10
+  - id: 78c72fa297fd4867a0d13e8ffec23056
+    name: Zephyr Runner
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Elf
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 2
+    move: 5
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Harass
+    abilities: []
+    ultimate: null
+    flavor_text: Arrives before the warning finishes forming.
+    complexity: 1
+    role: Scout
+    tags:
+      - elf
+      - infantry
+    favored_terrain: forest
+  - id: b4806723da004b1d8d4b6254eabd58ca
+    name: Constellation Greatbow
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Elf
+    primary_type: Ranged
+    secondary_type: Heavy
+    uv: 4
+    move: 3
+    damage: 3
+    range: 3
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Piercing
+      - Siege
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: When stars align, walls reconsider.
+    complexity: 2
+    role: Artillery
+    tags:
+      - elf
+      - ranged
+      - siege
+    favored_terrain: forest
+    balance_rev: 10
+  - id: 737837820df64aed8c9aba2ddb46e717
+    name: Grove Wolf Pack
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Elf
+    primary_type: Beast
+    secondary_type: Light
+    uv: 4
+    move: 5
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Frenzy
+      - Scout
+    abilities: []
+    ultimate: null
+    flavor_text: They do not howl for fun. They howl for lunch.
+    complexity: 2
+    role: Damage
+    tags:
+      - elf
+      - beast
+    favored_terrain: forest
+    balance_rev: 10
+  - id: 275c81679f5148c9b19015f0ea596855
+    name: Hawk of Starfall
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Elf
+    primary_type: Flying
+    secondary_type: null
+    uv: 4
+    move: 5
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Flying
+      - Mounted
+    abilities: []
+    ultimate: null
+    flavor_text: Rider and hawk share one appetite for height.
+    complexity: 2
+    role: Damage
+    tags:
+      - elf
+      - flying
+    favored_terrain: forest
+    balance_rev: 10
+  - id: 7e72f506b5654ae29a377844de3b7b87
+    name: Living Briar Patch
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Elf
+    primary_type: Nature
+    secondary_type: null
+    uv: 5
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Guard
+      - Poison
+    abilities: []
+    ultimate: null
+    flavor_text: Do not sit. Do not stand. Do not exist nearby.
+    complexity: 2
+    role: Control
+    tags:
+      - elf
+      - nature
+    favored_terrain: forest
+  - id: 50e432f955164eda91706cf3efdf2222
+    name: Lunashade
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Elf
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 4
+    move: 5
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Frenzy
+      - Stealth
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: A silhouette that learned to bite.
+    complexity: 2
+    role: Damage
+    tags:
+      - elf
+      - scout
+    favored_terrain: forest
+    balance_rev: 10
+  - id: 7bf8743f75774108ad1c0e95593a1f15
+    name: Quietbranch Sniper
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Elf
+    primary_type: Ranged
+    secondary_type: Light
+    uv: 4
+    move: 3
+    damage: 3
+    range: 3
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Piercing
+      - Stealth
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: You will not hear the shot. The forest will.
+    complexity: 2
+    role: Artillery
+    tags:
+      - elf
+      - ranged
+    favored_terrain: forest
+    balance_rev: 10
+  - id: d7b8d27aa111492b8d252903b8ebc5b5
+    name: Rootbound Ent
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Elf
+    primary_type: Nature
+    secondary_type: Heavy
+    uv: 6
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Harden 1
+      - Regenerate
+    abilities: []
+    ultimate: null
+    flavor_text: Older than your kingdom. Less patient.
+    complexity: 2
+    role: Tank
+    tags:
+      - elf
+      - nature
+    favored_terrain: forest
+  - id: 0d2f127692d6470ba1b15b18de433145
+    name: Silverstep Dancer
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Elf
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 4
+    move: 5
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Flanking
+      - Harass
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Dance first. Then explain the blood.
+    complexity: 2
+    role: Damage
+    tags:
+      - elf
+      - infantry
+    favored_terrain: forest
+    balance_rev: 10
+  - id: 45a1007394dc45aba37e5164316e4de4
+    name: Thornheart Stag
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Elf
+    primary_type: Beast
+    secondary_type: Nature
+    uv: 5
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Charge
+      - Regenerate
+    abilities: []
+    ultimate: null
+    flavor_text: Charges like a sermon with antlers.
+    complexity: 2
+    role: Frontline
+    tags:
+      - elf
+      - beast
+    favored_terrain: forest
+  - id: a2e0358874d14848ac43dbbc981cc1fa
+    name: Thornspire Unicorn
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Elf
+    primary_type: Beast
+    secondary_type: Nature
+    uv: 5
+    move: 5
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Charge
+    abilities:
+      - Inspire
+    ultimate: null
+    flavor_text: Horn first. Questions never.
+    complexity: 2
+    role: Support
+    tags:
+      - elf
+      - beast
+    favored_terrain: forest
+  - id: d6d2eb3451774f669c6269037f84e168
+    name: Windbow Circle
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Elf
+    primary_type: Ranged
+    secondary_type: null
+    uv: 5
+    move: 3
+    damage: 3
+    range: 3
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities:
+      - Inspire
+    ultimate: null
+    flavor_text: They shoot as a single breath of wind.
+    complexity: 2
+    role: Support
+    tags:
+      - elf
+      - ranged
+    favored_terrain: forest
+    balance_rev: 10
+  - id: b24c6b6a9d7c4b6da79911d16df69b1c
+    name: Windcaller
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Elf
+    primary_type: Magic
+    secondary_type: Nature
+    uv: 4
+    move: 3
+    damage: 3
+    range: 3
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Spellcaster
+      - Harass
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: She asks the air to misbehave. It obliges.
+    complexity: 2
+    role: Support
+    tags:
+      - elf
+      - magic
+    favored_terrain: forest
+  - id: 7afb40694a25415a99ad15a92ebebf74
+    name: Dryad Circle
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Elf
+    primary_type: Nature
+    secondary_type: Magic
+    uv: 6
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Regenerate
+      - Spellcaster
+      - Reach
+    abilities:
+      - Heal
+    ultimate: null
+    flavor_text: They heal the grove and bill the invaders.
+    complexity: 3
+    role: Healer
+    tags:
+      - elf
+      - nature
+    favored_terrain: forest
+    balance_rev: 10
+  - id: c73fa9fb7d6c40218c480fc850eac148
+    name: Elder Treant
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Elf
+    primary_type: Nature
+    secondary_type: Heavy
+    uv: 9
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 7
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Regenerate
+      - Slow
+    abilities: []
+    ultimate: null
+    flavor_text: Slow to anger. Impossible to hurry.
+    complexity: 4
+    role: Tank
+    tags:
+      - elf
+      - nature
+    favored_terrain: forest
+    balance_rev: 11
+  - id: 66fcd970d12547a88709fd0b710b4d83
+    name: Fallen Star Ancient
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Elf
+    primary_type: Nature
+    secondary_type: Heavy
+    uv: 8
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Harden 1
+      - Regenerate
+    abilities: []
+    ultimate: null
+    flavor_text: Fell once from the sky. Liked it here.
+    complexity: 4
+    role: Support
+    tags:
+      - elf
+      - nature
+      - legend
+    favored_terrain: forest
+    balance_rev: 10
+  - id: bd532ef01d214aa7a3e21dcb02443507
+    name: Featherblade
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Elf
+    primary_type: Flying
+    secondary_type: Light
+    uv: 6
+    move: 6
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Flying
+      - Harass
+    abilities: []
+    ultimate: null
+    flavor_text: Steel and pinion in the same argument.
+    complexity: 4
+    role: Damage
+    tags:
+      - elf
+      - flying
+    favored_terrain: forest
+    balance_rev: 10
+  - id: ce725b256db84098841fb7b68ac050f6
+    name: Spiritbow of Moonfall
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Elf
+    primary_type: Ranged
+    secondary_type: Magic
+    uv: 6
+    move: 3
+    damage: 3
+    range: 3
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Spellcaster
+      - Stealth
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Arrows woven from moonlight and grudges.
+    complexity: 3
+    role: Artillery
+    tags:
+      - elf
+      - ranged
+      - magic
+    favored_terrain: forest
+    balance_rev: 10
+  - id: eecdf8f72f0a47138f3e8158ad09f847
+    name: Wild Hunt Riders
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Elf
+    primary_type: Cavalry
+    secondary_type: Nature
+    uv: 6
+    move: 5
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Mounted
+      - Scout
+    abilities: []
+    ultimate: null
+    flavor_text: The forest goes riding. Bring a will.
+    complexity: 4
+    role: Scout
+    tags:
+      - elf
+      - cavalry
+    favored_terrain: forest
+    balance_rev: 10
+  - id: 92da9b914baa48e1ba9d38603a4a2dff
+    name: Briar Skirmish Line
+    card_type: Unit
+    rarity: Epic
+    unique: false
+    race: Elf
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 9
+    move: 4
+    damage: 2
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+      - Harass
+    abilities: []
+    ultimate: null
+    flavor_text: A living hedge with a spear hobby.
+    complexity: 4
+    role: Frontline
+    tags:
+      - elf
+      - infantry
+    favored_terrain: forest
+    balance_rev: 11
+  - id: c9abd150fac94ddea65f1cc74b6c2ba6
+    name: Spirit Hawk
+    card_type: Unit
+    rarity: Epic
+    unique: false
+    race: Elf
+    primary_type: Flying
+    secondary_type: Magic
+    uv: 10
+    move: 5
+    damage: 3
+    range: 2
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Flying
+      - Spellcaster
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: A prayer with talons and excellent eyesight.
+    complexity: 4
+    role: Damage
+    tags:
+      - elf
+      - flying
+    favored_terrain: forest
+    balance_rev: 11
+  - id: 82d694b8e2304a2eb5f032d1d92246ec
+    name: Thornclaw Sabertooth
+    card_type: Unit
+    rarity: Epic
+    unique: false
+    race: Elf
+    primary_type: Beast
+    secondary_type: null
+    uv: 10
+    move: 5
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Frenzy
+      - Piercing
+    abilities: []
+    ultimate: null
+    flavor_text: Beauty, fangs, and zero interest in diplomacy.
+    complexity: 4
+    role: Damage
+    tags:
+      - elf
+      - beast
+    favored_terrain: forest
+    balance_rev: 11
+  - id: 8310e095a5d34ffaa84df862ee652138
+    name: Galewood Wisps
+    card_type: Unit
+    rarity: Legendary
+    unique: true
+    race: Elf
+    primary_type: Magic
+    secondary_type: Flying
+    uv: 11
+    move: 5
+    damage: 3
+    range: 2
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Flying
+      - Stealth
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Pretty lights. Terrible decisions.
+    complexity: 5
+    role: Scout
+    tags:
+      - elf
+      - magic
+      - flying
+    favored_terrain: forest
+  - id: 20aad986c6e64966b2543b03e05c753c
+    name: Sapling Drill
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Elf
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 1
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 1
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Drill
+    abilities: []
+    ultimate: null
+    flavor_text: Teaches roots before blades.
+    complexity: 1
+    role: Support
+    tags:
+      - elf
+      - support
+      - formation
+    favored_terrain: forest
+  - id: 57b86578c4f4406193d16324c20ae839
+    name: Thorn Link
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Elf
+    primary_type: Nature
+    secondary_type: Light
+    uv: 1
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Guard
+    abilities: []
+    ultimate: null
+    flavor_text: A hedge of friends is still a hedge.
+    complexity: 1
+    role: Support
+    tags:
+      - elf
+      - support
+      - formation
+    favored_terrain: forest
+  - id: e9b8f2073ad3497897bddf6d81d2c393
+    name: Leafsignal Runner
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Elf
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation March
+    abilities: []
+    ultimate: null
+    flavor_text: Whispers pace to the undergrowth.
+    complexity: 1
+    role: Support
+    tags:
+      - elf
+      - support
+      - formation
+    favored_terrain: forest
+  - id: bc2afeb4111743cca3cf21be6515c1ee
+    name: Bow Pair Tutor
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Elf
+    primary_type: Ranged
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 1
+    range: 2
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Drill
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Two strings, one aim.
+    complexity: 1
+    role: Support
+    tags:
+      - elf
+      - support
+      - formation
+    favored_terrain: forest
+  - id: 6c97c6574c5a4c5b8515813cd008d2a1
+    name: Grove Sergeant
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Elf
+    primary_type: Nature
+    secondary_type: null
+    uv: 3
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Guard
+    abilities: []
+    ultimate: null
+    flavor_text: The grove bends around the weak.
+    complexity: 1
+    role: Support
+    tags:
+      - elf
+      - support
+      - formation
+    favored_terrain: forest
+  - id: 16cc568de75d4145981a7519238a1161
+    name: Trail Warden
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Elf
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 3
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation March
+    abilities: []
+    ultimate: null
+    flavor_text: Never outruns the saplings.
+    complexity: 1
+    role: Support
+    tags:
+      - elf
+      - support
+      - formation
+    favored_terrain: forest

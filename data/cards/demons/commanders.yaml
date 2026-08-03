@@ -1,0 +1,147 @@
+cards:
+  - id: 37d107bcf39540c3a1adc73897e0bc68
+    name: Brimstone Herald
+    card_type: Commander
+    rarity: Rare
+    unique: false
+    race: Demon
+    primary_type: Fire
+    secondary_type: null
+    uv: 9
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: 6
+    ap_generation: 5
+    cc_generation: 6
+    keywords: []
+    abilities:
+      - Hellfire Press
+      - Master Strategist
+      - Cinder March
+      - Counterattack
+      - Infernal Heat
+    ultimate: Infernal Rush
+    flavor_text: Ash remembers every slight.
+    complexity: 4
+    role: Damage
+    tags:
+      - demon
+      - fire
+      - tempo
+    favored_terrain: volcanic
+    balance_rev: 26
+  - id: e0e112a7d2639c9357b175ecc2a4de19
+    name: Ashen Blood Sovereign
+    card_type: Commander
+    rarity: Epic
+    unique: false
+    race: Demon
+    primary_type: Infantry
+    secondary_type: null
+    uv: 15
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: 7
+    ap_generation: 5
+    cc_generation: 6
+    keywords: []
+    abilities:
+      - Demon Compact
+      - Rally
+      - Cinder March
+      - Ashwind
+      - Hellspark
+    ultimate: Abyssal Onslaught
+    flavor_text: Infernal blood recognizes infernal blood.
+    complexity: 4
+    role: Damage
+    tags:
+      - demon
+      - kinship
+      - compact
+    favored_terrain: volcanic
+    balance_rev: 26
+  - id: 56c5317394d04d8699f8b9b2c758fa19
+    name: Voidclaw Tormentor
+    card_type: Commander
+    rarity: Epic
+    unique: false
+    race: Demon
+    primary_type: Magic
+    secondary_type: null
+    uv: 11
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: 7
+    ap_generation: 5
+    cc_generation: 7
+    keywords:
+      - Fear
+      - Reach
+    abilities:
+      - Hellfire Press
+      - Dread Aura
+      - Rally
+      - Blood Lottery
+      - Overwhelming Offensive
+      - Torment Lattice
+    ultimate: Void Torment
+    flavor_text: Dread is the first weapon drawn.
+    complexity: 5
+    role: Control
+    tags:
+      - demon
+      - fear
+      - magic
+    favored_terrain: volcanic
+    balance_rev: 25
+  - id: b7465d78d3674cec9f88db408380f336
+    name: Doomforge Tyrant
+    card_type: Commander
+    rarity: Legendary
+    unique: true
+    race: Demon
+    primary_type: Fire
+    secondary_type: null
+    uv: 10
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: 7
+    ap_generation: 6
+    cc_generation: 7
+    keywords: []
+    abilities:
+      - Hellfire Press
+      - Master Strategist
+      - Tyrant Tithe
+      - Battle Cry
+      - Cinder March
+      - Last Stand
+      - Overwhelming Inferno
+      - Forge Dominion
+    ultimate: Apocalypse Cry
+    flavor_text: The forge never cools.
+    complexity: 5
+    role: Damage
+    tags:
+      - demon
+      - fire
+      - legend
+    favored_terrain: volcanic
+    balance_rev: 25

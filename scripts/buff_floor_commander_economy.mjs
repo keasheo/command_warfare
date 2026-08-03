@@ -10,9 +10,9 @@ import Database from 'better-sqlite3'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data/cards')
+const KB = path.resolve('data/cards')
 
-/** win% < 42 from sim/sim-commander-performance — economy help, not kit rewrites */
+/** win% < 42 from sim/sim-commander-performance â€” economy help, not kit rewrites */
 const FLOOR = [
   'Thunderhoof Caller',
   'Hearthstone Covenant',
@@ -65,8 +65,8 @@ for (const file of files) {
       name: card.name,
       race: card.race,
       rarity: card.rarity,
-      uv: `${before.uv}→${card.uv}`,
-      cc: `${before.cc}→${card.cc_generation}`,
+      uv: `${before.uv}â†’${card.uv}`,
+      cc: `${before.cc}â†’${card.cc_generation}`,
       file: path.relative(KB, file),
     })
     wanted.delete(card.name)

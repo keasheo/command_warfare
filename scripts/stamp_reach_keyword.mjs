@@ -11,7 +11,7 @@ import { fileURLToPath } from 'node:url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const KINGDOMS_BUILDER_DATA = path.resolve(
-  process.env.KINGDOMS_DATA ?? path.join(__dirname, '../../KingdomsBuilder/data'),
+  process.env.KINGDOMS_DATA ?? path.resolve(__dirname, '../data'),
 )
 const KEYWORDS_PATH = path.join(KINGDOMS_BUILDER_DATA, 'keywords.yaml')
 
@@ -33,7 +33,7 @@ function getAllCardYamlFiles(baseDir) {
 
 function ensureReachKeywordDef() {
   if (!fs.existsSync(KEYWORDS_PATH)) {
-    console.warn(`⚠ keywords.yaml not found at ${KEYWORDS_PATH}`)
+    console.warn(`âš  keywords.yaml not found at ${KEYWORDS_PATH}`)
     return false
   }
   const data = load(fs.readFileSync(KEYWORDS_PATH, 'utf8')) ?? {}
@@ -47,7 +47,7 @@ function ensureReachKeywordDef() {
     dump(data, { lineWidth: -1, noRefs: true, sortKeys: false }),
     'utf8',
   )
-  console.log('✓ Added Reach keyword definition to keywords.yaml')
+  console.log('âœ“ Added Reach keyword definition to keywords.yaml')
   return true
 }
 
@@ -77,14 +77,14 @@ function processYamlFile(filePath) {
       dump(data, { lineWidth: -1, noRefs: true, sortKeys: false }),
       'utf8',
     )
-    console.log(`  ✓ ${path.relative(KINGDOMS_BUILDER_DATA, filePath)}: ${updatedCount} card(s)`)
+    console.log(`  âœ“ ${path.relative(KINGDOMS_BUILDER_DATA, filePath)}: ${updatedCount} card(s)`)
   }
   return updatedCount
 }
 
 function main() {
-  console.log('🚀 Stamping Reach onto cards with Range > 1...')
-  console.log(`📂 KingdomsBuilder data: ${KINGDOMS_BUILDER_DATA}`)
+  console.log('ðŸš€ Stamping Reach onto cards with Range > 1...')
+  console.log(`ðŸ“‚ KingdomsBuilder data: ${KINGDOMS_BUILDER_DATA}`)
 
   ensureReachKeywordDef()
 
@@ -113,7 +113,7 @@ function main() {
   console.log(`Already had Reach: ${alreadyHad}`)
   console.log(`Newly stamped: ${totalUpdated}`)
   console.log('='.repeat(60))
-  console.log('\n💡 Next step: Run "npm run import:yaml" in CommandWarfare')
+  console.log('\nðŸ’¡ Next step: Run "npm run import:yaml" in CommandWarfare')
 }
 
 main()

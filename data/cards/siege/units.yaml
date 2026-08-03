@@ -1,0 +1,170 @@
+cards:
+  - id: 3e7cfdb9bb8940b3b7ac0b7ca8189c20
+    name: Mantlet Crew
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Siege
+    primary_type: Siege
+    secondary_type: Light
+    uv: 3
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Siege
+    abilities:
+      - Raise Mantlets
+    ultimate: null
+    flavor_text: Shields on wheels; courage optional.
+    complexity: 1
+    role: Support
+    tags:
+      - siege
+  - id: cf6f7675cda04b47b088b1aa58c76108
+    name: Field Ballista
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Siege
+    primary_type: Siege
+    secondary_type: Ranged
+    uv: 5
+    move: 2
+    damage: 3
+    range: 3
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Piercing
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Bolt racks stamped for whoever pays the crew.
+    complexity: 1
+    role: Artillery
+    tags:
+      - siege
+      - ranged
+  - id: 90e5c12b76b445809c9bfea04e0129a7
+    name: Ironhead Ram
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Siege
+    primary_type: Siege
+    secondary_type: Heavy
+    uv: 5
+    move: 2
+    damage: 2
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Siege
+    abilities: []
+    ultimate: null
+    flavor_text: A door's least favorite relative.
+    complexity: 1
+    role: Frontline
+    tags:
+      - siege
+  - id: 7a1bb3f7d99d40c38eb77fb65dd40ee2
+    name: Timber Catapult
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Siege
+    primary_type: Siege
+    secondary_type: null
+    uv: 5
+    move: 2
+    damage: 2
+    range: 3
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Siege
+      - Slow
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Counterweight patience, then sudden arithmetic.
+    complexity: 1
+    role: Artillery
+    tags:
+      - siege
+  - id: a1e72a87b5e44386bf2f685e29080ea1
+    name: Long-Arm Trebuchet
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Siege
+    primary_type: Siege
+    secondary_type: null
+    uv: 8
+    move: 2
+    damage: 3
+    range: 3
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Siege
+      - Slow
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: The arm that makes walls reconsider their careers.
+    complexity: 3
+    role: Artillery
+    tags:
+      - siege
+  - id: 05baf2863b274292b1f046d4d38f96df
+    name: Rolling Siege Tower
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Siege
+    primary_type: Siege
+    secondary_type: Heavy
+    uv: 7
+    move: 2
+    damage: 1
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Slow
+    abilities: []
+    ultimate: null
+    flavor_text: Stairs with an agenda.
+    complexity: 3
+    role: Support
+    tags:
+      - siege

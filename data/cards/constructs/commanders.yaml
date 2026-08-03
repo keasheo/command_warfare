@@ -1,0 +1,137 @@
+cards:
+  - id: a0cf4252a34f448899876645a07cdce2
+    name: Rebuild Core Sigma
+    card_type: Commander
+    rarity: Rare
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: null
+    uv: 16
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: 6
+    ap_generation: 5
+    cc_generation: 5
+    keywords:
+      - Fearless
+    abilities:
+      - Magnetic Line
+      - Rally
+      - Master Strategist
+      - Repair Rites
+    ultimate: Full Rebuild
+    flavor_text: Damage is data. Repair is doctrine.
+    complexity: 4
+    role: Healer
+    tags:
+      - construct
+    favored_terrain: plains
+  - id: cfed71294b8442fa836c49f097021707
+    name: Barrage Mind Helix
+    card_type: Commander
+    rarity: Epic
+    unique: false
+    race: Construct
+    primary_type: Siege
+    secondary_type: null
+    uv: 19
+    move: 3
+    damage: 2
+    range: 2
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: 6
+    ap_generation: 5
+    cc_generation: 5
+    keywords:
+      - Fearless
+      - Reach
+    abilities:
+      - Siege Cadence
+      - Magnetic Line
+      - Master Strategist
+      - Gear Grease
+      - Siege Barrage
+    ultimate: Lockstep Barrage
+    flavor_text: All barrels, one thought.
+    complexity: 5
+    role: Artillery
+    tags:
+      - construct
+      - siege
+    favored_terrain: plains
+    balance_rev: 21
+  - id: d3f73e79c99cf65dfee3b0d1ecd29a68
+    name: Prime Directive Core
+    card_type: Commander
+    rarity: Epic
+    unique: false
+    race: Construct
+    primary_type: Infantry
+    secondary_type: null
+    uv: 17
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: 7
+    ap_generation: 5
+    cc_generation: 6
+    keywords: []
+    abilities:
+      - Construct Compact
+      - Rally
+      - Master Strategist
+      - Directive Tempo
+      - Arc Discharge
+    ultimate: Prime Protocol
+    flavor_text: Only compliant chassis receive the signal.
+    complexity: 4
+    role: Support
+    tags:
+      - construct
+      - kinship
+      - compact
+    favored_terrain: plains
+    balance_rev: 18
+  - id: 1db78fa77d534122ad9e5ac6556c415d
+    name: Null Architect Void
+    card_type: Commander
+    rarity: Legendary
+    unique: true
+    race: Construct
+    primary_type: Construct
+    secondary_type: null
+    uv: 27
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: 6
+    ap_generation: 5
+    cc_generation: 5
+    keywords:
+      - Fearless
+    abilities:
+      - Magnetic Line
+      - Overdrive
+      - Null Pulse
+      - Vector March
+    ultimate: Null Field
+    flavor_text: Silence, then structure.
+    complexity: 5
+    role: Control
+    tags:
+      - construct
+    favored_terrain: plains
+    balance_rev: 19

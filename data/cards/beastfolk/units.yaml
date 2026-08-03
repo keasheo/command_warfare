@@ -1,0 +1,1387 @@
+cards:
+  - id: 264c78592e95498caed10fc1459d353c
+    name: Boar Boys
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: null
+    uv: 2
+    move: 4
+    damage: 2
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Charge
+    abilities: []
+    ultimate: null
+    flavor_text: Tusks on a budget.
+    complexity: 1
+    role: Frontline
+    tags:
+      - beastfolk
+      - beast
+    favored_terrain: forest
+  - id: d52cc4a7fba843af9d5d835cdcab3825
+    name: Brush Stalkers
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: Light
+    uv: 3
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Pack
+      - Stealth
+    abilities: []
+    ultimate: null
+    flavor_text: Leaves that bite.
+    complexity: 1
+    role: Frontline
+    tags:
+      - beastfolk
+      - beast
+    favored_terrain: forest
+  - id: be3aed29709645498b60b63a28f57cc7
+    name: Camp Archers
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Beastfolk
+    primary_type: Ranged
+    secondary_type: null
+    uv: 2
+    move: 4
+    damage: 2
+    range: 3
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Short range, sharp eyes.
+    complexity: 1
+    role: Artillery
+    tags:
+      - beastfolk
+      - ranged
+    favored_terrain: forest
+  - id: 6379ec5a4e704ad1a3519212d08d6abb
+    name: Centaur Outriders
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Beastfolk
+    primary_type: Cavalry
+    secondary_type: Beast
+    uv: 3
+    move: 5
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Mounted
+      - Pack
+    abilities: []
+    ultimate: null
+    flavor_text: Horizon scouts.
+    complexity: 1
+    role: Scout
+    tags:
+      - beastfolk
+      - cavalry
+    favored_terrain: forest
+  - id: d6fb6c0961604b198ae664e3eb243448
+    name: Herd Guard
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: null
+    uv: 3
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Pack
+      - Guard
+    abilities: []
+    ultimate: null
+    flavor_text: Circle the young.
+    complexity: 1
+    role: Frontline
+    tags:
+      - beastfolk
+      - beast
+    favored_terrain: forest
+  - id: c3bab7a63fd845cab56dd3a77e27aa9b
+    name: Horned Militia
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: null
+    uv: 3
+    move: 4
+    damage: 2
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Pack
+    abilities: []
+    ultimate: null
+    flavor_text: Borrowed courage.
+    complexity: 1
+    role: Frontline
+    tags:
+      - beastfolk
+      - beast
+    favored_terrain: forest
+  - id: a16a9dba4a7e4c13adc761ce3ce3ac1f
+    name: Howl Choir
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: Light
+    uv: 3
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Pack
+      - Fear
+    abilities: []
+    ultimate: null
+    flavor_text: Warm-up dread.
+    complexity: 1
+    role: Frontline
+    tags:
+      - beastfolk
+      - beast
+    favored_terrain: forest
+  - id: 7c77ad9c670946fd8ed47c0060115927
+    name: Pack Pups
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: Light
+    uv: 3
+    move: 4
+    damage: 2
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Pack
+      - Scout
+    abilities: []
+    ultimate: null
+    flavor_text: Learning the howl.
+    complexity: 1
+    role: Scout
+    tags:
+      - beastfolk
+      - beast
+    favored_terrain: forest
+  - id: 62dc7650f76442d497f7ddc8fc2a9a24
+    name: Sling Wolfkin
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Beastfolk
+    primary_type: Ranged
+    secondary_type: Beast
+    uv: 2
+    move: 4
+    damage: 3
+    range: 2
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Pebbles with packmates.
+    complexity: 1
+    role: Artillery
+    tags:
+      - beastfolk
+      - ranged
+    favored_terrain: forest
+  - id: f2988ebf00b64dbfa45b6c304d57573b
+    name: Trail Wardens
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Beastfolk
+    primary_type: Infantry
+    secondary_type: Beast
+    uv: 3
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Pack
+    abilities: []
+    ultimate: null
+    flavor_text: Paths have keepers.
+    complexity: 1
+    role: Frontline
+    tags:
+      - beastfolk
+      - infantry
+    favored_terrain: forest
+  - id: 435268939b9642d0bf70b725f99ddd53
+    name: Tribal Spears
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Beastfolk
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 2
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Wood and will.
+    complexity: 1
+    role: Frontline
+    tags:
+      - beastfolk
+      - infantry
+    favored_terrain: forest
+  - id: 9775e6dbb86e40e590caee5a2a4b4470
+    name: Wolfkin Runners
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: Light
+    uv: 3
+    move: 4
+    damage: 2
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Pack
+    abilities: []
+    ultimate: null
+    flavor_text: Feet first.
+    complexity: 1
+    role: Frontline
+    tags:
+      - beastfolk
+      - beast
+    favored_terrain: forest
+  - id: 2bef989e22494c29a3047b77a6664dc9
+    name: Axe Wolfkin
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: null
+    uv: 4
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Pack
+      - Frenzy
+    abilities: []
+    ultimate: null
+    flavor_text: The hunt has ranks.
+    complexity: 2
+    role: Damage
+    tags:
+      - beastfolk
+      - beast
+    favored_terrain: forest
+  - id: 985639568bc6489f8124ba83332b6323
+    name: Blood Pack
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: Light
+    uv: 5
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Pack
+      - Frenzy
+    abilities: []
+    ultimate: null
+    flavor_text: The hunt has ranks.
+    complexity: 2
+    role: Damage
+    tags:
+      - beastfolk
+      - beast
+    favored_terrain: forest
+    balance_rev: 13
+  - id: f7be0c62614c47819e95025d6feee575
+    name: Centaur Lancers
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Beastfolk
+    primary_type: Cavalry
+    secondary_type: Beast
+    uv: 5
+    move: 5
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Mounted
+      - Charge
+      - Pack
+    abilities: []
+    ultimate: null
+    flavor_text: The hunt has ranks.
+    complexity: 2
+    role: Damage
+    tags:
+      - beastfolk
+      - cavalry
+    favored_terrain: forest
+    balance_rev: 13
+  - id: 3a214788565248079fa82b2c222b7c8d
+    name: Grove Chanters
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Beastfolk
+    primary_type: Magic
+    secondary_type: Beast
+    uv: 4
+    move: 4
+    damage: 3
+    range: 2
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Spellcaster
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: The hunt has ranks.
+    complexity: 2
+    role: Support
+    tags:
+      - beastfolk
+      - magic
+    favored_terrain: forest
+  - id: 46b38ef5d1ba4c64b96e1b5ac303a328
+    name: Hunt Masters
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: null
+    uv: 5
+    move: 4
+    damage: 3
+    range: 2
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Scout
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: The hunt has ranks.
+    complexity: 2
+    role: Scout
+    tags:
+      - beastfolk
+      - beast
+    favored_terrain: forest
+    balance_rev: 13
+  - id: 6f873f06f0f546c0b1ccc6a33cc9cdf3
+    name: Longfang Archers
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Beastfolk
+    primary_type: Ranged
+    secondary_type: Beast
+    uv: 5
+    move: 4
+    damage: 3
+    range: 3
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: The hunt has ranks.
+    complexity: 2
+    role: Artillery
+    tags:
+      - beastfolk
+      - ranged
+    favored_terrain: forest
+    balance_rev: 13
+  - id: 7f317a7fce8f453397bf345189eb30f1
+    name: Minotaur Hammers
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: Heavy
+    uv: 6
+    move: 4
+    damage: 4
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Trample
+    abilities: []
+    ultimate: null
+    flavor_text: The hunt has ranks.
+    complexity: 2
+    role: Damage
+    tags:
+      - beastfolk
+      - beast
+    favored_terrain: forest
+    balance_rev: 13
+  - id: 3f171607a97f492cb8a4982f1dc5daa0
+    name: Pack Flankers
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: Light
+    uv: 5
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Pack
+      - Flanking
+    abilities: []
+    ultimate: null
+    flavor_text: The hunt has ranks.
+    complexity: 2
+    role: Scout
+    tags:
+      - beastfolk
+      - beast
+    favored_terrain: forest
+    balance_rev: 13
+  - id: d9d77bded5d0437c9a481fdeea30121d
+    name: Shield Rams
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: Heavy
+    uv: 5
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Pack
+      - Shieldwall
+    abilities: []
+    ultimate: null
+    flavor_text: The hunt has ranks.
+    complexity: 2
+    role: Tank
+    tags:
+      - beastfolk
+      - beast
+    favored_terrain: forest
+    balance_rev: 13
+  - id: 19dda22651ed46e08db67589e36235e6
+    name: Spear Centaurs
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Beastfolk
+    primary_type: Cavalry
+    secondary_type: Beast
+    uv: 5
+    move: 5
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Mounted
+      - Reach
+      - Pack
+    abilities: []
+    ultimate: null
+    flavor_text: The hunt has ranks.
+    complexity: 2
+    role: Frontline
+    tags:
+      - beastfolk
+      - cavalry
+    favored_terrain: forest
+    balance_rev: 13
+  - id: 810cc50f27f04495bceaef2433b691fa
+    name: Stampede Herd
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: null
+    uv: 5
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Charge
+      - Trample
+    abilities: []
+    ultimate: null
+    flavor_text: The hunt has ranks.
+    complexity: 2
+    role: Damage
+    tags:
+      - beastfolk
+      - beast
+    favored_terrain: forest
+    balance_rev: 13
+  - id: 7de09565464346b9bf0b102742fdcd0d
+    name: Totem Bearers
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: null
+    uv: 4
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities: []
+    ultimate: null
+    flavor_text: The hunt has ranks.
+    complexity: 2
+    role: Support
+    tags:
+      - beastfolk
+      - beast
+    favored_terrain: forest
+  - id: 4c131d8805f245edb7e963f6f532bd76
+    name: Totem Onager
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Beastfolk
+    primary_type: Siege
+    secondary_type: Beast
+    uv: 5
+    move: 2
+    damage: 3
+    range: 3
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Siege
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: The hunt has ranks.
+    complexity: 2
+    role: Artillery
+    tags:
+      - beastfolk
+      - siege
+    favored_terrain: forest
+    balance_rev: 13
+  - id: deb11c779e8140aeba83f527fcfb69ac
+    name: Tusk Guard
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: Heavy
+    uv: 5
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Pack
+      - Defender
+    abilities: []
+    ultimate: null
+    flavor_text: The hunt has ranks.
+    complexity: 2
+    role: Tank
+    tags:
+      - beastfolk
+      - beast
+    favored_terrain: forest
+    balance_rev: 13
+  - id: 4fcf8f88c13c4310bc6643503dd4e142
+    name: War Beast
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: Heavy
+    uv: 6
+    move: 4
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Trample
+      - Siege
+    abilities: []
+    ultimate: null
+    flavor_text: The hunt has ranks.
+    complexity: 2
+    role: Frontline
+    tags:
+      - beastfolk
+      - beast
+    favored_terrain: forest
+    balance_rev: 13
+  - id: 11c2777775c44d959dd594c021f4af41
+    name: Werewolf Kin
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: null
+    uv: 6
+    move: 4
+    damage: 4
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Pack
+      - Frenzy
+    abilities: []
+    ultimate: null
+    flavor_text: The hunt has ranks.
+    complexity: 2
+    role: Damage
+    tags:
+      - beastfolk
+      - beast
+    favored_terrain: forest
+    balance_rev: 13
+  - id: 3b9793087e8e4263826781320d126224
+    name: Alpha Werewolves
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: Elite
+    uv: 8
+    move: 4
+    damage: 4
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Pack
+      - Frenzy
+      - Fear
+    abilities: []
+    ultimate: null
+    flavor_text: Legend with footprints.
+    complexity: 3
+    role: Damage
+    tags:
+      - beastfolk
+    favored_terrain: forest
+    balance_rev: 13
+  - id: 284299a8bce94456a84c03d2f11437a1
+    name: Centaur Kings
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Beastfolk
+    primary_type: Cavalry
+    secondary_type: Elite
+    uv: 8
+    move: 5
+    damage: 4
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Mounted
+      - Charge
+      - Flanking
+    abilities: []
+    ultimate: null
+    flavor_text: Legend with footprints.
+    complexity: 3
+    role: Damage
+    tags:
+      - beastfolk
+    favored_terrain: forest
+    balance_rev: 13
+  - id: 9204e128b1ef4f87a3766811dc054d29
+    name: Den Mothers
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: null
+    uv: 5
+    move: 4
+    damage: 4
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Pack
+      - Guard
+    abilities: []
+    ultimate: null
+    flavor_text: Legend with footprints.
+    complexity: 3
+    role: Support
+    tags:
+      - beastfolk
+    favored_terrain: forest
+    balance_rev: 13
+  - id: 61b9c42608a54315a0f9564a6e4ce120
+    name: Herdbreaker Rams
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: Heavy
+    uv: 7
+    move: 4
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Unyielding
+    abilities: []
+    ultimate: null
+    flavor_text: Legend with footprints.
+    complexity: 3
+    role: Tank
+    tags:
+      - beastfolk
+    favored_terrain: forest
+    balance_rev: 13
+  - id: e2525f898cb144698352258380e60569
+    name: Horned Avalanche
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: Heavy
+    uv: 8
+    move: 4
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Charge
+      - Trample
+    abilities: []
+    ultimate: null
+    flavor_text: Legend with footprints.
+    complexity: 3
+    role: Damage
+    tags:
+      - beastfolk
+    favored_terrain: forest
+    balance_rev: 13
+  - id: 1f80b286f90e4b5bbf0f8c310c9440bf
+    name: Minotaur Warlords
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: Elite
+    uv: 8
+    move: 4
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Trample
+      - Frenzy
+    abilities: []
+    ultimate: null
+    flavor_text: Legend with footprints.
+    complexity: 3
+    role: Damage
+    tags:
+      - beastfolk
+    favored_terrain: forest
+    balance_rev: 13
+  - id: b27b2b72a2b54a579062602d581542c1
+    name: Moon Pack
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: Elite
+    uv: 7
+    move: 4
+    damage: 4
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Pack
+      - Frenzy
+      - Harass
+    abilities: []
+    ultimate: null
+    flavor_text: Legend with footprints.
+    complexity: 3
+    role: Damage
+    tags:
+      - beastfolk
+    favored_terrain: forest
+    balance_rev: 13
+  - id: 83eb22d9701b44d8bf5f7d1a1a02d973
+    name: Silent Stalkers
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: Elite
+    uv: 7
+    move: 4
+    damage: 4
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Pack
+      - Stealth
+      - Flanking
+    abilities: []
+    ultimate: null
+    flavor_text: Legend with footprints.
+    complexity: 3
+    role: Scout
+    tags:
+      - beastfolk
+    favored_terrain: forest
+    balance_rev: 13
+  - id: 0d37dad863cf451fb6f3c578aa7bd848
+    name: Thornbow Pack
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Beastfolk
+    primary_type: Ranged
+    secondary_type: Beast
+    uv: 5
+    move: 4
+    damage: 4
+    range: 3
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Legend with footprints.
+    complexity: 3
+    role: Artillery
+    tags:
+      - beastfolk
+    favored_terrain: forest
+    balance_rev: 13
+  - id: 8f5fdd1bde1a4383863c48880deb71c6
+    name: Totem High Shaman
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Beastfolk
+    primary_type: Magic
+    secondary_type: Elite
+    uv: 7
+    move: 4
+    damage: 4
+    range: 2
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Spellcaster
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Legend with footprints.
+    complexity: 3
+    role: Support
+    tags:
+      - beastfolk
+    favored_terrain: forest
+    balance_rev: 13
+  - id: 4a50f03b4ee34bc68d593ad0b20fc8cf
+    name: Blood Moon Chosen
+    card_type: Unit
+    rarity: Epic
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: Elite
+    uv: 9
+    move: 4
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Frenzy
+      - Charge
+    abilities: []
+    ultimate: null
+    flavor_text: Legend with footprints.
+    complexity: 3
+    role: Damage
+    tags:
+      - beastfolk
+    favored_terrain: forest
+    balance_rev: 14
+  - id: 35d94e3c399748c7b73c93758261098d
+    name: Great War Beast
+    card_type: Unit
+    rarity: Epic
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: Elite
+    uv: 9
+    move: 4
+    damage: 4
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Trample
+      - Siege
+      - Fear
+    abilities: []
+    ultimate: null
+    flavor_text: Legend with footprints.
+    complexity: 3
+    role: Damage
+    tags:
+      - beastfolk
+    favored_terrain: forest
+  - id: 5d1e7a46453842d486359d929fcda265
+    name: Pup Drill
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: Light
+    uv: 1
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 1
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Drill
+    abilities: []
+    ultimate: null
+    flavor_text: Nips until the pack aims true.
+    complexity: 1
+    role: Support
+    tags:
+      - beastfolk
+      - support
+      - formation
+    favored_terrain: forest
+  - id: d2c5d225c5954a1f8e3b5be291a9cf18
+    name: Flank Link
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: Light
+    uv: 1
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Guard
+    abilities: []
+    ultimate: null
+    flavor_text: Shoulder to shoulder hides soft bellies.
+    complexity: 1
+    role: Support
+    tags:
+      - beastfolk
+      - support
+      - formation
+    favored_terrain: forest
+  - id: 228f0d4ca2b04e81a4697637690c38bf
+    name: Pack Horn
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation March
+    abilities: []
+    ultimate: null
+    flavor_text: One note and the scrum lurches forward.
+    complexity: 1
+    role: Support
+    tags:
+      - beastfolk
+      - support
+      - formation
+    favored_terrain: forest
+  - id: badeabb5005a475ca0836ba5949c99f7
+    name: Fang Pair Alpha
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Drill
+    abilities: []
+    ultimate: null
+    flavor_text: Two jaws, one throat.
+    complexity: 1
+    role: Support
+    tags:
+      - beastfolk
+      - support
+      - formation
+    favored_terrain: forest
+  - id: 3774f4e8fc6e4dea953a790461640340
+    name: Den Sergeant
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Guard
+    abilities: []
+    ultimate: null
+    flavor_text: The den keeps its runts.
+    complexity: 1
+    role: Support
+    tags:
+      - beastfolk
+      - support
+      - formation
+    favored_terrain: forest
+  - id: e855bd9bd6954ff9bcae870ba22195bb
+    name: Trail Pacekeeper
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: Light
+    uv: 3
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation March
+    abilities: []
+    ultimate: null
+    flavor_text: Never outruns the pups.
+    complexity: 1
+    role: Support
+    tags:
+      - beastfolk
+      - support
+      - formation
+    favored_terrain: forest

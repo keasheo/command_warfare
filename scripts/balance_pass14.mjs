@@ -1,7 +1,7 @@
 /**
  * Balance pass 14: surgical tune after pass-13 overshoot.
- * Dragon 53.1% → ~50% — Sky Tyrant UV restore only (Landward revert overshot).
- * Demon 44.9% → ~49–51% — commander UV floor + unit durability + Hellknight vs Lizard.
+ * Dragon 53.1% â†’ ~50% â€” Sky Tyrant UV restore only (Landward revert overshot).
+ * Demon 44.9% â†’ ~49â€“51% â€” commander UV floor + unit durability + Hellknight vs Lizard.
  * Undead untouched. balance_rev >= 26.
  */
 import fs from 'node:fs'
@@ -10,17 +10,17 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data/cards')
+const KB = path.resolve('data/cards')
 const REV = 26
 
 const changes = []
 
-/** Dragon — partial pass-13 revert (commander UV only; Landward T revert tested −6%) */
+/** Dragon â€” partial pass-13 revert (commander UV only; Landward T revert tested âˆ’6%) */
 const DRAGON_CMD = {
   'Sky Tyrant Vexis': { uv: 1 },
 }
 
-/** Demon — floor lift + lizard matchup (34.4% vs Lizardman in pass-13) */
+/** Demon â€” floor lift + lizard matchup (34.4% vs Lizardman in pass-13) */
 const DEMON_CMD = {
   'Brimstone Herald': { uv: -1 },
   'Ashen Blood Sovereign': { uv: -1 },
@@ -57,7 +57,7 @@ function applyMap(card, map) {
       ch = true
       const label =
         field === 'uv' ? 'UV' : field[0].toUpperCase() + field.slice(1)
-      log(card, `${label} ${before}→${card[field]}`)
+      log(card, `${label} ${before}â†’${card[field]}`)
     }
   }
   return ch

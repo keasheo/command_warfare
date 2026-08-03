@@ -1,0 +1,271 @@
+cards:
+  - id: 0b94539e77c44ccb9a329f636ed94649
+    name: Imp Overseer
+    card_type: Officer
+    rarity: Common
+    unique: false
+    race: Demon
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 10
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 16
+    command_radius: 3
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Inspire
+      - Hold the Line
+    ultimate: null
+    flavor_text: The whip cracks; the imps remember who feeds them.
+    complexity: 1
+    role: Frontline
+    tags:
+      - demon
+      - officer
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: f6970542f3a44966805523f57d8c8813
+    name: Ash Handler
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Demon
+    primary_type: Ranged
+    secondary_type: Heavy
+    uv: 11
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 5
+    company_ap: 5
+    company_capacity: 17
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities:
+      - Disciplined Advance
+      - Blood Offering
+    ultimate: null
+    flavor_text: He counts the embers like beads on a prayer string.
+    complexity: 2
+    role: Support
+    tags:
+      - demon
+      - officer
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: a9cc7ddf0ff54b34942b01932a207759
+    name: Cinderlash Handler
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Demon
+    primary_type: Nature
+    secondary_type: Ranged
+    uv: 10
+    move: 3
+    damage: 2
+    range: 2
+    toughness: 5
+    company_ap: 5
+    company_capacity: 19
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities:
+      - Inspire
+      - Rapid Redeployment
+    ultimate: null
+    flavor_text: Where he points, the brushfire learns manners.
+    complexity: 2
+    role: Damage
+    tags:
+      - demon
+      - officer
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: 43203b599e9d4edf9143a8a8d6c7a70f
+    name: Hellgate Sentry
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Demon
+    primary_type: Cavalry
+    secondary_type: null
+    uv: 10
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Inspiring Presence
+      - Press Forward
+    ultimate: null
+    flavor_text: Nothing crosses the gate without leaving a name.
+    complexity: 2
+    role: Tank
+    tags:
+      - demon
+      - officer
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: ac0439b4c517449cb782d2b9bb54ae85
+    name: Scorch Guide
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Demon
+    primary_type: Beast
+    secondary_type: Heavy
+    uv: 12
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 6
+    company_capacity: 21
+    command_radius: 5
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Disciplined Advance
+      - Rapid Redeployment
+      - Suppressive Fire
+    ultimate: null
+    flavor_text: Follow the heat shimmer. Ignore the screaming.
+    complexity: 4
+    role: Scout
+    tags:
+      - demon
+      - officer
+    supported_races:
+      - Demon
+    supported_types:
+      - Beast
+      - Heavy
+    supported_keywords:
+      - Charge
+      - Fire
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: 69dc7b6b26134cf591f7ef5fac40b9d7
+    name: Umbral Watcher
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Demon
+    primary_type: Magic
+    secondary_type: Light
+    uv: 11
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: 6
+    company_capacity: 20
+    command_radius: 5
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities:
+      - Inspire
+      - Press Forward
+      - Repair
+    ultimate: null
+    flavor_text: He watches the dark so the dark does not watch you.
+    complexity: 4
+    role: Control
+    tags:
+      - demon
+      - officer
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: e0ca4662ba51488c8ab950b1481cc4c7
+    name: Chain Warden
+    card_type: Officer
+    rarity: Epic
+    unique: false
+    race: Demon
+    primary_type: Ranged
+    secondary_type: Ranged
+    uv: 13
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 5
+    company_ap: 6
+    company_capacity: 23
+    command_radius: 5
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities:
+      - Inspire
+      - Coordinated Volley
+      - Suppressive Fire
+    ultimate: null
+    flavor_text: The chain does not bind the foe. It binds the vow.
+    complexity: 5
+    role: Artillery
+    tags:
+      - demon
+      - officer
+    supported_types:
+      - Ranged
+    supported_keywords:
+      - Fire
+      - Ranged
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: b658e71e7d6640afb693abc58fb62945
+    name: Soulpit Overseer
+    card_type: Officer
+    rarity: Epic
+    unique: false
+    race: Demon
+    primary_type: Infantry
+    secondary_type: null
+    uv: 12
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 5
+    company_ap: 6
+    company_capacity: 22
+    command_radius: 5
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Inspire
+      - Inspiring Presence
+      - Battle Orders
+      - Blood Offering
+    ultimate: null
+    flavor_text: He stirs the pit until the ash starts answering.
+    complexity: 5
+    role: Support
+    tags:
+      - demon
+      - officer
+    favored_terrain: volcanic
+    balance_rev: 13

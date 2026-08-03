@@ -9,19 +9,19 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data/cards')
+const KB = path.resolve('data/cards')
 const REV = 10
 
 const changes = []
 
-/** Dwarf — commander UV trim + fragile commander T */
+/** Dwarf â€” commander UV trim + fragile commander T */
 const DWARF_CMD_UV = {
   'Thane of All Holds': -1,
   'Anvil-Thane Korrik': -1,
 }
 const DWARF_CMD_T = new Set(['Forge-Marshal Flintpick'])
 
-/** Dwarf — officers still costing too much deploy */
+/** Dwarf â€” officers still costing too much deploy */
 const DWARF_OFFICER_UV = new Set([
   'Shield Captain Brann',
   'Gate Warden Hroth',
@@ -37,7 +37,7 @@ const DWARF_OFFICER_UV = new Set([
   'Oathbinder Mira',
 ])
 
-/** Dwarf — elite / line UV + durability */
+/** Dwarf â€” elite / line UV + durability */
 const DWARF_UNIT = {
   'Grudge Lord Champions': { uv: -1, toughness: 1 },
   "King's Gatekeepers": { uv: -1, toughness: 1 },
@@ -46,7 +46,7 @@ const DWARF_UNIT = {
   'Stoneheart Defenders': { toughness: 1 },
 }
 
-/** Elf — commander UV trim */
+/** Elf â€” commander UV trim */
 const ELF_CMD_UV = new Set([
   'Whispercanopy Huntress',
   'Green Court Sovereign',
@@ -54,7 +54,7 @@ const ELF_CMD_UV = new Set([
   'Starfall Huntress',
 ])
 
-/** Elf — officer UV trim */
+/** Elf â€” officer UV trim */
 const ELF_OFFICER_UV = new Set([
   'Thornpath Guide',
   'Leafsignal',
@@ -70,7 +70,7 @@ const ELF_OFFICER_UV = new Set([
   'Glaive Circlet Rider',
 ])
 
-/** Elf — skirmish / range line efficiency */
+/** Elf â€” skirmish / range line efficiency */
 const ELF_UNIT_UV = new Set([
   'Elder Treant',
   'Fallen Star Ancient',
@@ -87,7 +87,7 @@ const ELF_UNIT_UV = new Set([
   'Grove Wolf Pack',
 ])
 
-/** Elf — fragile skirmishers gain Reach or T */
+/** Elf â€” fragile skirmishers gain Reach or T */
 const ELF_REACH = new Set([
   'Leafblade Duelist',
   'Whisperleaf Skirmisher',
@@ -104,7 +104,7 @@ const ELF_FRAGILE_T = new Set([
   'Thornclaw Sabertooth',
 ])
 
-/** Soft nerf — runaway leaders */
+/** Soft nerf â€” runaway leaders */
 const DEMON_OFFICER_UV_BUMP = new Set([
   'Imp Overseer',
   'Ash Handler',
@@ -161,28 +161,28 @@ function tuneDwarf(card) {
   if (type === 'Commander') {
     if (name in DWARF_CMD_UV && bump(card, 'uv', DWARF_CMD_UV[name], 1)) {
       ch = true
-      log(card, `UV→${card.uv}`)
+      log(card, `UVâ†’${card.uv}`)
     }
     if (DWARF_CMD_T.has(name) && bump(card, 'toughness', 1, 1, 8)) {
       ch = true
-      log(card, `T→${card.toughness}`)
+      log(card, `Tâ†’${card.toughness}`)
     }
   } else if (type === 'Officer' && DWARF_OFFICER_UV.has(name)) {
     const before = card.uv
     if (bump(card, 'uv', -1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   } else if (type === 'Unit') {
     if (name in DWARF_UNIT) {
       const spec = DWARF_UNIT[name]
       if (spec.uv && bump(card, 'uv', spec.uv, 1)) {
         ch = true
-        log(card, `UV→${card.uv}`)
+        log(card, `UVâ†’${card.uv}`)
       }
       if (spec.toughness && bump(card, 'toughness', spec.toughness, 1, 8)) {
         ch = true
-        log(card, `T→${card.toughness}`)
+        log(card, `Tâ†’${card.toughness}`)
       }
     } else if (
       ['Rare', 'Epic'].includes(card.rarity || '') &&
@@ -190,7 +190,7 @@ function tuneDwarf(card) {
       bump(card, 'uv', -1, 1)
     ) {
       ch = true
-      log(card, `UV ${card.uv + 1}→${card.uv}`)
+      log(card, `UV ${card.uv + 1}â†’${card.uv}`)
     }
   }
 
@@ -206,20 +206,20 @@ function tuneElf(card) {
     const before = card.uv
     if (bump(card, 'uv', -1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   } else if (type === 'Officer' && ELF_OFFICER_UV.has(name)) {
     const before = card.uv
     if (bump(card, 'uv', -1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   } else if (type === 'Unit') {
     if (ELF_UNIT_UV.has(name)) {
       const before = card.uv
       if (bump(card, 'uv', -1, 1)) {
         ch = true
-        log(card, `UV ${before}→${card.uv}`)
+        log(card, `UV ${before}â†’${card.uv}`)
       }
     }
     if (ELF_REACH.has(name) && (card.range || 1) === 1 && addReach(card)) {
@@ -228,14 +228,14 @@ function tuneElf(card) {
     }
     if (ELF_FRAGILE_T.has(name) && bump(card, 'toughness', 1, 1, 7)) {
       ch = true
-      log(card, `T→${card.toughness}`)
+      log(card, `Tâ†’${card.toughness}`)
     } else if (
       (card.toughness || 0) <= 3 &&
       ['Uncommon', 'Rare'].includes(card.rarity || '') &&
       bump(card, 'toughness', 1, 1, 7)
     ) {
       ch = true
-      log(card, `T→${card.toughness}`)
+      log(card, `Tâ†’${card.toughness}`)
     }
   }
 
@@ -249,13 +249,13 @@ function tuneDemon(card) {
     const before = card.uv
     if (bump(card, 'uv', 1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   } else if (card.card_type === 'Unit' && DEMON_UNIT_UV_BUMP.has(name)) {
     const before = card.uv
     if (bump(card, 'uv', 1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   }
   return ch
@@ -268,13 +268,13 @@ function tuneBeastfolk(card) {
     const before = card.uv
     if (bump(card, 'uv', 1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   } else if (card.card_type === 'Unit' && BEAST_UNIT_UV_BUMP.has(name)) {
     const before = card.uv
     if (bump(card, 'uv', 1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   }
   return ch

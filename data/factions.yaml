@@ -1,0 +1,44 @@
+humans:
+  name: Humans
+  banner_color: "#4A5568"
+  description: Disciplined armies built around officers and shield walls.
+
+elves:
+  name: Elves
+  banner_color: "#2F855A"
+  description: Agile woodland forces and precise ranged tactics.
+
+lizardmen:
+  name: Lizardmen
+  banner_color: "#276749"
+  description: Amphibious reptiles who dominate wetlands and rivers.
+
+demons:
+  name: Demons
+  banner_color: "#9B2C2C"
+  description: Aggressive raiders who trade durability for tempo.
+
+dwarves:
+  name: Dwarves
+  banner_color: "#744210"
+  description: Stubborn infantry and engineers who Fortify holds and grind on the line.
+
+constructs:
+  name: Constructs
+  banner_color: "#718096"
+  description: Fearless war machines that Repair, endure, and bring siege to bear.
+
+dragons:
+  name: Dragons
+  banner_color: "#C53030"
+  description: High-UV brood armies — winged wyrms, bipedal dragonkin, archers, and mages — with Fear and Blast. No cavalry.
+
+undead:
+  name: Undead
+  banner_color: "#553C9A"
+  description: Attrition armies that return through Revenant recursion and Fear.
+
+beastfolk:
+  name: Beastfolk
+  banner_color: "#B7791F"
+  description: Pack warbands of Beast-typed centaurs, wolfkin, and minotaurs.

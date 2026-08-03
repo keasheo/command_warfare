@@ -1,0 +1,1375 @@
+cards:
+  - id: 6e25ea6d04a94ec1a303753d5f5856d9
+    name: Ash Thralls
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Revenant
+    abilities: []
+    ultimate: null
+    flavor_text: Burned once.
+    complexity: 1
+    role: Frontline
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 8
+  - id: c24a884794bd4918916344c212a5d779
+    name: Bone Archers
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Undead
+    primary_type: Ranged
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 4
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Empty quivers, emptier eyes.
+    complexity: 1
+    role: Artillery
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 8
+  - id: d1f4d208dde84fecb0e7e3d0172a5ea2
+    name: Bone Dogs
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Undead
+    primary_type: Beast
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+    abilities: []
+    ultimate: null
+    flavor_text: Loyal past death.
+    complexity: 1
+    role: Frontline
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 8
+  - id: a46e5e3788324ad5be44a9c55b5e064b
+    name: Chained Dead
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+    abilities: []
+    ultimate: null
+    flavor_text: Links longer than lives.
+    complexity: 1
+    role: Frontline
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 23
+  - id: 082010fc7b034a5ab837b2a08380e1f6
+    name: Crypt Rats
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Undead
+    primary_type: Beast
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Scout
+    abilities: []
+    ultimate: null
+    flavor_text: Squeaks in the walls.
+    complexity: 1
+    role: Frontline
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 8
+  - id: d90186f0e0a74bddaed9b4c9b5c868f7
+    name: Grave Diggers
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+    abilities: []
+    ultimate: null
+    flavor_text: Always hiring.
+    complexity: 1
+    role: Frontline
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 23
+  - id: da61eeb02201410da0371aaab5bd6221
+    name: Pale Militia
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+    abilities: []
+    ultimate: null
+    flavor_text: Muster from memory.
+    complexity: 1
+    role: Frontline
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 22
+  - id: f27a550d04c24a2e9a1d59b0558957fb
+    name: Shambling Spears
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities: []
+    ultimate: null
+    flavor_text: Points without purpose.
+    complexity: 1
+    role: Frontline
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 22
+  - id: 17e578ac74e246899d28cf790a477f4e
+    name: Skeleton Levy
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Revenant
+    abilities: []
+    ultimate: null
+    flavor_text: Brittle, back again.
+    complexity: 1
+    role: Frontline
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 22
+  - id: 1cc40af3ad9f4ec7b9de8a0ba78da9a8
+    name: Skull Slingers
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Undead
+    primary_type: Ranged
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 4
+    range: 2
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Recycling policy.
+    complexity: 1
+    role: Artillery
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 8
+  - id: 70fab50a87e149cc97a786c0fd8151e4
+    name: Whisper Choir
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Undead
+    primary_type: Magic
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 4
+    range: 2
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Harmonized dread.
+    complexity: 1
+    role: Artillery
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 8
+  - id: 62856e58fad2485a8a7f35193869af1d
+    name: Zombie Horde
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+    abilities: []
+    ultimate: null
+    flavor_text: Slow meat.
+    complexity: 1
+    role: Frontline
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 22
+  - id: e4e92884495f439d8fca54c17bc0d0cf
+    name: Banshee Screams
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Undead
+    primary_type: Magic
+    secondary_type: null
+    uv: 3
+    move: 3
+    damage: 4
+    range: 2
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+      - Spellcaster
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Paid in advance with someone else's life.
+    complexity: 2
+    role: Control
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 11
+  - id: 2c021c75a3ee424faf25eb4736f7103e
+    name: Bone Catapult
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Undead
+    primary_type: Siege
+    secondary_type: null
+    uv: 3
+    move: 3
+    damage: 4
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Siege
+      - Revenant
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Paid in advance with someone else's life.
+    complexity: 2
+    role: Artillery
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 11
+  - id: 41960e5f5bc64455af1f47cdaabd88b7
+    name: Bone Wolves
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Undead
+    primary_type: Beast
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+    abilities: []
+    ultimate: null
+    flavor_text: Paid in advance with someone else's life.
+    complexity: 2
+    role: Scout
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 23
+  - id: fddcb85a90654331b82bba5e496d8fca
+    name: Crypt Guard
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 2
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+    abilities: []
+    ultimate: null
+    flavor_text: Paid in advance with someone else's life.
+    complexity: 2
+    role: Frontline
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 23
+  - id: 01ac7d4cb29f43a9af86d9fdb07bfe4c
+    name: Crypt Marksmen
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Undead
+    primary_type: Ranged
+    secondary_type: null
+    uv: 3
+    move: 3
+    damage: 4
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Piercing
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Paid in advance with someone else's life.
+    complexity: 2
+    role: Artillery
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 11
+  - id: 2987900f8d4e4612bdbf082cc5c4d95c
+    name: Crypt Ram
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Undead
+    primary_type: Siege
+    secondary_type: Heavy
+    uv: 3
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Siege
+      - Fear
+    abilities: []
+    ultimate: null
+    flavor_text: Paid in advance with someone else's life.
+    complexity: 2
+    role: Frontline
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 11
+  - id: f435d574e96547238d0040e2d61ca29a
+    name: Death Knights
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 6
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Paid in advance with someone else's life.
+    complexity: 2
+    role: Damage
+    tags:
+      - undead
+    favored_terrain: swamp
+  - id: 8973d37362d64d00befd7ed318302cb4
+    name: Ghoul Packs
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Frenzy
+    abilities: []
+    ultimate: null
+    flavor_text: Paid in advance with someone else's life.
+    complexity: 2
+    role: Damage
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 11
+  - id: 66d71228643d473089a8018742c35bbf
+    name: Grave Archers
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Undead
+    primary_type: Ranged
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 4
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Paid in advance with someone else's life.
+    complexity: 2
+    role: Artillery
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 11
+  - id: 85d962b596e041c4b2140722c16f3834
+    name: Necrotic Adepts
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Undead
+    primary_type: Magic
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 4
+    range: 2
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Spellcaster
+      - Reach
+    abilities:
+      - Flesh Tithe
+    ultimate: null
+    flavor_text: Paid in advance with someone else's life.
+    complexity: 2
+    role: Support
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 11
+  - id: ec143e4c177144fc97eef4f4b986ab43
+    name: Risen Pikes
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+      - Revenant
+    abilities: []
+    ultimate: null
+    flavor_text: Paid in advance with someone else's life.
+    complexity: 2
+    role: Frontline
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 11
+  - id: 42a8639707d1414a85072712a7352d88
+    name: Shroud Guard
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 3
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Defender
+      - Fear
+    abilities: []
+    ultimate: null
+    flavor_text: Paid in advance with someone else's life.
+    complexity: 2
+    role: Tank
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 11
+  - id: fc0877912a2647e7a1f5ebc34109f9c5
+    name: Soulflayers
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: null
+    uv: 3
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+      - Frenzy
+    abilities: []
+    ultimate: null
+    flavor_text: Paid in advance with someone else's life.
+    complexity: 2
+    role: Damage
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 11
+  - id: 32d706d37e3d424bbb5d784be4bef8df
+    name: Thrall Brutes
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 3
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+    abilities: []
+    ultimate: null
+    flavor_text: Paid in advance with someone else's life.
+    complexity: 2
+    role: Frontline
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 11
+  - id: 7fa34383506a4a11a6b31a63a77224d7
+    name: Tomb Spearmen
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Paid in advance with someone else's life.
+    complexity: 2
+    role: Frontline
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 11
+  - id: ff6b113fb49f4526901200b7e61d3d3a
+    name: Wight Blades
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: null
+    uv: 3
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+      - Revenant
+    abilities: []
+    ultimate: null
+    flavor_text: Paid in advance with someone else's life.
+    complexity: 2
+    role: Damage
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 11
+  - id: 223bd92c7a6e40c59359116785afa7fb
+    name: Ancient Wight King
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: Elite
+    uv: 7
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+      - Revenant
+      - Harden 1
+    abilities: []
+    ultimate: null
+    flavor_text: The ledger never closes.
+    complexity: 3
+    role: Damage
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 23
+  - id: caf959df745145f8b6f70768608f9f97
+    name: Deathlord Cavalcade
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 6
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+      - Cleave
+    abilities: []
+    ultimate: null
+    flavor_text: The ledger never closes.
+    complexity: 3
+    role: Damage
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: dd3ce8894e4144779f69808463de0deb
+    name: Lich Cadre
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Undead
+    primary_type: Magic
+    secondary_type: Elite
+    uv: 7
+    move: 3
+    damage: 4
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+      - Spellcaster
+      - Reach
+    abilities:
+      - Flesh Tithe
+    ultimate: null
+    flavor_text: The ledger never closes.
+    complexity: 3
+    role: Control
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: 5a3682560386468da1ac013aca841b58
+    name: Marrow Crossbows
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Undead
+    primary_type: Ranged
+    secondary_type: null
+    uv: 4
+    move: 3
+    damage: 4
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Piercing
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: The ledger never closes.
+    complexity: 3
+    role: Artillery
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 14
+  - id: 52f8d2f9521045ef86e1fd80d8270d6e
+    name: Nightbringer Knights
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: Elite
+    uv: 7
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+      - Frenzy
+    abilities: []
+    ultimate: null
+    flavor_text: The ledger never closes.
+    complexity: 3
+    role: Damage
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 23
+  - id: 7e0b74b3d0e24bd280e283e4de14092b
+    name: Pale Bannermen
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: null
+    uv: 4
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+    abilities: []
+    ultimate: null
+    flavor_text: The ledger never closes.
+    complexity: 3
+    role: Support
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 15
+  - id: 5e45c3a8c4b54a14af8749d74e54e2c9
+    name: Revenant Legion
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: null
+    uv: 6
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Revenant
+      - Fear
+    abilities: []
+    ultimate: null
+    flavor_text: The ledger never closes.
+    complexity: 3
+    role: Frontline
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: 9b9ea8b6a8bb41f8a305d9a387354c68
+    name: Screaming Host
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Undead
+    primary_type: Magic
+    secondary_type: null
+    uv: 6
+    move: 3
+    damage: 4
+    range: 2
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+      - Blast
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: The ledger never closes.
+    complexity: 3
+    role: Artillery
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 17
+  - id: 84212597b8f840f4b783b745cfd6f299
+    name: Soulforge Catapult
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Undead
+    primary_type: Siege
+    secondary_type: null
+    uv: 6
+    move: 3
+    damage: 4
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Siege
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: The ledger never closes.
+    complexity: 3
+    role: Artillery
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: 8c2993956d274f7092ed015081b9a5e6
+    name: Tomb Eternal
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 7
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+      - Revenant
+      - Guard
+    abilities: []
+    ultimate: null
+    flavor_text: The ledger never closes.
+    complexity: 3
+    role: Tank
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: e8138930b1dd407bb5f9ca26a5efcd6f
+    name: Bone Colossus
+    card_type: Unit
+    rarity: Epic
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: Elite
+    uv: 8
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+      - Trample
+    abilities: []
+    ultimate: null
+    flavor_text: The ledger never closes.
+    complexity: 3
+    role: Damage
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 12
+  - id: 4780d3e57c9c4c4d9d7cd8df3f1c2a88
+    name: Grave Tyrant
+    card_type: Unit
+    rarity: Epic
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: Elite
+    uv: 8
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+      - Unyielding
+    abilities: []
+    ultimate: null
+    flavor_text: The ledger never closes.
+    complexity: 3
+    role: Tank
+    tags:
+      - undead
+    favored_terrain: swamp
+    balance_rev: 15
+  - id: 7c1a10cff649404480a4b30085d7d65e
+    name: Bone Drill Thrall
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 1
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Drill
+    abilities: []
+    ultimate: null
+    flavor_text: Rattles until the line strikes as one.
+    complexity: 1
+    role: Support
+    tags:
+      - undead
+      - support
+      - formation
+    favored_terrain: swamp
+    balance_rev: 13
+  - id: 4b1dffa5da08484aa4c65cf4f657a481
+    name: Rib Link
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 1
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Guard
+    abilities: []
+    ultimate: null
+    flavor_text: Interlock ribs. Pretend it helps.
+    complexity: 1
+    role: Support
+    tags:
+      - undead
+      - support
+      - formation
+    favored_terrain: swamp
+    balance_rev: 13
+  - id: c8e20cd9e85c49dcba51750d0623e866
+    name: Dirge Horn
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation March
+    abilities: []
+    ultimate: null
+    flavor_text: The dead march when it moans.
+    complexity: 1
+    role: Support
+    tags:
+      - undead
+      - support
+      - formation
+    favored_terrain: swamp
+    balance_rev: 13
+  - id: 321d1bb42c984922a71b7ee915235d86
+    name: Crypt Pair Lead
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Drill
+    abilities: []
+    ultimate: null
+    flavor_text: Two shoves, one coffin lid.
+    complexity: 1
+    role: Support
+    tags:
+      - undead
+      - support
+      - formation
+    favored_terrain: swamp
+    balance_rev: 13
+  - id: 7ad066ddf4cb4a1d8906f7e70976929a
+    name: Grave Sergeant
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Guard
+    abilities: []
+    ultimate: null
+    flavor_text: Cheap bones last longer in a pile.
+    complexity: 1
+    role: Support
+    tags:
+      - undead
+      - support
+      - formation
+    favored_terrain: swamp
+    balance_rev: 13
+  - id: 3b89d4870d5a4f0d86d8717dce4d3dcd
+    name: Procession Guide
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Undead
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation March
+    abilities: []
+    ultimate: null
+    flavor_text: Never loses the tail of the march.
+    complexity: 1
+    role: Support
+    tags:
+      - undead
+      - support
+      - formation
+    favored_terrain: swamp
+    balance_rev: 13

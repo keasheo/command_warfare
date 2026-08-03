@@ -1,0 +1,1422 @@
+cards:
+  - id: 26bb28f79a064da7aa64c5d6234c707b
+    name: Ash Tormentor
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Demon
+    primary_type: Magic
+    secondary_type: Fire
+    uv: 3
+    move: 3
+    damage: 3
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Spellcaster
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: It does not cast spells. It reminds you of them.
+    complexity: 1
+    role: Control
+    tags:
+      - demon
+      - magic
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: ec55b1260f6a498f88866a790d4e09e3
+    name: Ashwrought Berserker
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Demon
+    primary_type: Infantry
+    secondary_type: Fire
+    uv: 3
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Frenzy
+    abilities: []
+    ultimate: null
+    flavor_text: Calm is a rumor it has never believed.
+    complexity: 1
+    role: Damage
+    tags:
+      - demon
+      - melee
+    favored_terrain: volcanic
+    balance_rev: 19
+  - id: ae8b690f4a1d4e7fb060001feb5cfe13
+    name: Brim Imp
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Demon
+    primary_type: Flying
+    secondary_type: Fire
+    uv: 3
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Flying
+    abilities: []
+    ultimate: null
+    flavor_text: Cute, if you enjoy being bitten by punctuation.
+    complexity: 1
+    role: Damage
+    tags:
+      - demon
+      - imp
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: cfa7c84e209043bf8e351ad226d8e224
+    name: Cacodemon Wretch
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Demon
+    primary_type: Flying
+    secondary_type: Fire
+    uv: 3
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Flying
+    abilities: []
+    ultimate: null
+    flavor_text: Wings like torn parchment; laughter like knives.
+    complexity: 1
+    role: Artillery
+    tags:
+      - demon
+      - cacodemon
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: 3033116103ed4ce78d8cb9d33fc44134
+    name: Cinder Skitter
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Demon
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 2
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Harass
+    abilities: []
+    ultimate: null
+    flavor_text: Too small to honor. Too fast to ignore.
+    complexity: 1
+    role: Scout
+    tags:
+      - demon
+      - imp
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: 97a3d3f48d634ac8ab511e02825362a9
+    name: Cinderlash Fiend
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Demon
+    primary_type: Infantry
+    secondary_type: Fire
+    uv: 3
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Frenzy
+    abilities: []
+    ultimate: null
+    flavor_text: Every swing throws sparks like insults.
+    complexity: 1
+    role: Damage
+    tags:
+      - demon
+      - melee
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: 5838fd5d508348318e76afd70f7a0806
+    name: Doom Cultist
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Demon
+    primary_type: Magic
+    secondary_type: Fire
+    uv: 2
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Spellcaster
+      - Reach
+    abilities:
+      - Soul Offering
+    ultimate: null
+    flavor_text: Faith is optional. The chain is not.
+    complexity: 1
+    role: Support
+    tags:
+      - demon
+      - magic
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: f098bda9789540b8834cc22926c8c3f8
+    name: Embertrail Raider
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Demon
+    primary_type: Cavalry
+    secondary_type: Fire
+    uv: 3
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Mounted
+    abilities: []
+    ultimate: null
+    flavor_text: Fast enough to steal; mean enough to keep.
+    complexity: 1
+    role: Damage
+    tags:
+      - demon
+      - cavalry
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: 229414616c8743cfa6c7e3ec52d4bda7
+    name: Hellblade
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Demon
+    primary_type: Infantry
+    secondary_type: Fire
+    uv: 3
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Frenzy
+    abilities: []
+    ultimate: null
+    flavor_text: Still hot from the anvil. Still angry about it.
+    complexity: 1
+    role: Damage
+    tags:
+      - demon
+      - hellknight
+    favored_terrain: volcanic
+    balance_rev: 18
+  - id: 0ec51f0928fe4562885fa8030251ade4
+    name: Hellknight Aspirant
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Demon
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 3
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Practice fear until it becomes a resume.
+    complexity: 1
+    role: Frontline
+    tags:
+      - demon
+      - hellknight
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: 8f39ce38f5cf482e8fa47af3bc012948
+    name: Impstorm
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Demon
+    primary_type: Flying
+    secondary_type: Light
+    uv: 3
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Flying
+    abilities: []
+    ultimate: null
+    flavor_text: One imp is a nuisance. A swarm is a weather event.
+    complexity: 1
+    role: Damage
+    tags:
+      - demon
+      - imp
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: f5030fd278ec4e27acc5025ca0a448b5
+    name: Magma Spitter
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Demon
+    primary_type: Ranged
+    secondary_type: Fire
+    uv: 2
+    move: 3
+    damage: 4
+    range: 3
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Ranged combat, if you count molten manners.
+    complexity: 1
+    role: Artillery
+    tags:
+      - demon
+      - ranged
+      - fire
+    favored_terrain: volcanic
+    balance_rev: 25
+  - id: fe531d7327374298bb7e8f3d57fe40cb
+    name: Mawhound
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Demon
+    primary_type: Beast
+    secondary_type: Fire
+    uv: 3
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Charge
+    abilities: []
+    ultimate: null
+    flavor_text: It was a dog once. Hell edited the draft.
+    complexity: 1
+    role: Damage
+    tags:
+      - demon
+      - beast
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: f94d6bcf3e4f4ba98dd07ec9fd8976a6
+    name: Scorchfiend Brute
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Demon
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 4
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Cleave
+    abilities: []
+    ultimate: null
+    flavor_text: It does not pick targets. It picks neighborhoods.
+    complexity: 1
+    role: Damage
+    tags:
+      - demon
+      - melee
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: 3ecf3f89949048ef9a12a58f240b6879
+    name: Soulpit Bombardier
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Demon
+    primary_type: Ranged
+    secondary_type: Fire
+    uv: 3
+    move: 3
+    damage: 3
+    range: 3
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Siege
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Trajectory is faith. Impact is theology.
+    complexity: 1
+    role: Artillery
+    tags:
+      - demon
+      - ranged
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: 42821076dab445c0b1a42a5575b1828d
+    name: Sulfur Piker
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Demon
+    primary_type: Infantry
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: The pike is long. The grin is longer.
+    complexity: 1
+    role: Frontline
+    tags:
+      - demon
+      - infantry
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: c9995c495a7c4920a8a986a066091489
+    name: Umbral Stalker
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Demon
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 2
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Stealth
+    abilities: []
+    ultimate: null
+    flavor_text: Silence with claws and a hobby.
+    complexity: 1
+    role: Scout
+    tags:
+      - demon
+      - scout
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: 8da7a41dc7d543b492c9de1f30360ec9
+    name: Void Horror
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Demon
+    primary_type: Beast
+    secondary_type: Magic
+    uv: 3
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+    abilities: []
+    ultimate: null
+    flavor_text: If it looks at you twice, rewrite your will.
+    complexity: 1
+    role: Damage
+    tags:
+      - demon
+      - beast
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: b6327d8548ef47a3901070a352b082c0
+    name: Abyssal Forgeborn
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Demon
+    primary_type: Magic
+    secondary_type: Fire
+    uv: 5
+    move: 3
+    damage: 3
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Piercing
+      - Spellcaster
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Forged where mercy failed quality control.
+    complexity: 2
+    role: Artillery
+    tags:
+      - demon
+      - magic
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: 2345ac541b8541bb833917a3183adb59
+    name: Cacodemon Floater
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Demon
+    primary_type: Flying
+    secondary_type: Fire
+    uv: 6
+    move: 4
+    damage: 3
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Flying
+      - Spellcaster
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: It drifts. Your courage does not.
+    complexity: 2
+    role: Artillery
+    tags:
+      - demon
+      - cacodemon
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: 7a2a798c407943cd91267f085d7e4474
+    name: Cinder Marauder
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Demon
+    primary_type: Cavalry
+    secondary_type: Fire
+    uv: 5
+    move: 5
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Charge
+      - Mounted
+    abilities: []
+    ultimate: null
+    flavor_text: Raids first, asks the ashes later.
+    complexity: 2
+    role: Damage
+    tags:
+      - demon
+      - cavalry
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: 320b4b54e3dc46d0b19879144cbd765b
+    name: Clawed Pit Beast
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Demon
+    primary_type: Beast
+    secondary_type: Heavy
+    uv: 6
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+      - Trample
+    abilities: []
+    ultimate: null
+    flavor_text: Trample is how it says hello.
+    complexity: 2
+    role: Tank
+    tags:
+      - demon
+      - beast
+    favored_terrain: volcanic
+  - id: 816feea4d89c44afb441326aa38892ce
+    name: Emberfall Cult
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Demon
+    primary_type: Ranged
+    secondary_type: Fire
+    uv: 4
+    move: 3
+    damage: 3
+    range: 3
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Piercing
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: They pray upward. The answers fall burning.
+    complexity: 2
+    role: Artillery
+    tags:
+      - demon
+      - ranged
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: 15f75fa6b17545209a276db06a9ce6ba
+    name: Furnace Infernal
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Demon
+    primary_type: Fire
+    secondary_type: Magic
+    uv: 5
+    move: 3
+    damage: 3
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Siege
+      - Spellcaster
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: A walking furnace with opinions about walls.
+    complexity: 2
+    role: Artillery
+    tags:
+      - demon
+      - fire
+      - magic
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: a2fd78b166dd4b1a9d9ab28dc8d15718
+    name: Hellhound Pack
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Demon
+    primary_type: Beast
+    secondary_type: Fire
+    uv: 5
+    move: 5
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Charge
+      - Frenzy
+    abilities: []
+    ultimate: null
+    flavor_text: They hunt as one appetite with many mouths.
+    complexity: 2
+    role: Damage
+    tags:
+      - demon
+      - beast
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: ad60b02c305b4901921076452be45b26
+    name: Hellknight
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Demon
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 5
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Charge
+      - Fear
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Its armor smells like last week’s battlefield.
+    complexity: 2
+    role: Tank
+    tags:
+      - demon
+      - hellknight
+    favored_terrain: volcanic
+    balance_rev: 26
+  - id: 9ecf94adedb242c992a0e2875f37dd62
+    name: Link Flayer
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Demon
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 4
+    move: 5
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Frenzy
+      - Harass
+    abilities: []
+    ultimate: null
+    flavor_text: It runs so the wound can keep up.
+    complexity: 2
+    role: Damage
+    tags:
+      - demon
+      - melee
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: 9378f4423ed64d2c9ce888e8a22cfa64
+    name: Scorchfiend Ravager
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Demon
+    primary_type: Infantry
+    secondary_type: Fire
+    uv: 5
+    move: 4
+    damage: 4
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Cleave
+      - Frenzy
+    abilities: []
+    ultimate: null
+    flavor_text: Cleave now; apologize never.
+    complexity: 2
+    role: Damage
+    tags:
+      - demon
+      - melee
+    favored_terrain: volcanic
+    balance_rev: 26
+  - id: 61eac07854d54fcab59e57a334f50ecf
+    name: Soulburner
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Demon
+    primary_type: Magic
+    secondary_type: Fire
+    uv: 4
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Frenzy
+      - Spellcaster
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: It cooks souls medium-rare and proud of it.
+    complexity: 2
+    role: Damage
+    tags:
+      - demon
+      - magic
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: 27dd355f4ed14db9b3a52585f82ccddf
+    name: Void Abomination
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Demon
+    primary_type: Beast
+    secondary_type: Heavy
+    uv: 5
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+      - Trample
+    abilities: []
+    ultimate: null
+    flavor_text: Stitched from leftovers that refused to stay dead.
+    complexity: 2
+    role: Tank
+    tags:
+      - demon
+      - beast
+    favored_terrain: volcanic
+  - id: 681708a028154f07bfb8249fc7b62593
+    name: Ashen Boneflayer
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Demon
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 6
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Frenzy
+      - Stealth
+    abilities: []
+    ultimate: null
+    flavor_text: It peels armor the way gossip peels reputations.
+    complexity: 3
+    role: Scout
+    tags:
+      - demon
+      - melee
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: a85b65a1caeb454d892d4d1616545c3b
+    name: Flamecaller
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Demon
+    primary_type: Magic
+    secondary_type: Fire
+    uv: 7
+    move: 3
+    damage: 3
+    range: 3
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Spellcaster
+      - Reach
+    abilities:
+      - Inspire
+      - Soul Offering
+    ultimate: null
+    flavor_text: The vein opens. The sky learns orange.
+    complexity: 3
+    role: Support
+    tags:
+      - demon
+      - magic
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: 0954d700efaf41d29ce2cb542c4903d9
+    name: Gatebreak Engine
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Demon
+    primary_type: Siege
+    secondary_type: Fire
+    uv: 8
+    move: 3
+    damage: 5
+    range: 3
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+      - Siege
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Wheels greased with dread; payload negotiable.
+    complexity: 3
+    role: Artillery
+    tags:
+      - demon
+      - siege
+    favored_terrain: volcanic
+    balance_rev: 25
+  - id: c00c782f2fd3452382eb72fddabc5731
+    name: Hellcharger
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Demon
+    primary_type: Cavalry
+    secondary_type: Fire
+    uv: 8
+    move: 6
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Charge
+      - Mounted
+    abilities: []
+    ultimate: null
+    flavor_text: Hooves like hammers; brimstone like applause.
+    complexity: 4
+    role: Damage
+    tags:
+      - demon
+      - cavalry
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: 086dcd52b6544fa49d89798018af1954
+    name: Nightmaw
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Demon
+    primary_type: Beast
+    secondary_type: Fire
+    uv: 8
+    move: 5
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+      - Mounted
+    abilities: []
+    ultimate: null
+    flavor_text: You wake up. It does not.
+    complexity: 4
+    role: Damage
+    tags:
+      - demon
+      - beast
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: 7d437eba67114e61883c1e50bfcc9ae8
+    name: Tyrant Spawn
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Demon
+    primary_type: Beast
+    secondary_type: Heavy
+    uv: 8
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+      - Frenzy
+    abilities: []
+    ultimate: null
+    flavor_text: Born mid-roar. Has not stopped since.
+    complexity: 4
+    role: Tank
+    tags:
+      - demon
+      - beast
+      - legend
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: ab88368f53f74adba908807043c66c2a
+    name: Abyssblade
+    card_type: Unit
+    rarity: Epic
+    unique: false
+    race: Demon
+    primary_type: Infantry
+    secondary_type: Fire
+    uv: 10
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Frenzy
+      - Piercing
+    abilities: []
+    ultimate: null
+    flavor_text: The blade drinks light and pays in screams.
+    complexity: 4
+    role: Damage
+    tags:
+      - demon
+      - hellknight
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: 7581597a5d5e480ba3ac9e0507478969
+    name: Inferno Ram
+    card_type: Unit
+    rarity: Epic
+    unique: false
+    race: Demon
+    primary_type: Siege
+    secondary_type: Fire
+    uv: 10
+    move: 2
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Siege
+      - Trample
+    abilities: []
+    ultimate: null
+    flavor_text: Doors are a suggestion. Fire is a conclusion.
+    complexity: 4
+    role: Artillery
+    tags:
+      - demon
+      - siege
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: ca585941873e423fb477363f051689be
+    name: Sulfur Crawler
+    card_type: Unit
+    rarity: Epic
+    unique: false
+    race: Demon
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 9
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Poison
+    abilities: []
+    ultimate: null
+    flavor_text: It arrives belly-first and leaves poison behind.
+    complexity: 4
+    role: Control
+    tags:
+      - demon
+      - melee
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: e0b6db6a0a3e4e4b8bbf3c5fdb0fd4de
+    name: Doomherald
+    card_type: Unit
+    rarity: Legendary
+    unique: true
+    race: Demon
+    primary_type: Flying
+    secondary_type: Fire
+    uv: 12
+    move: 5
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fear
+      - Flying
+    abilities: []
+    ultimate: null
+    flavor_text: It announces endings. Attendance is mandatory.
+    complexity: 5
+    role: Support
+    tags:
+      - demon
+      - flying
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: c020f5d09ec145b4b5c7379c083b4709
+    name: Ash Drill Imp
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Demon
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 1
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Drill
+    abilities: []
+    ultimate: null
+    flavor_text: Pokes until the swarm aims true.
+    complexity: 1
+    role: Support
+    tags:
+      - demon
+      - support
+      - formation
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: ad70b2c8f336410aa7fc70b420b7a58b
+    name: Chain Link Fiend
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Demon
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 1
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Guard
+    abilities: []
+    ultimate: null
+    flavor_text: Pain shared is pain delayed.
+    complexity: 1
+    role: Support
+    tags:
+      - demon
+      - support
+      - formation
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: 2869f2e7a9794927b7750b6b8222a3d5
+    name: Brim Hornling
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Demon
+    primary_type: Infantry
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation March
+    abilities: []
+    ultimate: null
+    flavor_text: Blasts forward so the wretches follow.
+    complexity: 1
+    role: Support
+    tags:
+      - demon
+      - support
+      - formation
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: 844b84558f0f4de4bde56a2b241c5821
+    name: Cinder Pair Boss
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Demon
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Drill
+    abilities: []
+    ultimate: null
+    flavor_text: Two embers, one furnace.
+    complexity: 1
+    role: Support
+    tags:
+      - demon
+      - support
+      - formation
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: e30c96d440804a659e8d0e10534b39f1
+    name: Pit Sergeant
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Demon
+    primary_type: Infantry
+    secondary_type: null
+    uv: 3
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Guard
+    abilities: []
+    ultimate: null
+    flavor_text: The pit keeps its fodder.
+    complexity: 1
+    role: Support
+    tags:
+      - demon
+      - support
+      - formation
+    favored_terrain: volcanic
+    balance_rev: 13
+  - id: 7a3ed0ebdfcb4cc7bb3c40628856a73c
+    name: March Overseer
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Demon
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 3
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation March
+    abilities: []
+    ultimate: null
+    flavor_text: Whips the slow into stride.
+    complexity: 1
+    role: Support
+    tags:
+      - demon
+      - support
+      - formation
+    favored_terrain: volcanic
+    balance_rev: 13

@@ -9,7 +9,7 @@ import { FLAVOR } from './cardFlavors.mjs'
 
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
-const ROOT = 'C:/Users/keash/Projects/KingdomsBuilder/data/cards'
+const ROOT = 'data/cards'
 
 function walk(dir, out = []) {
   for (const name of fs.readdirSync(dir)) {
@@ -66,15 +66,15 @@ for (const [name, text] of Object.entries(FLAVOR)) {
 
 const flavorSrc = `/**
  * Unique flavor text for Command Warfare cards.
- * Commanders already have handcrafted lines — omitted here.
+ * Commanders already have handcrafted lines â€” omitted here.
  */
 export const FLAVOR = ${JSON.stringify(nextFlavor, null, 2).replace(/"([^"]+)":/g, "'$1':").replace(/"/g, "'")}
 `
-// JSON.stringify with single quotes is messy — write cleaner:
+// JSON.stringify with single quotes is messy â€” write cleaner:
 const lines = [
   '/**',
   ' * Unique flavor text for Command Warfare cards.',
-  ' * Commanders already have handcrafted lines — omitted here.',
+  ' * Commanders already have handcrafted lines â€” omitted here.',
   ' */',
   'export const FLAVOR = {',
 ]

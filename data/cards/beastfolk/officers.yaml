@@ -1,0 +1,442 @@
+cards:
+  - id: 250a72d807cc4f948850018dd2ef29c7
+    name: Centaur Marshal
+    card_type: Officer
+    rarity: Common
+    unique: false
+    race: Beastfolk
+    primary_type: Cavalry
+    secondary_type: Beast
+    uv: 10
+    move: 4
+    damage: 4
+    range: 1
+    toughness: 4
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Mounted
+      - Pack
+    abilities:
+      - Inspire
+      - Wild Rush
+      - Spur Order
+    ultimate: null
+    flavor_text: Hooves keep the tempo.
+    complexity: 2
+    role: Frontline
+    tags:
+      - beastfolk
+      - officer
+    supported_types:
+      - Cavalry
+      - Beast
+    supported_keywords:
+      - Mounted
+      - Charge
+      - Pack
+    favored_terrain: forest
+    balance_rev: 13
+  - id: 0963f5ffb5f74c90828fdae9f28b44aa
+    name: Beastmaster Rowan
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: null
+    uv: 12
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Beastmaster's Call
+      - Draft Beasts
+    ultimate: null
+    flavor_text: Names every fang.
+    complexity: 2
+    role: Support
+    tags:
+      - beastfolk
+      - officer
+    supported_types:
+      - Beast
+    favored_terrain: forest
+    balance_rev: 13
+  - id: 788db66e226b4c3d9700c634a339d282
+    name: Minotaur Champion
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: Heavy
+    uv: 13
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Trample
+    abilities:
+      - Inspire
+      - Blood Frenzy
+    ultimate: null
+    flavor_text: Doors are suggestions.
+    complexity: 2
+    role: Damage
+    tags:
+      - beastfolk
+      - officer
+    supported_types:
+      - Beast
+    favored_terrain: forest
+    balance_rev: 13
+  - id: a7fe0fd4831644f38e2f50e6524ebd5b
+    name: Skirmish Pack Lead
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: Light
+    uv: 12
+    move: 4
+    damage: 4
+    range: 1
+    toughness: 3
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Pack
+      - Harass
+    abilities:
+      - Inspire
+      - Flank Sweep
+    ultimate: null
+    flavor_text: Arrive from the wrong angle.
+    complexity: 2
+    role: Scout
+    tags:
+      - beastfolk
+      - officer
+    supported_keywords:
+      - Flanking
+      - Pack
+    favored_terrain: forest
+    balance_rev: 13
+  - id: 95fb56b492fb4d64ab114398118095cb
+    name: Wolfkin Alpha
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: null
+    uv: 10
+    move: 4
+    damage: 4
+    range: 1
+    toughness: 4
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Pack
+    abilities:
+      - Inspire
+      - Howl
+      - Pack Reform
+    ultimate: null
+    flavor_text: The pack turns when she does.
+    complexity: 2
+    role: Damage
+    tags:
+      - beastfolk
+      - officer
+    supported_types:
+      - Beast
+    supported_keywords:
+      - Pack
+    favored_terrain: forest
+    balance_rev: 13
+  - id: b66b5d4cb30c45f0a65c90fec5db7108
+    name: Stampede Caller
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Beastfolk
+    primary_type: Cavalry
+    secondary_type: Beast
+    uv: 13
+    move: 4
+    damage: 4
+    range: 1
+    toughness: 4
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Charge
+      - Pack
+    abilities:
+      - Inspire
+      - Wild Rush
+      - Horn of Advance
+    ultimate: null
+    flavor_text: Dust is a declaration.
+    complexity: 2
+    role: Damage
+    tags:
+      - beastfolk
+      - officer
+    supported_types:
+      - Cavalry
+      - Beast
+    supported_keywords:
+      - Charge
+    favored_terrain: forest
+    balance_rev: 13
+  - id: edb012e0238a469086ef3976ee786d08
+    name: Totem Shaman
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Beastfolk
+    primary_type: Magic
+    secondary_type: Beast
+    uv: 13
+    move: 3
+    damage: 3
+    range: 2
+    toughness: 4
+    company_ap: 6
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Spellcaster
+      - Reach
+    abilities:
+      - Draft Beasts
+      - Medic
+      - Totem Pulse
+    ultimate: null
+    flavor_text: Wood remembers the hunt.
+    complexity: 2
+    role: Support
+    tags:
+      - beastfolk
+      - officer
+    supported_types:
+      - Siege
+      - Beast
+    favored_terrain: forest
+    balance_rev: 13
+  - id: 773d1b4fe4aa4d4e936dffb82372654b
+    name: Scout Tracker Fen
+    card_type: Officer
+    rarity: Epic
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: null
+    uv: 14
+    move: 4
+    damage: 4
+    range: 2
+    toughness: 4
+    company_ap: 5
+    company_capacity: 19
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Scout
+      - Pack
+      - Reach
+    abilities:
+      - Inspiring Presence
+      - Alpha Mark
+      - Beastmaster's Call
+    ultimate: null
+    flavor_text: Tracks that fear being found.
+    complexity: 4
+    role: Scout
+    tags:
+      - beastfolk
+      - officer
+    favored_terrain: forest
+    balance_rev: 13
+  - id: 956a26927f23436ea84cabca305e18a2
+    name: Pack Caller Briar
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: Light
+    uv: 12
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: 5
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Pack
+    abilities:
+      - Pack Reform
+      - Howl
+      - Inspire
+    ultimate: null
+    flavor_text: One howl. Many teeth.
+    complexity: 2
+    role: Damage
+    tags:
+      - beastfolk
+      - officer
+    supported_types:
+      - Beast
+    supported_keywords:
+      - Pack
+    favored_terrain: forest
+    balance_rev: 13
+  - id: de789d42722f467fa5c9fe03dd51d56d
+    name: Hoofthunder Lead
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Beastfolk
+    primary_type: Cavalry
+    secondary_type: Beast
+    uv: 13
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 4
+    company_ap: 5
+    company_capacity: 19
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Charge
+      - Pack
+    abilities:
+      - Wild Rush
+      - Horn of Advance
+      - Inspire
+    ultimate: null
+    flavor_text: The ground learns their names last.
+    complexity: 3
+    role: Damage
+    tags:
+      - beastfolk
+      - officer
+    supported_types:
+      - Cavalry
+      - Beast
+    supported_keywords:
+      - Charge
+      - Pack
+    favored_terrain: forest
+    balance_rev: 13
+  - id: f4588bd2f1b14a4bb92b19331b161d56
+    name: Bone Totem Adept
+    card_type: Officer
+    rarity: Uncommon
+    unique: false
+    race: Beastfolk
+    primary_type: Magic
+    secondary_type: Beast
+    uv: 12
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 3
+    company_ap: 6
+    company_capacity: 18
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords: []
+    abilities:
+      - Totem Pulse
+      - Medic
+      - Draft Beasts
+    ultimate: null
+    flavor_text: The totem listens. The pack answers.
+    complexity: 2
+    role: Support
+    tags:
+      - beastfolk
+      - officer
+    supported_types:
+      - Beast
+      - Siege
+    favored_terrain: forest
+    balance_rev: 13
+  - id: acd3329c31294bdfa53d00e92ab53ac4
+    name: Trail Alpha Nira
+    card_type: Officer
+    rarity: Rare
+    unique: false
+    race: Beastfolk
+    primary_type: Beast
+    secondary_type: null
+    uv: 14
+    move: 4
+    damage: 3
+    range: 1
+    toughness: 3
+    company_ap: 5
+    company_capacity: 19
+    command_radius: 4
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Scout
+      - Pack
+    abilities:
+      - Alpha Mark
+      - Beastmaster's Call
+      - Flank Sweep
+    ultimate: null
+    flavor_text: Mark the prey. Forget mercy.
+    complexity: 3
+    role: Scout
+    tags:
+      - beastfolk
+      - officer
+    supported_keywords:
+      - Pack
+      - Flanking
+    favored_terrain: forest
+    balance_rev: 13

@@ -8,7 +8,7 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data/cards')
+const KB = path.resolve('data/cards')
 const REV = 4
 const FILES = [
   'dwarves/units.yaml',
@@ -39,7 +39,7 @@ function tune(card) {
 
   if (type === 'Unit') {
     if (race === 'Dwarf') {
-      // Slight punch — stats already dense; only low-damage line
+      // Slight punch â€” stats already dense; only low-damage line
       if ((card.damage || 0) <= 3 && bump(card, 'damage', 1, 5)) changed = true
     } else if (race === 'Undead') {
       if ((card.damage || 0) <= 3 && bump(card, 'damage', 1, 5)) changed = true

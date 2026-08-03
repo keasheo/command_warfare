@@ -8,7 +8,7 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data/cards')
+const KB = path.resolve('data/cards')
 const REV = 15
 
 const changes = []
@@ -45,7 +45,7 @@ function applyMap(card, map) {
     if (bump(card, field, amount, min, max)) {
       ch = true
       const label = field === 'uv' ? 'UV' : field[0].toUpperCase()
-      log(card, `${label} ${before}→${card[field]}`)
+      log(card, `${label} ${before}â†’${card[field]}`)
     }
   }
   return ch
@@ -56,7 +56,7 @@ function tuneUndead(card) {
   let ch = false
   if (card.card_type === 'Commander' && UNDEAD_CMD_UV.has(card.name) && bump(card, 'uv', -1, 1)) {
     ch = true
-    log(card, `UV→${card.uv}`)
+    log(card, `UVâ†’${card.uv}`)
   } else if (card.card_type === 'Officer') ch = applyMap(card, UNDEAD_OFFICER)
   else if (card.card_type === 'Unit') ch = applyMap(card, UNDEAD_UNIT)
   return ch

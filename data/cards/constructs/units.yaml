@@ -1,0 +1,1354 @@
+cards:
+  - id: b3726092926c4f3d90897dbdb8eaf710
+    name: Bolt Throwers
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Construct
+    primary_type: Ranged
+    secondary_type: null
+    uv: 4
+    move: 3
+    damage: 4
+    range: 2
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Piercing
+    abilities: []
+    ultimate: null
+    flavor_text: Simple machines.
+    complexity: 1
+    role: Artillery
+    tags:
+      - construct
+    favored_terrain: plains
+    balance_rev: 24
+  - id: f80f5100f274407b91685eabb3cdb3ef
+    name: Clamp Guards
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: null
+    uv: 3
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Guard
+    abilities: []
+    ultimate: null
+    flavor_text: Hold until told.
+    complexity: 1
+    role: Frontline
+    tags:
+      - construct
+    favored_terrain: plains
+  - id: fe5ee89495af4de69607a592af1fe21c
+    name: Cog Spearmen
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: null
+    uv: 3
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+    abilities: []
+    ultimate: null
+    flavor_text: Points on a schedule.
+    complexity: 1
+    role: Frontline
+    tags:
+      - construct
+    favored_terrain: plains
+    balance_rev: 22
+  - id: d2d14e8dc891452a86f70d4ce37ceb80
+    name: Floor Sweepers
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+    abilities: []
+    ultimate: null
+    flavor_text: Cleanup is combat.
+    complexity: 1
+    role: Frontline
+    tags:
+      - construct
+    favored_terrain: plains
+  - id: fbdb6831440c4a3ea426118d7f2ea0e0
+    name: Gear Militia
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+    abilities: []
+    ultimate: null
+    flavor_text: Assembled this morning.
+    complexity: 1
+    role: Frontline
+    tags:
+      - construct
+    favored_terrain: plains
+  - id: c3e77fcb4bab4bd08c8f1a71deea628f
+    name: Lens Scouts
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: Light
+    uv: 3
+    move: 3
+    damage: 4
+    range: 2
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Scout
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Eyes without blink.
+    complexity: 1
+    role: Artillery
+    tags:
+      - construct
+    favored_terrain: plains
+  - id: 0ee9f0120d8149c999b5e543bb37321e
+    name: Oil Bearers
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+    abilities: []
+    ultimate: null
+    flavor_text: Maintenance under fire.
+    complexity: 1
+    role: Frontline
+    tags:
+      - construct
+    favored_terrain: plains
+  - id: 611e332628954fe3bb3fd546ab82c4f8
+    name: Plate Thralls
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: Heavy
+    uv: 2
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+    abilities: []
+    ultimate: null
+    flavor_text: Empty helmets, full orders.
+    complexity: 1
+    role: Frontline
+    tags:
+      - construct
+    favored_terrain: plains
+  - id: 72b2e48aae354d27a8cb2602debee335
+    name: Rivet Infantry
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: null
+    uv: 3
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+    abilities: []
+    ultimate: null
+    flavor_text: Marching inventory.
+    complexity: 1
+    role: Frontline
+    tags:
+      - construct
+    favored_terrain: plains
+  - id: cb2d6bc0bd354e6ba4c2eea52c7be807
+    name: Scrap Drones
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+    abilities: []
+    ultimate: null
+    flavor_text: Disposable diligence.
+    complexity: 1
+    role: Frontline
+    tags:
+      - construct
+    favored_terrain: plains
+  - id: bd8a6dc074964093b40214d8b4dadb55
+    name: Shield Automata
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: Heavy
+    uv: 2
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Shieldwall
+    abilities: []
+    ultimate: null
+    flavor_text: Bolted courage.
+    complexity: 1
+    role: Frontline
+    tags:
+      - construct
+    favored_terrain: plains
+  - id: 1fccb39c78074a28b90ca3f34acf19ed
+    name: Wire Archers
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Construct
+    primary_type: Ranged
+    secondary_type: Construct
+    uv: 4
+    move: 3
+    damage: 4
+    range: 3
+    toughness: 4
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+    abilities: []
+    ultimate: null
+    flavor_text: Twang, tick, twang.
+    complexity: 1
+    role: Artillery
+    tags:
+      - construct
+    favored_terrain: plains
+    balance_rev: 24
+  - id: b9e3de7afa7145f1b4fff280431ff072
+    name: Anchor Constructs
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: Heavy
+    uv: 4
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Unyielding
+    abilities: []
+    ultimate: null
+    flavor_text: Precision without pity.
+    complexity: 2
+    role: Tank
+    tags:
+      - construct
+    favored_terrain: plains
+  - id: 7b144a486c9a4f7eb632f71eec05b15c
+    name: Arc Projector
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Construct
+    primary_type: Siege
+    secondary_type: null
+    uv: 7
+    move: 3
+    damage: 4
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Piercing
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Precision without pity.
+    complexity: 2
+    role: Artillery
+    tags:
+      - construct
+    favored_terrain: plains
+    balance_rev: 24
+  - id: 4c9adc1c57c4445887eda979ef9cdab2
+    name: Archer Constructs
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Construct
+    primary_type: Ranged
+    secondary_type: null
+    uv: 4
+    move: 3
+    damage: 4
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Precision without pity.
+    complexity: 2
+    role: Artillery
+    tags:
+      - construct
+    favored_terrain: plains
+  - id: d3281bdeeb0b46e58ea3ff8fa250b476
+    name: Bulwark Frames
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: Heavy
+    uv: 5
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Harden 1
+    abilities: []
+    ultimate: null
+    flavor_text: Precision without pity.
+    complexity: 2
+    role: Tank
+    tags:
+      - construct
+    favored_terrain: plains
+  - id: ced1a523bc954ef5ad8587f06221877d
+    name: Chassis Breakers
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: Heavy
+    uv: 5
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+    abilities: []
+    ultimate: null
+    flavor_text: Precision without pity.
+    complexity: 2
+    role: Damage
+    tags:
+      - construct
+    favored_terrain: plains
+  - id: ef4f914e03374aa292f49086d36397ab
+    name: Clockwork Phalanx
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: Heavy
+    uv: 5
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Shieldwall
+    abilities: []
+    ultimate: null
+    flavor_text: Precision without pity.
+    complexity: 2
+    role: Frontline
+    tags:
+      - construct
+    favored_terrain: plains
+  - id: 8625c77651fb47f78264a9d8ac5b023e
+    name: Coil Rifles
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Construct
+    primary_type: Ranged
+    secondary_type: null
+    uv: 5
+    move: 3
+    damage: 3
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Piercing
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Precision without pity.
+    complexity: 2
+    role: Artillery
+    tags:
+      - construct
+    favored_terrain: plains
+    balance_rev: 24
+  - id: 857412e49818419da8cbcd6b5f4bf598
+    name: Gyro Scouts
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: Light
+    uv: 4
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Scout
+    abilities: []
+    ultimate: null
+    flavor_text: Precision without pity.
+    complexity: 2
+    role: Scout
+    tags:
+      - construct
+    favored_terrain: plains
+  - id: 0fed5abd70814f6e8a3d1241459cd036
+    name: Hammer Automata
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: null
+    uv: 5
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+    abilities: []
+    ultimate: null
+    flavor_text: Precision without pity.
+    complexity: 2
+    role: Frontline
+    tags:
+      - construct
+    favored_terrain: plains
+  - id: 6518befbd6f245dea851ee7824680ccc
+    name: Juggernaut Chassis
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: Heavy
+    uv: 6
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Trample
+    abilities: []
+    ultimate: null
+    flavor_text: Precision without pity.
+    complexity: 2
+    role: Damage
+    tags:
+      - construct
+    favored_terrain: plains
+  - id: 14f3d2d44cf1418a9f013a79c8330b8c
+    name: Lattice Wardens
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: Heavy
+    uv: 5
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Defender
+    abilities: []
+    ultimate: null
+    flavor_text: Precision without pity.
+    complexity: 2
+    role: Tank
+    tags:
+      - construct
+    favored_terrain: plains
+  - id: 384b121dce324a4e82c8df5fc165b70b
+    name: Null Frames
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: null
+    uv: 5
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Harden 1
+    abilities: []
+    ultimate: null
+    flavor_text: Precision without pity.
+    complexity: 2
+    role: Control
+    tags:
+      - construct
+    favored_terrain: plains
+  - id: fe8273fb5d2241749fbbe4a0312e6112
+    name: Overclock Blades
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: Light
+    uv: 5
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Harass
+    abilities: []
+    ultimate: null
+    flavor_text: Precision without pity.
+    complexity: 2
+    role: Damage
+    tags:
+      - construct
+    favored_terrain: plains
+    balance_rev: 9
+  - id: 7c81cd96fa54419cbb01021b97b9ec68
+    name: Servo Medicae
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: null
+    uv: 4
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+    abilities:
+      - Repair
+    ultimate: null
+    flavor_text: Precision without pity.
+    complexity: 2
+    role: Healer
+    tags:
+      - construct
+    favored_terrain: plains
+  - id: d1a7c0774c7a400ca01f3e915b2930f8
+    name: Spear Constructs
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: null
+    uv: 4
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+    abilities: []
+    ultimate: null
+    flavor_text: Precision without pity.
+    complexity: 2
+    role: Frontline
+    tags:
+      - construct
+    favored_terrain: plains
+    balance_rev: 22
+  - id: d9d1ce6f70904df3995bbe1cf3799e52
+    name: Walking Battery
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Construct
+    primary_type: Siege
+    secondary_type: null
+    uv: 7
+    move: 3
+    damage: 4
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Siege
+      - Reach
+    abilities:
+      - Rebuild Protocol
+    ultimate: null
+    flavor_text: Precision without pity.
+    complexity: 2
+    role: Artillery
+    tags:
+      - construct
+    favored_terrain: plains
+    balance_rev: 24
+  - id: e93e279356124b8a99dff4fede36078f
+    name: Aegis Automata
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: Heavy
+    uv: 7
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Shieldwall
+      - Defender
+    abilities: []
+    ultimate: null
+    flavor_text: Built to outlast the war.
+    complexity: 3
+    role: Tank
+    tags:
+      - construct
+    favored_terrain: plains
+  - id: 20dd4f866e7e43fc91256cb945dc4c91
+    name: Eternal Riveters
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: null
+    uv: 7
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Regenerate
+    abilities: []
+    ultimate: null
+    flavor_text: Built to outlast the war.
+    complexity: 3
+    role: Frontline
+    tags:
+      - construct
+    favored_terrain: plains
+  - id: 2ce4ba4b1766446496494fac6a8e0287
+    name: Latchwork Sentinels
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: Heavy
+    uv: 6
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Guard
+    abilities: []
+    ultimate: null
+    flavor_text: Built to outlast the war.
+    complexity: 3
+    role: Tank
+    tags:
+      - construct
+    favored_terrain: plains
+  - id: 8963293800234c0eb735b80dc68a6c2b
+    name: Null Juggernaut
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: Elite
+    uv: 7
+    move: 3
+    damage: 3
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Harden 1
+      - Unyielding
+    abilities: []
+    ultimate: null
+    flavor_text: Built to outlast the war.
+    complexity: 3
+    role: Tank
+    tags:
+      - construct
+    favored_terrain: plains
+    balance_rev: 18
+  - id: 6c2051b0d8e34b588073c234ecda14a5
+    name: Oracle Chassis
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Construct
+    primary_type: Magic
+    secondary_type: null
+    uv: 7
+    move: 3
+    damage: 4
+    range: 2
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Spellcaster
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Built to outlast the war.
+    complexity: 3
+    role: Support
+    tags:
+      - construct
+    favored_terrain: plains
+  - id: 867cfdbf0960461386eb6c13b4589718
+    name: Prime Battery Walkers
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Construct
+    primary_type: Siege
+    secondary_type: Elite
+    uv: 9
+    move: 3
+    damage: 4
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Siege
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Built to outlast the war.
+    complexity: 3
+    role: Artillery
+    tags:
+      - construct
+    favored_terrain: plains
+    balance_rev: 24
+  - id: a3dd712644644b858422dc1f1d80b3bc
+    name: Prism Beamers
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Construct
+    primary_type: Ranged
+    secondary_type: null
+    uv: 6
+    move: 3
+    damage: 4
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Piercing
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Built to outlast the war.
+    complexity: 3
+    role: Artillery
+    tags:
+      - construct
+    favored_terrain: plains
+  - id: d478d9fb6cbd418592d19a166580f56d
+    name: Razorschard Pack
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: Light
+    uv: 7
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Frenzy
+    abilities: []
+    ultimate: null
+    flavor_text: Built to outlast the war.
+    complexity: 3
+    role: Damage
+    tags:
+      - construct
+    favored_terrain: plains
+  - id: 2dd7adee88a5421984b2479d2db05e56
+    name: Siege Brain
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Construct
+    primary_type: Siege
+    secondary_type: null
+    uv: 8
+    move: 3
+    damage: 4
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Siege
+      - Piercing
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Built to outlast the war.
+    complexity: 3
+    role: Artillery
+    tags:
+      - construct
+    favored_terrain: plains
+    balance_rev: 24
+  - id: 2406b941765e4f69afc0c0ff58a679e3
+    name: World-Nailer
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: Heavy
+    uv: 8
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Trample
+    abilities: []
+    ultimate: null
+    flavor_text: Built to outlast the war.
+    complexity: 3
+    role: Damage
+    tags:
+      - construct
+    favored_terrain: plains
+  - id: 16104fde5a0741b096469f63f6f4822a
+    name: Colossus Frame
+    card_type: Unit
+    rarity: Epic
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: Elite
+    uv: 9
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Trample
+      - Harden 1
+    abilities: []
+    ultimate: null
+    flavor_text: Built to outlast the war.
+    complexity: 3
+    role: Damage
+    tags:
+      - construct
+    favored_terrain: plains
+  - id: 200f60c956664cf99974e355f8bff198
+    name: Crown of Gears
+    card_type: Unit
+    rarity: Epic
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: Elite
+    uv: 9
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Fearless
+      - Harden 1
+    abilities: []
+    ultimate: null
+    flavor_text: Built to outlast the war.
+    complexity: 3
+    role: Support
+    tags:
+      - construct
+    favored_terrain: plains
+  - id: 5c04cf349e4a4c2d9d4611918f4a96da
+    name: Rivet Drill Unit
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: Light
+    uv: 1
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Drill
+    abilities: []
+    ultimate: null
+    flavor_text: Calibrates aim on the assembly line.
+    complexity: 1
+    role: Support
+    tags:
+      - construct
+      - support
+      - formation
+    favored_terrain: plains
+  - id: 54d30df4477a4c1bad43729aea0809fc
+    name: Plate Link
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: Light
+    uv: 1
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Guard
+    abilities: []
+    ultimate: null
+    flavor_text: Bolt plates. Share the impact.
+    complexity: 1
+    role: Support
+    tags:
+      - construct
+      - support
+      - formation
+    favored_terrain: plains
+  - id: 751b34290efd4609b482e8421592f244
+    name: Gear Horn
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation March
+    abilities: []
+    ultimate: null
+    flavor_text: A tone that means advance one cog.
+    complexity: 1
+    role: Support
+    tags:
+      - construct
+      - support
+      - formation
+    favored_terrain: plains
+  - id: 8f4e3fb08d4d4818a2a51d59391bbc76
+    name: Clamp Pair Lead
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Drill
+    abilities: []
+    ultimate: null
+    flavor_text: Two clamps, one seam.
+    complexity: 1
+    role: Support
+    tags:
+      - construct
+      - support
+      - formation
+    favored_terrain: plains
+  - id: bef13f5c31794594b93fd59dc3de333f
+    name: Line Sergeant Frame
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: null
+    uv: 3
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Guard
+    abilities: []
+    ultimate: null
+    flavor_text: Keeps the cheap frames aligned.
+    complexity: 1
+    role: Support
+    tags:
+      - construct
+      - support
+      - formation
+    favored_terrain: plains
+  - id: c9f1fb9a3afd46e3957a50644f39e62f
+    name: Conveyor Guide
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Construct
+    primary_type: Construct
+    secondary_type: Light
+    uv: 3
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation March
+    abilities: []
+    ultimate: null
+    flavor_text: Sets throughput the scrubs can match.
+    complexity: 1
+    role: Support
+    tags:
+      - construct
+      - support
+      - formation
+    favored_terrain: plains

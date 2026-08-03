@@ -1,0 +1,97 @@
+title: Expansion Card Roster Plan
+sections:
+- id: plan0000001
+  title: Goals
+  body: 'Author complete card YAML for Dwarf, Construct, Dragon, Undead, Beastfolk (3 commanders /
+    8 officers / 40 units each) plus 6 shared Siege units, matching design constraints, then import
+    later for sims.
+
+
+    Constraints (hard): printed Range ≤ 3; only Siege may print Move 2 (others floor at 3); Dragon no Cavalry; Undead weaker baselines;
+    Elf/Siege only temporary +Range; unique names across all races; unique short flavors.'
+- id: plan0000002
+  title: Shared Siege (6 units)
+  body: 'Field Ballista — Piercing anti-elite, Range 3, Move 2.
+
+
+    Timber Catapult — Siege +Slow, anti-fort.
+
+
+    Long-Arm Trebuchet — Siege +2 vs Fortified (printed via keyword Siege + card note in abilities later),
+    Slow, higher UV.
+
+
+    Ironhead Ram — melee Siege breach, high Toughness.
+
+
+    Rolling Siege Tower — approach / tow focus, high Toughness, low Damage.
+
+
+    Mantlet Crew — Fortify own hex (Raise Mantlets), Move 2.'
+- id: plan0000003
+  title: 'Dwarf — 3 / 8 / 40'
+  body: 'Commanders: Hold (Unbreakable Hold), Engineer (Depth Charge), Anvil (Anvil Decree).
+
+
+    Officers: Shield / Engineer Fortify / Gate / Cannon / Ironbreaker / Quartermaster Repair / Oathkeeper
+    / Stonewright Fortify suite.
+
+
+    Units curve: ~12 cheap low-Move tough; ~16 mid Harden/Shieldwall/crossbow; ~10 elite Unyielding +
+    Runed Mortar + Ironbreaker Cannon. Identity = Fortify + attrition. No Cavalry emphasis.'
+- id: plan0000004
+  title: 'Construct — 3 / 8 / 40'
+  body: 'Commanders: Rebuild (Full Rebuild), Barrage (Lockstep Barrage), Null (Null Field).
+
+
+    Officers: Repair, Siege Conductor, Phalanx, Overdrive, Sealant, Battery, Line Binder, Null Sentinel.
+
+
+    Units: Fearless default; Arc Projector + Walking Battery unique; slow Move 2; Repair not Medic as
+    primary heal fantasy.'
+- id: plan0000005
+  title: 'Dragon — 3 / 8 / 40'
+  body: 'Commanders: Sky Tyrant (Flying package), Cataclysm (Blast / Fire face), Hoard Claim.
+
+
+    Officers: Brood (all Dragon), Terror/Fear, Wing (Flying), Scale Guard (dragonkin Infantry), Clutch
+    Marshal (bipedal, no Breath required), Breath Trainer (Fire/breath), Wyrm Priest (Magic), Spire
+    Archer (Ranged).
+
+
+    Units: Majority non-elemental dragonkin (Infantry/Heavy/Ranged/Magic). Minority breath-line
+    spitters/elites with Blast + optional element (v1 Fire). Flying and element both opt-in.
+    NO Cavalry. Later: grow Ice/Poison/Lightning breath spines for mono-element lists.'
+- id: plan0000006
+  title: 'Undead — 3 / 8 / 40'
+  body: 'Commanders: Gravemind (raise once), Eclipse of Fear, Bone Harvest.
+
+
+    Officers: Wight, Necromancer (Raise Thrall once), Fear Herald, Crypt Engineer, Thrall Driver, Soul
+    Tither, Death Knight, Tomb Guard.
+
+
+    Units: ~−1 Damage and/or Toughness vs peer UV; Revenant on select chaff/elites; Bone Catapult + Crypt
+    Ram. No infinite recursion.'
+- id: plan0000007
+  title: 'Beastfolk — 3 / 8 / 40'
+  body: 'Commanders: Blood Moon, Wild Hunt, Alpha Howl.
+
+
+    Officers: Centaur Marshal, Wolfkin Alpha, Minotaur, Beastmaster, Skirmish Pack, Totem Shaman,
+    Stampede Caller, Scout Tracker.
+
+
+    Units: Pack/Charge/Flanking; Centaur Cavalry + wolfkin + minotaurs; Totem Onager + War Beast;
+    mid Move 3–5. Between Human company play and Elf skirmish — not Fortify, not Range-4.'
+- id: plan0000008
+  title: Delivery
+  body: 'Generate via scripts/generate_expansion_cards.py into data/cards/{dwarves,constructs,dragons,
+    undead,beastfolk,siege}/.
+
+
+    Validate: 3/8/40 counts, no duplicate names vs existing races, no Range>3, no Dragon Cavalry,
+    all ability/keyword refs resolve.
+
+
+    Out of scope this pass: sim Fortify/Blast/Revenant wiring; CW import (run separately).'

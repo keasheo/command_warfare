@@ -12,7 +12,7 @@ import Database from 'better-sqlite3'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data/cards')
+const KB = path.resolve('data/cards')
 const RACES = {
   Beastfolk: path.join(KB, 'beastfolk/units.yaml'),
   Human: path.join(KB, 'humans/units.yaml'),
@@ -39,7 +39,7 @@ function shouldBuffDemon(card) {
   const uv = Number(card.uv) || 0
   const rarity = String(card.rarity || 'Common')
   if (d <= 2) return true
-  // Mid demons are stuck on D3 — bump Uncommon+ at UV>=4
+  // Mid demons are stuck on D3 â€” bump Uncommon+ at UV>=4
   if (d === 3 && uv >= 4 && rarity !== 'Common') return true
   return false
 }
@@ -63,7 +63,7 @@ for (const [race, file] of Object.entries(RACES)) {
       name: card.name,
       rarity: card.rarity,
       uv: card.uv,
-      damage: `${before}→${after}`,
+      damage: `${before}â†’${after}`,
     })
     dirty = true
   }
@@ -76,7 +76,7 @@ const db = new Database('data/command-warfare.sqlite')
 const upd = db.prepare('UPDATE cards SET damage = ? WHERE name = ? AND card_type = ?')
 let dbN = 0
 for (const c of changes) {
-  const info = upd.run(Number(c.damage.split('→')[1]), c.name, 'Unit')
+  const info = upd.run(Number(c.damage.split('â†’')[1]), c.name, 'Unit')
   dbN += info.changes
 }
 

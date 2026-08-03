@@ -1,5 +1,5 @@
 /**
- * Balance pass 12b: Dragon floor — melee Reach trim on deployed elites/officers.
+ * Balance pass 12b: Dragon floor â€” melee Reach trim on deployed elites/officers.
  * Pass-12 ranged trims were no-ops (ranged hits Flying without Reach).
  * balance_rev >= 23.
  */
@@ -9,12 +9,12 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data/cards')
+const KB = path.resolve('data/cards')
 const REV = 23
 
 const changes = []
 
-/** Undead — pass-8 melee line not yet trimmed + sim-deployed elites/officer */
+/** Undead â€” pass-8 melee line not yet trimmed + sim-deployed elites/officer */
 const UNDEAD_REACH_TRIM = new Set([
   'Chained Dead',
   'Crypt Guard',

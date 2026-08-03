@@ -8,7 +8,7 @@ import path from 'node:path'
 import { load as loadYaml, dump as dumpYaml } from 'js-yaml'
 
 const DATA_ROOT = path.resolve(
-  process.env.KINGDOMS_DATA ?? 'C:\\Users\\keash\\Projects\\KingdomsBuilder\\data',
+  process.env.KINGDOMS_DATA ?? 'data',
 )
 
 const RACE_TO_TERRAIN = {
@@ -21,7 +21,7 @@ const RACE_TO_TERRAIN = {
   Dragon: 'volcanic',
   Demon: 'volcanic',
   Dwarf: 'hills',
-  // Siege and no race → null / omit
+  // Siege and no race â†’ null / omit
 }
 
 const TERRAIN_KEYWORDS = new Set([
@@ -101,5 +101,5 @@ console.log(`Stamping favored_terrain field in ${cardsDir}...\n`)
 const { updated, removed } = processDirectory(cardsDir)
 
 console.log(
-  `\n✓ Done: ${updated} cards stamped with favored_terrain, ${removed} terrain keywords removed`,
+  `\nâœ“ Done: ${updated} cards stamped with favored_terrain, ${removed} terrain keywords removed`,
 )

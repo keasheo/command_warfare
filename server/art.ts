@@ -98,6 +98,15 @@ export function setCardArtFromBuffer(
 
 export function copyArtIfPresent(cardId: string, sourceArtDir: string): boolean {
   if (!fs.existsSync(sourceArtDir)) return false
+  const resolvedSourceDir = path.resolve(sourceArtDir)
+  const resolvedArtDir = path.resolve(ART_DIR)
+  // Importing from repo data/art into itself — files are already in place.
+  if (resolvedSourceDir === resolvedArtDir) {
+    for (const ext of IMAGE_EXTENSIONS) {
+      if (fs.existsSync(path.join(ART_DIR, `${cardId}${ext}`))) return true
+    }
+    return false
+  }
   for (const ext of IMAGE_EXTENSIONS) {
     const source = path.join(sourceArtDir, `${cardId}${ext}`)
     if (!fs.existsSync(source)) continue

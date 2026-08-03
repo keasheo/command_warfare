@@ -10,12 +10,12 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data/cards')
+const KB = path.resolve('data/cards')
 const REV = 22
 
 const changes = []
 
-/** Undead — pass-8 melee Reach on core line (range 1) */
+/** Undead â€” pass-8 melee Reach on core line (range 1) */
 const UNDEAD_REACH_TRIM = new Set([
   'Shambling Spears',
   'Skeleton Levy',
@@ -23,7 +23,7 @@ const UNDEAD_REACH_TRIM = new Set([
   'Pale Militia',
 ])
 
-/** Construct — excess melee Reach + cheap ranged anti-air */
+/** Construct â€” excess melee Reach + cheap ranged anti-air */
 const CONSTRUCT_REACH_TRIM = new Set([
   'Cog Spearmen',
   'Spear Constructs',

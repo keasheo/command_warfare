@@ -12,9 +12,9 @@ import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-const KINGDOMS_BUILDER_DATA = path.resolve(__dirname, '../../KingdomsBuilder/data')
+const KINGDOMS_BUILDER_DATA = path.resolve(__dirname, '../data')
 
-// Race → Terrain Keyword mapping
+// Race â†’ Terrain Keyword mapping
 const RACE_KEYWORD_MAP = {
   Human: 'Open Ground',
   Construct: 'Open Ground',
@@ -75,20 +75,20 @@ function processYamlFile(filePath) {
       const cardName = cardData.name || cardData.id
       
       if (!race) {
-        console.log(`  ⚠ ${cardName}: No race defined, skipping`)
+        console.log(`  âš  ${cardName}: No race defined, skipping`)
         continue
       }
       
       const keyword = RACE_KEYWORD_MAP[race]
       if (!keyword) {
-        console.log(`  ⚠ ${cardName}: Race "${race}" has no terrain keyword mapping`)
+        console.log(`  âš  ${cardName}: Race "${race}" has no terrain keyword mapping`)
         continue
       }
       
       const wasUpdated = stampKeywordOnCard(cardData, keyword)
       if (wasUpdated) {
         updatedCount++
-        console.log(`  ✓ ${cardName}: Added "${keyword}"`)
+        console.log(`  âœ“ ${cardName}: Added "${keyword}"`)
       }
     }
   }
@@ -100,7 +100,7 @@ function processYamlFile(filePath) {
       sortKeys: false,
     })
     fs.writeFileSync(filePath, newContent, 'utf8')
-    console.log(`✅ Updated ${updatedCount} card(s) in ${path.basename(filePath)}`)
+    console.log(`âœ… Updated ${updatedCount} card(s) in ${path.basename(filePath)}`)
   } else if (data && data.cards) {
     console.log(`  No updates needed`)
   }
@@ -109,11 +109,11 @@ function processYamlFile(filePath) {
 }
 
 function main() {
-  console.log('🚀 Stamping terrain keywords onto cards...')
-  console.log(`📂 KingdomsBuilder data: ${KINGDOMS_BUILDER_DATA}`)
+  console.log('ðŸš€ Stamping terrain keywords onto cards...')
+  console.log(`ðŸ“‚ KingdomsBuilder data: ${KINGDOMS_BUILDER_DATA}`)
   
   const files = getAllCardYamlFiles(KINGDOMS_BUILDER_DATA)
-  console.log(`\n📝 Found ${files.length} card YAML files\n`)
+  console.log(`\nðŸ“ Found ${files.length} card YAML files\n`)
   
   let totalUpdated = 0
   
@@ -122,9 +122,9 @@ function main() {
   }
   
   console.log('\n' + '='.repeat(60))
-  console.log(`✨ Complete! Updated ${totalUpdated} total cards`)
+  console.log(`âœ¨ Complete! Updated ${totalUpdated} total cards`)
   console.log('='.repeat(60))
-  console.log('\n💡 Next step: Run "npm run import:yaml" in CommandWarfare to update the database')
+  console.log('\nðŸ’¡ Next step: Run "npm run import:yaml" in CommandWarfare to update the database')
 }
 
 main()

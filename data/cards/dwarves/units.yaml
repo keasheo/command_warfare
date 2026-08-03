@@ -1,0 +1,1402 @@
+cards:
+  - id: c4e0b192e9fc41c9b62431b76e550045
+    name: Barrelshields
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 2
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Harden 1
+    abilities: []
+    ultimate: null
+    flavor_text: Round defense, sharp temper.
+    complexity: 1
+    role: Frontline
+    tags:
+      - dwarf
+      - infantry
+    favored_terrain: hills
+    balance_rev: 11
+  - id: bc3dbd19021b4124b3bf2dac603e09e8
+    name: Brewguard Militia
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Shieldwall
+    abilities: []
+    ultimate: null
+    flavor_text: Courage on tap.
+    complexity: 1
+    role: Frontline
+    tags:
+      - dwarf
+      - infantry
+    favored_terrain: hills
+  - id: 927170cba11741b2a54cad1970d34a1d
+    name: Delve Levy
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Harden 1
+    abilities: []
+    ultimate: null
+    flavor_text: Picks, panic, and payday.
+    complexity: 1
+    role: Frontline
+    tags:
+      - dwarf
+      - infantry
+    favored_terrain: hills
+  - id: 356a07307d2f4eaeabac401b6fd5cf5d
+    name: Dustfoot Scouts
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Stealth
+    abilities: []
+    ultimate: null
+    flavor_text: Quiet as settling rock.
+    complexity: 1
+    role: Frontline
+    tags:
+      - dwarf
+      - infantry
+    favored_terrain: hills
+    balance_rev: 11
+  - id: f7cae35952ef4b458ed6b3cec69399f4
+    name: Grudge Bearers
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Defender
+    abilities: []
+    ultimate: null
+    flavor_text: The list is longer than the spear.
+    complexity: 1
+    role: Frontline
+    tags:
+      - dwarf
+      - infantry
+    favored_terrain: hills
+    balance_rev: 11
+  - id: 9b73e862449e4587a4a27c3b5d580658
+    name: Hold Spearmen
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Points that remember.
+    complexity: 1
+    role: Frontline
+    tags:
+      - dwarf
+      - infantry
+    favored_terrain: hills
+    balance_rev: 11
+  - id: 0fe1a1d279ce47ed8de7c97e6b7c5c68
+    name: Mine Wardens
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Guard
+    abilities: []
+    ultimate: null
+    flavor_text: Nobody skips the gate.
+    complexity: 1
+    role: Frontline
+    tags:
+      - dwarf
+      - infantry
+    favored_terrain: hills
+    balance_rev: 11
+  - id: f2b0a7e101d748cebe133547fef7fdca
+    name: Rivet Boys
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Defender
+    abilities: []
+    ultimate: null
+    flavor_text: Hammers first, questions never.
+    complexity: 1
+    role: Frontline
+    tags:
+      - dwarf
+      - infantry
+    favored_terrain: hills
+  - id: 3def631c5e3c456ca7b5c2d95671314e
+    name: Shield Thralls
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 2
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Shieldwall
+    abilities: []
+    ultimate: null
+    flavor_text: Borrowed steel, owned duty.
+    complexity: 1
+    role: Frontline
+    tags:
+      - dwarf
+      - infantry
+    favored_terrain: hills
+  - id: 42f22d8b2be54f4697f5f5b3b3ed4172
+    name: Sling Crews
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dwarf
+    primary_type: Ranged
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 4
+    range: 2
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Pebbles with ambition.
+    complexity: 1
+    role: Artillery
+    tags:
+      - dwarf
+      - ranged
+    favored_terrain: hills
+  - id: bcb9e70254c04af79d22155660b77065
+    name: Stonechip Archers
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dwarf
+    primary_type: Ranged
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 4
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Short bows, long grudges.
+    complexity: 1
+    role: Artillery
+    tags:
+      - dwarf
+      - ranged
+    favored_terrain: hills
+    balance_rev: 11
+  - id: 1931edf5d4ae4243b730b2a2f9ecd577
+    name: Tunnel Runners
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Scout
+    abilities: []
+    ultimate: null
+    flavor_text: Maps written in soot.
+    complexity: 1
+    role: Frontline
+    tags:
+      - dwarf
+      - infantry
+    favored_terrain: hills
+    balance_rev: 11
+  - id: 40f04a07413a4a4c951faf1071d9e192
+    name: Anvil Guard
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 3
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Defender
+      - Harden 1
+    abilities: []
+    ultimate: null
+    flavor_text: Anvil work for the hold.
+    complexity: 2
+    role: Tank
+    tags:
+      - dwarf
+      - infantry
+    favored_terrain: hills
+    balance_rev: 11
+  - id: 7d8a88c6e8a74fae929c0a16d184daf8
+    name: Deep Lanterns
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dwarf
+    primary_type: Magic
+    secondary_type: null
+    uv: 3
+    move: 3
+    damage: 4
+    range: 2
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Spellcaster
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Deep work for the hold.
+    complexity: 2
+    role: Support
+    tags:
+      - dwarf
+      - magic
+    favored_terrain: hills
+    balance_rev: 11
+  - id: f04f725c93444902a84e1e818ebbd6a2
+    name: Deepguard Axes
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 3
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Harden 1
+    abilities: []
+    ultimate: null
+    flavor_text: Deepguard work for the hold.
+    complexity: 2
+    role: Frontline
+    tags:
+      - dwarf
+      - infantry
+    favored_terrain: hills
+    balance_rev: 11
+  - id: deb7217cfb094df5b95893661099dbe0
+    name: Forgebreakers
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 3
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Shieldwall
+    abilities: []
+    ultimate: null
+    flavor_text: Forgebreakers work for the hold.
+    complexity: 2
+    role: Tank
+    tags:
+      - dwarf
+      - infantry
+    favored_terrain: hills
+    balance_rev: 11
+  - id: 06633fc9ceca42f49464cb7fe5616434
+    name: Granite Wardens
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 3
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Unyielding
+    abilities: []
+    ultimate: null
+    flavor_text: Granite work for the hold.
+    complexity: 2
+    role: Tank
+    tags:
+      - dwarf
+      - infantry
+    favored_terrain: hills
+    balance_rev: 11
+  - id: 0f9574ae0dca4c8e82b14c968035038b
+    name: Grudge Bolters
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dwarf
+    primary_type: Ranged
+    secondary_type: Heavy
+    uv: 3
+    move: 3
+    damage: 4
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Grudge work for the hold.
+    complexity: 2
+    role: Artillery
+    tags:
+      - dwarf
+      - ranged
+    favored_terrain: hills
+    balance_rev: 11
+  - id: 4270673526704006bce1528080d7cb47
+    name: Hold Crossbows
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dwarf
+    primary_type: Ranged
+    secondary_type: null
+    uv: 3
+    move: 3
+    damage: 4
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Piercing
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Hold work for the hold.
+    complexity: 2
+    role: Artillery
+    tags:
+      - dwarf
+      - ranged
+    favored_terrain: hills
+    balance_rev: 11
+  - id: 8667f53c4c564bd8bc6a24567eba624b
+    name: Holdmark Archers
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dwarf
+    primary_type: Ranged
+    secondary_type: null
+    uv: 3
+    move: 3
+    damage: 4
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Holdmark work for the hold.
+    complexity: 2
+    role: Artillery
+    tags:
+      - dwarf
+      - ranged
+    favored_terrain: hills
+    balance_rev: 11
+  - id: 25d3fcf457734491a32d80297a5f0c9e
+    name: Ironpike Line
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 3
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Shieldwall
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Ironpike work for the hold.
+    complexity: 2
+    role: Frontline
+    tags:
+      - dwarf
+      - infantry
+    favored_terrain: hills
+    balance_rev: 11
+  - id: 652d547bcb0646b881d5dcb114e6f9f0
+    name: Mountain Hearthkin
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: null
+    uv: 3
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Harden 1
+    abilities: []
+    ultimate: null
+    flavor_text: Mountain work for the hold.
+    complexity: 2
+    role: Frontline
+    tags:
+      - dwarf
+      - infantry
+    favored_terrain: hills
+    balance_rev: 11
+  - id: a1feaa11a95846d8a38f7c54689dd7cf
+    name: Oathsworn Blades
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: null
+    uv: 3
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Frenzy
+    abilities: []
+    ultimate: null
+    flavor_text: Oathsworn work for the hold.
+    complexity: 2
+    role: Damage
+    tags:
+      - dwarf
+      - infantry
+    favored_terrain: hills
+    balance_rev: 11
+  - id: 47690aa3a5be474d87719a43b007daef
+    name: Powder Handlers
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dwarf
+    primary_type: Ranged
+    secondary_type: Light
+    uv: 3
+    move: 3
+    damage: 4
+    range: 2
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Powder work for the hold.
+    complexity: 2
+    role: Support
+    tags:
+      - dwarf
+      - ranged
+    favored_terrain: hills
+    balance_rev: 11
+  - id: ba1fadc95e964e189701ecb1e4e5da09
+    name: Rune Halberds
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 3
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+      - Harden 1
+    abilities: []
+    ultimate: null
+    flavor_text: Rune work for the hold.
+    complexity: 2
+    role: Frontline
+    tags:
+      - dwarf
+      - infantry
+    favored_terrain: hills
+    balance_rev: 11
+  - id: 37da14bb06304523ac73b970d9e61724
+    name: Siege Sappers
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 3
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Siege
+    abilities: []
+    ultimate: null
+    flavor_text: Siege work for the hold.
+    complexity: 2
+    role: Control
+    tags:
+      - dwarf
+      - infantry
+    favored_terrain: hills
+    balance_rev: 11
+  - id: 5a585a6b1f0d4759a159b8c0a6fa3ca9
+    name: Stone Miners
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: null
+    uv: 3
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Defender
+    abilities:
+      - Fortify Works
+    ultimate: null
+    flavor_text: Stone work for the hold.
+    complexity: 2
+    role: Support
+    tags:
+      - dwarf
+      - infantry
+    favored_terrain: hills
+    balance_rev: 11
+  - id: 2f14da0d99ac49f9a5e12054b497755e
+    name: Vault Spearmen
+    card_type: Unit
+    rarity: Uncommon
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: null
+    uv: 3
+    move: 3
+    damage: 4
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Vault work for the hold.
+    complexity: 2
+    role: Frontline
+    tags:
+      - dwarf
+      - infantry
+    favored_terrain: hills
+    balance_rev: 11
+  - id: e16717493a954aeea7bc4d1052eeb111
+    name: Cliffbow Veterans
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Dwarf
+    primary_type: Ranged
+    secondary_type: null
+    uv: 4
+    move: 3
+    damage: 5
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Piercing
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Named in the ledgers of the deep.
+    complexity: 3
+    role: Artillery
+    tags:
+      - dwarf
+      - ranged
+    favored_terrain: hills
+    balance_rev: 12
+  - id: b51e1f17fc284b1aa05d07aafeb87fd4
+    name: Grudge Lord Champions
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: Elite
+    uv: 6
+    move: 3
+    damage: 5
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Frenzy
+      - Harden 1
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Named in the ledgers of the deep.
+    complexity: 3
+    role: Damage
+    tags:
+      - dwarf
+      - infantry
+    favored_terrain: hills
+    balance_rev: 12
+  - id: cc513841df1a4bcdbeb22be9b4230a09
+    name: Holdbreaker Hammers
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 5
+    move: 3
+    damage: 5
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Trample
+    abilities: []
+    ultimate: null
+    flavor_text: Named in the ledgers of the deep.
+    complexity: 3
+    role: Damage
+    tags:
+      - dwarf
+      - infantry
+    favored_terrain: hills
+    balance_rev: 12
+  - id: ac0d25c794824133ae61ce93ebbe35c0
+    name: Ironbreaker Cannon
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Dwarf
+    primary_type: Siege
+    secondary_type: Heavy
+    uv: 5
+    move: 3
+    damage: 5
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Siege
+      - Unyielding
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Named in the ledgers of the deep.
+    complexity: 3
+    role: Artillery
+    tags:
+      - dwarf
+      - siege
+    favored_terrain: hills
+    balance_rev: 12
+  - id: 7df2f890d0c84a7db09cf6179fbcf294
+    name: Ironbreaker Phalanx
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 5
+    move: 3
+    damage: 5
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Unyielding
+      - Shieldwall
+      - Harden 1
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Named in the ledgers of the deep.
+    complexity: 3
+    role: Tank
+    tags:
+      - dwarf
+      - infantry
+    favored_terrain: hills
+    balance_rev: 12
+  - id: 29818af5022142cfa6088a9e2540f052
+    name: King's Gatekeepers
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: Elite
+    uv: 6
+    move: 3
+    damage: 5
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Guard
+      - Shieldwall
+    abilities: []
+    ultimate: null
+    flavor_text: Named in the ledgers of the deep.
+    complexity: 3
+    role: Tank
+    tags:
+      - dwarf
+      - infantry
+    favored_terrain: hills
+    balance_rev: 12
+  - id: c7d70ee24c254f6b9cf331fee23a203e
+    name: Oathbound Sappers
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 4
+    move: 3
+    damage: 5
+    range: 1
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Siege
+    abilities: []
+    ultimate: null
+    flavor_text: Named in the ledgers of the deep.
+    complexity: 3
+    role: Control
+    tags:
+      - dwarf
+      - infantry
+    favored_terrain: hills
+    balance_rev: 11
+  - id: 1efa781fe329421c93b9f6ca751d1319
+    name: Rune Priest of the Deep
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Dwarf
+    primary_type: Magic
+    secondary_type: null
+    uv: 5
+    move: 3
+    damage: 5
+    range: 2
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Spellcaster
+      - Harden 1
+      - Reach
+    abilities:
+      - Heal
+    ultimate: null
+    flavor_text: Named in the ledgers of the deep.
+    complexity: 3
+    role: Healer
+    tags:
+      - dwarf
+      - magic
+    favored_terrain: hills
+    balance_rev: 12
+  - id: 7e70984926404a09bd3929087c8a4a33
+    name: Runed Mortar
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Dwarf
+    primary_type: Siege
+    secondary_type: null
+    uv: 4
+    move: 3
+    damage: 5
+    range: 2
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Siege
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Named in the ledgers of the deep.
+    complexity: 3
+    role: Artillery
+    tags:
+      - dwarf
+      - siege
+    favored_terrain: hills
+    balance_rev: 12
+  - id: a0b2c8cc9a1f47d48eb01ea3bbdadec0
+    name: Stoneheart Defenders
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 5
+    move: 3
+    damage: 5
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Defender
+      - Unyielding
+    abilities: []
+    ultimate: null
+    flavor_text: Named in the ledgers of the deep.
+    complexity: 3
+    role: Tank
+    tags:
+      - dwarf
+      - infantry
+    favored_terrain: hills
+    balance_rev: 12
+  - id: 7b06a5ae8603466dad9f7fc5bb886afb
+    name: Thunderpeak Marksmen
+    card_type: Unit
+    rarity: Rare
+    unique: false
+    race: Dwarf
+    primary_type: Ranged
+    secondary_type: Elite
+    uv: 5
+    move: 3
+    damage: 5
+    range: 3
+    toughness: 5
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Piercing
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Named in the ledgers of the deep.
+    complexity: 3
+    role: Artillery
+    tags:
+      - dwarf
+      - ranged
+    favored_terrain: hills
+    balance_rev: 12
+  - id: a943afcebe274268a234f6ecae6c6f6a
+    name: Deepforge Ancients
+    card_type: Unit
+    rarity: Epic
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: Elite
+    uv: 8
+    move: 3
+    damage: 5
+    range: 1
+    toughness: 6
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Harden 1
+      - Unyielding
+      - Regenerate
+      - Reach
+    abilities: []
+    ultimate: null
+    flavor_text: Named in the ledgers of the deep.
+    complexity: 3
+    role: Tank
+    tags:
+      - dwarf
+      - infantry
+    favored_terrain: hills
+    balance_rev: 11
+  - id: 8229a4ff65da4c9c8dc1821288b9c355
+    name: Delve Drill Lad
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 1
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Drill
+    abilities: []
+    ultimate: null
+    flavor_text: Marks the stone where axes should fall.
+    complexity: 1
+    role: Support
+    tags:
+      - dwarf
+      - support
+      - formation
+    favored_terrain: hills
+  - id: 5f4fddd74b704e64b5b67dc4f96a0574
+    name: Shield Link Thrall
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 1
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Guard
+    abilities: []
+    ultimate: null
+    flavor_text: Lock shields. Breathe later.
+    complexity: 1
+    role: Support
+    tags:
+      - dwarf
+      - support
+      - formation
+    favored_terrain: hills
+  - id: 672f4f4f851f4e89b8a15e11e1162ff7
+    name: Anvil Drum
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation March
+    abilities: []
+    ultimate: null
+    flavor_text: Hammer rhythm is marching orders.
+    complexity: 1
+    role: Support
+    tags:
+      - dwarf
+      - support
+      - formation
+    favored_terrain: hills
+  - id: 929fe52575bb4745afb176f9fd1e2cb5
+    name: Tunnel Pair Lead
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: Light
+    uv: 2
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 2
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Drill
+    abilities: []
+    ultimate: null
+    flavor_text: Two picks, one fault line.
+    complexity: 1
+    role: Support
+    tags:
+      - dwarf
+      - support
+      - formation
+    favored_terrain: hills
+  - id: a65e9b981fe5403a9473b6381b95ed1b
+    name: Hold Sergeant
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: Heavy
+    uv: 2
+    move: 3
+    damage: 2
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation Guard
+    abilities: []
+    ultimate: null
+    flavor_text: The hold starts with the smallfolk.
+    complexity: 1
+    role: Support
+    tags:
+      - dwarf
+      - support
+      - formation
+    favored_terrain: hills
+    balance_rev: 11
+  - id: dee88d3edf9746ebac4c7deb88f9d1a6
+    name: Shaft Guide
+    card_type: Unit
+    rarity: Common
+    unique: false
+    race: Dwarf
+    primary_type: Infantry
+    secondary_type: null
+    uv: 2
+    move: 3
+    damage: 1
+    range: 1
+    toughness: 3
+    company_ap: null
+    company_capacity: null
+    command_radius: null
+    ap_generation: null
+    cc_generation: null
+    keywords:
+      - Formation March
+    abilities: []
+    ultimate: null
+    flavor_text: Sets a pace the thralls can keep.
+    complexity: 1
+    role: Support
+    tags:
+      - dwarf
+      - support
+      - formation
+    favored_terrain: hills
+    balance_rev: 11

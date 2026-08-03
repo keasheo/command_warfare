@@ -10,7 +10,7 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data/cards')
+const KB = path.resolve('data/cards')
 const REV = 17
 
 const changes = []
@@ -40,7 +40,7 @@ function revertPass10g(card) {
   const before = card.uv
   if (!bump(card, 'uv', 1, 1)) return false
   card.balance_rev = REV
-  log(card, `UV ${before}→${card.uv} (revert 10g)`)
+  log(card, `UV ${before}â†’${card.uv} (revert 10g)`)
   return true
 }
 
@@ -50,7 +50,7 @@ function tuneUndeadFloor(card) {
   const before = card.uv
   if (!bump(card, 'uv', -1, 1)) return false
   card.balance_rev = REV
-  log(card, `UV ${before}→${card.uv}`)
+  log(card, `UV ${before}â†’${card.uv}`)
   return true
 }
 

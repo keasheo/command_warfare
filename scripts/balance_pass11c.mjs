@@ -1,5 +1,5 @@
 /**
- * Balance pass 11c: Human floor — +1 T on two more core line units.
+ * Balance pass 11c: Human floor â€” +1 T on two more core line units.
  * balance_rev >= 20.
  */
 import fs from 'node:fs'
@@ -8,7 +8,7 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data/cards')
+const KB = path.resolve('data/cards')
 const REV = 20
 
 const changes = []
@@ -39,7 +39,7 @@ function tune(card) {
     const before = card[field]
     if (bump(card, field, amount, 1, 7)) {
       ch = true
-      log(card, `T ${before}→${card[field]}`)
+      log(card, `T ${before}â†’${card[field]}`)
     }
   }
   if (ch) card.balance_rev = REV

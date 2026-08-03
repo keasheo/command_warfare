@@ -8,7 +8,7 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data')
+const KB = path.resolve('data')
 const abPath = path.join(KB, 'abilities.yaml')
 const abilities = yaml.load(fs.readFileSync(abPath, 'utf8'))
 
@@ -165,7 +165,7 @@ for (const r of rows) {
   const flag = should !== r.current ? ' ***' : ''
   if (flag) mismatches.push({ ...r, should })
   console.log(
-    `${r.name} | ${r.current} (${r.cost}) | ${should}${flag} | ${r.commanders.slice(0, 2).join('; ')}${r.commanders.length > 2 ? '…' : ''}`,
+    `${r.name} | ${r.current} (${r.cost}) | ${should}${flag} | ${r.commanders.slice(0, 2).join('; ')}${r.commanders.length > 2 ? 'â€¦' : ''}`,
   )
 }
 
@@ -173,7 +173,7 @@ console.log(`\nTotal: ${rows.length}, mismatches: ${mismatches.length}`)
 if (mismatches.length) {
   console.log('\n=== MISMATCHES ===')
   for (const m of mismatches) {
-    console.log(`${m.name}: ${m.current} → ${m.should}`)
+    console.log(`${m.name}: ${m.current} â†’ ${m.should}`)
     console.log(`  ${m.desc?.slice(0, 100)}`)
   }
 }

@@ -1,6 +1,6 @@
 /**
  * Balance pass 11b: correct pass-11 commander UV overshoot.
- * Revert UV −1 on weak commanders (cheaper deploy hurt race win%).
+ * Revert UV âˆ’1 on weak commanders (cheaper deploy hurt race win%).
  * Buff strong/borderline commanders + extra Construct soft nerf.
  * balance_rev >= 19.
  */
@@ -10,7 +10,7 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data/cards')
+const KB = path.resolve('data/cards')
 const REV = 19
 
 const changes = []
@@ -24,7 +24,7 @@ const REVERT_CMD_UV = new Set([
   'Voidclaw Tormentor',
 ])
 
-/** Strong / mid commanders — cheaper deploy helps race floor */
+/** Strong / mid commanders â€” cheaper deploy helps race floor */
 const HUMAN_CMD_UV = new Set(['Realmward High Marshal'])
 const DRAGON_CMD_UV = new Set(['Kindred Tyrant'])
 const DEMON_CMD_UV = new Set(['Brimstone Herald'])
@@ -34,7 +34,7 @@ const HUMAN_UNIT = { 'Oathbill Halberdiers': { toughness: 1 } }
 const DRAGON_UNIT = { 'Stormwing Elite': { toughness: 1 } }
 const DEMON_UNIT = { 'Ashwrought Berserker': { toughness: 1 } }
 
-/** Construct — additional soft nerf */
+/** Construct â€” additional soft nerf */
 const CONSTRUCT_CMD_UV_BUMP = new Set(['Null Architect Void'])
 const CONSTRUCT_OFFICER_UV_BUMP = new Set(['Overdrive Chief Spark'])
 
@@ -60,7 +60,7 @@ function applyUnitMap(card, map) {
     const before = card[field]
     if (bump(card, field, amount, min, max)) {
       ch = true
-      log(card, `${field[0].toUpperCase()}${field.slice(1)} ${before}→${card[field]}`)
+      log(card, `${field[0].toUpperCase()}${field.slice(1)} ${before}â†’${card[field]}`)
     }
   }
   return ch
@@ -72,7 +72,7 @@ function revertWeakCmd(card) {
   const before = card.uv
   if (!bump(card, 'uv', 1, 1)) return false
   card.balance_rev = REV
-  log(card, `UV ${before}→${card.uv} (revert 11)`)
+  log(card, `UV ${before}â†’${card.uv} (revert 11)`)
   return true
 }
 
@@ -82,13 +82,13 @@ function tuneConstruct(card) {
     const before = card.uv
     if (bump(card, 'uv', 1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   } else if (card.card_type === 'Officer' && CONSTRUCT_OFFICER_UV_BUMP.has(card.name)) {
     const before = card.uv
     if (bump(card, 'uv', 1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   }
   return ch
@@ -100,7 +100,7 @@ function tuneHuman(card) {
     const before = card.uv
     if (bump(card, 'uv', -1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   } else if (card.card_type === 'Unit') {
     ch = applyUnitMap(card, HUMAN_UNIT)
@@ -114,7 +114,7 @@ function tuneDragon(card) {
     const before = card.uv
     if (bump(card, 'uv', -1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   } else if (card.card_type === 'Unit') {
     ch = applyUnitMap(card, DRAGON_UNIT)
@@ -128,7 +128,7 @@ function tuneDemon(card) {
     const before = card.uv
     if (bump(card, 'uv', -1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   } else if (card.card_type === 'Unit') {
     ch = applyUnitMap(card, DEMON_UNIT)

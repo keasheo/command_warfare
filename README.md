@@ -17,11 +17,7 @@ npm run dev
 - Web UI: http://127.0.0.1:5173
 - API: http://127.0.0.1:8787
 
-`import:yaml` loads cards, abilities, settings, rulebook, and design bible from:
-
-`C:\Users\keash\Projects\KingdomsBuilder\data`
-
-Override with `KINGDOMS_DATA=...` if needed.
+`import:yaml` loads cards, abilities, settings, rulebook, and design bible from the local **`data/`** folder in this repo (YAML + card art). Override with `KINGDOMS_DATA=...` only if you keep an external mirror.
 
 ## What’s included
 
@@ -31,9 +27,9 @@ Override with `KINGDOMS_DATA=...` if needed.
 - Races
 - Design Bible
 - Rules
+- Play prototype (`npm run dev:play` / `play.bat`)
 
-The old KingdomsBuilder desktop app can stay as a YAML source until this kit fully replaces it.
-
+Game content (YAML, card art) lives under `data/` so the whole project is self-contained for GitHub.
 ## Battle Sim Reports
 
 Generate race win-share tables and matchup matrices from battle simulations:

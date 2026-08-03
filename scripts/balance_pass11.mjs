@@ -1,7 +1,7 @@
 /**
  * Balance pass 11: soft Construct nerf; floor lift for Human / Dragon / Demon.
- * Construct — UV +1 on top officer + commander; −1 D on outlier elite.
- * Human / Dragon / Demon — UV −1 on weak commanders; +1 T on core line.
+ * Construct â€” UV +1 on top officer + commander; âˆ’1 D on outlier elite.
+ * Human / Dragon / Demon â€” UV âˆ’1 on weak commanders; +1 T on core line.
  * balance_rev >= 18.
  */
 import fs from 'node:fs'
@@ -10,31 +10,31 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const KB = path.resolve('C:/Users/keash/Projects/KingdomsBuilder/data/cards')
+const KB = path.resolve('data/cards')
 const REV = 18
 
 const changes = []
 
-/** Construct — soft nerf (50.4% race, 59% top commanders) */
+/** Construct â€” soft nerf (50.4% race, 59% top commanders) */
 const CONSTRUCT_CMD_UV_BUMP = new Set(['Prime Directive Core'])
 const CONSTRUCT_OFFICER_UV_BUMP = new Set(['Line Binder Rivet'])
 const CONSTRUCT_UNIT_NERF = {
   'Null Juggernaut': { damage: -1 },
 }
 
-/** Human — weak legendaries / epics + core line */
+/** Human â€” weak legendaries / epics + core line */
 const HUMAN_CMD_UV = new Set(['Iron Covenant Spear', 'Thunderhoof Caller'])
 const HUMAN_UNIT = {
   'Lockstep Cohort': { toughness: 1 },
 }
 
-/** Dragon — floor commander + bipedal core */
+/** Dragon â€” floor commander + bipedal core */
 const DRAGON_CMD_UV = new Set(['Cataclysm Elder Pyrr'])
 const DRAGON_UNIT = {
   'Clutch Spearmen': { toughness: 1 },
 }
 
-/** Demon — weakest commanders + core infantry */
+/** Demon â€” weakest commanders + core infantry */
 const DEMON_CMD_UV = new Set(['Doomforge Tyrant', 'Voidclaw Tormentor'])
 const DEMON_UNIT = {
   'Hellblade': { toughness: 1 },
@@ -63,7 +63,7 @@ function applyUnitMap(card, map) {
     if (bump(card, field, amount, min, max)) {
       ch = true
       const label = field === 'uv' ? 'UV' : field[0].toUpperCase() + field.slice(1)
-      log(card, `${label} ${before}→${card[field]}`)
+      log(card, `${label} ${before}â†’${card[field]}`)
     }
   }
   return ch
@@ -75,13 +75,13 @@ function tuneConstruct(card) {
     const before = card.uv
     if (bump(card, 'uv', 1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   } else if (card.card_type === 'Officer' && CONSTRUCT_OFFICER_UV_BUMP.has(card.name)) {
     const before = card.uv
     if (bump(card, 'uv', 1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   } else if (card.card_type === 'Unit') {
     ch = applyUnitMap(card, CONSTRUCT_UNIT_NERF)
@@ -95,7 +95,7 @@ function tuneHuman(card) {
     const before = card.uv
     if (bump(card, 'uv', -1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   } else if (card.card_type === 'Unit') {
     ch = applyUnitMap(card, HUMAN_UNIT)
@@ -109,7 +109,7 @@ function tuneDragon(card) {
     const before = card.uv
     if (bump(card, 'uv', -1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   } else if (card.card_type === 'Unit') {
     ch = applyUnitMap(card, DRAGON_UNIT)
@@ -123,7 +123,7 @@ function tuneDemon(card) {
     const before = card.uv
     if (bump(card, 'uv', -1, 1)) {
       ch = true
-      log(card, `UV ${before}→${card.uv}`)
+      log(card, `UV ${before}â†’${card.uv}`)
     }
   } else if (card.card_type === 'Unit') {
     ch = applyUnitMap(card, DEMON_UNIT)

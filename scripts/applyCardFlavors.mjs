@@ -9,7 +9,7 @@ import { FLAVOR } from './cardFlavors.mjs'
 const require = createRequire(import.meta.url)
 const yaml = require('js-yaml')
 
-const ROOT = 'C:/Users/keash/Projects/KingdomsBuilder/data/cards'
+const ROOT = 'data/cards'
 
 function walk(dir, out = []) {
   for (const name of fs.readdirSync(dir)) {
@@ -41,7 +41,7 @@ for (const file of walk(ROOT)) {
       continue
     }
     if (dupCheck.has(line) && dupCheck.get(line) !== card.name) {
-      console.warn('DUPLICATE flavor:', line, '→', dupCheck.get(line), 'and', card.name)
+      console.warn('DUPLICATE flavor:', line, 'â†’', dupCheck.get(line), 'and', card.name)
     }
     dupCheck.set(line, card.name)
     used.add(card.name)
