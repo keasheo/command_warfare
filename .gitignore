@@ -33,7 +33,11 @@ ultimate-lengths.json
 scripts/battleSim-out.json
 scripts/_sim_out.json
 scripts/officer-audit-*.md
-sim/
+# Sim outputs (keep runner bat tracked)
+sim/*
+!sim/1_sim-report.bat
+!sim/sim-report.bat
+
 
 # Editor directories and files
 .vscode/*

@@ -3,13 +3,12 @@ import {
   expandTerrainPiece,
   hexPolygonPoints,
   oddRToPixel,
-  TERRAIN_FILL,
   type TerrainKind,
 } from '../../shared/index'
 import {
-  volcanicFill,
-  VOLCANIC_STROKE,
-  VolcanicMagmaPattern,
+  terrainPatternFill,
+  terrainStroke,
+  TerrainPatternDefs,
 } from './terrainVisuals'
 
 type Props = {
@@ -53,8 +52,8 @@ export function TerrainShapePreview({
         hexPolygonPoints(p.x, p.y, hexSize * 0.92),
       ),
       viewBox: `${minX - pad} ${minY - pad} ${maxX - minX + pad * 2} ${maxY - minY + pad * 2}`,
-      fill: kind === 'volcanic' ? volcanicFill() : (TERRAIN_FILL[kind] ?? TERRAIN_FILL.plains),
-      stroke: kind === 'volcanic' ? VOLCANIC_STROKE : '#c5ccd8',
+      fill: terrainPatternFill(kind),
+      stroke: terrainStroke(kind),
     }
   }, [shape, kind, rotation])
 
@@ -67,7 +66,7 @@ export function TerrainShapePreview({
       aria-hidden
     >
       <defs>
-        <VolcanicMagmaPattern />
+        <TerrainPatternDefs />
       </defs>
       {points.map((pts, i) => (
         <polygon

@@ -14,6 +14,8 @@ const https =
 
 export default defineConfig({
   plugins: [react()],
+  // Explicit default so it stays distinct from play/client (`node_modules/.vite-play`).
+  cacheDir: path.join(root, 'node_modules/.vite'),
   server: {
     host: true,
     port: 5173,

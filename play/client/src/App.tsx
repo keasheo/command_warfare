@@ -42,6 +42,11 @@ import {
   effectiveDamage,
   unitStatusPills,
   SCOUT_CR_EXTENSION,
+  DEPLOY_UV_MAX,
+  RESERVE_UV_MAX,
+  MAX_ROUNDS,
+  VP_PER_OBJECTIVE,
+  normalizeLoadoutPools,
   type AbilityDef,
   type ArmyList,
   type BattleLoadout,
@@ -170,6 +175,7 @@ function rosterKindLabel(kind: ArmyRosterEntry['kind']): string {
 import { ArmyBuilder } from './ArmyBuilder'
 import { ForceSelectPanel } from './ForceSelectPanel'
 import { HexBoard } from './HexBoard'
+import { HexBoard3D } from './HexBoard3D'
 import { TerrainShapePreview } from './TerrainShapePreview'
 import { usePlaySocket } from './usePlaySocket'
 
@@ -451,10 +457,23 @@ export default function App() {
   const [joinCode, setJoinCode] = useState(savedRoom || '')
   const [createRoomCode, setCreateRoomCode] = useState('')
   const [maxPlayers, setMaxPlayers] = useState<2 | 4>(2)
+  const [opponentMode, setOpponentMode] = useState<'human' | 'ai'>('human')
+  const [aiDifficulty, setAiDifficulty] = useState<'easy' | 'medium' | 'hard'>(
+    'medium',
+  )
   const [enforceCommanderRace, setEnforceCommanderRace] = useState(() => {
     const raw = localStorage.getItem('cw-play-enforce-commander-race')
     return raw !== '0'
   })
+  const [createDeployMax, setCreateDeployMax] = useState(DEPLOY_UV_MAX)
+  const [createReserveMax, setCreateReserveMax] = useState(RESERVE_UV_MAX)
+  const [boardMode, setBoardMode] = useState<'2d' | '3d'>(() => {
+    return localStorage.getItem('cw-play-board-mode') === '3d' ? '3d' : '2d'
+  })
+  const setBoardModePersist = (mode: '2d' | '3d') => {
+    setBoardMode(mode)
+    localStorage.setItem('cw-play-board-mode', mode)
+  }
   const [lobbyView, setLobbyView] = useState<'lobby' | 'armyWorkshop'>('lobby')
   const [workshopNotice, setWorkshopNotice] = useState<string | null>(null)
   const [queueIndex, setQueueIndex] = useState(0)
@@ -701,6 +720,14 @@ export default function App() {
       state.phase === 'Commanders' ||
       state.phase === 'ForceSelect')
   const isHost = !!state && !!seat && seat === state.hostSeat
+  const roomPools = useMemo(
+    () => normalizeLoadoutPools(state?.loadoutPools),
+    [state?.loadoutPools],
+  )
+  const canEditLoadoutPools =
+    isHost &&
+    !!state &&
+    (state.phase === 'Lobby' || state.phase === 'ArmyBuild')
 
   const selectedUnit: UnitToken | null = useMemo(() => {
     if (!state || !selectedUnitId) return null
@@ -1207,8 +1234,8 @@ export default function App() {
         state.players.find((p) => p.seat === state.activeSeat)?.name ??
         state.activeSeat
       return state.activeSeat === seat
-        ? `Your turn — Round ${state.round}`
-        : `${name}'s turn — Round ${state.round}`
+        ? `Your turn — Round ${state.round}/${MAX_ROUNDS}`
+        : `${name}'s turn — Round ${state.round}/${MAX_ROUNDS}`
     }
     return null
   }, [
@@ -1394,6 +1421,60 @@ export default function App() {
               <p className="muted player-ip-note">Your connection: {yourIp}</p>
             ) : null}
           </>
+        ) : null}
+
+        {(state.phase === 'Lobby' || state.phase === 'ArmyBuild') ? (
+          <div className="lobby-pool-panel">
+            <h2>Loadout pools</h2>
+            <p className="muted">
+              {canEditLoadoutPools
+                ? 'Host can change deploy/reserve caps until armies leave Lobby/Army Build.'
+                : 'Room force-select budgets (set by host).'}
+            </p>
+            <div className="lobby-pool-fields">
+              <div className="field">
+                <label htmlFor="room-deploy-max">Deploy UV max</label>
+                <input
+                  id="room-deploy-max"
+                  type="number"
+                  min={1}
+                  max={999}
+                  value={roomPools.deployMax}
+                  disabled={!canEditLoadoutPools || !connected}
+                  onChange={(e) => {
+                    if (!canEditLoadoutPools) return
+                    const n = Math.max(1, Number(e.target.value) || 1)
+                    send({
+                      type: 'setLoadoutPools',
+                      loadoutPools: { deployMax: n },
+                    })
+                  }}
+                />
+              </div>
+              <div className="field">
+                <label htmlFor="room-reserve-max">Reserve UV max</label>
+                <input
+                  id="room-reserve-max"
+                  type="number"
+                  min={0}
+                  max={999}
+                  value={roomPools.reserveMax}
+                  disabled={!canEditLoadoutPools || !connected}
+                  onChange={(e) => {
+                    if (!canEditLoadoutPools) return
+                    const n = Math.max(0, Number(e.target.value) || 0)
+                    send({
+                      type: 'setLoadoutPools',
+                      loadoutPools: { reserveMax: n },
+                    })
+                  }}
+                />
+              </div>
+            </div>
+            <p className="muted lobby-mode-hint">
+              Unused has no hard cap. Under-filling deploy/reserve is allowed.
+            </p>
+          </div>
         ) : null}
 
         {(state.phase === 'Lobby' || state.phase === 'ArmyBuild') && me?.armyReady && (
@@ -2103,11 +2184,30 @@ export default function App() {
     if (state.phase === 'Play') {
       return (
         <>
-          <h2>Play · Round {state.round}</h2>
+          <h2>
+            Play · Round {state.round}/{MAX_ROUNDS}
+          </h2>
           <p>
             Active: <strong>{state.activeSeat}</strong>
             {myPlayTurn ? ' (you)' : ''}
           </p>
+          <div className="stat-tracker">
+            <div className="stat-tracker-name">Victory points</div>
+            {state.players.map((p) => (
+              <div key={p.seat} className="stat-row">
+                <span>
+                  {p.seat}
+                  {p.seat === seat ? ' (you)' : ''}
+                  {p.isAi ? ' · AI' : ''}
+                </span>
+                <strong>{state.scores?.[p.seat] ?? 0}</strong>
+              </div>
+            ))}
+            <p className="muted" style={{ fontSize: '0.8rem', marginTop: '0.35rem' }}>
+              +{VP_PER_OBJECTIVE} VP per held objective at end of each round.
+              Highest VP after {MAX_ROUNDS} rounds wins.
+            </p>
+          </div>
           <div className="stat-tracker">
             <div className="stat-tracker-name">Your pools</div>
             <div className="stat-row">
@@ -2143,8 +2243,9 @@ export default function App() {
           </p>
         ) : (
           <p className="muted">
-            Activate a company to move its units, or activate your commander (once
-            per round) to move them. Spend AP/CC, then <strong>Resolve attack</strong>{' '}
+            Activate one company per turn to move its units (each officer once
+            per round), or activate your commander (once per round). Spend AP/CC
+            to move them. Spend AP/CC, then <strong>Resolve attack</strong>{' '}
             (auto) or use manual roll/damage below. Scout units count as in CR up to
             +{SCOUT_CR_EXTENSION} hexes beyond their officer. You may move past printed
             Move for Harass/Trample — a warning appears when you do.
@@ -2264,12 +2365,22 @@ export default function App() {
     }
 
     if (state.phase === 'Ended') {
+      const scoreLine = state.players
+        .map((p) => `${p.seat} ${state.scores?.[p.seat] ?? 0}`)
+        .join(' · ')
       return (
         <>
           <h2>Game over</h2>
-          <p>
-            Winner: <strong>{state.winner}</strong>
-          </p>
+          {state.draw ? (
+            <p>
+              <strong>Draw</strong> after {MAX_ROUNDS} rounds.
+            </p>
+          ) : (
+            <p>
+              Winner: <strong>{state.winner}</strong>
+            </p>
+          )}
+          <p className="muted">Final VP: {scoreLine || '—'}</p>
         </>
       )
     }
@@ -2409,15 +2520,52 @@ export default function App() {
               />
             </div>
             <div className="field">
-              <label>Max players</label>
+              <label>Game mode</label>
               <select
-                value={maxPlayers}
-                onChange={(e) => setMaxPlayers(Number(e.target.value) as 2 | 4)}
+                value={opponentMode}
+                onChange={(e) => {
+                  const mode = e.target.value as 'human' | 'ai'
+                  setOpponentMode(mode)
+                  if (mode === 'ai') setMaxPlayers(2)
+                }}
               >
-                <option value={2}>2</option>
-                <option value={4}>4</option>
+                <option value="human">vs Human</option>
+                <option value="ai">vs AI</option>
               </select>
             </div>
+            {opponentMode === 'ai' ? (
+              <div className="field">
+                <label>AI difficulty</label>
+                <select
+                  value={aiDifficulty}
+                  onChange={(e) =>
+                    setAiDifficulty(
+                      e.target.value as 'easy' | 'medium' | 'hard',
+                    )
+                  }
+                >
+                  <option value="easy">Easy</option>
+                  <option value="medium">Medium</option>
+                  <option value="hard">Hard</option>
+                </select>
+                <p className="muted lobby-mode-hint">
+                  Creates a 2-player room and fills the second seat with a CPU.
+                </p>
+              </div>
+            ) : (
+              <div className="field">
+                <label>Max players</label>
+                <select
+                  value={maxPlayers}
+                  onChange={(e) =>
+                    setMaxPlayers(Number(e.target.value) as 2 | 4)
+                  }
+                >
+                  <option value={2}>2</option>
+                  <option value={4}>4</option>
+                </select>
+              </div>
+            )}
             <label className="check-field">
               <input
                 type="checkbox"
@@ -2433,6 +2581,38 @@ export default function App() {
                 commander&apos;s race)
               </span>
             </label>
+            <div className="lobby-pool-fields">
+              <div className="field">
+                <label htmlFor="lobby-deploy-max">Deploy UV max</label>
+                <input
+                  id="lobby-deploy-max"
+                  type="number"
+                  min={1}
+                  max={999}
+                  value={createDeployMax}
+                  onChange={(e) =>
+                    setCreateDeployMax(Math.max(1, Number(e.target.value) || 1))
+                  }
+                />
+              </div>
+              <div className="field">
+                <label htmlFor="lobby-reserve-max">Reserve UV max</label>
+                <input
+                  id="lobby-reserve-max"
+                  type="number"
+                  min={0}
+                  max={999}
+                  value={createReserveMax}
+                  onChange={(e) =>
+                    setCreateReserveMax(Math.max(0, Number(e.target.value) || 0))
+                  }
+                />
+              </div>
+            </div>
+            <p className="muted lobby-mode-hint">
+              Force-select budgets for this room (defaults {DEPLOY_UV_MAX}/{RESERVE_UV_MAX}).
+              Unused has no hard cap — under-filling is allowed.
+            </p>
           </section>
 
           <section className="lobby-section">
@@ -2462,8 +2642,16 @@ export default function App() {
                       send({
                         type: 'create',
                         name: name || 'Host',
-                        maxPlayers,
+                        maxPlayers: opponentMode === 'ai' ? 2 : maxPlayers,
                         enforceCommanderRace,
+                        opponent: opponentMode,
+                        loadoutPools: {
+                          deployMax: createDeployMax,
+                          reserveMax: createReserveMax,
+                        },
+                        ...(opponentMode === 'ai'
+                          ? { aiDifficulty }
+                          : {}),
                         ...(custom ? { roomCode: custom } : {}),
                       })
                     }}
@@ -2634,6 +2822,14 @@ export default function App() {
       <div className="room-top-bar">
         <div className="room-top-left">
           <span className="room-code-badge">Room {state.roomCode}</span>
+          {state.opponent === 'ai' ? (
+            <span className="pill">
+              vs AI
+              {state.aiDifficulty
+                ? ` · ${state.aiDifficulty[0]!.toUpperCase()}${state.aiDifficulty.slice(1)}`
+                : ''}
+            </span>
+          ) : null}
           <button
             type="button"
             className="ghost"
@@ -2652,6 +2848,9 @@ export default function App() {
           <span className="pill">
             {state.enforceCommanderRace !== false ? 'Mono-race' : 'Mixed race OK'}
           </span>
+          <span className="pill">
+            Deploy ≤{roomPools.deployMax} · Reserve ≤{roomPools.reserveMax}
+          </span>
           <span className={connected ? 'status-ok' : 'status-bad'}>
             {connected ? 'Live' : 'Disconnected'}
           </span>
@@ -2668,8 +2867,11 @@ export default function App() {
                   className={`player-tooltip-item${!p.connected ? ' player-away' : ''}`}
                 >
                   <span className="player-tooltip-seat">{p.seat}</span>
-                  <span className="player-tooltip-name">{p.name}</span>
-                  {!p.connected ? (
+                  <span className="player-tooltip-name">
+                    {p.name}
+                    {p.isAi ? ' (AI)' : ''}
+                  </span>
+                  {!p.connected && !p.isAi ? (
                     <span className="player-tooltip-status">away</span>
                   ) : p.armyReady ? (
                     <span className="player-tooltip-status">{p.armyUv ?? '?'} UV</span>
@@ -2769,9 +2971,11 @@ export default function App() {
           onSubmit={submitArmy}
           disabled={!connected}
           enforceCommanderRace={state.enforceCommanderRace !== false}
+          loadoutPools={roomPools}
         />
       ) : inForceSelect && me?.army ? (
         <ForceSelectPanel
+          key={`fs-${roomPools.deployMax}-${roomPools.reserveMax}`}
           army={me.army}
           catalog={state.cardCatalog}
           opponents={forceSelectOpponents}
@@ -2779,6 +2983,7 @@ export default function App() {
           onConfirm={confirmForceSelect}
           disabled={!connected}
           waiting={me.forceSelectReady}
+          loadoutPools={roomPools}
         />
       ) : (
         <>
@@ -2799,21 +3004,57 @@ export default function App() {
               {turnBannerText}
             </div>
           ) : null}
-          <HexBoard
-            state={state}
-            mySeat={seat}
-            selectedUnitId={selectedUnitId}
-            selectedDeathId={selectedDeathId}
-            showGraves={state.phase === 'Play'}
-            onHexClick={onHexClick}
-            onHexHover={(col, row) => setHoverHex({ col, row })}
-            terrainGhost={terrainGhost}
-            officerCrKeys={officerCrKeys}
-            deployHintKeys={deployHintKeys}
-            companyUnitIds={companyUnitIds}
-            targetUnitId={targetUnitId}
-            artByCardId={artByCardId}
-          />
+          <div className="board-mode-controls">
+            <button
+              type="button"
+              className={boardMode === '2d' ? 'active' : 'ghost'}
+              onClick={() => setBoardModePersist('2d')}
+              title="Flat SVG board"
+            >
+              2D board
+            </button>
+            <button
+              type="button"
+              className={boardMode === '3d' ? 'active' : 'ghost'}
+              onClick={() => setBoardModePersist('3d')}
+              title="3D terrain blocks"
+            >
+              3D board
+            </button>
+          </div>
+          {boardMode === '3d' ? (
+            <HexBoard3D
+              state={state}
+              mySeat={seat}
+              selectedUnitId={selectedUnitId}
+              selectedDeathId={selectedDeathId}
+              showGraves={state.phase === 'Play'}
+              onHexClick={onHexClick}
+              onHexHover={(col, row) => setHoverHex({ col, row })}
+              terrainGhost={terrainGhost}
+              officerCrKeys={officerCrKeys}
+              deployHintKeys={deployHintKeys}
+              companyUnitIds={companyUnitIds}
+              targetUnitId={targetUnitId}
+              artByCardId={artByCardId}
+            />
+          ) : (
+            <HexBoard
+              state={state}
+              mySeat={seat}
+              selectedUnitId={selectedUnitId}
+              selectedDeathId={selectedDeathId}
+              showGraves={state.phase === 'Play'}
+              onHexClick={onHexClick}
+              onHexHover={(col, row) => setHoverHex({ col, row })}
+              terrainGhost={terrainGhost}
+              officerCrKeys={officerCrKeys}
+              deployHintKeys={deployHintKeys}
+              companyUnitIds={companyUnitIds}
+              targetUnitId={targetUnitId}
+              artByCardId={artByCardId}
+            />
+          )}
         </div>
         </>
       )}
@@ -2902,7 +3143,12 @@ export default function App() {
               myPlayTurn ? (
                 <button
                   className="primary"
-                  disabled={state.activeCompanyOfficerId === selectedUnit.id}
+                  disabled={
+                    state.activeCompanyOfficerId === selectedUnit.id ||
+                    !!state.companiesActivatedThisRound?.[selectedUnit.id] ||
+                    (!!state.companyActivatedThisTurn?.[seat] &&
+                      state.companyActivatedThisTurn[seat] !== selectedUnit.id)
+                  }
                   onClick={() =>
                     send({
                       type: 'activateCompany',
@@ -2912,7 +3158,12 @@ export default function App() {
                 >
                   {state.activeCompanyOfficerId === selectedUnit.id
                     ? 'Company active'
-                    : 'Activate company'}
+                    : state.companiesActivatedThisRound?.[selectedUnit.id]
+                      ? 'Already activated this round'
+                      : state.companyActivatedThisTurn?.[seat] &&
+                          state.companyActivatedThisTurn[seat] !== selectedUnit.id
+                        ? 'One company per turn'
+                        : 'Activate company'}
                 </button>
               ) : null}
               {selectedUnit.seat === seat &&

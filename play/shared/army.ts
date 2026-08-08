@@ -1,7 +1,6 @@
 /** Card snapshot used for army lists (subset of Command Warfare card fields). */
 
 import {
-  ARMY_UNUSED_UV_MAX,
   DEPLOY_UV_MAX,
   maxArmyCopiesForRarity,
   RESERVE_UV_MAX,
@@ -12,6 +11,42 @@ export type BattleBucket = 'deploy' | 'reserve' | 'unused'
 
 /** Officer card id → battle bucket at lock time. */
 export type BattleLoadout = Record<string, BattleBucket>
+
+/** Per-room force-select UV caps (defaults from DEPLOY_UV_MAX / RESERVE_UV_MAX). */
+export type LoadoutPools = {
+  /** Max UV assigned to Deploy. */
+  deployMax: number
+  /** Max UV assigned to Reserve. */
+  reserveMax: number
+}
+
+const LOADOUT_POOL_ABS_MAX = 999
+
+function clampPoolInt(
+  raw: unknown,
+  min: number,
+  fallback: number,
+): number {
+  const n = typeof raw === 'number' ? raw : Number(raw)
+  if (!Number.isFinite(n)) return fallback
+  return Math.max(min, Math.min(LOADOUT_POOL_ABS_MAX, Math.floor(n)))
+}
+
+/** Default deploy/reserve caps for a new room. */
+export function defaultLoadoutPools(): LoadoutPools {
+  return { deployMax: DEPLOY_UV_MAX, reserveMax: RESERVE_UV_MAX }
+}
+
+/** Clamp / fill missing fields so validation always has integers. */
+export function normalizeLoadoutPools(
+  raw?: Partial<LoadoutPools> | null,
+): LoadoutPools {
+  const defaults = defaultLoadoutPools()
+  return {
+    deployMax: clampPoolInt(raw?.deployMax, 1, defaults.deployMax),
+    reserveMax: clampPoolInt(raw?.reserveMax, 0, defaults.reserveMax),
+  }
+}
 
 export type CardSnapshot = {
   id: string
@@ -231,10 +266,26 @@ export function resolvedCompanyUv(
   return uv
 }
 
-export function defaultBattleLoadout(army: ResolvedArmy): BattleLoadout {
+/** Greedy default: fill deploy, then reserve, overflow to unused (no unused cap). */
+export function defaultBattleLoadout(
+  army: ResolvedArmy,
+  pools?: Partial<LoadoutPools> | null,
+): BattleLoadout {
+  const caps = normalizeLoadoutPools(pools)
   const loadout: BattleLoadout = {}
+  let deployLeft = caps.deployMax
+  let reserveLeft = caps.reserveMax
   for (const co of army.companies) {
-    loadout[co.officer.id] = 'deploy'
+    const uv = resolvedCompanyUv(co)
+    if (uv <= deployLeft) {
+      loadout[co.officer.id] = 'deploy'
+      deployLeft -= uv
+    } else if (uv <= reserveLeft) {
+      loadout[co.officer.id] = 'reserve'
+      reserveLeft -= uv
+    } else {
+      loadout[co.officer.id] = 'unused'
+    }
   }
   return loadout
 }
@@ -255,7 +306,9 @@ export function battleLoadoutTotals(
 export function validateBattleLoadout(
   army: ResolvedArmy,
   loadout: BattleLoadout,
+  pools?: Partial<LoadoutPools> | null,
 ): { ok: true; totals: BattleLoadoutTotals } | { ok: false; error: string } {
+  const caps = normalizeLoadoutPools(pools)
   for (const co of army.companies) {
     const bucket = loadout[co.officer.id]
     if (!bucket) {
@@ -276,24 +329,19 @@ export function validateBattleLoadout(
   }
 
   const totals = battleLoadoutTotals(army, loadout)
-  if (totals.deploy > DEPLOY_UV_MAX) {
+  if (totals.deploy > caps.deployMax) {
     return {
       ok: false,
-      error: `Deploy UV ${totals.deploy} exceeds max ${DEPLOY_UV_MAX}.`,
+      error: `Deploy UV ${totals.deploy} exceeds max ${caps.deployMax}.`,
     }
   }
-  if (totals.reserve > RESERVE_UV_MAX) {
+  if (totals.reserve > caps.reserveMax) {
     return {
       ok: false,
-      error: `Reserve UV ${totals.reserve} exceeds max ${RESERVE_UV_MAX}.`,
+      error: `Reserve UV ${totals.reserve} exceeds max ${caps.reserveMax}.`,
     }
   }
-  if (totals.unused > ARMY_UNUSED_UV_MAX) {
-    return {
-      ok: false,
-      error: `Unused UV ${totals.unused} exceeds max ${ARMY_UNUSED_UV_MAX}.`,
-    }
-  }
+  // Unused has no hard cap — under-filling deploy/reserve is allowed.
 
   const assigned =
     totals.deploy + totals.reserve + totals.unused

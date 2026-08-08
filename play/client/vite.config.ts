@@ -24,6 +24,8 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
     root,
+    // Keep play's optimize-deps cache separate from the root card editor (`node_modules/.vite`).
+    cacheDir: path.resolve(repoRoot, 'node_modules/.vite-play'),
     resolve: {
       alias: {
         '@shared': path.resolve(root, '../shared'),

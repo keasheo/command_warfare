@@ -22,17 +22,26 @@ function getDb(): Database.Database | null {
 export function loadCardSnapshots(ids: string[]): CardLookup {
   const map: CardLookup = new Map()
   const database = getDb()
-  if (!database || !ids.length) return map
-  const unique = [...new Set(ids)]
-  const placeholders = unique.map(() => '?').join(',')
-  const rows = database
-    .prepare(
-      `SELECT id, name, card_type, rarity, unique_flag, race, uv, move, damage, range_value, toughness,
+  if (!database) return map
+  const rows = (
+    ids.length
+      ? database
+          .prepare(
+            `SELECT id, name, card_type, rarity, unique_flag, race, uv, move, damage, range_value, toughness,
               company_capacity, command_radius, company_ap, ap_generation, cc_generation, favored_terrain,
               keywords_json, abilities_json, ultimate
-       FROM cards WHERE id IN (${placeholders})`,
-    )
-    .all(...unique) as Array<{
+       FROM cards WHERE id IN (${[...new Set(ids)].map(() => '?').join(',')})`,
+          )
+          .all(...[...new Set(ids)])
+      : database
+          .prepare(
+            `SELECT id, name, card_type, rarity, unique_flag, race, uv, move, damage, range_value, toughness,
+              company_capacity, command_radius, company_ap, ap_generation, cc_generation, favored_terrain,
+              keywords_json, abilities_json, ultimate
+       FROM cards`,
+          )
+          .all()
+  ) as Array<{
     id: string
     name: string
     card_type: string

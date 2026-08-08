@@ -1,4 +1,5 @@
 import { normalizeUnitStatuses } from './statusEffects'
+import { normalizeLoadoutPools } from './army'
 import type { GameState } from './types'
 
 export const BOARD_STATE_FILE_FORMAT = 'command-warfare-board-state'
@@ -84,12 +85,28 @@ export function boardStateFileBasename(roomCode: string, round: number): string 
 
 /** Back-fill new combat fields when loading older saves. */
 export function normalizeLoadedState(state: GameState): GameState {
+  const opponent = state.opponent === 'ai' ? 'ai' : 'human'
+  const aiDifficulty =
+    opponent === 'ai'
+      ? state.aiDifficulty === 'easy' ||
+        state.aiDifficulty === 'medium' ||
+        state.aiDifficulty === 'hard'
+        ? state.aiDifficulty
+        : 'medium'
+      : null
   return {
     ...state,
+    opponent,
+    aiDifficulty,
+    loadoutPools: normalizeLoadoutPools(state.loadoutPools),
     hostSeat: state.hostSeat ?? 'N',
     commandZoneModes: state.commandZoneModes ?? {},
     fortifiedHexes: state.fortifiedHexes ?? {},
     pendingTrample: state.pendingTrample ?? null,
+    players: (state.players ?? []).map((p) => ({
+      ...p,
+      isAi: Boolean(p.isAi),
+    })),
     units: (state.units ?? []).map((u) =>
       normalizeUnitStatuses({
         ...u,
@@ -98,5 +115,10 @@ export function normalizeLoadedState(state: GameState): GameState {
         trampleLeftoverDamage: u.trampleLeftoverDamage ?? 0,
       }),
     ),
+    companiesActivatedThisRound: state.companiesActivatedThisRound ?? {},
+    companyActivatedThisTurn: state.companyActivatedThisTurn ?? {},
+    commanderActivatedThisRound: state.commanderActivatedThisRound ?? {},
+    scores: state.scores ?? {},
+    draw: Boolean(state.draw),
   }
 }

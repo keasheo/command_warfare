@@ -4,12 +4,18 @@
 export const SCOUT_CR_EXTENSION = 3
 
 /** Total army list UV (commander + all companies). */
-export const ARMY_UV_MAX = 250
-/** Max UV on the battlefield at battle start. */
-export const DEPLOY_UV_MAX = 155
+export const ARMY_UV_MAX = 220
+/** Max UV on the battlefield at battle start (≈30 unit models per army at typical lists). */
+export const DEPLOY_UV_MAX = 110
 /** Max UV in the off-board reinforcement pool. */
-export const RESERVE_UV_MAX = 45
-/** List UV not deployed or in reserve — room to swap officers/units before battle. */
-export const ARMY_UNUSED_UV_MAX = 50
+export const RESERVE_UV_MAX = 60
+/** Soft guidance only — unused UV is not hard-capped in play validation. */
+export const ARMY_UNUSED_UV_GUIDE = 50
+/** @deprecated Alias of ARMY_UNUSED_UV_GUIDE. */
+export const ARMY_UNUSED_UV_MAX = ARMY_UNUSED_UV_GUIDE
 /** Deploy + reserve when locking for battle. */
 export const ARMY_BATTLE_UV_MAX = DEPLOY_UV_MAX + RESERVE_UV_MAX
+/** Play length — score VP each round; highest VP after this many rounds wins. */
+export const MAX_ROUNDS = 15
+/** VP awarded at end of round for each controlled objective zone. */
+export const VP_PER_OBJECTIVE = 2

@@ -7,6 +7,7 @@ import multer from 'multer'
 import { randomUUID } from 'node:crypto'
 import fs from 'node:fs'
 import { serverLog } from './log.ts'
+import { loadDemoArmy, listQuickPickPresets, loadQuickPickArmy } from '../play/server/demoArmy.ts'
 import {
   artPathFor,
   clearCardArt,
@@ -73,6 +74,30 @@ function getSetting<T>(key: string, fallback: T): T {
 
 app.get('/api/health', (_req, res) => {
   res.json({ ok: true, name: 'Command Warfare' })
+})
+
+app.get('/api/quick-pick-armies', (_req, res) => {
+  try {
+    res.json({ ok: true, presets: listQuickPickPresets() })
+  } catch (e) {
+    res.status(500).json({
+      ok: false,
+      error: e instanceof Error ? e.message : 'Failed to list quick-pick armies',
+    })
+  }
+})
+
+app.get('/api/demo-army', (req, res) => {
+  const commanderId = String(req.query.commanderId ?? '').trim()
+  try {
+    const demo = commanderId ? loadQuickPickArmy(commanderId) : loadDemoArmy()
+    res.json({ ok: true, army: demo.army, cards: demo.cards })
+  } catch (e) {
+    res.status(500).json({
+      ok: false,
+      error: e instanceof Error ? e.message : 'Failed to load demo army',
+    })
+  }
 })
 
 app.get('/api/dashboard', (_req, res) => {

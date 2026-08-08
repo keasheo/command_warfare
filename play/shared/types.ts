@@ -1,9 +1,19 @@
-import type { ArmyList, BattleLoadout, CardSnapshot } from './army'
+import type {
+  ArmyList,
+  BattleLoadout,
+  CardSnapshot,
+  LoadoutPools,
+} from './army'
 import type { AbilityDef } from './abilityCast'
 import type { OddR } from './hex'
 import type { TerrainKind, TerrainMap, TerrainQueueItem } from './terrainPieces'
 
 export type SeatId = 'N' | 'W' | 'S' | 'E'
+
+/** Lobby opponent mode for 1v1 rooms. */
+export type OpponentMode = 'human' | 'ai'
+
+export type AiDifficulty = 'easy' | 'medium' | 'hard'
 
 export type Phase =
   | 'Lobby'
@@ -141,6 +151,8 @@ export type PlayerSlot = {
   name: string
   connected: boolean
   token: string
+  /** Server-side CPU seat (vs AI). Never has a WebSocket client. */
+  isAi?: boolean
   army: ArmyList | null
   armyReady: boolean
   commanderReady: boolean
@@ -158,6 +170,15 @@ export type GameState = {
   maxPlayers: 2 | 4
   /** When true, officers and units must match the commander's race. */
   enforceCommanderRace: boolean
+  /** Human opponent (default) or server CPU. */
+  opponent: OpponentMode
+  /** Set when opponent is AI; null for human matches. */
+  aiDifficulty: AiDifficulty | null
+  /**
+   * Force-select UV caps for this room (host-configurable).
+   * Unused has no hard cap; under-filling deploy/reserve is allowed.
+   */
+  loadoutPools: LoadoutPools
   boardSize: number
   phase: Phase
   players: PlayerSlot[]
@@ -201,6 +222,16 @@ export type GameState = {
   round: number
   /** Unit id of the officer whose company is currently activated (Play). */
   activeCompanyOfficerId: string | null
+  /**
+   * Officers (by unit id) that have already activated this round.
+   * Each officer may activate at most once per round.
+   */
+  companiesActivatedThisRound: Record<string, boolean>
+  /**
+   * Officer unit id activated on the current player turn, if any.
+   * At most one company activation per turn (players alternate officers).
+   */
+  companyActivatedThisTurn: Partial<Record<SeatId, string>>
   /** Track which commanders have activated this round (once per round). */
   commanderActivatedThisRound: Partial<Record<SeatId, boolean>>
   /** Commander AP/CC pools per seat. */
@@ -247,7 +278,12 @@ export type GameState = {
     trampleOffer: boolean
     trampleLeftover: number
   } | null
+  /** Victory points scored by holding objectives (awarded end of each round). */
+  scores: Partial<Record<SeatId, number>>
+  /** Seat that won, or null if draw / still playing. */
   winner: SeatId | null
+  /** True when the game ended in a VP tie. */
+  draw?: boolean
   /** Remaining deploy items per seat (from army). */
   deployQueues: Partial<Record<SeatId, DeployItem[]>>
   /** Card snapshots keyed by id (for UI during play). */
@@ -263,10 +299,21 @@ export type ClientAction =
       name: string
       maxPlayers?: 2 | 4
       enforceCommanderRace?: boolean
+      /** vs Human (default) or server CPU. AI rooms are always 2P. */
+      opponent?: OpponentMode
+      /** Required when opponent is AI; defaults to medium on the server. */
+      aiDifficulty?: AiDifficulty
       /** Optional custom code; random if omitted or blank. */
       roomCode?: string
+      /** Optional force-select pool caps (defaults: deploy 110, reserve 60). */
+      loadoutPools?: Partial<LoadoutPools>
     }
   | { type: 'join'; roomCode: string; name: string; token?: string }
+  | {
+      /** Host-only: update deploy/reserve caps while still in Lobby/ArmyBuild. */
+      type: 'setLoadoutPools'
+      loadoutPools: Partial<LoadoutPools>
+    }
   | {
       type: 'submitArmy'
       army: ArmyList

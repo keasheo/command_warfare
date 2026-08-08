@@ -17,8 +17,7 @@ cards:
     command_radius: null
     ap_generation: null
     cc_generation: null
-    keywords:
-      - Regenerate
+    keywords: []
     abilities: []
     ultimate: null
     flavor_text: Bark for armor. Sap for stubbornness.
@@ -40,7 +39,7 @@ cards:
     move: 3
     damage: 3
     range: 3
-    toughness: 4
+    toughness: 3
     company_ap: null
     company_capacity: null
     command_radius: null
@@ -64,11 +63,11 @@ cards:
     rarity: Common
     unique: false
     race: Elf
-    primary_type: Flying
-    secondary_type: null
+    primary_type: Infantry
+    secondary_type: Light
     uv: 3
     move: 5
-    damage: 3
+    damage: 2
     range: 1
     toughness: 3
     company_ap: null
@@ -76,8 +75,7 @@ cards:
     command_radius: null
     ap_generation: null
     cc_generation: null
-    keywords:
-      - Flying
+    keywords: []
     abilities: []
     ultimate: null
     flavor_text: Wings of leaf-silk; attitude of a hawk.
@@ -85,7 +83,7 @@ cards:
     role: Scout
     tags:
       - elf
-      - flying
+      - infantry
     favored_terrain: forest
   - id: a3a394e9d6824047b1698301980268d4
     name: Greenspire Spears
@@ -97,9 +95,9 @@ cards:
     secondary_type: null
     uv: 2
     move: 3
-    damage: 3
+    damage: 2
     range: 1
-    toughness: 4
+    toughness: 3
     company_ap: null
     company_capacity: null
     command_radius: null
@@ -128,7 +126,7 @@ cards:
     move: 4
     damage: 3
     range: 1
-    toughness: 4
+    toughness: 3
     company_ap: null
     company_capacity: null
     command_radius: null
@@ -136,7 +134,6 @@ cards:
     cc_generation: null
     keywords:
       - Flanking
-      - Reach
     abilities: []
     ultimate: null
     flavor_text: One cut. One bow. No encore needed.
@@ -157,9 +154,9 @@ cards:
     secondary_type: null
     uv: 2
     move: 3
-    damage: 3
+    damage: 2
     range: 3
-    toughness: 4
+    toughness: 3
     company_ap: null
     company_capacity: null
     command_radius: null
@@ -215,7 +212,7 @@ cards:
     secondary_type: null
     uv: 3
     move: 5
-    damage: 3
+    damage: 2
     range: 1
     toughness: 3
     company_ap: null
@@ -276,7 +273,7 @@ cards:
     secondary_type: Light
     uv: 2
     move: 4
-    damage: 3
+    damage: 2
     range: 1
     toughness: 3
     company_ap: null
@@ -286,7 +283,6 @@ cards:
     cc_generation: null
     keywords:
       - Stealth
-      - Reach
     abilities: []
     ultimate: null
     flavor_text: Hides in silver. Strikes in certainty.
@@ -397,7 +393,7 @@ cards:
     secondary_type: Light
     uv: 2
     move: 3
-    damage: 3
+    damage: 2
     range: 3
     toughness: 3
     company_ap: null
@@ -485,7 +481,7 @@ cards:
     secondary_type: Light
     uv: 2
     move: 4
-    damage: 3
+    damage: 2
     range: 1
     toughness: 3
     company_ap: null
@@ -495,7 +491,6 @@ cards:
     cc_generation: null
     keywords:
       - Harass
-      - Reach
     abilities: []
     ultimate: null
     flavor_text: Steps softer than second thoughts.
@@ -515,8 +510,8 @@ cards:
     primary_type: Infantry
     secondary_type: Light
     uv: 2
-    move: 5
-    damage: 3
+    move: 4
+    damage: 2
     range: 1
     toughness: 3
     company_ap: null
@@ -766,7 +761,7 @@ cards:
     move: 5
     damage: 3
     range: 1
-    toughness: 4
+    toughness: 3
     company_ap: null
     company_capacity: null
     command_radius: null
@@ -1237,7 +1232,7 @@ cards:
     move: 3
     damage: 1
     range: 1
-    toughness: 1
+    toughness: 2
     company_ap: null
     company_capacity: null
     command_radius: null
@@ -1297,7 +1292,7 @@ cards:
     move: 3
     damage: 1
     range: 1
-    toughness: 2
+    toughness: 3
     company_ap: null
     company_capacity: null
     command_radius: null
@@ -1325,9 +1320,9 @@ cards:
     secondary_type: Light
     uv: 2
     move: 3
-    damage: 1
+    damage: 2
     range: 2
-    toughness: 2
+    toughness: 3
     company_ap: null
     company_capacity: null
     command_radius: null

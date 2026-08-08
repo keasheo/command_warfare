@@ -599,7 +599,7 @@ Usage:
 
 Options:
   --from FILE.json    Read sim data from existing JSON file
-  --out REPORT.xlsx   Write report to xlsx file (default: sim/sim-matchup-report.xlsx)
+  --out REPORT.xlsx   Write report to xlsx file (default: sim/2_sim-matchup-report.xlsx)
   --md                Also generate markdown report
   --help, -h          Show this help
 
@@ -639,7 +639,7 @@ Examples:
   }
   
   // Default output paths
-  const xlsxPath = options.outFile || join(dirname(__dirname), 'sim', 'sim-matchup-report.xlsx')
+  const xlsxPath = options.outFile || join(dirname(__dirname), 'sim', '2_sim-matchup-report.xlsx')
   const mdPath = xlsxPath.replace(/\.xlsx$/i, '.md')
   
   // Generate Excel report

@@ -2,16 +2,13 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import type { Ability, Card } from '../../../src/api'
 import { CardFace } from '../../../src/components/cards/CardFace'
 import {
-  ARMY_BATTLE_UV_MAX,
   ARMY_UV_MAX,
-  ARMY_UNUSED_UV_MAX,
-  DEPLOY_UV_MAX,
-  RESERVE_UV_MAX,
   armyFileBasename,
   buildArmyFileFromNames,
   copyLimitForCard,
   countCardCopiesInList,
   namedListFromArmy,
+  normalizeLoadoutPools,
   parseArmyFile,
   resolveArmy,
   resolveNamedArmy,
@@ -19,6 +16,7 @@ import {
   type ArmyFile,
   type ArmyList,
   type CardSnapshot,
+  type LoadoutPools,
 } from '../../shared/index'
 
 const LOCAL_ARMIES_KEY = 'cw-play-saved-armies'
@@ -77,6 +75,8 @@ type Props = {
   submitLabel?: string
   /** Save to browser storage on primary action before onSubmit. */
   workshopMode?: boolean
+  /** Room force-select caps (defaults if omitted). */
+  loadoutPools?: Partial<LoadoutPools> | null
 }
 
 type AddCheck = { ok: true } | { ok: false; reason: string }
@@ -147,10 +147,24 @@ export function ArmyBuilder({
   enforceCommanderRace = true,
   submitLabel,
   workshopMode = false,
+  loadoutPools,
 }: Props) {
+  const pools = normalizeLoadoutPools(loadoutPools)
+  const battleActiveMax = pools.deployMax + pools.reserveMax
   const [cards, setCards] = useState<Card[]>([])
   const [abilityByName, setAbilityByName] = useState<Map<string, Ability>>(new Map())
   const [loadError, setLoadError] = useState<string | null>(null)
+  const [quickPickBusy, setQuickPickBusy] = useState(false)
+  const [quickPickPresets, setQuickPickPresets] = useState<
+    Array<{
+      commanderId: string
+      commanderName: string
+      race: string
+      totalUv: number
+      companyCount: number
+    }>
+  >([])
+  const [quickPickCommanderId, setQuickPickCommanderId] = useState('')
   const [raceFilter, setRaceFilter] = useState('')
   const [typeFilter, setTypeFilter] = useState('')
   const [nameFilter, setNameFilter] = useState('')
@@ -249,6 +263,41 @@ export function ArmyBuilder({
       cancelled = true
     }
   }, [])
+
+  useEffect(() => {
+    if (workshopMode) return
+    let cancelled = false
+    ;(async () => {
+      try {
+        const res = await fetch('/api/quick-pick-armies')
+        if (!res.ok) return
+        const body = (await res.json()) as {
+          presets?: Array<{
+            commanderId: string
+            commanderName: string
+            race: string
+            totalUv: number
+            companyCount: number
+          }>
+        }
+        if (cancelled || !body.presets?.length) return
+        setQuickPickPresets(body.presets)
+        setQuickPickCommanderId((prev) => prev || body.presets![0]!.commanderId)
+      } catch {
+        // Quick pick is optional — ignore if API unavailable.
+      }
+    })()
+    return () => {
+      cancelled = true
+    }
+  }, [workshopMode])
+
+  useEffect(() => {
+    if (!commanderId || !quickPickPresets.length) return
+    if (quickPickPresets.some((p) => p.commanderId === commanderId)) {
+      setQuickPickCommanderId(commanderId)
+    }
+  }, [commanderId, quickPickPresets])
 
   const cardMap = useMemo(() => {
     const m = new Map<string, Card>()
@@ -527,6 +576,60 @@ export function ArmyBuilder({
     setIoError(null)
     setIoIssues([])
     setIoMessage(`Saved “${file.name}” in this browser.`)
+  }
+
+  async function quickPickDemo(lock: boolean) {
+    if (disabled || quickPickBusy || !cards.length || !quickPickCommanderId) return
+    setQuickPickBusy(true)
+    try {
+      const res = await fetch(
+        `/api/demo-army?commanderId=${encodeURIComponent(quickPickCommanderId)}`,
+      )
+      if (!res.ok) {
+        throw new Error(`API ${res.status} — failed to load quick-pick army`)
+      }
+      const body = (await res.json()) as {
+        army?: ArmyList
+        cards?: CardSnapshot[]
+        error?: string
+      }
+      if (!body.army) {
+        throw new Error(body.error ?? 'Quick-pick army missing from response')
+      }
+
+      const preset = quickPickPresets.find((p) => p.commanderId === quickPickCommanderId)
+      const label = preset?.commanderName ?? 'Quick pick army'
+      applyArmy(
+        body.army,
+        label,
+        `Loaded ${label} (${preset?.companyCount ?? body.army.companies.length} companies · ${preset?.totalUv ?? liveUv} UV).`,
+      )
+
+      if (!lock) return
+
+      const snaps =
+        body.cards?.length
+          ? body.cards
+          : [...new Set([body.army.commanderCardId, ...body.army.companies.flatMap((co) => [co.officerCardId, ...co.units.map((u) => u.cardId)])])]
+              .map((id) => cardMap.get(id))
+              .filter((c): c is Card => Boolean(c))
+              .map(toSnapshot)
+      const lookup = new Map(snaps.map((s) => [s.id, s]))
+      const resolved = resolveArmy(body.army, lookup, { enforceCommanderRace })
+      if (!resolved.ok) {
+        reportIllegal(resolved.error, [resolved.error])
+        return
+      }
+
+      onSubmit(body.army, snaps)
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : String(e)
+      setIoError(msg)
+      setIoIssues([])
+      setIoMessage(null)
+    } finally {
+      setQuickPickBusy(false)
+    }
   }
 
   function importArmyFile(file: ArmyFile) {
@@ -840,9 +943,8 @@ export function ArmyBuilder({
           Army list <strong>{liveUv}</strong> / {ARMY_UV_MAX} UV
         </p>
         <p className="muted" style={{ fontSize: '0.85rem', marginTop: '0.25rem' }}>
-          Battle lock: deploy ≤{DEPLOY_UV_MAX}, reserve ≤{RESERVE_UV_MAX} (
-          {ARMY_BATTLE_UV_MAX} active) · up to {ARMY_UNUSED_UV_MAX} UV flex (swap room, not
-          deployed or in reserve)
+          Battle lock: deploy ≤{pools.deployMax}, reserve ≤{pools.reserveMax} (
+          {battleActiveMax} active max) · unused holds the rest (under-fill allowed)
         </p>
 
         <div className="field">
@@ -854,6 +956,52 @@ export function ArmyBuilder({
             placeholder="My army"
           />
         </div>
+
+        {!workshopMode ? (
+          <div className="quick-pick-panel">
+            <div className="field">
+              <label>Quick pick commander</label>
+              <select
+                value={quickPickCommanderId}
+                disabled={disabled || quickPickBusy || !quickPickPresets.length}
+                onChange={(e) => setQuickPickCommanderId(e.target.value)}
+              >
+                {!quickPickPresets.length ? (
+                  <option value="">Loading presets…</option>
+                ) : (
+                  quickPickPresets.map((p) => (
+                    <option key={p.commanderId} value={p.commanderId}>
+                      {p.commanderName} ({p.race}) · {p.totalUv} UV · {p.companyCount} co.
+                    </option>
+                  ))
+                )}
+              </select>
+            </div>
+            <div className="row">
+              <button
+                type="button"
+                disabled={
+                  disabled || quickPickBusy || !cards.length || !quickPickCommanderId
+                }
+                onClick={() => void quickPickDemo(false)}
+                title="Load this commander's preset army."
+              >
+                Load preset
+              </button>
+              <button
+                type="button"
+                className="primary"
+                disabled={
+                  disabled || quickPickBusy || !cards.length || !quickPickCommanderId
+                }
+                onClick={() => void quickPickDemo(true)}
+                title="Load the preset army and immediately lock it."
+              >
+                Load & lock
+              </button>
+            </div>
+          </div>
+        ) : null}
 
         <button
           type="button"

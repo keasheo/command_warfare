@@ -42,14 +42,24 @@ export const TERRAIN_PLACEMENTS_PER_PLAYER =
   commandZoneSlotsTotal(2) + TERRAIN_LAND_DROPS_PER_SIZE * 3
 
 /** Total army list UV (commander + all companies). */
-export const ARMY_UV_MAX = 250
-/** Max UV on the battlefield at battle start. */
-export const DEPLOY_UV_MAX = 155
+export const ARMY_UV_MAX = 220
+/** Max UV on the battlefield at battle start (≈30 unit models per army at typical lists). */
+export const DEPLOY_UV_MAX = 110
 /** Max UV in the off-board reinforcement pool. */
-export const RESERVE_UV_MAX = 45
-/** List UV not deployed or in reserve — room to swap officers/units before battle. */
-export const ARMY_UNUSED_UV_MAX = 50
-/** Deploy + reserve when locking for battle (unused is the remainder up to ARMY_UV_MAX). */
+export const RESERVE_UV_MAX = 60
+
+/** Play length — score VP each round; highest VP after this many rounds wins. */
+export const MAX_ROUNDS = 15
+/** VP awarded at end of round for each controlled objective zone. */
+export const VP_PER_OBJECTIVE = 2
+/**
+ * Soft guidance only for unused (flex) UV — not a hard lock.
+ * Unused may exceed this; players may under-fill deploy/reserve.
+ */
+export const ARMY_UNUSED_UV_GUIDE = 50
+/** @deprecated Use ARMY_UNUSED_UV_GUIDE — unused is no longer hard-capped. */
+export const ARMY_UNUSED_UV_MAX = ARMY_UNUSED_UV_GUIDE
+/** Deploy + reserve when locking for battle (unused is the remainder of the list). */
 export const ARMY_BATTLE_UV_MAX = DEPLOY_UV_MAX + RESERVE_UV_MAX
 
 /**

@@ -1,10 +1,9 @@
 import { useMemo, useState } from 'react'
 import {
-  ARMY_UNUSED_UV_MAX,
-  DEPLOY_UV_MAX,
-  RESERVE_UV_MAX,
+  ARMY_UNUSED_UV_GUIDE,
   battleLoadoutTotals,
   defaultBattleLoadout,
+  normalizeLoadoutPools,
   resolveArmy,
   resolvedCompanyUv,
   validateBattleLoadout,
@@ -12,6 +11,7 @@ import {
   type BattleBucket,
   type BattleLoadout,
   type CardSnapshot,
+  type LoadoutPools,
   type SeatId,
 } from '../../shared/index'
 
@@ -49,76 +49,16 @@ type Props = {
   disabled?: boolean
   /** True after local player confirmed — hide assignment UI, show wait state. */
   waiting?: boolean
+  /** Room force-select UV caps (host-configured). */
+  loadoutPools?: Partial<LoadoutPools> | null
 }
 
 const BUCKETS: BattleBucket[] = ['deploy', 'reserve', 'unused']
 
-function bucketLabel(bucket: BattleBucket): string {
-  if (bucket === 'deploy') return 'Deploy'
-  if (bucket === 'reserve') return 'Reserve'
+function bucketLabel(b: BattleBucket): string {
+  if (b === 'deploy') return 'Deploy'
+  if (b === 'reserve') return 'Reserve'
   return 'Unused'
-}
-
-function companyUnitSummary(
-  co: ArmyList['companies'][number],
-  catalog: Record<string, CardSnapshot>,
-): string {
-  return co.units
-    .map((u) => {
-      const card = catalog[u.cardId]
-      return `${card?.name ?? u.cardId}×${u.count}`
-    })
-    .join(', ')
-}
-
-function ArmyRosterView({
-  title,
-  army,
-  catalog,
-  subtitle,
-}: {
-  title: string
-  army: ArmyList
-  catalog: Record<string, CardSnapshot>
-  subtitle?: string
-}) {
-  const commander = catalog[army.commanderCardId]
-  let uv = commander?.uv ?? 0
-  for (const co of army.companies) {
-    uv += catalog[co.officerCardId]?.uv ?? 0
-    for (const u of co.units) {
-      uv += (catalog[u.cardId]?.uv ?? 0) * u.count
-    }
-  }
-
-  return (
-    <div className="force-roster">
-      <h3>{title}</h3>
-      {subtitle ? <p className="muted">{subtitle}</p> : null}
-      <p className="muted">
-        Commander: <strong>{commander?.name ?? army.commanderCardId}</strong> ·{' '}
-        {uv} UV total
-      </p>
-      <ul className="force-company-list">
-        {army.companies.map((co, i) => {
-          const officer = catalog[co.officerCardId]
-          let companyUv = officer?.uv ?? 0
-          for (const u of co.units) {
-            companyUv += (catalog[u.cardId]?.uv ?? 0) * u.count
-          }
-          return (
-            <li key={co.officerCardId || i} className="force-company-readonly">
-              <span className="force-company-name">
-                {officer?.name ?? co.officerCardId}
-              </span>
-              <span className="force-company-units">{companyUnitSummary(co, catalog)}</span>
-              <span className="force-company-uv">{companyUv} UV</span>
-            </li>
-          )
-        })}
-      </ul>
-    </div>
-  )
 }
 
 export function ForceSelectPanel({
@@ -129,7 +69,10 @@ export function ForceSelectPanel({
   onConfirm,
   disabled,
   waiting = false,
+  loadoutPools,
 }: Props) {
+  const pools = useMemo(() => normalizeLoadoutPools(loadoutPools), [loadoutPools])
+
   const lookup = useMemo(
     () => new Map(Object.values(catalog).map((c) => [c.id, c])),
     [catalog],
@@ -141,7 +84,7 @@ export function ForceSelectPanel({
   )
 
   const [loadout, setLoadout] = useState<BattleLoadout>(() =>
-    resolved.ok ? defaultBattleLoadout(resolved.army) : {},
+    resolved.ok ? defaultBattleLoadout(resolved.army, pools) : {},
   )
   const [error, setError] = useState<string | null>(null)
 
@@ -150,9 +93,8 @@ export function ForceSelectPanel({
     return battleLoadoutTotals(resolved.army, loadout)
   }, [resolved, loadout])
 
-  const deployOver = totals.deploy > DEPLOY_UV_MAX
-  const reserveOver = totals.reserve > RESERVE_UV_MAX
-  const unusedOver = totals.unused > ARMY_UNUSED_UV_MAX
+  const deployOver = totals.deploy > pools.deployMax
+  const reserveOver = totals.reserve > pools.reserveMax
 
   function setBucket(officerId: string, bucket: BattleBucket) {
     setLoadout((prev) => ({ ...prev, [officerId]: bucket }))
@@ -164,7 +106,7 @@ export function ForceSelectPanel({
       setError(resolved.error)
       return
     }
-    const check = validateBattleLoadout(resolved.army, loadout)
+    const check = validateBattleLoadout(resolved.army, loadout, pools)
     if (!check.ok) {
       setError(check.error)
       return
@@ -187,9 +129,9 @@ export function ForceSelectPanel({
         <h2>Battle loadout</h2>
         <p className="muted">
           Both armies are locked — assign each company to <strong>Deploy</strong> (≤
-          {DEPLOY_UV_MAX} UV), <strong>Reserve</strong> (≤{RESERVE_UV_MAX} UV), or{' '}
-          <strong>Unused</strong> (≤{ARMY_UNUSED_UV_MAX} UV flex, not brought). Commander
-          always deploys. Opponents cannot see your bucket choices.
+          {pools.deployMax} UV), <strong>Reserve</strong> (≤{pools.reserveMax} UV), or{' '}
+          <strong>Unused</strong> (rest of the list; not brought — under-fill is fine).
+          Commander always deploys. Opponents cannot see your bucket choices.
         </p>
       </header>
 
@@ -232,13 +174,13 @@ export function ForceSelectPanel({
           <h3>Your companies</h3>
           <div className="force-bucket-totals">
             <span className={deployOver ? 'over-cap' : ''}>
-              Deploy <strong>{totals.deploy}</strong> / {DEPLOY_UV_MAX}
+              Deploy <strong>{totals.deploy}</strong> / {pools.deployMax}
             </span>
             <span className={reserveOver ? 'over-cap' : ''}>
-              Reserve <strong>{totals.reserve}</strong> / {RESERVE_UV_MAX}
+              Reserve <strong>{totals.reserve}</strong> / {pools.reserveMax}
             </span>
-            <span className={unusedOver ? 'over-cap' : ''}>
-              Unused <strong>{totals.unused}</strong> / {ARMY_UNUSED_UV_MAX}
+            <span title={`Soft guide ~${ARMY_UNUSED_UV_GUIDE} UV; higher unused is allowed`}>
+              Unused <strong>{totals.unused}</strong>
             </span>
           </div>
 
@@ -278,9 +220,7 @@ export function ForceSelectPanel({
           <button
             type="button"
             className="primary"
-            disabled={
-              disabled || deployOver || reserveOver || unusedOver
-            }
+            disabled={disabled || deployOver || reserveOver}
             onClick={handleConfirm}
           >
             Confirm force selection
@@ -303,6 +243,54 @@ export function ForceSelectPanel({
         </aside>
       </div>
       )}
+    </div>
+  )
+}
+
+function ArmyRosterView({
+  title,
+  army,
+  catalog,
+  subtitle,
+}: {
+  title: string
+  army: ArmyList
+  catalog: Record<string, CardSnapshot>
+  subtitle?: string
+}) {
+  const lookup = useMemo(
+    () => new Map(Object.values(catalog).map((c) => [c.id, c])),
+    [catalog],
+  )
+  const resolved = useMemo(
+    () => resolveArmy(army, lookup, { enforceCommanderRace: false }),
+    [army, lookup],
+  )
+
+  if (!resolved.ok) {
+    return (
+      <div className="force-roster-block">
+        <h4>{title}</h4>
+        <p className="muted">{resolved.error}</p>
+      </div>
+    )
+  }
+
+  return (
+    <div className="force-roster-block">
+      <h4>{title}</h4>
+      {subtitle ? <p className="muted">{subtitle}</p> : null}
+      <p className="muted">
+        {resolved.army.commander.name} · {resolved.army.totalUv} UV
+      </p>
+      <ul className="force-roster-companies">
+        {resolved.army.companies.map((co) => (
+          <li key={co.officer.id}>
+            <strong>{co.officer.name}</strong> ({resolvedCompanyUv(co)} UV)
+            <div className="muted">{resolvedCompanyUnitSummary(co)}</div>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }

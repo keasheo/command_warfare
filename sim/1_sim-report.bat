@@ -2,8 +2,12 @@
 REM Battle Sim Report Generator
 REM Generates multi-tab Excel workbook with race performance analysis
 REM Double-click to run, or use from command line with args
+REM Lives in sim\ — always runs from the repository root
 
 setlocal
+
+REM Repo root is the parent of this bat's folder (sim\)
+cd /d "%~dp0.."
 
 echo ===============================================
 echo CommandWarfare Sim Report Generator
@@ -23,7 +27,7 @@ if %ERRORLEVEL% neq 0 (
 REM Check if script exists
 if not exist "scripts\simReport.mjs" (
     echo ERROR: scripts\simReport.mjs not found
-    echo Please run this from the repository root
+    echo Expected to find it from the repository root
     echo.
     pause
     exit /b 1
@@ -51,7 +55,7 @@ if %ERRORLEVEL% neq 0 (
 echo.
 echo ===============================================
 echo Report generation complete!
-echo Default output: sim\sim-matchup-report.xlsx
+echo Default output: sim\2_sim-matchup-report.xlsx
 echo ===============================================
 echo.
 echo Open the Excel file to view:

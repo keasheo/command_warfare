@@ -5,16 +5,19 @@ import {
   boardSizeForPlayers,
   DEFAULT_UNIT_MOVE,
   DEPLOY_DEPTH,
+  MAX_ROUNDS,
   MIN_OBJECTIVE_DISTANCE,
   SCOUT_CR_EXTENSION,
   SEATS_2P,
   SEATS_4P,
   TERRAIN_LAND_DROPS_PER_SIZE,
+  VP_PER_OBJECTIVE,
   commandZonePieceQuota,
   commandZoneSlotsTotal,
 } from './constants'
 import {
   deployQueueFromArmy,
+  normalizeLoadoutPools,
   resolveArmy,
   validateArmyUv,
   validateBattleLoadout,
@@ -23,6 +26,7 @@ import {
   type BattleLoadout,
   type CardLookup,
   type CardSnapshot,
+  type LoadoutPools,
   type ResolvedArmy,
 } from './army'
 import { hexDistOddR, hexKey, inBounds, type OddR } from './hex'
@@ -167,15 +171,26 @@ export function createEmptyRoom(
   roomCode: string,
   maxPlayers: 2 | 4 = 2,
   enforceCommanderRace = true,
+  opponent: 'human' | 'ai' = 'human',
+  aiDifficulty: 'easy' | 'medium' | 'hard' | null = null,
+  loadoutPools?: Partial<LoadoutPools> | null,
 ): GameState {
   const raceRule = enforceCommanderRace
     ? 'mono-race armies'
     : 'mixed-race armies allowed'
   const boardSize = boardSizeForPlayers(maxPlayers)
+  const pools = normalizeLoadoutPools(loadoutPools)
+  const vsLabel =
+    opponent === 'ai'
+      ? `vs AI (${aiDifficulty ?? 'medium'})`
+      : 'vs Human'
   return {
     roomCode,
     maxPlayers,
     enforceCommanderRace,
+    opponent,
+    aiDifficulty: opponent === 'ai' ? (aiDifficulty ?? 'medium') : null,
+    loadoutPools: pools,
     boardSize,
     hostSeat: 'N',
     phase: 'Lobby',
@@ -198,18 +213,22 @@ export function createEmptyRoom(
     turnOrder: [],
     round: 0,
     activeCompanyOfficerId: null,
+    companiesActivatedThisRound: {},
+    companyActivatedThisTurn: {},
     commanderActivatedThisRound: {},
     commanderPools: {},
     companyPools: {},
     lastDiceRoll: null,
     lastCombatResult: null,
+    scores: {},
     winner: null,
+    draw: false,
     deployQueues: {},
     cardCatalog: {},
     abilityCatalog: {},
     log: [
       formatGameLogLine(
-        `Room ${roomCode} created (${maxPlayers}P, ${boardSize}×${boardSize}, ${raceRule}). Build armies before commanders.`,
+        `Room ${roomCode} created (${maxPlayers}P, ${boardSize}×${boardSize}, ${raceRule}, ${vsLabel}, deploy ≤${pools.deployMax}, reserve ≤${pools.reserveMax}). Build armies before commanders.`,
       ),
     ],
   }
@@ -243,33 +262,11 @@ function nextSeat(order: SeatId[], current: SeatId): SeatId {
   return order[(i + 1) % order.length]!
 }
 
-function majorityNeeded(objectiveCount: number): number {
-  return Math.floor(objectiveCount / 2) + 1
-}
-
-function checkWinner(state: GameState): GameState {
-  if (state.objectives.length === 0) return state
-  const need = majorityNeeded(state.objectives.length)
-  const counts: Partial<Record<SeatId, number>> = {}
-  for (const o of state.objectives) {
-    if (!o.controller) continue
-    counts[o.controller] = (counts[o.controller] ?? 0) + 1
-  }
-  for (const seat of Object.keys(counts) as SeatId[]) {
-    if ((counts[seat] ?? 0) >= need) {
-      return pushLog(
-        { ...state, phase: 'Ended', winner: seat, activeSeat: null },
-        `${seat} wins by claiming ${counts[seat]} objective(s).`,
-      )
-    }
-  }
-  return state
-}
-
 /**
  * Majority claim: seat with the most living units inside the zone wins control.
  * Ties (including 0–0) leave the zone contested / unclaimed.
  * Dead units and grave markers do not count — only `state.units`.
+ * Holding an objective does NOT end the game; VP is scored at end of round.
  */
 function resolveObjectiveController(
   counts: Partial<Record<SeatId, number>>,
@@ -334,9 +331,85 @@ function recalculateObjectiveControl(
     return { ...o, controller }
   })
   return {
-    state: checkWinner({ ...next, objectives }),
+    state: { ...next, objectives },
     changedIds,
   }
+}
+
+/** Award VP for each controlled objective at end of a round. */
+function awardRoundVp(state: GameState): GameState {
+  const scores: Partial<Record<SeatId, number>> = { ...(state.scores ?? {}) }
+  const gained: Partial<Record<SeatId, number>> = {}
+  for (const o of state.objectives) {
+    if (!o.controller) continue
+    scores[o.controller] = (scores[o.controller] ?? 0) + VP_PER_OBJECTIVE
+    gained[o.controller] = (gained[o.controller] ?? 0) + VP_PER_OBJECTIVE
+  }
+  let next: GameState = { ...state, scores }
+  const parts = (Object.keys(gained) as SeatId[]).map(
+    (s) => `${s} +${gained[s]}`,
+  )
+  if (parts.length) {
+    next = pushLog(
+      next,
+      `End of round ${state.round}: objective VP — ${parts.join(', ')}. Totals: ${formatScoreLine(scores, state)}.`,
+    )
+  } else {
+    next = pushLog(
+      next,
+      `End of round ${state.round}: no objectives held — no VP. Totals: ${formatScoreLine(scores, state)}.`,
+    )
+  }
+  return next
+}
+
+function formatScoreLine(
+  scores: Partial<Record<SeatId, number>>,
+  state: GameState,
+): string {
+  return state.players
+    .map((p) => `${p.seat} ${scores[p.seat] ?? 0}`)
+    .join(' · ')
+}
+
+/** After MAX_ROUNDS of scoring, pick the highest VP seat (or draw). */
+function resolveVpWinner(state: GameState): GameState {
+  const scores = state.scores ?? {}
+  let best: SeatId | null = null
+  let bestVp = -1
+  let tied = false
+  for (const p of state.players) {
+    const vp = scores[p.seat] ?? 0
+    if (vp > bestVp) {
+      best = p.seat
+      bestVp = vp
+      tied = false
+    } else if (vp === bestVp) {
+      tied = true
+    }
+  }
+  if (tied || best == null) {
+    return pushLog(
+      {
+        ...state,
+        phase: 'Ended',
+        winner: null,
+        draw: true,
+        activeSeat: null,
+      },
+      `Game over after ${MAX_ROUNDS} rounds — draw (${formatScoreLine(scores, state)}).`,
+    )
+  }
+  return pushLog(
+    {
+      ...state,
+      phase: 'Ended',
+      winner: best,
+      draw: false,
+      activeSeat: null,
+    },
+    `Game over after ${MAX_ROUNDS} rounds — ${best} wins with ${bestVp} VP (${formatScoreLine(scores, state)}).`,
+  )
 }
 
 export type ReduceResult =
@@ -397,11 +470,21 @@ export function createEmptyRoomState(
   roomCode: string,
   maxPlayers: 2 | 4 = 2,
   enforceCommanderRace = true,
+  opponent: 'human' | 'ai' = 'human',
+  aiDifficulty: 'easy' | 'medium' | 'hard' | null = null,
+  loadoutPools?: Partial<LoadoutPools> | null,
 ): GameState {
   resolvedBySeat.delete(roomCode)
   loadoutBySeat.delete(roomCode)
   reserveQueuesBySeat.delete(roomCode)
-  return createEmptyRoom(roomCode, maxPlayers, enforceCommanderRace)
+  return createEmptyRoom(
+    roomCode,
+    maxPlayers,
+    enforceCommanderRace,
+    opponent,
+    aiDifficulty,
+    loadoutPools,
+  )
 }
 
 export function reduceJoin(
@@ -1001,6 +1084,8 @@ function beginPlay(state: GameState): GameState {
   const turnOrder = seatOrder(state.maxPlayers).filter((s) =>
     state.players.some((p) => p.seat === s),
   )
+  const scores: Partial<Record<SeatId, number>> = {}
+  for (const p of state.players) scores[p.seat] = 0
   const withPools = refreshAllPools({
     ...state,
     phase: 'Play',
@@ -1008,26 +1093,40 @@ function beginPlay(state: GameState): GameState {
     activeSeat: turnOrder[0] ?? null,
     round: 1,
     activeCompanyOfficerId: null,
+    companiesActivatedThisRound: {},
+    companyActivatedThisTurn: {},
+    commanderActivatedThisRound: {},
+    scores,
+    winner: null,
+    draw: false,
     lastDiceRoll: null,
     lastCombatResult: null,
     units: state.units.map((u) => ({ ...u, moveRemaining: 0 })),
   })
   return pushLog(
     withPools,
-    `Play begins — Round 1. ${turnOrder[0]} acts first. Activate a company, spend AP/CC, resolve attacks (auto or manual).`,
+    `Play begins — Round 1/${MAX_ROUNDS}. ${turnOrder[0]} acts first. Hold objectives for ${VP_PER_OBJECTIVE} VP each at end of round; highest VP after ${MAX_ROUNDS} rounds wins.`,
+  )
+}
+
+function livingOfficersPendingActivation(state: GameState): UnitToken[] {
+  const activated = state.companiesActivatedThisRound ?? {}
+  return state.units.filter(
+    (u) => u.kind === 'officer' && !activated[u.id],
   )
 }
 
 function advanceTurn(state: GameState, fromSeat: SeatId): GameState {
   const next = nextSeat(state.turnOrder, fromSeat)
-  const wrapped = state.turnOrder[0] === next
-  const round = wrapped ? state.round + 1 : state.round
   let out = endPreviousCompanyActivation(state, fromSeat)
+  const companyActivatedThisTurn = { ...(out.companyActivatedThisTurn ?? {}) }
+  delete companyActivatedThisTurn[fromSeat]
+
   out = {
     ...out,
     activeSeat: next,
     activeCompanyOfficerId: null,
-    round,
+    companyActivatedThisTurn,
     units: out.units.map((u) =>
       u.seat === fromSeat || u.seat === next
         ? {
@@ -1041,9 +1140,21 @@ function advanceTurn(state: GameState, fromSeat: SeatId): GameState {
         : u,
     ),
   }
-  if (wrapped) {
+
+  // New round when every living officer has already activated this round.
+  const pending = livingOfficersPendingActivation(out)
+  if (pending.length === 0) {
+    // Score VP for objectives held through the round that just finished.
+    out = awardRoundVp(out)
+    if (out.round >= MAX_ROUNDS) {
+      return resolveVpWinner(out)
+    }
+    const round = out.round + 1
     out = {
       ...out,
+      round,
+      companiesActivatedThisRound: {},
+      companyActivatedThisTurn: {},
       commanderActivatedThisRound: {},
       units: out.units.map((u) =>
         clearRoundStatuses({
@@ -1057,7 +1168,10 @@ function advanceTurn(state: GameState, fromSeat: SeatId): GameState {
       ),
     }
     out = refreshCommanderPools(out)
-    out = pushLog(out, `Round ${round} begins — commander AP/CC refreshed.`)
+    out = pushLog(
+      out,
+      `Round ${round}/${MAX_ROUNDS} begins — commander AP/CC refreshed.`,
+    )
   }
   return pushLog(out, `${next}'s turn.`)
 }
@@ -1373,7 +1487,14 @@ function endPreviousCompanyActivation(
         u.seat === seat &&
         (u.id === prevOfficerId || u.officerCardId === companyCardId)
       if (!inPrevCompany) return u
-      return clearConsumedSlow(u)
+      return clearConsumedSlow({
+        ...u,
+        moveRemaining: 0,
+        activationCol: null,
+        activationRow: null,
+        claimsThisActivation: [],
+        movedBeyondLimit: false,
+      })
     }),
   }
 }
@@ -2636,6 +2757,30 @@ export function reduceAction(
 ): ReduceResult {
   if (action.type === 'ping') return { ok: true, state }
 
+  if (action.type === 'setLoadoutPools') {
+    if (!seat) return { ok: false, error: 'Not seated.' }
+    if (seat !== state.hostSeat) {
+      return { ok: false, error: 'Only the host can change loadout pools.' }
+    }
+    if (state.phase !== 'Lobby' && state.phase !== 'ArmyBuild') {
+      return {
+        ok: false,
+        error: 'Loadout pools can only be changed in Lobby or Army Build.',
+      }
+    }
+    const pools = normalizeLoadoutPools({
+      ...normalizeLoadoutPools(state.loadoutPools),
+      ...action.loadoutPools,
+    })
+    return {
+      ok: true,
+      state: pushLog(
+        { ...state, loadoutPools: pools },
+        `Host set loadout pools: deploy ≤${pools.deployMax}, reserve ≤${pools.reserveMax}.`,
+      ),
+    }
+  }
+
   if (action.type === 'submitArmy') {
     if (!seat) return { ok: false, error: 'Not seated.' }
     if (state.phase !== 'ArmyBuild' && state.phase !== 'Lobby') {
@@ -2738,7 +2883,11 @@ export function reduceAction(
     const army = roomArmies(state.roomCode).get(seat)
     if (!army) return { ok: false, error: 'Army not found.' }
 
-    const loadoutCheck = validateBattleLoadout(army, action.battleLoadout)
+    const loadoutCheck = validateBattleLoadout(
+      army,
+      action.battleLoadout,
+      state.loadoutPools,
+    )
     if (!loadoutCheck.ok) return { ok: false, error: loadoutCheck.error }
 
     roomLoadouts(state.roomCode).set(seat, action.battleLoadout)
@@ -3427,6 +3576,29 @@ export function reduceAction(
     if (!officer || officer.seat !== seat || officer.kind !== 'officer') {
       return { ok: false, error: 'Select one of your officers.' }
     }
+
+    const activatedThisRound = state.companiesActivatedThisRound ?? {}
+    if (activatedThisRound[officer.id]) {
+      return {
+        ok: false,
+        error: `${officer.cardName}'s company already activated this round.`,
+      }
+    }
+
+    const activatedThisTurn = state.companyActivatedThisTurn?.[seat]
+    if (activatedThisTurn && activatedThisTurn !== officer.id) {
+      return {
+        ok: false,
+        error:
+          'You may activate only one company per turn. End turn to pass to the next player.',
+      }
+    }
+
+    // Re-selecting the already-active company is a no-op success.
+    if (state.activeCompanyOfficerId === officer.id) {
+      return { ok: true, state }
+    }
+
     const companyCardId = officer.cardId
     let baseState = endPreviousCompanyActivation(state, seat)
     const units = baseState.units.map((u) => {
@@ -3460,6 +3632,14 @@ export function reduceAction(
       ...baseState,
       units,
       activeCompanyOfficerId: officer.id,
+      companiesActivatedThisRound: {
+        ...activatedThisRound,
+        [officer.id]: true,
+      },
+      companyActivatedThisTurn: {
+        ...(baseState.companyActivatedThisTurn ?? {}),
+        [seat]: officer.id,
+      },
     }
     next = removeDestroyedUnits(next)
     next = refreshCompanyPool(next, officer)

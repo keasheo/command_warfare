@@ -122,7 +122,7 @@ Example:
 - 1 commander, at least one officer company  
 - Units under each officer must fit **company capacity** (UV)  
 - Same **race** as the commander  
-- Total army list UV ≤ **250** (at battle lock: deploy ≤155, reserve ≤45, flex ≤50 unused)  
+- Total army list UV ≤ **250** (at battle lock: deploy ≤155, reserve ≤60 by default; host can change room pools in lobby; unused may hold the rest — under-fill allowed)  
 
 ## Layout
 

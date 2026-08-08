@@ -9,9 +9,9 @@ cards:
     secondary_type: Light
     uv: 2
     move: 3
-    damage: 4
+    damage: 2
     range: 1
-    toughness: 5
+    toughness: 3
     company_ap: null
     company_capacity: null
     command_radius: null
@@ -38,9 +38,9 @@ cards:
     secondary_type: Light
     uv: 2
     move: 3
-    damage: 4
+    damage: 2
     range: 3
-    toughness: 5
+    toughness: 3
     company_ap: null
     company_capacity: null
     command_radius: null
@@ -67,9 +67,9 @@ cards:
     secondary_type: null
     uv: 2
     move: 3
-    damage: 4
+    damage: 2
     range: 1
-    toughness: 5
+    toughness: 3
     company_ap: null
     company_capacity: null
     command_radius: null
@@ -96,9 +96,9 @@ cards:
     secondary_type: null
     uv: 2
     move: 3
-    damage: 4
+    damage: 2
     range: 1
-    toughness: 5
+    toughness: 3
     company_ap: null
     company_capacity: null
     command_radius: null
@@ -106,6 +106,7 @@ cards:
     cc_generation: null
     keywords:
       - Fearless
+      - Revenant
     abilities: []
     ultimate: null
     flavor_text: Links longer than lives.
@@ -125,9 +126,9 @@ cards:
     secondary_type: Light
     uv: 2
     move: 3
-    damage: 4
+    damage: 2
     range: 1
-    toughness: 5
+    toughness: 3
     company_ap: null
     company_capacity: null
     command_radius: null
@@ -154,9 +155,9 @@ cards:
     secondary_type: null
     uv: 2
     move: 3
-    damage: 4
+    damage: 2
     range: 1
-    toughness: 5
+    toughness: 3
     company_ap: null
     company_capacity: null
     command_radius: null
@@ -164,6 +165,7 @@ cards:
     cc_generation: null
     keywords:
       - Fearless
+      - Revenant
     abilities: []
     ultimate: null
     flavor_text: Always hiring.
@@ -183,9 +185,9 @@ cards:
     secondary_type: null
     uv: 2
     move: 3
-    damage: 4
+    damage: 2
     range: 1
-    toughness: 5
+    toughness: 3
     company_ap: null
     company_capacity: null
     command_radius: null
@@ -193,6 +195,7 @@ cards:
     cc_generation: null
     keywords:
       - Fearless
+      - Revenant
     abilities: []
     ultimate: null
     flavor_text: Muster from memory.
@@ -212,15 +215,16 @@ cards:
     secondary_type: null
     uv: 2
     move: 3
-    damage: 4
+    damage: 2
     range: 1
-    toughness: 5
+    toughness: 3
     company_ap: null
     company_capacity: null
     command_radius: null
     ap_generation: null
     cc_generation: null
-    keywords: []
+    keywords:
+      - Revenant
     abilities: []
     ultimate: null
     flavor_text: Points without purpose.
@@ -240,9 +244,9 @@ cards:
     secondary_type: Light
     uv: 2
     move: 3
-    damage: 4
+    damage: 2
     range: 1
-    toughness: 5
+    toughness: 3
     company_ap: null
     company_capacity: null
     command_radius: null
@@ -269,9 +273,9 @@ cards:
     secondary_type: null
     uv: 2
     move: 3
-    damage: 4
+    damage: 2
     range: 2
-    toughness: 5
+    toughness: 3
     company_ap: null
     company_capacity: null
     command_radius: null
@@ -298,9 +302,9 @@ cards:
     secondary_type: Light
     uv: 2
     move: 3
-    damage: 4
+    damage: 2
     range: 2
-    toughness: 5
+    toughness: 3
     company_ap: null
     company_capacity: null
     command_radius: null
@@ -328,9 +332,9 @@ cards:
     secondary_type: null
     uv: 2
     move: 3
-    damage: 4
+    damage: 2
     range: 1
-    toughness: 5
+    toughness: 3
     company_ap: null
     company_capacity: null
     command_radius: null
@@ -338,6 +342,7 @@ cards:
     cc_generation: null
     keywords:
       - Fearless
+      - Revenant
     abilities: []
     ultimate: null
     flavor_text: Slow meat.
@@ -419,9 +424,9 @@ cards:
     secondary_type: null
     uv: 2
     move: 3
-    damage: 4
+    damage: 2
     range: 1
-    toughness: 5
+    toughness: 3
     company_ap: null
     company_capacity: null
     command_radius: null
@@ -448,9 +453,9 @@ cards:
     secondary_type: Heavy
     uv: 2
     move: 3
-    damage: 4
+    damage: 2
     range: 1
-    toughness: 5
+    toughness: 3
     company_ap: null
     company_capacity: null
     command_radius: null
@@ -566,9 +571,9 @@ cards:
     secondary_type: Light
     uv: 2
     move: 3
-    damage: 4
+    damage: 2
     range: 1
-    toughness: 5
+    toughness: 3
     company_ap: null
     company_capacity: null
     command_radius: null
@@ -595,9 +600,9 @@ cards:
     secondary_type: null
     uv: 2
     move: 3
-    damage: 4
+    damage: 2
     range: 3
-    toughness: 5
+    toughness: 3
     company_ap: null
     company_capacity: null
     command_radius: null
@@ -624,9 +629,9 @@ cards:
     secondary_type: null
     uv: 2
     move: 3
-    damage: 4
+    damage: 2
     range: 2
-    toughness: 5
+    toughness: 3
     company_ap: null
     company_capacity: null
     command_radius: null
@@ -655,9 +660,9 @@ cards:
     secondary_type: null
     uv: 2
     move: 3
-    damage: 4
+    damage: 2
     range: 1
-    toughness: 5
+    toughness: 3
     company_ap: null
     company_capacity: null
     command_radius: null
@@ -774,9 +779,9 @@ cards:
     secondary_type: null
     uv: 2
     move: 3
-    damage: 4
+    damage: 2
     range: 1
-    toughness: 5
+    toughness: 3
     company_ap: null
     company_capacity: null
     command_radius: null
@@ -1197,9 +1202,9 @@ cards:
     secondary_type: Light
     uv: 1
     move: 3
-    damage: 2
+    damage: 1
     range: 1
-    toughness: 3
+    toughness: 2
     company_ap: null
     company_capacity: null
     command_radius: null
@@ -1228,9 +1233,9 @@ cards:
     secondary_type: Light
     uv: 1
     move: 3
-    damage: 2
+    damage: 1
     range: 1
-    toughness: 4
+    toughness: 2
     company_ap: null
     company_capacity: null
     command_radius: null
@@ -1261,7 +1266,7 @@ cards:
     move: 3
     damage: 2
     range: 1
-    toughness: 4
+    toughness: 3
     company_ap: null
     company_capacity: null
     command_radius: null
@@ -1290,9 +1295,9 @@ cards:
     secondary_type: Light
     uv: 2
     move: 3
-    damage: 3
+    damage: 2
     range: 1
-    toughness: 4
+    toughness: 3
     company_ap: null
     company_capacity: null
     command_radius: null
@@ -1321,9 +1326,9 @@ cards:
     secondary_type: null
     uv: 2
     move: 3
-    damage: 3
+    damage: 2
     range: 1
-    toughness: 4
+    toughness: 3
     company_ap: null
     company_capacity: null
     command_radius: null
@@ -1354,7 +1359,7 @@ cards:
     move: 3
     damage: 2
     range: 1
-    toughness: 5
+    toughness: 3
     company_ap: null
     company_capacity: null
     command_radius: null

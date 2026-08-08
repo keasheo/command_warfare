@@ -476,6 +476,32 @@ select {
   touch-action: none;
 }
 
+.board-viewport {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 3rem - var(--play-bottom-safe));
+  height: calc(100dvh - 3rem - var(--play-bottom-safe));
+}
+
+.board-viewport svg.board-hex-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.board-units,
+.board-units * {
+  pointer-events: none !important;
+}
+
+.board-units-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
 .board-wrap svg {
   display: block;
   width: 100%;
@@ -522,6 +548,59 @@ select {
   min-width: 0;
   min-height: 0;
   background: #0c0e12;
+}
+
+.board-mode-controls {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 3;
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  background: rgba(22, 26, 34, 0.9);
+  border: 1px solid #2a3140;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.board-mode-controls button {
+  padding: 0.35rem 0.65rem;
+  font-size: 0.78rem;
+}
+
+.board-mode-controls button.active {
+  background: #3a5070;
+  border-color: #5a80b0;
+  color: #e8ecf4;
+}
+
+.board-wrap-3d {
+  flex: 1;
+}
+
+.board-viewport-3d,
+.board-3d-canvas {
+  display: block;
+  width: 100%;
+  height: calc(100vh - 3rem - var(--play-bottom-safe));
+  height: calc(100dvh - 3rem - var(--play-bottom-safe));
+}
+
+.board-3d-hint {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.72rem;
+  color: #7a8494;
+  background: rgba(12, 14, 18, 0.75);
+  border-radius: 6px;
+  pointer-events: none;
+  user-select: none;
+  z-index: 2;
 }
 
 .turn-banner {
@@ -1259,6 +1338,12 @@ button.linkish:hover {
   border-top: 1px solid #2a3140;
 }
 
+.lobby-mode-hint {
+  margin: 0.35rem 0 0;
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+
 .lobby-section {
   display: flex;
   flex-direction: column;
@@ -1279,6 +1364,20 @@ button.linkish:hover {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
+}
+
+.lobby-pool-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+}
+
+.lobby-pool-panel {
+  margin-top: 0.75rem;
+}
+
+.lobby-pool-panel h2 {
+  margin-bottom: 0.35rem;
 }
 
 .lobby-action-btn {
@@ -1515,6 +1614,17 @@ button.ghost:hover:not(:disabled) {
 .display-settings-panel .check-field {
   margin: 0.15rem 0;
   font-size: 0.8rem;
+}
+
+.quick-pick-panel {
+  margin: 0.75rem 0;
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--border, #2a3344);
+  border-bottom: 1px solid var(--border, #2a3344);
+}
+
+.quick-pick-panel .row {
+  margin-top: 0.5rem;
 }
 
 .army-io-row {

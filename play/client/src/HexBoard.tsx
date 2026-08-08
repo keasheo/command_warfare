@@ -1,4 +1,8 @@
 import { useCallback, useMemo, useRef, useState } from 'react'
+/**
+ * SVG hex board — terrain, overlays, and unit tokens share one coordinate space.
+ * See terrainVisuals.tsx for terrain art scope notes.
+ */
 import {
   BOARD_SIZE,
   boardMid,
@@ -9,19 +13,20 @@ import {
   neighborsOddR,
   objectiveZoneHexes,
   oddRToPixel,
-  TERRAIN_FILL,
   type GameState,
   type DeathRecord,
   type OddR,
   type SeatId,
   type TerrainKind,
+  type UnitToken,
 } from '../../shared/index'
 import {
-  volcanicFill,
-  VOLCANIC_STROKE,
-  VolcanicMagmaPattern,
+  hexDepthFilterUrl,
+  terrainElevation,
+  terrainPatternFill,
+  terrainStroke,
+  TerrainPatternDefs,
 } from './terrainVisuals'
-
 const OBJECTIVE_NEUTRAL_FILL = 'rgba(220, 180, 80, 0.42)'
 const OBJECTIVE_STROKE = '#e8c040'
 
@@ -48,11 +53,18 @@ const SEAT_UNIT: Record<SeatId, string> = {
   E: 'rgba(180, 130, 50, 0.85)',
 }
 
-/** Primary ring — unit type. */
+const SEAT_TOKEN_FILL: Record<SeatId, string> = {
+  N: '#468cdc',
+  W: '#c85a46',
+  S: '#3ca06e',
+  E: '#b48228',
+}
+
+/** Primary ring — unit kind. */
 const KIND_OUTLINE: Record<'commander' | 'officer' | 'unit', string> = {
-  commander: '#d64545',
-  officer: '#3b7dd8',
-  unit: '#e8e0c8',
+  commander: '#ffe066',
+  officer: '#ffffff',
+  unit: '#f0ece0',
 }
 
 /** Secondary (outer) ring — player seat. */
@@ -66,6 +78,11 @@ const SEAT_OUTLINE: Record<SeatId, string> = {
 const MIN_ZOOM = 0.5
 const MAX_ZOOM = 2.5
 const ZOOM_STEP = 0.25
+
+/** Cursor hex — distinct from terrain ghost (blue/red) and selection (unit ring). */
+const HOVER_FILL = 'rgba(255, 255, 255, 0.34)'
+const HOVER_STROKE = '#c8f8ff'
+const HOVER_STROKE_W = 2.5
 
 function clampZoom(zoom: number) {
   return Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, zoom))
@@ -91,13 +108,25 @@ function isPanButton(button: number) {
   return button === 1 || button === 2
 }
 
+function unitLabel(unit: UnitToken): string {
+  if (unit.kind === 'commander') return unit.seat
+  if (unit.kind === 'officer') return 'O'
+  return 'U'
+}
+
+function hpRatio(unit: UnitToken): number | null {
+  if (unit.toughness == null || unit.toughness <= 0) return null
+  const cur = unit.toughnessCurrent ?? unit.toughness
+  return Math.max(0, Math.min(1, cur / unit.toughness))
+}
+
 export type TerrainGhost = {
   cells: OddR[]
   kind: TerrainKind
   valid: boolean
 }
 
-type Props = {
+export type HexBoardProps = {
   state: GameState
   mySeat: SeatId | null
   selectedUnitId: string | null
@@ -112,7 +141,7 @@ type Props = {
   companyUnitIds?: Set<string>
   /** Aimed target for manual resolution. */
   targetUnitId?: string | null
-  /** Card art URLs keyed by card id. */
+  /** Card art URLs keyed by card id (reserved — 3D tokens used on board). */
   artByCardId?: Record<string, string>
   /** Selected grave for board highlight. */
   selectedDeathId?: string | null
@@ -132,11 +161,11 @@ export function HexBoard({
   deployHintKeys,
   companyUnitIds,
   targetUnitId = null,
-  artByCardId = {},
+  artByCardId: _artByCardId = {},
   selectedDeathId = null,
   showGraves = true,
   hexSize = 6,
-}: Props) {
+}: HexBoardProps) {
   const [hover, setHover] = useState<string | null>(null)
   const [zoom, setZoom] = useState(1)
   const [pan, setPan] = useState({ x: 0, y: 0 })
@@ -263,12 +292,14 @@ export function HexBoard({
       row: number
       cx: number
       cy: number
-      fill: string
+      baseTerrain: TerrainKind
+      overlayFill?: string
       label?: string
       strokeW: number
       stroke: string
       graveLabel?: boolean
       graveTitle?: string
+      hasUnit: boolean
     }> = []
     const n = state.boardSize || BOARD_SIZE
     const mid = boardMid(n)
@@ -283,20 +314,19 @@ export function HexBoard({
       for (let col = 0; col < n; col++) {
         const { x, y } = oddRToPixel(col, row, hexSize)
         const key = hexKey(col, row)
-        let fill = TERRAIN_FILL.plains
+        const kind = terrain[key] ?? 'plains'
+        let overlayFill: string | undefined
         let strokeW = 0.35
-        let stroke = '#3a4250'
+        let stroke = terrainStroke(kind)
         let label: string | undefined
 
         if (showCr) {
           const crSeat = crByHex.get(key)
-          if (crSeat) {
-            fill = SEAT_CR_FILL[crSeat]
-          }
+          if (crSeat) overlayFill = SEAT_CR_FILL[crSeat]
         }
 
         if (ownCrKeys.has(key) && state.terrainStage === 'commandZone') {
-          fill = mySeat ? SEAT_CR_FILL[mySeat] : fill
+          overlayFill = mySeat ? SEAT_CR_FILL[mySeat] : overlayFill
           stroke = '#7ec8ff'
           strokeW = Math.max(strokeW, 0.7)
         }
@@ -307,30 +337,13 @@ export function HexBoard({
             state.terrainStage === 'landMedium' ||
             state.terrainStage === 'landSmall')
         ) {
-          fill = FOREIGN_CR_FILL
-        }
-
-        const kind = terrain[key]
-        if (kind) {
-          if (kind === 'volcanic') {
-            fill = volcanicFill()
-            stroke = VOLCANIC_STROKE
-          } else {
-            fill = TERRAIN_FILL[kind]
-          }
-          if (kind === 'wall') label = '▮'
-          else if (kind === 'water') label = '~'
-          else if (kind === 'forest') label = '♣'
-          else if (kind === 'desert') label = '▴'
-          else if (kind === 'swamp') label = '※'
-          else if (kind === 'hills') label = '⛰'
-          else if (kind === 'plains') label = '·'
+          overlayFill = FOREIGN_CR_FILL
         }
 
         if (state.fortifiedHexes?.[key]) {
           stroke = '#c9a227'
           strokeW = Math.max(strokeW, 1.2)
-          if (!label || label === '·') label = '⛊'
+          label = '⛊'
         }
 
         if (
@@ -338,7 +351,7 @@ export function HexBoard({
           deployHintKeys &&
           deployHintKeys.has(key)
         ) {
-          fill = 'rgba(80, 100, 140, 0.35)'
+          overlayFill = 'rgba(80, 100, 140, 0.35)'
           stroke = '#8eb4e8'
           strokeW = Math.max(strokeW, 0.6)
         } else if (
@@ -346,21 +359,20 @@ export function HexBoard({
           state.phase === 'Deploy' &&
           !deployHintKeys?.size &&
           crByHex.get(key) === mySeat &&
-          !kind
+          !terrain[key]
         ) {
-          fill = 'rgba(80, 100, 140, 0.35)'
+          overlayFill = 'rgba(80, 100, 140, 0.35)'
         }
 
-        if (col === mid && row === mid && !kind) {
-          fill = 'rgba(200, 170, 60, 0.45)'
-          label = '·'
+        if (col === mid && row === mid && !terrain[key]) {
+          overlayFill = 'rgba(200, 170, 60, 0.45)'
           strokeW = 1
         }
 
         const objCell = objAt.get(key)
         if (objCell) {
           const obj = objCell.objective
-          fill = obj.controller
+          overlayFill = obj.controller
             ? SEAT_FILL[obj.controller]
             : OBJECTIVE_NEUTRAL_FILL
           if (objCell.isAnchor) label = '★'
@@ -371,7 +383,7 @@ export function HexBoard({
         for (const seat of Object.keys(state.commanders) as SeatId[]) {
           const c = state.commanders[seat]
           if (c && c.col === col && c.row === row && !unitAt.has(key)) {
-            fill = SEAT_UNIT[seat]
+            overlayFill = SEAT_UNIT[seat]
             label = seat
           }
         }
@@ -379,21 +391,12 @@ export function HexBoard({
         const unit = unitAt.get(key)
         const graves = gravesByHex.get(key)
         if (graves?.length && showGraves && !unit) {
-          fill = 'rgba(58, 52, 68, 0.55)'
+          overlayFill = 'rgba(58, 52, 68, 0.55)'
           label = '†'
           stroke = '#6a6278'
           strokeW = Math.max(strokeW, 0.65)
         }
         if (unit) {
-          const hasArt = Boolean(artByCardId[unit.cardId])
-          fill = hasArt ? '#1a1f28' : SEAT_UNIT[unit.seat]
-          label = hasArt
-            ? undefined
-            : unit.kind === 'commander'
-              ? unit.seat
-              : unit.kind === 'officer'
-                ? 'O'
-                : 'U'
           strokeW = selectedUnitId === unit.id ? 1.8 : 0.9
           if (companyUnitIds?.has(unit.id)) {
             stroke = '#f0d060'
@@ -420,9 +423,9 @@ export function HexBoard({
           }
         }
 
-        if (officerCrKeys?.has(key) && !kind && !unit) {
-          fill = 'rgba(240, 208, 96, 0.2)'
-        } else if (officerCrKeys?.has(key) && kind && !unit) {
+        if (officerCrKeys?.has(key) && !terrain[key] && !unit) {
+          overlayFill = 'rgba(240, 208, 96, 0.2)'
+        } else if (officerCrKeys?.has(key) && terrain[key] && !unit) {
           stroke = '#c4a83a'
           strokeW = Math.max(strokeW, 0.9)
         }
@@ -430,12 +433,10 @@ export function HexBoard({
         if (ghostKeys.has(key) && terrainGhost) {
           stroke = terrainGhost.valid ? '#7ec8ff' : '#e07070'
           strokeW = Math.max(strokeW, 1.5)
-          fill = terrainGhost.valid
+          overlayFill = terrainGhost.valid
             ? 'rgba(100, 180, 255, 0.45)'
             : 'rgba(220, 80, 80, 0.4)'
         }
-
-        if (hover === key) strokeW = Math.max(strokeW, 1.2)
 
         const graveTitle = graves?.length
           ? `Grave: ${graves.map((g) => `${g.cardName} (${g.seat})`).join(', ')}`
@@ -446,12 +447,14 @@ export function HexBoard({
           row,
           cx: x,
           cy: y,
-          fill,
+          baseTerrain: kind,
+          overlayFill,
           label,
           strokeW,
           stroke,
           graveLabel: Boolean(graves?.length && unit),
           graveTitle,
+          hasUnit: Boolean(unit),
         })
       }
     }
@@ -473,12 +476,16 @@ export function HexBoard({
     deployHintKeys,
     companyUnitIds,
     targetUnitId,
-    artByCardId,
     gravesByHex,
     selectedDeath,
     selectedDeathId,
     showGraves,
   ])
+
+  const hoverCell = useMemo(
+    () => (hover ? cells.find((c) => hexKey(c.col, c.row) === hover) ?? null : null),
+    [cells, hover],
+  )
 
   const xs = cells.map((c) => c.cx)
   const ys = cells.map((c) => c.cy)
@@ -662,27 +669,20 @@ export function HexBoard({
           Reset
         </button>
       </div>
+      <div className="board-viewport">
       <svg
         ref={svgRef}
+        className="board-hex-svg"
         viewBox={`${viewX} ${viewY} ${viewWidth} ${viewHeight}`}
         onWheel={handleWheel}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={endPan}
         onPointerCancel={endPan}
+        onMouseLeave={() => setHover(null)}
       >
         <defs>
-          <VolcanicMagmaPattern />
-          {state.units.map((u) => {
-            const { x, y } = oddRToPixel(u.col, u.row, hexSize)
-            return (
-              <clipPath key={`clip-${u.id}`} id={`unit-clip-${u.id}`}>
-                <polygon
-                  points={hexPolygonPoints(x, y, hexSize - 0.45)}
-                />
-              </clipPath>
-            )
-          })}
+          <TerrainPatternDefs />
         </defs>
         <rect
           x={minX}
@@ -694,10 +694,9 @@ export function HexBoard({
         {cells.map((c) => {
           const key = hexKey(c.col, c.row)
           const unit = unitAt.get(key)
-          const artUrl = unit ? artByCardId[unit.cardId] : undefined
-          const r = hexSize - 0.25
-          const kindStroke = unit ? KIND_OUTLINE[unit.kind] : null
-          const seatStroke = unit ? SEAT_OUTLINE[unit.seat] : null
+          const elev = terrainElevation(c.baseTerrain)
+          const r = hexSize - 0.25 + elev
+          const cy = c.cy - elev * 0.35
           const tooltip =
             c.graveTitle && unit
               ? `${unit.cardName} · ${c.graveTitle}`
@@ -707,73 +706,32 @@ export function HexBoard({
                   ? unit.cardName
                   : null
           return (
-            <g
-              key={key}
-              onMouseEnter={() => {
-                setHover(key)
-                onHexHover?.(c.col, c.row)
-              }}
-              onMouseLeave={() => setHover(null)}
-              onClick={() => {
-                onHexClick(c.col, c.row)
-              }}
-              style={{ cursor: 'pointer' }}
-            >
+            <g key={key} pointerEvents="none">
               {tooltip ? <title>{tooltip}</title> : null}
               <polygon
-                points={hexPolygonPoints(c.cx, c.cy, r)}
-                fill={c.fill}
-                stroke={unit ? 'none' : c.stroke}
-                strokeWidth={unit ? 0 : c.strokeW}
+                points={hexPolygonPoints(c.cx, cy, r)}
+                fill={terrainPatternFill(c.baseTerrain)}
+                stroke={c.stroke}
+                strokeWidth={c.strokeW}
+                filter={elev > 0 ? hexDepthFilterUrl() : undefined}
               />
-              {unit && artUrl ? (
-                <image
-                  href={artUrl}
-                  x={c.cx - hexSize * 0.95}
-                  y={c.cy - hexSize * 0.95}
-                  width={hexSize * 1.9}
-                  height={hexSize * 1.9}
-                  preserveAspectRatio="xMidYMid slice"
-                  clipPath={`url(#unit-clip-${unit.id})`}
-                />
-              ) : null}
-              {unit && seatStroke ? (
+              {c.overlayFill ? (
                 <polygon
-                  points={hexPolygonPoints(c.cx, c.cy, r)}
-                  fill="none"
-                  stroke={seatStroke}
-                  strokeWidth={Math.max(1.6, hexSize * 0.28)}
+                  points={hexPolygonPoints(c.cx, cy, r - 0.05)}
+                  fill={c.overlayFill}
+                  stroke="none"
                 />
               ) : null}
-              {unit && kindStroke ? (
-                <polygon
-                  points={hexPolygonPoints(c.cx, c.cy, r - 0.55)}
-                  fill="none"
-                  stroke={kindStroke}
-                  strokeWidth={Math.max(1.1, hexSize * 0.18)}
-                />
-              ) : null}
-              {unit &&
-              (selectedUnitId === unit.id ||
-                targetUnitId === unit.id ||
-                companyUnitIds?.has(unit.id)) ? (
-                <polygon
-                  points={hexPolygonPoints(c.cx, c.cy, r + 0.35)}
-                  fill="none"
-                  stroke={c.stroke}
-                  strokeWidth={Math.max(0.8, c.strokeW * 0.7)}
-                  strokeOpacity={0.95}
-                />
-              ) : null}
-              {c.label ? (
+              {c.label && !c.hasUnit ? (
                 <text
                   x={c.cx}
-                  y={c.cy + hexSize * 0.12}
+                  y={cy + hexSize * 0.12}
                   textAnchor="middle"
                   dominantBaseline="middle"
-                  fill="#0c0e12"
-                  fontSize={Math.max(5, hexSize * 0.7)}
+                  fill="#f0ece0"
+                  fontSize={Math.max(5, hexSize * 0.65)}
                   fontWeight={700}
+                  style={{ textShadow: '0 0 3px rgba(0,0,0,0.8)' }}
                 >
                   {c.label}
                 </text>
@@ -781,7 +739,7 @@ export function HexBoard({
               {c.graveLabel ? (
                 <text
                   x={c.cx + hexSize * 0.55}
-                  y={c.cy + hexSize * 0.55}
+                  y={cy + hexSize * 0.55}
                   textAnchor="middle"
                   dominantBaseline="middle"
                   fill="#b8b0a0"
@@ -795,6 +753,159 @@ export function HexBoard({
             </g>
           )
         })}
+        {hoverCell ? (() => {
+          const elev = terrainElevation(hoverCell.baseTerrain)
+          const r = hexSize - 0.25 + elev
+          const cy = hoverCell.cy - elev * 0.35
+          return (
+            <g className="board-hex-hover" pointerEvents="none">
+              <polygon
+                points={hexPolygonPoints(hoverCell.cx, cy, r - 0.02)}
+                fill={HOVER_FILL}
+                stroke={HOVER_STROKE}
+                strokeWidth={HOVER_STROKE_W}
+              />
+            </g>
+          )
+        })() : null}
+        {cells.map((c) => {
+          const key = hexKey(c.col, c.row)
+          const unit = unitAt.get(key)
+          const elev = terrainElevation(c.baseTerrain)
+          const r = hexSize - 0.25 + elev
+          const cy = c.cy - elev * 0.35
+          const tooltip =
+            c.graveTitle && unit
+              ? `${unit.cardName} · ${c.graveTitle}`
+              : c.graveTitle
+                ? c.graveTitle
+                : unit
+                  ? unit.cardName
+                  : null
+          return (
+            <polygon
+              key={`hit-${key}`}
+              className="board-hex-hit"
+              points={hexPolygonPoints(c.cx, cy, r)}
+              fill="transparent"
+              stroke="none"
+              onMouseEnter={() => {
+                setHover(key)
+                onHexHover?.(c.col, c.row)
+              }}
+              onMouseLeave={() => setHover(null)}
+              onClick={() => {
+                onHexClick(c.col, c.row)
+              }}
+              style={{ cursor: 'pointer' }}
+            >
+              {tooltip ? <title>{tooltip}</title> : null}
+            </polygon>
+          )
+        })}
+        <g className="board-units" pointerEvents="none">
+          {state.units.map((unit) => {
+            const { x, y } = oddRToPixel(unit.col, unit.row, hexSize)
+            const kind =
+              state.terrain?.[hexKey(unit.col, unit.row)] ?? 'plains'
+            const elev = terrainElevation(kind)
+            const cy = y - elev * 0.35
+            const tokenR = hexSize * 0.38
+            const isSelected = selectedUnitId === unit.id
+            const isTarget = targetUnitId === unit.id
+            const inCompany = companyUnitIds?.has(unit.id)
+            const hp = hpRatio(unit)
+            const barW = hexSize * 0.72
+            const barH = Math.max(0.35, hexSize * 0.1)
+            const barY = cy + tokenR + hexSize * 0.12
+            let ringStroke = SEAT_OUTLINE[unit.seat]
+            let ringW = Math.max(0.5, hexSize * 0.1)
+            if (isTarget) {
+              ringStroke = '#e07070'
+              ringW = Math.max(0.7, hexSize * 0.14)
+            } else if (isSelected) {
+              ringStroke = '#7ec8ff'
+              ringW = Math.max(0.7, hexSize * 0.14)
+            } else if (inCompany) {
+              ringStroke = '#f0d060'
+              ringW = Math.max(0.6, hexSize * 0.12)
+            }
+            const kindR =
+              unit.kind === 'commander'
+                ? tokenR * 0.92
+                : unit.kind === 'officer'
+                  ? tokenR * 0.82
+                  : tokenR * 0.72
+            return (
+              <g key={`unit-${unit.id}`}>
+                {(isSelected || isTarget || inCompany) && (
+                  <circle
+                    cx={x}
+                    cy={cy}
+                    r={tokenR + hexSize * 0.14}
+                    fill="none"
+                    stroke={ringStroke}
+                    strokeWidth={ringW}
+                    opacity={0.95}
+                    pointerEvents="none"
+                  />
+                )}
+                <circle
+                  cx={x}
+                  cy={cy}
+                  r={tokenR}
+                  fill={SEAT_TOKEN_FILL[unit.seat]}
+                  stroke={SEAT_OUTLINE[unit.seat]}
+                  strokeWidth={Math.max(0.45, hexSize * 0.08)}
+                  pointerEvents="none"
+                />
+                <circle
+                  cx={x}
+                  cy={cy}
+                  r={kindR}
+                  fill="none"
+                  stroke={KIND_OUTLINE[unit.kind]}
+                  strokeWidth={Math.max(0.35, hexSize * 0.06)}
+                  opacity={0.9}
+                  pointerEvents="none"
+                />
+                <text
+                  x={x}
+                  y={cy + hexSize * 0.04}
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  fill="#0c0e12"
+                  fontSize={Math.max(6, hexSize * 0.55)}
+                  fontWeight={800}
+                  pointerEvents="none"
+                >
+                  {unitLabel(unit)}
+                </text>
+                {hp != null && (
+                  <g pointerEvents="none">
+                    <rect
+                      x={x - barW / 2}
+                      y={barY}
+                      width={barW}
+                      height={barH}
+                      rx={barH / 2}
+                      fill="#1a1f28"
+                      opacity={0.85}
+                    />
+                    <rect
+                      x={x - barW / 2}
+                      y={barY}
+                      width={barW * hp}
+                      height={barH}
+                      rx={barH / 2}
+                      fill={hp > 0.35 ? '#6bcf8e' : '#e06c75'}
+                    />
+                  </g>
+                )}
+              </g>
+            )
+          })}
+        </g>
         <g className="objective-zones" pointerEvents="none">
           {objectiveZoneEdges.map((edge, i) => (
             <polygon
@@ -809,6 +920,7 @@ export function HexBoard({
           ))}
         </g>
       </svg>
+      </div>
     </div>
   )
 }

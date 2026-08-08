@@ -1,0 +1,15 @@
+3D Hex Terrain Textures — CC0 Public Domain
+Source: ambientCG (https://ambientcg.com)
+License: CC0 1.0 Universal — free for any use, no attribution required.
+
+File mapping:
+  plains.jpg   — Grass 001
+  forest.jpg   — Ground 084 (forest floor)
+  hills.jpg    — Gravel 001
+  swamp.jpg    — Ground 050 (mud)
+  desert.jpg   — Ground 097 (sand)
+  water.jpg    — Ground 061 (wet sand, tinted blue in-engine)
+  wall.jpg     — Bricks 085
+  volcanic.jpg — Lava 001
+
+Downloaded at 1K JPG resolution from https://ambientcg.com/get?file=<AssetId>_1K-JPG.zip

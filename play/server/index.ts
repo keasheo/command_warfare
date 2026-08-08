@@ -11,11 +11,19 @@ import {
   reduceJoin,
   reduceLeave,
   validateRoomCode,
+  type AiDifficulty,
   type ClientAction,
   type GameState,
   type SeatId,
   type ServerMessage,
 } from '../shared/index.ts'
+import {
+  aiDisplayName,
+  aiSeatNeedingAction,
+  chooseBotAction,
+  enrichSubmitArmy,
+  thinkDelayMs,
+} from './aiBot.ts'
 import {
   abilityNamesFromCards,
   armyCardIds,
@@ -36,6 +44,9 @@ type RoomData = {
   state: GameState
   lastActivityAt: number
 }
+
+/** Pending AI think timers keyed by room code. */
+const aiThinkTimers = new Map<string, ReturnType<typeof setTimeout>>()
 
 /** Idle timeout in milliseconds (default 30 minutes). */
 const ROOM_IDLE_MS =
@@ -104,6 +115,111 @@ function broadcastRoom(roomCodeKey: string, state: GameState, except?: WebSocket
       send(ws, { type: 'state', state })
     }
   }
+  scheduleAiThink(roomCodeKey)
+}
+
+function clearAiThink(roomCodeKey: string) {
+  const t = aiThinkTimers.get(roomCodeKey)
+  if (t) {
+    clearTimeout(t)
+    aiThinkTimers.delete(roomCodeKey)
+  }
+}
+
+function applyBotAction(
+  roomCodeKey: string,
+  seat: SeatId,
+  action: ClientAction,
+): boolean {
+  const room = rooms.get(roomCodeKey)
+  if (!room) return false
+
+  let serverCards = undefined
+  let serverAbilities = undefined
+  if (action.type === 'submitArmy') {
+    const enriched = enrichSubmitArmy(action)
+    serverCards = enriched.serverCards
+    serverAbilities = enriched.serverAbilities
+  }
+
+  const result = reduceAction(
+    room.state,
+    seat,
+    action,
+    serverCards,
+    serverAbilities,
+  )
+  if (!result.ok) {
+    serverLog('play', `AI action rejected (${action.type}): ${result.error}`, {
+      level: 'warn',
+    })
+    return false
+  }
+  broadcastRoom(roomCodeKey, result.state)
+  return true
+}
+
+function runAiTick(roomCodeKey: string) {
+  aiThinkTimers.delete(roomCodeKey)
+  const room = rooms.get(roomCodeKey)
+  if (!room || room.state.opponent !== 'ai') return
+  const seat = aiSeatNeedingAction(room.state)
+  if (!seat) return
+  const difficulty: AiDifficulty = room.state.aiDifficulty ?? 'medium'
+
+  let action = chooseBotAction(room.state, seat, difficulty)
+  if (!action) return
+
+  // Retry a few times; always fall back to endTurn in Play so the bot never stalls.
+  for (let attempt = 0; attempt < 6; attempt++) {
+    if (applyBotAction(roomCodeKey, seat, action)) return
+    const next = rooms.get(roomCodeKey)
+    if (!next || aiSeatNeedingAction(next.state) !== seat) return
+    if (next.state.phase === 'Play') {
+      action = chooseBotAction(next.state, seat, difficulty)
+      if (!action || action.type === 'endTurn') {
+        applyBotAction(roomCodeKey, seat, { type: 'endTurn' })
+        return
+      }
+      continue
+    }
+    // Setup: try a fresh choose (e.g. next deploy hex)
+    action = chooseBotAction(next.state, seat, difficulty)
+    if (!action) return
+  }
+  const last = rooms.get(roomCodeKey)
+  if (last?.state.phase === 'Play' && aiSeatNeedingAction(last.state) === seat) {
+    applyBotAction(roomCodeKey, seat, { type: 'endTurn' })
+  }
+}
+
+function scheduleAiThink(roomCodeKey: string) {
+  const room = rooms.get(roomCodeKey)
+  if (!room || room.state.opponent !== 'ai') return
+  if (!aiSeatNeedingAction(room.state)) return
+  if (aiThinkTimers.has(roomCodeKey)) return
+  const difficulty: AiDifficulty = room.state.aiDifficulty ?? 'medium'
+  const delay = thinkDelayMs(difficulty)
+  const t = setTimeout(() => runAiTick(roomCodeKey), delay)
+  aiThinkTimers.set(roomCodeKey, t)
+}
+
+function attachAiSeat(state: GameState, difficulty: AiDifficulty): GameState {
+  if (state.players.some((p) => p.isAi)) return state
+  if (state.players.length >= state.maxPlayers) return state
+  const joined = reduceJoin(state, aiDisplayName(difficulty))
+  if (!joined.ok || !joined.seat) {
+    serverLog('play', `Failed to attach AI seat: ${joined.error}`, {
+      level: 'warn',
+    })
+    return state
+  }
+  return {
+    ...joined.state,
+    players: joined.state.players.map((p) =>
+      p.seat === joined.seat ? { ...p, isAi: true, connected: true } : p,
+    ),
+  }
 }
 
 function roomPlayerIps(roomCodeKey: string): Partial<Record<SeatId, string>> {
@@ -147,6 +263,7 @@ function detachClientFromRoom(client: Client) {
   if (!result.ok) return
   room.state = result.state
   if (result.removed && result.state.players.length === 0) {
+    clearAiThink(code)
     rooms.delete(code)
   } else {
     broadcastRoom(code, result.state)
@@ -197,20 +314,44 @@ function handleMessage(ws: WebSocket, raw: string) {
       code = roomCode()
       while (rooms.has(code)) code = roomCode()
     }
-    const maxPlayers = action.maxPlayers === 4 ? 4 : 2
+    const opponent = action.opponent === 'ai' ? 'ai' : 'human'
+    const aiDifficulty: AiDifficulty =
+      action.aiDifficulty === 'easy' ||
+      action.aiDifficulty === 'hard' ||
+      action.aiDifficulty === 'medium'
+        ? action.aiDifficulty
+        : 'medium'
+    // vs AI is always a 2P match for this MVP.
+    const maxPlayers = opponent === 'ai' ? 2 : action.maxPlayers === 4 ? 4 : 2
     const enforceCommanderRace = action.enforceCommanderRace !== false
-    let state = createEmptyRoomState(code, maxPlayers, enforceCommanderRace)
+    let state = createEmptyRoomState(
+      code,
+      maxPlayers,
+      enforceCommanderRace,
+      opponent,
+      opponent === 'ai' ? aiDifficulty : null,
+      action.loadoutPools,
+    )
     const joined = reduceJoin(state, action.name)
     if (!joined.ok) {
       send(ws, { type: 'error', message: joined.error })
       return
     }
     state = joined.state
+    if (opponent === 'ai') {
+      state = attachAiSeat(state, aiDifficulty)
+    }
     rooms.set(code, { state, lastActivityAt: Date.now() })
     client.roomCode = code
     client.seat = joined.seat!
     client.token = joined.token!
     logRoomMembership('create', code, action.name, joined.seat, client.ip)
+    if (opponent === 'ai') {
+      const cpu = state.players.find((p) => p.isAi)
+      if (cpu) {
+        serverLog('play', `${cpu.name} attached to room ${code} as ${cpu.seat}`)
+      }
+    }
     send(ws, {
       type: 'welcome',
       token: joined.token!,
@@ -219,6 +360,7 @@ function handleMessage(ws: WebSocket, raw: string) {
       yourIp: client.ip,
     })
     sendHostRoster(code)
+    scheduleAiThink(code)
     return
   }
 
@@ -235,6 +377,23 @@ function handleMessage(ws: WebSocket, raw: string) {
     const isRejoin = Boolean(
       action.token && room.state.players.some((p) => p.token === action.token),
     )
+    if (room.state.opponent === 'ai' && !isRejoin) {
+      send(ws, {
+        type: 'error',
+        message: 'This room is versus AI — a second human cannot join.',
+      })
+      return
+    }
+    if (isRejoin) {
+      const reclaim = room.state.players.find((p) => p.token === action.token)
+      if (reclaim?.isAi) {
+        send(ws, {
+          type: 'error',
+          message: 'Cannot reclaim the CPU seat.',
+        })
+        return
+      }
+    }
     const joined = reduceJoin(room.state, action.name, action.token)
     if (!joined.ok) {
       send(ws, { type: 'error', message: joined.error })
@@ -454,6 +613,7 @@ setInterval(() => {
   }
   if (toDelete.length > 0) {
     for (const code of toDelete) {
+      clearAiThink(code)
       // Close WebSocket clients in this room
       for (const [ws, c] of clients) {
         if (c.roomCode === code) {
