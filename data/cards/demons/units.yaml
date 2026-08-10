@@ -121,7 +121,7 @@ cards:
     favored_terrain: volcanic
     balance_rev: 13
   - id: 3033116103ed4ce78d8cb9d33fc44134
-    name: Cinder Skitter
+    name: Emberleaf Skitter
     card_type: Unit
     rarity: Common
     unique: false
@@ -142,13 +142,13 @@ cards:
       - Harass
     abilities: []
     ultimate: null
-    flavor_text: Too small to honor. Too fast to ignore.
+    flavor_text: Too small to honor. Too fast to find in the brush.
     complexity: 1
     role: Scout
     tags:
       - demon
       - imp
-    favored_terrain: volcanic
+    favored_terrain: forest
     balance_rev: 13
   - id: 97a3d3f48d634ac8ab511e02825362a9
     name: Cinderlash Fiend
@@ -213,7 +213,7 @@ cards:
     favored_terrain: volcanic
     balance_rev: 13
   - id: f098bda9789540b8834cc22926c8c3f8
-    name: Embertrail Raider
+    name: Ashtrail Raider
     card_type: Unit
     rarity: Common
     unique: false
@@ -240,7 +240,7 @@ cards:
     tags:
       - demon
       - cavalry
-    favored_terrain: volcanic
+    favored_terrain: plains
     balance_rev: 13
   - id: 229414616c8743cfa6c7e3ec52d4bda7
     name: Hellblade
@@ -301,7 +301,7 @@ cards:
     tags:
       - demon
       - hellknight
-    favored_terrain: volcanic
+    favored_terrain: mountains
     balance_rev: 13
   - id: 8f39ce38f5cf482e8fa47af3bc012948
     name: Impstorm
@@ -392,7 +392,7 @@ cards:
     tags:
       - demon
       - beast
-    favored_terrain: volcanic
+    favored_terrain: forest
     balance_rev: 13
   - id: f94d6bcf3e4f4ba98dd07ec9fd8976a6
     name: Scorchfiend Brute
@@ -513,7 +513,7 @@ cards:
     tags:
       - demon
       - scout
-    favored_terrain: volcanic
+    favored_terrain: forest
     balance_rev: 13
   - id: 8da7a41dc7d543b492c9de1f30360ec9
     name: Void Horror
@@ -543,7 +543,7 @@ cards:
     tags:
       - demon
       - beast
-    favored_terrain: volcanic
+    favored_terrain: swamp
     balance_rev: 13
   - id: b6327d8548ef47a3901070a352b082c0
     name: Abyssal Forgeborn
@@ -607,10 +607,10 @@ cards:
     tags:
       - demon
       - cacodemon
-    favored_terrain: volcanic
+    favored_terrain: mountains
     balance_rev: 13
   - id: 7a2a798c407943cd91267f085d7e4474
-    name: Cinder Marauder
+    name: Ashland Marauder
     card_type: Unit
     rarity: Uncommon
     unique: false
@@ -638,7 +638,7 @@ cards:
     tags:
       - demon
       - cavalry
-    favored_terrain: volcanic
+    favored_terrain: plains
     balance_rev: 13
   - id: 320b4b54e3dc46d0b19879144cbd765b
     name: Clawed Pit Beast
@@ -763,7 +763,7 @@ cards:
     tags:
       - demon
       - beast
-    favored_terrain: volcanic
+    favored_terrain: plains
     balance_rev: 13
   - id: ad60b02c305b4901921076452be45b26
     name: Hellknight
@@ -795,7 +795,7 @@ cards:
     tags:
       - demon
       - hellknight
-    favored_terrain: volcanic
+    favored_terrain: mountains
     balance_rev: 26
   - id: 9ecf94adedb242c992a0e2875f37dd62
     name: Link Flayer
@@ -820,13 +820,13 @@ cards:
       - Harass
     abilities: []
     ultimate: null
-    flavor_text: It runs so the wound can keep up.
+    flavor_text: It runs through the mire so the wound can keep up.
     complexity: 2
     role: Damage
     tags:
       - demon
       - melee
-    favored_terrain: volcanic
+    favored_terrain: swamp
     balance_rev: 13
   - id: 9378f4423ed64d2c9ce888e8a22cfa64
     name: Scorchfiend Ravager
@@ -920,7 +920,7 @@ cards:
     tags:
       - demon
       - beast
-    favored_terrain: volcanic
+    favored_terrain: swamp
   - id: 681708a028154f07bfb8249fc7b62593
     name: Ashen Boneflayer
     card_type: Unit
@@ -950,7 +950,7 @@ cards:
     tags:
       - demon
       - melee
-    favored_terrain: volcanic
+    favored_terrain: swamp
     balance_rev: 13
   - id: a85b65a1caeb454d892d4d1616545c3b
     name: Flamecaller
@@ -1046,7 +1046,7 @@ cards:
     tags:
       - demon
       - cavalry
-    favored_terrain: volcanic
+    favored_terrain: plains
     balance_rev: 13
   - id: 086dcd52b6544fa49d89798018af1954
     name: Nightmaw
@@ -1077,7 +1077,7 @@ cards:
     tags:
       - demon
       - beast
-    favored_terrain: volcanic
+    favored_terrain: swamp
     balance_rev: 13
   - id: 7d437eba67114e61883c1e50bfcc9ae8
     name: Tyrant Spawn
@@ -1201,7 +1201,7 @@ cards:
     tags:
       - demon
       - melee
-    favored_terrain: volcanic
+    favored_terrain: swamp
     balance_rev: 13
   - id: e0b6db6a0a3e4e4b8bbf3c5fdb0fd4de
     name: Doomherald
@@ -1325,7 +1325,7 @@ cards:
       - demon
       - support
       - formation
-    favored_terrain: volcanic
+    favored_terrain: plains
     balance_rev: 13
   - id: 844b84558f0f4de4bde56a2b241c5821
     name: Cinder Pair Boss
@@ -1418,5 +1418,5 @@ cards:
       - demon
       - support
       - formation
-    favored_terrain: volcanic
+    favored_terrain: plains
     balance_rev: 13

@@ -1080,7 +1080,7 @@ sections:
 
 
     Non-water terrain has no movement penalty. All passable land (Plains, Forest, Swamp, Desert,
-    Volcanic, Hills) costs 1 Movement to enter.
+    Volcanic, Mountains) costs 1 Movement to enter.
 
 
     Water remains impassable unless a unit has an ability that allows water movement.
@@ -1104,7 +1104,7 @@ sections:
     Favored Terrain
 
 
-    Units on their favored terrain gain +1 Hit. Each race has a favored terrain type:
+    Units on their favored terrain gain that terrain''s Favored bonus. Each race has a favored terrain type:
 
 
     Human, Construct → Plains
@@ -1119,12 +1119,41 @@ sections:
     Undead, Lizardman → Swamp
 
 
-    Dwarf → Hills
+    Dwarf → Mountains
 
 
-    Units may also gain favored terrain bonuses through terrain keywords (Open Ground, Woodwalker,
-    Bogstrider, Duneborn, Ashborn, Hillborn, Deepwalker) which grant the bonus on their matching
-    terrain type regardless of race.
+    Units may also gain Favored bonuses through terrain keywords (Open Ground, Woodwalker, Bogstrider,
+    Duneborn, Ashborn, Mountainborn, Deepwalker) on the matching terrain type regardless of race.
+
+
+    Terrain Effects (Base / Favored)
+
+
+    Plains — Base: none. Favored: +1 Hit when attacking from Plains.
+
+
+    Forest — Base: Ranged attacks (Range 2+) against units in Forest suffer +1 Hit Requirement.
+    Favored: While attacking from Forest, ignore that Forest Base penalty.
+
+
+    Mountains — Base: Attacks against units in Mountains suffer +1 Hit Requirement, unless the attacker
+    is also in Mountains. Favored: While in Mountains, +1 Harden (stacks).
+
+
+    Swamp — Base: Flanking does not grant its bonus against a unit in Swamp unless the attacker is also
+    in Swamp. Favored: While in Swamp, this unit has Guard.
+
+
+    Desert — Base: Units in Desert cannot use Evade. Favored: +1 Hit when attacking from Desert.
+
+
+    Volcanic — Base: Units in Volcanic cannot use Brace. Favored: +1 Damage when attacking from Volcanic.
+
+
+    Water — Base: Only Flying or Amphibious units may occupy Water. Favored: +1 Move while in Water.
+
+
+    Wall — Base: Impassable obstacle (see Walls). Favored: none.
 
 
     Occupancy
@@ -1225,7 +1254,7 @@ sections:
     While a unit occupies a Fortified hex, it has Harden 1 (Piercing ignores Harden as usual).
 
 
-    This is the same Harden state as printed keywords and abilities — track one Harden value per unit.
+    This Harden 1 stacks with printed Harden and other Harden sources.
 
 
     Damage may never be reduced below 1.
@@ -1348,7 +1377,7 @@ sections:
     This unit gains Harden 1 until its next activation or the next round, whichever comes first.
 
 
-    If the unit already has Harden 1 or higher, Brace does not increase it further.
+    Brace Harden stacks with printed Harden and other Harden sources.
 
 
     Brace is a Defensive Reaction only. Abilities never grant Brace.
@@ -1726,8 +1755,8 @@ sections:
     Hit Requirement: The 2d6 sum needed for an attack to succeed.
 
 
-    Harden X: Printed keyword. Reduce incoming Damage by X (highest Harden on the unit applies; do
-    not stack). Piercing ignores Harden. Always print the number (Harden 1, Harden 2, …).
+    Harden X: Printed keyword. Reduce incoming Damage by the sum of all Harden sources on the unit.
+    Piercing ignores Harden. Always print the number (Harden 1, Harden 2, …). Harden sources stack.
 
 
     Isolated: A unit outside its Officer''s Command Radius. Isolated units still belong to their Company
@@ -1751,13 +1780,13 @@ sections:
 
 
     Favored Terrain: Each race has a favored terrain type (Human/Construct → Plains, Beastfolk/Elf
-    → Forest, Dragon/Demon → Volcanic, Undead/Lizardman → Swamp, Dwarf → Hills). Units on their
-    favored terrain gain +1 Hit. Units may also gain this bonus via terrain keywords.
+    → Forest, Dragon/Demon → Volcanic, Undead/Lizardman → Swamp, Dwarf → Mountains). Favored bonuses
+    are terrain-specific (see Terrain Effects). Units may also gain Favored via terrain keywords.
 
 
     Terrain Keywords: Keywords that grant favored terrain bonuses regardless of race: Open Ground
     (Plains), Woodwalker (Forest), Bogstrider (Swamp), Duneborn (Desert), Ashborn (Volcanic),
-    Hillborn (Hills), Deepwalker (Water).
+    Mountainborn (Mountains), Deepwalker (Water).
 
 
     Unit Value (UV): The point value used when constructing armies.'
@@ -1766,39 +1795,42 @@ sections:
   body: 'Terrain | Movement Cost | Notes
 
 
-    Plains | 1 | Default terrain, open ground
+    Plains | 1 | Favored by Human, Construct. Favored: +1 Hit from Plains.
 
 
-    Forest | 1 | Favored by Beastfolk, Elf
+    Forest | 1 | Favored by Beastfolk, Elf. Base: ranged into Forest +1 Hit Requirement. Favored:
+    ignore that penalty when attacking from Forest.
 
 
-    Swamp | 1 | Favored by Undead, Lizardman
+    Swamp | 1 | Favored by Undead, Lizardman. Base: Flanking does not apply unless attacker also in
+    Swamp. Favored: Guard while in Swamp.
 
 
-    Desert | 1 | Favored by none (keyword: Duneborn)
+    Desert | 1 | Favored by none (keyword: Duneborn). Base: cannot use Evade. Favored: +1 Hit from Desert.
 
 
-    Volcanic | 1 | Favored by Dragon, Demon
+    Volcanic | 1 | Favored by Dragon, Demon. Base: cannot use Brace. Favored: +1 Damage from Volcanic.
 
 
-    Hills | 1 | Favored by Dwarf
+    Mountains | 1 | Favored by Dwarf. Base: +1 Hit Requirement vs units here unless attacker also in
+    Mountains. Favored: +1 Harden while in Mountains (stacks).
 
 
-    Water | Impassable | Unless unit has water movement
+    Water | Impassable | Unless Flying or Amphibious. Favored (Deepwalker): +1 Move while in Water.
 
 
-    Wall | Impassable | Blocks occupation; Flying may path over but not end on
+    Wall | Impassable | Blocks occupation; Flying may path over but not end on. No Favored bonus.
 
 
     Road | 1 | First entry grants +1 Movement for activation
 
 
-    Favored Terrain Bonus: +1 Hit while on favored terrain (via race or terrain keyword).
+    Favored Terrain Bonus: Terrain-specific (see Terrain Effects under Movement).
 
 
     Terrain Keywords: Open Ground (Plains), Woodwalker (Forest), Bogstrider (Swamp), Duneborn (Desert),
-    Ashborn (Volcanic), Hillborn (Hills), Deepwalker (Water) grant favored terrain bonuses on matching
-    terrain type regardless of race.'
+    Ashborn (Volcanic), Mountainborn (Mountains), Deepwalker (Water) grant that terrain''s Favored bonus
+    regardless of race.'
 - id: 323503f965
   title: 'Table: Distance | Roll'
   body: 'Roll 2d6. Hit if the sum meets or exceeds the requirement.

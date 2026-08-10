@@ -36,8 +36,8 @@ export function terrainStroke(kind: TerrainKind): string {
       return '#0e280e'
     case 'swamp':
       return '#1a3028'
-    case 'hills':
-      return '#4a4030'
+    case 'mountains':
+      return '#3a3840'
     case 'water':
       return '#1a4878'
     case 'wall':
@@ -52,11 +52,11 @@ export function terrainStroke(kind: TerrainKind): string {
   }
 }
 
-/** Slight vertical lift for hills/walls on the pseudo-3D board. */
+/** Slight vertical lift for mountains/walls on the pseudo-3D board. */
 export function terrainElevation(kind: TerrainKind | undefined): number {
   switch (kind) {
-    case 'hills':
-      return 0.22
+    case 'mountains':
+      return 0.3
     case 'wall':
       return 0.28
     case 'forest':
@@ -255,28 +255,20 @@ function ForestPattern() {
   )
 }
 
-function HillsPattern() {
+function MountainsPattern() {
   return (
-    <TerrainPattern id={terrainPatternId('hills')} base="#6a5a40" accent="#7a6848">
-      <path
-        d="M 0 0.85 Q 0.25 0.55 0.5 0.78 T 1 0.72 L 1 1 L 0 1 Z"
-        fill="#4a4030"
-        opacity={0.65}
-      />
-      <path
-        d="M 0 0.62 Q 0.3 0.38 0.55 0.58 T 1 0.48"
-        fill="none"
-        stroke="#9a8860"
-        strokeWidth={0.035}
-        opacity={0.7}
-      />
-      <path
-        d="M 0 0.42 Q 0.35 0.22 0.7 0.38 T 1 0.28"
-        fill="none"
-        stroke="#8a7850"
-        strokeWidth={0.028}
-        opacity={0.55}
-      />
+    <TerrainPattern id={terrainPatternId('mountains')} base="#4a4850" accent="#5a5860">
+      {/* Back ridge */}
+      <polygon points="0.02,0.92 0.22,0.38 0.42,0.92" fill="#3a3840" opacity={0.9} />
+      <polygon points="0.18,0.38 0.22,0.28 0.26,0.38" fill="#e8e4dc" opacity={0.85} />
+      {/* Mid peak */}
+      <polygon points="0.28,0.95 0.52,0.18 0.76,0.95" fill="#525058" opacity={0.95} />
+      <polygon points="0.46,0.18 0.52,0.08 0.58,0.18" fill="#f2f0ea" opacity={0.9} />
+      {/* Fore peak */}
+      <polygon points="0.58,0.96 0.78,0.42 0.98,0.96" fill="#45434a" opacity={0.92} />
+      <polygon points="0.74,0.42 0.78,0.32 0.82,0.42" fill="#dedad2" opacity={0.8} />
+      {/* Rocky base shadow */}
+      <path d="M 0 0.88 L 1 0.88 L 1 1 L 0 1 Z" fill="#2e2c32" opacity={0.35} />
     </TerrainPattern>
   )
 }
@@ -453,7 +445,7 @@ export function TerrainPatternDefs() {
       <HexDepthFilter />
       <PlainsPattern />
       <ForestPattern />
-      <HillsPattern />
+      <MountainsPattern />
       <SwampPattern />
       <WaterPattern />
       <DesertPattern />

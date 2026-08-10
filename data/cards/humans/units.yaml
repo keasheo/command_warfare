@@ -31,7 +31,7 @@ cards:
       - siege
     favored_terrain: plains
   - id: 2a463f98db56490a89f1a0de4abc9373
-    name: Dusthorn Scouts
+    name: Dusttrail Scouts
     card_type: Unit
     rarity: Common
     unique: false
@@ -52,13 +52,13 @@ cards:
       - Mounted
     abilities: []
     ultimate: null
-    flavor_text: Hooves announce the news before the rider.
+    flavor_text: Where the road ends, they keep riding.
     complexity: 1
     role: Scout
     tags:
       - human
       - cavalry
-    favored_terrain: plains
+    favored_terrain: desert
   - id: 54022879230547c494cfe9e9b381d5e9
     name: Fencepost Pikes
     card_type: Unit
@@ -141,13 +141,13 @@ cards:
       - Harden 1
     abilities: []
     ultimate: null
-    flavor_text: Guards the hearth. Judges your posture.
+    flavor_text: The pass belongs to whoever can hold it.
     complexity: 1
     role: Tank
     tags:
       - human
       - infantry
-    favored_terrain: plains
+    favored_terrain: mountains
     balance_rev: 20
   - id: a3369e7b270143a3bada4c810881d313
     name: Keystone Guard
@@ -171,13 +171,13 @@ cards:
       - Harden 1
     abilities: []
     ultimate: null
-    flavor_text: Stone for skin. Warmth for motive.
+    flavor_text: Stone holds. So do we.
     complexity: 1
     role: Tank
     tags:
       - human
       - infantry
-    favored_terrain: plains
+    favored_terrain: mountains
   - id: e8d45469a03047559f7eff87a99333e3
     name: Lockstep Cohort
     card_type: Unit
@@ -200,13 +200,13 @@ cards:
       - Defender
     abilities: []
     ultimate: null
-    flavor_text: They do not advance. They insist.
+    flavor_text: A shield wall is only as strong as the ground beneath it.
     complexity: 1
     role: Tank
     tags:
       - human
       - infantry
-    favored_terrain: plains
+    favored_terrain: mountains
     balance_rev: 18
   - id: fa2df7f4facf41bd91fd770cf6d5b15e
     name: Marchland Outriders
@@ -348,13 +348,13 @@ cards:
       - Reach
     abilities: []
     ultimate: null
-    flavor_text: Bolts stamped with civic pride and bad news.
+    flavor_text: They learned to shoot where the cliffs give no room to advance.
     complexity: 1
     role: Artillery
     tags:
       - human
       - ranged
-    favored_terrain: plains
+    favored_terrain: mountains
   - id: b5f79804d51f49678691556ec79a1958
     name: Redpike Line
     card_type: Unit
@@ -378,13 +378,13 @@ cards:
       - Defender
     abilities: []
     ultimate: null
-    flavor_text: They flank like accountants with spears.
+    flavor_text: The trees hide the pikes until it is too late.
     complexity: 1
     role: Frontline
     tags:
       - human
       - infantry
-    favored_terrain: plains
+    favored_terrain: forest
   - id: 04b1407041b04f139185086fac930546
     name: Shieldkin
     card_type: Unit
@@ -533,7 +533,7 @@ cards:
       - ranged
     favored_terrain: plains
   - id: 585dbc5854eb4387b3b5d23b9d66364d
-    name: Brandram
+    name: Ridgebreaker
     card_type: Unit
     rarity: Uncommon
     unique: false
@@ -555,13 +555,13 @@ cards:
       - Slow
     abilities: []
     ultimate: null
-    flavor_text: Slow, loud, and historically persuasive.
+    flavor_text: If the enemy takes the ridge, break the ridge.
     complexity: 2
     role: Artillery
     tags:
       - human
       - siege
-    favored_terrain: plains
+    favored_terrain: mountains
   - id: d6878ce46af34dc9af6616699dc3aa02
     name: Column Veterans
     card_type: Unit
@@ -645,13 +645,13 @@ cards:
       - Shieldwall
     abilities: []
     ultimate: null
-    flavor_text: Shields kiss. Enemies learn manners.
+    flavor_text: Every mountain pass has a gate. Sometimes the gate is us.
     complexity: 2
     role: Tank
     tags:
       - human
       - infantry
-    favored_terrain: plains
+    favored_terrain: mountains
   - id: 519bbeb1c8474556977da3c3960ba700
     name: Homeguard Ballista
     card_type: Unit
@@ -676,15 +676,15 @@ cards:
       - Reach
     abilities: []
     ultimate: null
-    flavor_text: Home defense, if home includes a fortress.
+    flavor_text: The fortress begins where the road turns upward.
     complexity: 2
     role: Artillery
     tags:
       - human
       - siege
-    favored_terrain: plains
+    favored_terrain: mountains
   - id: 9b5e2393bc3e4bea86f5bd03d16f04a8
-    name: Oathbound Hounds
+    name: Briarbound Hounds
     card_type: Unit
     rarity: Uncommon
     unique: false
@@ -705,13 +705,13 @@ cards:
       - Frenzy
     abilities: []
     ultimate: null
-    flavor_text: Loyalty with teeth and a work ethic.
+    flavor_text: They follow trails no horse could find.
     complexity: 2
     role: Damage
     tags:
       - human
       - beast
-    favored_terrain: plains
+    favored_terrain: forest
   - id: 95baaf602fa042a0be41671ba4864302
     name: Platebreakers
     card_type: Unit
@@ -742,7 +742,7 @@ cards:
       - infantry
     favored_terrain: plains
   - id: 595a636a9de943f9b9ba0312ddb967f4
-    name: Ridgewind Rider
+    name: Riverwind Rider
     card_type: Unit
     rarity: Uncommon
     unique: false
@@ -764,13 +764,13 @@ cards:
       - Mounted
     abilities: []
     ultimate: null
-    flavor_text: Dinner conversation at altitude.
+    flavor_text: The river is only another road beneath their wings.
     complexity: 2
     role: Damage
     tags:
       - human
       - flying
-    favored_terrain: plains
+    favored_terrain: water
   - id: 975af7631eba4e30a7a51b4539871add
     name: Siege Mammoth
     card_type: Unit
@@ -865,7 +865,7 @@ cards:
       - flying
     favored_terrain: plains
   - id: facc447f1ee44e278c8b42e5e81e9b0c
-    name: Sparkmastiffs
+    name: Brushmastiffs
     card_type: Unit
     rarity: Uncommon
     unique: false
@@ -887,13 +887,13 @@ cards:
       - Harass
     abilities: []
     ultimate: null
-    flavor_text: Finds the soft target. Marks it. Smiles.
+    flavor_text: The first sign of the pack is usually the last.
     complexity: 2
     role: Scout
     tags:
       - human
       - beast
-    favored_terrain: plains
+    favored_terrain: forest
   - id: 50aa8059ede542228a3b0bcc88532c78
     name: Anvil Champion
     card_type: Unit
@@ -917,13 +917,13 @@ cards:
     abilities:
       - Inspire
     ultimate: null
-    flavor_text: Champion by title. Anvil by personality.
+    flavor_text: Every hammer needs an anvil. Every army needs a mountain.
     complexity: 3
     role: Support
     tags:
       - human
       - infantry
-    favored_terrain: plains
+    favored_terrain: mountains
   - id: 6d6324f06a1f404d8862119373f91474
     name: Bastion Wardens
     card_type: Unit
@@ -947,13 +947,13 @@ cards:
       - Harden 1
     abilities: []
     ultimate: null
-    flavor_text: They hold the door. The door holds civilization.
+    flavor_text: Let them climb. We will still be here when they arrive.
     complexity: 3
     role: Tank
     tags:
       - human
       - infantry
-    favored_terrain: plains
+    favored_terrain: mountains
   - id: bf4947615eb7475ebe1395587025996f
     name: Cinderlance Cohort
     card_type: Unit
@@ -977,13 +977,13 @@ cards:
       - Mounted
     abilities: []
     ultimate: null
-    flavor_text: Lances lit. Horses committed.
+    flavor_text: The ground burns. Their lances burn hotter.
     complexity: 4
     role: Damage
     tags:
       - human
       - cavalry
-    favored_terrain: plains
+    favored_terrain: volcanic
     balance_rev: 11
   - id: 828e6c71b56e43289f69184df45e0263
     name: Cleaving Oathsworn
@@ -1037,14 +1037,14 @@ cards:
       - Trample
     abilities: []
     ultimate: null
-    flavor_text: The hearth, but make it tectonic.
+    flavor_text: When the earth shakes, the enemy learns to pray.
     complexity: 4
     role: Tank
     tags:
       - human
       - beast
       - legend
-    favored_terrain: plains
+    favored_terrain: volcanic
     balance_rev: 11
   - id: 324f41e4d3a04115a6cfd54f7bcb29c6
     name: Ordnance Culverin

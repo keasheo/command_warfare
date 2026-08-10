@@ -139,5 +139,12 @@ export function unitStatusPills(unit: UnitToken): UnitStatusPill[] {
   if (unit.nullPulsed) pills.push({ key: 'nullPulsed', label: 'Null Pulse' })
   if (unit.counterattack) pills.push({ key: 'counterattack', label: 'Counterattack' })
   if (unit.spectralStrike) pills.push({ key: 'spectralStrike', label: 'Spectral' })
+  if (unit.frenzyAttackPending) pills.push({ key: 'frenzy', label: 'Frenzy attack' })
+  if (
+    (unit.kind === 'commander' && unit.attackedThisRound) ||
+    (unit.kind !== 'commander' && unit.attackedThisTurn && !unit.frenzyAttackPending)
+  ) {
+    pills.push({ key: 'attacked', label: 'Attacked' })
+  }
   return pills
 }

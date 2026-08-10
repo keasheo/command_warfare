@@ -27,7 +27,7 @@ cards:
     tags:
       - dwarf
       - infantry
-    favored_terrain: hills
+    favored_terrain: mountains
     balance_rev: 11
   - id: bc3dbd19021b4124b3bf2dac603e09e8
     name: Brewguard Militia
@@ -57,7 +57,7 @@ cards:
     tags:
       - dwarf
       - infantry
-    favored_terrain: hills
+    favored_terrain: plains
   - id: 927170cba11741b2a54cad1970d34a1d
     name: Delve Levy
     card_type: Unit
@@ -86,7 +86,7 @@ cards:
     tags:
       - dwarf
       - infantry
-    favored_terrain: hills
+    favored_terrain: mountains
   - id: 356a07307d2f4eaeabac401b6fd5cf5d
     name: Dustfoot Scouts
     card_type: Unit
@@ -109,13 +109,13 @@ cards:
       - Stealth
     abilities: []
     ultimate: null
-    flavor_text: Quiet as settling rock.
+    flavor_text: Quiet as settling dust. Quicker than the mirage.
     complexity: 1
     role: Frontline
     tags:
       - dwarf
       - infantry
-    favored_terrain: hills
+    favored_terrain: desert
     balance_rev: 11
   - id: f7cae35952ef4b458ed6b3cec69399f4
     name: Grudge Bearers
@@ -145,7 +145,7 @@ cards:
     tags:
       - dwarf
       - infantry
-    favored_terrain: hills
+    favored_terrain: mountains
     balance_rev: 11
   - id: 9b73e862449e4587a4a27c3b5d580658
     name: Hold Spearmen
@@ -175,7 +175,7 @@ cards:
     tags:
       - dwarf
       - infantry
-    favored_terrain: hills
+    favored_terrain: mountains
     balance_rev: 11
   - id: 0fe1a1d279ce47ed8de7c97e6b7c5c68
     name: Mine Wardens
@@ -205,7 +205,7 @@ cards:
     tags:
       - dwarf
       - infantry
-    favored_terrain: hills
+    favored_terrain: mountains
     balance_rev: 11
   - id: f2b0a7e101d748cebe133547fef7fdca
     name: Rivet Boys
@@ -235,7 +235,7 @@ cards:
     tags:
       - dwarf
       - infantry
-    favored_terrain: hills
+    favored_terrain: volcanic
   - id: 3def631c5e3c456ca7b5c2d95671314e
     name: Shield Thralls
     card_type: Unit
@@ -264,7 +264,7 @@ cards:
     tags:
       - dwarf
       - infantry
-    favored_terrain: hills
+    favored_terrain: mountains
   - id: 42f22d8b2be54f4697f5f5b3b3ed4172
     name: Sling Crews
     card_type: Unit
@@ -293,7 +293,7 @@ cards:
     tags:
       - dwarf
       - ranged
-    favored_terrain: hills
+    favored_terrain: plains
   - id: bcb9e70254c04af79d22155660b77065
     name: Stonechip Archers
     card_type: Unit
@@ -322,10 +322,10 @@ cards:
     tags:
       - dwarf
       - ranged
-    favored_terrain: hills
+    favored_terrain: mountains
     balance_rev: 11
   - id: 1931edf5d4ae4243b730b2a2f9ecd577
-    name: Tunnel Runners
+    name: Rootway Runners
     card_type: Unit
     rarity: Common
     unique: false
@@ -346,13 +346,13 @@ cards:
       - Scout
     abilities: []
     ultimate: null
-    flavor_text: Maps written in soot.
+    flavor_text: They know every bole-hollow road beneath the canopy.
     complexity: 1
     role: Frontline
     tags:
       - dwarf
       - infantry
-    favored_terrain: hills
+    favored_terrain: forest
     balance_rev: 11
   - id: 40f04a07413a4a4c951faf1071d9e192
     name: Anvil Guard
@@ -383,7 +383,7 @@ cards:
     tags:
       - dwarf
       - infantry
-    favored_terrain: hills
+    favored_terrain: mountains
     balance_rev: 11
   - id: 7d8a88c6e8a74fae929c0a16d184daf8
     name: Deep Lanterns
@@ -414,7 +414,7 @@ cards:
     tags:
       - dwarf
       - magic
-    favored_terrain: hills
+    favored_terrain: volcanic
     balance_rev: 11
   - id: f04f725c93444902a84e1e818ebbd6a2
     name: Deepguard Axes
@@ -444,7 +444,7 @@ cards:
     tags:
       - dwarf
       - infantry
-    favored_terrain: hills
+    favored_terrain: mountains
     balance_rev: 11
   - id: deb7217cfb094df5b95893661099dbe0
     name: Forgebreakers
@@ -474,7 +474,7 @@ cards:
     tags:
       - dwarf
       - infantry
-    favored_terrain: hills
+    favored_terrain: volcanic
     balance_rev: 11
   - id: 06633fc9ceca42f49464cb7fe5616434
     name: Granite Wardens
@@ -504,7 +504,7 @@ cards:
     tags:
       - dwarf
       - infantry
-    favored_terrain: hills
+    favored_terrain: mountains
     balance_rev: 11
   - id: 0f9574ae0dca4c8e82b14c968035038b
     name: Grudge Bolters
@@ -534,7 +534,7 @@ cards:
     tags:
       - dwarf
       - ranged
-    favored_terrain: hills
+    favored_terrain: mountains
     balance_rev: 11
   - id: 4270673526704006bce1528080d7cb47
     name: Hold Crossbows
@@ -565,7 +565,7 @@ cards:
     tags:
       - dwarf
       - ranged
-    favored_terrain: hills
+    favored_terrain: mountains
     balance_rev: 11
   - id: 8667f53c4c564bd8bc6a24567eba624b
     name: Holdmark Archers
@@ -595,7 +595,7 @@ cards:
     tags:
       - dwarf
       - ranged
-    favored_terrain: hills
+    favored_terrain: mountains
     balance_rev: 11
   - id: 25d3fcf457734491a32d80297a5f0c9e
     name: Ironpike Line
@@ -626,7 +626,7 @@ cards:
     tags:
       - dwarf
       - infantry
-    favored_terrain: hills
+    favored_terrain: mountains
     balance_rev: 11
   - id: 652d547bcb0646b881d5dcb114e6f9f0
     name: Mountain Hearthkin
@@ -656,7 +656,7 @@ cards:
     tags:
       - dwarf
       - infantry
-    favored_terrain: hills
+    favored_terrain: mountains
     balance_rev: 11
   - id: a1feaa11a95846d8a38f7c54689dd7cf
     name: Oathsworn Blades
@@ -686,7 +686,7 @@ cards:
     tags:
       - dwarf
       - infantry
-    favored_terrain: hills
+    favored_terrain: plains
     balance_rev: 11
   - id: 47690aa3a5be474d87719a43b007daef
     name: Powder Handlers
@@ -716,7 +716,7 @@ cards:
     tags:
       - dwarf
       - ranged
-    favored_terrain: hills
+    favored_terrain: volcanic
     balance_rev: 11
   - id: ba1fadc95e964e189701ecb1e4e5da09
     name: Rune Halberds
@@ -747,7 +747,7 @@ cards:
     tags:
       - dwarf
       - infantry
-    favored_terrain: hills
+    favored_terrain: mountains
     balance_rev: 11
   - id: 37da14bb06304523ac73b970d9e61724
     name: Siege Sappers
@@ -777,7 +777,7 @@ cards:
     tags:
       - dwarf
       - infantry
-    favored_terrain: hills
+    favored_terrain: mountains
     balance_rev: 11
   - id: 5a585a6b1f0d4759a159b8c0a6fa3ca9
     name: Stone Miners
@@ -808,7 +808,7 @@ cards:
     tags:
       - dwarf
       - infantry
-    favored_terrain: hills
+    favored_terrain: mountains
     balance_rev: 11
   - id: 2f14da0d99ac49f9a5e12054b497755e
     name: Vault Spearmen
@@ -838,7 +838,7 @@ cards:
     tags:
       - dwarf
       - infantry
-    favored_terrain: hills
+    favored_terrain: mountains
     balance_rev: 11
   - id: e16717493a954aeea7bc4d1052eeb111
     name: Cliffbow Veterans
@@ -869,7 +869,7 @@ cards:
     tags:
       - dwarf
       - ranged
-    favored_terrain: hills
+    favored_terrain: mountains
     balance_rev: 12
   - id: b51e1f17fc284b1aa05d07aafeb87fd4
     name: Grudge Lord Champions
@@ -901,10 +901,10 @@ cards:
     tags:
       - dwarf
       - infantry
-    favored_terrain: hills
+    favored_terrain: plains
     balance_rev: 12
   - id: cc513841df1a4bcdbeb22be9b4230a09
-    name: Holdbreaker Hammers
+    name: Fieldbreaker Hammers
     card_type: Unit
     rarity: Rare
     unique: false
@@ -925,13 +925,13 @@ cards:
       - Trample
     abilities: []
     ultimate: null
-    flavor_text: Named in the ledgers of the deep.
+    flavor_text: They crack open walls that dared to stand on open ground.
     complexity: 3
     role: Damage
     tags:
       - dwarf
       - infantry
-    favored_terrain: hills
+    favored_terrain: plains
     balance_rev: 12
   - id: ac0d25c794824133ae61ce93ebbe35c0
     name: Ironbreaker Cannon
@@ -963,7 +963,7 @@ cards:
     tags:
       - dwarf
       - siege
-    favored_terrain: hills
+    favored_terrain: mountains
     balance_rev: 12
   - id: 7df2f890d0c84a7db09cf6179fbcf294
     name: Ironbreaker Phalanx
@@ -996,7 +996,7 @@ cards:
     tags:
       - dwarf
       - infantry
-    favored_terrain: hills
+    favored_terrain: mountains
     balance_rev: 12
   - id: 29818af5022142cfa6088a9e2540f052
     name: King's Gatekeepers
@@ -1027,7 +1027,7 @@ cards:
     tags:
       - dwarf
       - infantry
-    favored_terrain: hills
+    favored_terrain: mountains
     balance_rev: 12
   - id: c7d70ee24c254f6b9cf331fee23a203e
     name: Oathbound Sappers
@@ -1057,7 +1057,7 @@ cards:
     tags:
       - dwarf
       - infantry
-    favored_terrain: hills
+    favored_terrain: plains
     balance_rev: 11
   - id: 1efa781fe329421c93b9f6ca751d1319
     name: Rune Priest of the Deep
@@ -1090,7 +1090,7 @@ cards:
     tags:
       - dwarf
       - magic
-    favored_terrain: hills
+    favored_terrain: volcanic
     balance_rev: 12
   - id: 7e70984926404a09bd3929087c8a4a33
     name: Runed Mortar
@@ -1121,7 +1121,7 @@ cards:
     tags:
       - dwarf
       - siege
-    favored_terrain: hills
+    favored_terrain: mountains
     balance_rev: 12
   - id: a0b2c8cc9a1f47d48eb01ea3bbdadec0
     name: Stoneheart Defenders
@@ -1152,7 +1152,7 @@ cards:
     tags:
       - dwarf
       - infantry
-    favored_terrain: hills
+    favored_terrain: mountains
     balance_rev: 12
   - id: 7b06a5ae8603466dad9f7fc5bb886afb
     name: Thunderpeak Marksmen
@@ -1183,7 +1183,7 @@ cards:
     tags:
       - dwarf
       - ranged
-    favored_terrain: hills
+    favored_terrain: mountains
     balance_rev: 12
   - id: a943afcebe274268a234f6ecae6c6f6a
     name: Deepforge Ancients
@@ -1216,7 +1216,7 @@ cards:
     tags:
       - dwarf
       - infantry
-    favored_terrain: hills
+    favored_terrain: volcanic
     balance_rev: 11
   - id: 8229a4ff65da4c9c8dc1821288b9c355
     name: Delve Drill Lad
@@ -1247,7 +1247,7 @@ cards:
       - dwarf
       - support
       - formation
-    favored_terrain: hills
+    favored_terrain: mountains
   - id: 5f4fddd74b704e64b5b67dc4f96a0574
     name: Shield Link Thrall
     card_type: Unit
@@ -1277,7 +1277,7 @@ cards:
       - dwarf
       - support
       - formation
-    favored_terrain: hills
+    favored_terrain: mountains
   - id: 672f4f4f851f4e89b8a15e11e1162ff7
     name: Anvil Drum
     card_type: Unit
@@ -1307,9 +1307,9 @@ cards:
       - dwarf
       - support
       - formation
-    favored_terrain: hills
+    favored_terrain: plains
   - id: 929fe52575bb4745afb176f9fd1e2cb5
-    name: Tunnel Pair Lead
+    name: Root Pair Lead
     card_type: Unit
     rarity: Common
     unique: false
@@ -1330,14 +1330,14 @@ cards:
       - Formation Drill
     abilities: []
     ultimate: null
-    flavor_text: Two picks, one fault line.
+    flavor_text: Two axes, one root-road, and a schedule the trees respect.
     complexity: 1
     role: Support
     tags:
       - dwarf
       - support
       - formation
-    favored_terrain: hills
+    favored_terrain: forest
   - id: a65e9b981fe5403a9473b6381b95ed1b
     name: Hold Sergeant
     card_type: Unit
@@ -1367,10 +1367,10 @@ cards:
       - dwarf
       - support
       - formation
-    favored_terrain: hills
+    favored_terrain: plains
     balance_rev: 11
   - id: dee88d3edf9746ebac4c7deb88f9d1a6
-    name: Shaft Guide
+    name: Greenway Guide
     card_type: Unit
     rarity: Common
     unique: false
@@ -1391,12 +1391,12 @@ cards:
       - Formation March
     abilities: []
     ultimate: null
-    flavor_text: Sets a pace the thralls can keep.
+    flavor_text: Sets a pace the thralls can keep between the trunks.
     complexity: 1
     role: Support
     tags:
       - dwarf
       - support
       - formation
-    favored_terrain: hills
+    favored_terrain: forest
     balance_rev: 11

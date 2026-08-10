@@ -58,7 +58,7 @@ cards:
       - ranged
     favored_terrain: forest
   - id: 0dbe926e0fa14e02b66f6839c6ceb37d
-    name: Glidersilk
+    name: Windgliders
     card_type: Unit
     rarity: Common
     unique: false
@@ -78,13 +78,13 @@ cards:
     keywords: []
     abilities: []
     ultimate: null
-    flavor_text: Wings of leaf-silk; attitude of a hawk.
+    flavor_text: Silk wings over open sky; attitude of a hawk.
     complexity: 1
     role: Scout
     tags:
       - elf
       - infantry
-    favored_terrain: forest
+    favored_terrain: plains
   - id: a3a394e9d6824047b1698301980268d4
     name: Greenspire Spears
     card_type: Unit
@@ -142,7 +142,7 @@ cards:
     tags:
       - elf
       - infantry
-    favored_terrain: forest
+    favored_terrain: plains
     balance_rev: 10
   - id: 4c64553193604962a19f424a90101cf3
     name: Leafcrown Archers
@@ -203,7 +203,7 @@ cards:
       - nature
     favored_terrain: forest
   - id: b3e2a676766d48219ab8464abdc4f7a3
-    name: Moonfall Owl
+    name: Mistfall Owl
     card_type: Unit
     rarity: Common
     unique: false
@@ -224,13 +224,13 @@ cards:
       - Flying
     abilities: []
     ultimate: null
-    flavor_text: Night shift supervisor with a beak.
+    flavor_text: Hunts the night mist where river and reed become one sky.
     complexity: 1
     role: Scout
     tags:
       - elf
       - flying
-    favored_terrain: forest
+    favored_terrain: water
   - id: 0d8e43cbc07b4472bf5ed2a835ec284a
     name: Mossweave Druid
     card_type: Unit
@@ -291,7 +291,7 @@ cards:
     tags:
       - elf
       - scout
-    favored_terrain: forest
+    favored_terrain: swamp
     balance_rev: 10
   - id: eae4cf12462949bc9b3544473315f583
     name: Startrail Hunter
@@ -322,7 +322,7 @@ cards:
     tags:
       - elf
       - ranged
-    favored_terrain: forest
+    favored_terrain: plains
   - id: 8dc147e037bd4139b4fd9c3679b1db6e
     name: Starwing Falcon
     card_type: Unit
@@ -351,7 +351,7 @@ cards:
     tags:
       - elf
       - flying
-    favored_terrain: forest
+    favored_terrain: mountains
     balance_rev: 10
   - id: 24b855853dcd4175b5a92e8ac7f1f5ba
     name: Thornbite Scout
@@ -412,7 +412,7 @@ cards:
     tags:
       - elf
       - ranged
-    favored_terrain: forest
+    favored_terrain: swamp
   - id: 39dc70c7607f420a9213e8ddb2759ce2
     name: Thornwall Sentinel
     card_type: Unit
@@ -529,7 +529,7 @@ cards:
     tags:
       - elf
       - infantry
-    favored_terrain: forest
+    favored_terrain: plains
   - id: b4806723da004b1d8d4b6254eabd58ca
     name: Constellation Greatbow
     card_type: Unit
@@ -561,7 +561,7 @@ cards:
       - elf
       - ranged
       - siege
-    favored_terrain: forest
+    favored_terrain: mountains
     balance_rev: 10
   - id: 737837820df64aed8c9aba2ddb46e717
     name: Grove Wolf Pack
@@ -623,7 +623,7 @@ cards:
     tags:
       - elf
       - flying
-    favored_terrain: forest
+    favored_terrain: mountains
     balance_rev: 10
   - id: 7e72f506b5654ae29a377844de3b7b87
     name: Living Briar Patch
@@ -654,7 +654,7 @@ cards:
     tags:
       - elf
       - nature
-    favored_terrain: forest
+    favored_terrain: swamp
   - id: 50e432f955164eda91706cf3efdf2222
     name: Lunashade
     card_type: Unit
@@ -685,7 +685,7 @@ cards:
     tags:
       - elf
       - scout
-    favored_terrain: forest
+    favored_terrain: swamp
     balance_rev: 10
   - id: 7bf8743f75774108ad1c0e95593a1f15
     name: Quietbranch Sniper
@@ -779,7 +779,7 @@ cards:
     tags:
       - elf
       - infantry
-    favored_terrain: forest
+    favored_terrain: plains
     balance_rev: 10
   - id: 45a1007394dc45aba37e5164316e4de4
     name: Thornheart Stag
@@ -840,7 +840,7 @@ cards:
     tags:
       - elf
       - beast
-    favored_terrain: forest
+    favored_terrain: plains
   - id: d6d2eb3451774f669c6269037f84e168
     name: Windbow Circle
     card_type: Unit
@@ -902,7 +902,7 @@ cards:
     tags:
       - elf
       - magic
-    favored_terrain: forest
+    favored_terrain: mountains
   - id: 7afb40694a25415a99ad15a92ebebf74
     name: Dryad Circle
     card_type: Unit
@@ -997,7 +997,7 @@ cards:
       - elf
       - nature
       - legend
-    favored_terrain: forest
+    favored_terrain: mountains
     balance_rev: 10
   - id: bd532ef01d214aa7a3e21dcb02443507
     name: Featherblade
@@ -1028,7 +1028,7 @@ cards:
     tags:
       - elf
       - flying
-    favored_terrain: forest
+    favored_terrain: mountains
     balance_rev: 10
   - id: ce725b256db84098841fb7b68ac050f6
     name: Spiritbow of Moonfall
@@ -1126,7 +1126,7 @@ cards:
     favored_terrain: forest
     balance_rev: 11
   - id: c9abd150fac94ddea65f1cc74b6c2ba6
-    name: Spirit Hawk
+    name: Tidehawk
     card_type: Unit
     rarity: Epic
     unique: false
@@ -1149,13 +1149,13 @@ cards:
       - Reach
     abilities: []
     ultimate: null
-    flavor_text: A prayer with talons and excellent eyesight.
+    flavor_text: A prayer with talons, riding the wind above the water.
     complexity: 4
     role: Damage
     tags:
       - elf
       - flying
-    favored_terrain: forest
+    favored_terrain: water
     balance_rev: 11
   - id: 82d694b8e2304a2eb5f032d1d92246ec
     name: Thornclaw Sabertooth
@@ -1186,7 +1186,7 @@ cards:
     tags:
       - elf
       - beast
-    favored_terrain: forest
+    favored_terrain: plains
     balance_rev: 11
   - id: 8310e095a5d34ffaa84df862ee652138
     name: Galewood Wisps
@@ -1340,7 +1340,7 @@ cards:
       - elf
       - support
       - formation
-    favored_terrain: forest
+    favored_terrain: plains
   - id: 6c97c6574c5a4c5b8515813cd008d2a1
     name: Grove Sergeant
     card_type: Unit

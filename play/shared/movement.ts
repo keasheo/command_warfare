@@ -25,7 +25,7 @@ export const TERRAIN_MOVE_COST: Record<TerrainKind, number> = {
   desert: 1,
   swamp: 1,
   volcanic: 1,
-  hills: 1,
+  mountains: 1,
   water: Infinity,
   wall: Infinity,
 }
@@ -233,6 +233,60 @@ export function reachableMoveHexes(opts: {
   }
 
   return best
+}
+
+/**
+ * Hex-step distances along traveler-passable terrain (water/wall blocked unless
+ * Amphibious/Flying). Used by AI to score moves that route *around* water instead
+ * of crow-flying into the shoreline.
+ */
+export function passablePathDistances(opts: {
+  origin: OddR
+  boardSize: number
+  terrain: TerrainMap
+  /** Hexes treated as blocked (enemy units, walls of bodies). Origin is never blocked. */
+  blocked?: Set<string>
+  traveler?: MoveCostOptions
+  maxDist?: number
+}): Map<string, number> {
+  const {
+    origin,
+    boardSize,
+    terrain,
+    blocked = new Set(),
+    traveler = {},
+    maxDist = 80,
+  } = opts
+  const originKey = hexKey(origin.col, origin.row)
+  const dist = new Map<string, number>()
+  if (!inBounds(origin, boardSize)) return dist
+  const startKind = terrainAt(terrain, origin.col, origin.row)
+  // Allow pathing from an impassable "goal" hex (e.g. enemy on water) by treating
+  // the origin as passable for the first hop only.
+  dist.set(originKey, 0)
+  const queue: OddR[] = [origin]
+  while (queue.length) {
+    const cur = queue.shift()!
+    const curKey = hexKey(cur.col, cur.row)
+    const d = dist.get(curKey)!
+    if (d >= maxDist) continue
+    for (const n of neighborsOddR(cur)) {
+      if (!inBounds(n, boardSize)) continue
+      const nk = hexKey(n.col, n.row)
+      if (dist.has(nk)) continue
+      if (nk !== originKey && blocked.has(nk)) continue
+      const kind = terrainAt(terrain, n.col, n.row)
+      if (terrainTraverseCost(kind, traveler) === Infinity) continue
+      dist.set(nk, d + 1)
+      queue.push(n)
+    }
+  }
+  // If origin itself is impassable for this traveler, drop it so callers don't
+  // treat "standing in water" as a valid 0-cost station (goal-only seed).
+  if (terrainTraverseCost(startKind, traveler) === Infinity) {
+    dist.delete(originKey)
+  }
+  return dist
 }
 
 export function reconstructMovePath(

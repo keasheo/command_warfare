@@ -77,12 +77,12 @@ Guard:
   tags:
   - passive
 Harden:
-  description: 'Print as Harden X (e.g. Harden 1, Harden 2). Reduce incoming Damage by X.
-    Damage cannot be reduced below 1 unless another rule states otherwise. Piercing ignores Harden.
-    The Defensive Reaction Brace grants Harden 1 until this unit''s next activation or the next
-    round (whichever first); a unit may not have Brace and Evade at once. Brace is reaction-only —
-    abilities never grant Brace. When multiple Harden sources apply, use the highest X — they do
-    not stack.'
+  description: >-
+    Print as Harden X (e.g. Harden 1, Harden 2). Reduce incoming Damage by the sum of all Harden
+    sources on this unit. Damage cannot be reduced below 1 unless another rule states otherwise.
+    Piercing ignores Harden. The Defensive Reaction Brace grants Harden 1 until this unit's next
+    activation or the next round (whichever first); a unit may not have Brace and Evade at once.
+    Brace is reaction-only — abilities never grant Brace. Harden sources stack (add their X values).
   tags:
   - passive
   - parameterized
@@ -184,13 +184,13 @@ Unyielding:
 
 # ═══════════════════════════════════════════════════════════════════════════
 # FAVORED TERRAIN KEYWORDS
-# Units with these keywords gain +1 Hit while standing on their favored terrain.
+# Each keyword grants that terrain's Favored bonus (not always +1 Hit).
 # Race defaults apply these bonuses automatically; keywords are explicit grants.
 # ═══════════════════════════════════════════════════════════════════════════
 
 Open Ground:
   description: >-
-    This unit fights best on plains. While standing on a Plains hex, this unit's attacks gain +1 Hit.
+    This unit fights best on plains. While attacking from a Plains hex, this unit's attacks gain +1 Hit.
     Human and Construct units have this bonus by default.
   tags:
   - passive
@@ -198,15 +198,15 @@ Open Ground:
 
 Woodwalker:
   description: >-
-    This unit moves silently through forests. While standing on a Forest hex, this unit's attacks gain +1 Hit.
-    Beastfolk and Elf units have this bonus by default.
+    This unit moves silently through forests. While attacking from a Forest hex, this unit ignores the
+    Forest Base ranged Hit Requirement penalty. Beastfolk and Elf units have this bonus by default.
   tags:
   - passive
   - terrain
 
 Bogstrider:
   description: >-
-    This unit is at home in swamps and marshes. While standing on a Swamp hex, this unit's attacks gain +1 Hit.
+    This unit is at home in swamps and marshes. While standing on a Swamp hex, this unit has Guard.
     Undead and Lizardman units have this bonus by default.
   tags:
   - passive
@@ -214,30 +214,31 @@ Bogstrider:
 
 Duneborn:
   description: >-
-    This unit thrives in desert heat. While standing on a Desert hex, this unit's attacks gain +1 Hit.
+    This unit thrives in desert heat. While attacking from a Desert hex, this unit's attacks gain +1 Hit.
   tags:
   - passive
   - terrain
 
 Ashborn:
   description: >-
-    This unit is born of fire and ash. While standing on a Volcanic hex, this unit's attacks gain +1 Hit.
+    This unit is born of fire and ash. While attacking from a Volcanic hex, this unit's attacks gain +1 Damage.
     Dragon and Demon units have this bonus by default.
   tags:
   - passive
   - terrain
 
-Hillborn:
+Mountainborn:
   description: >-
-    This unit commands the high ground. While standing on a Hills hex, this unit's attacks gain +1 Hit.
-    Dwarf units have this bonus by default.
+    This unit commands the high ground. While standing on a Mountains hex, increase this unit's Harden
+    by 1 (Harden sources stack). Dwarf units have this bonus by default.
   tags:
   - passive
   - terrain
 
 Deepwalker:
   description: >-
-    This unit is at home in deep water. While standing on a Water hex (requires Amphibious), this unit's attacks gain +1 Hit.
+    This unit is at home in deep water. While standing on a Water hex (requires Amphibious or Flying),
+    this unit gains +1 Move. 
   tags:
   - passive
   - terrain

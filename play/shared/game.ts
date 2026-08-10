@@ -73,6 +73,8 @@ import {
   hasScoutAbility,
   hasUnitAbility,
   resolveAttack as resolveCombatAttack,
+  terrainBlocksEvade,
+  terrainMoveBonus,
   unitInOfficerRadius,
 } from './combatResolve'
 import {
@@ -751,6 +753,9 @@ function makeUnitToken(opts: {
     nullPulsed: false,
     counterattack: false,
     spectralStrike: false,
+    attackedThisTurn: false,
+    attackedThisRound: false,
+    frenzyAttackPending: false,
   }
 }
 
@@ -1136,6 +1141,12 @@ function advanceTurn(state: GameState, fromSeat: SeatId): GameState {
             activationRow: null,
             claimsThisActivation: [],
             movedBeyondLimit: false,
+            ...(u.seat === fromSeat
+              ? {
+                  attackedThisTurn: false,
+                  frenzyAttackPending: false,
+                }
+              : {}),
           }
         : u,
     ),
@@ -1164,6 +1175,9 @@ function advanceTurn(state: GameState, fromSeat: SeatId): GameState {
           harden: 0,
           evadeActive: false,
           trampleLeftoverDamage: 0,
+          attackedThisTurn: false,
+          attackedThisRound: false,
+          frenzyAttackPending: false,
         }),
       ),
     }
@@ -1646,7 +1660,7 @@ function applyCastEffect(opts: {
         ...state,
         units: state.units.map((u) => {
           const f = hit.find((h) => h.id === u.id)
-          return f ? { ...u, harden: Math.max(u.harden || 0, 1) } : u
+          return f ? { ...u, harden: (u.harden || 0) + 1 } : u
         }),
       },
       note: `Matriarch's Protection: Harden 1 on ${hit.length} Beast(s) of one company in CR.`,
@@ -1696,7 +1710,7 @@ function applyCastEffect(opts: {
           effectName === 'Sealant Coat' ||
           effectName === 'Anvil Advance'
         ) {
-          next.harden = Math.max(u.harden || 0, effectName === 'Scale Ward' ? 2 : 1)
+          next.harden = (u.harden || 0) + (effectName === 'Scale Ward' ? 2 : 1)
         }
         return next
       },
@@ -1724,7 +1738,7 @@ function applyCastEffect(opts: {
       state: {
         ...state,
         units: state.units.map((u) =>
-          u.id === ally.id ? { ...u, harden: Math.max(u.harden || 0, 2) } : u,
+          u.id === ally.id ? { ...u, harden: (u.harden || 0) + 2 } : u,
         ),
       },
       note: `${ally.cardName} gains Harden 2.`,
@@ -1750,10 +1764,7 @@ function applyCastEffect(opts: {
         u.id === occupant.id
           ? {
               ...u,
-              harden: Math.max(
-                u.harden || 0,
-                effectName === 'Fortify Works' || effectName === 'Stoneworks' ? 2 : 1,
-              ),
+              harden: (u.harden || 0) + 1,
             }
           : u,
       )
@@ -2085,7 +2096,7 @@ function applyCastEffect(opts: {
             ? {
                 ...u,
                 tempDamage: (u.tempDamage || 0) + 2,
-                harden: Math.max(u.harden || 0, 1),
+                harden: (u.harden || 0) + 1,
               }
             : u
         }),
@@ -2098,7 +2109,7 @@ function applyCastEffect(opts: {
     const { units, count } = bumpFriends(
       () => true,
       (u) => ({
-        harden: Math.max(u.harden || 0, 2),
+        harden: (u.harden || 0) + 2,
         tempDamage: (u.tempDamage || 0) + 1,
         ...patchUnyielding(),
       }),
@@ -2135,7 +2146,7 @@ function applyCastEffect(opts: {
       () => true,
       (u) => ({
         tempMove: (u.tempMove || 0) + 1,
-        harden: Math.max(u.harden || 0, 1),
+        harden: (u.harden || 0) + 1,
       }),
     )
     return {
@@ -2440,7 +2451,7 @@ function applyCastEffect(opts: {
         units: state.units.map((u) => {
           const f = hit.find((h) => h.id === u.id)
           return f
-            ? { ...u, tempDamage: (u.tempDamage || 0) + 1, harden: Math.max(u.harden || 0, 1) }
+            ? { ...u, tempDamage: (u.tempDamage || 0) + 1, harden: (u.harden || 0) + 1 }
             : u
         }),
       },
@@ -3467,6 +3478,9 @@ export function reduceAction(
               nullPulsed: false,
               counterattack: false,
               spectralStrike: false,
+              attackedThisTurn: false,
+              attackedThisRound: false,
+              frenzyAttackPending: false,
             }
           : null
       if (
@@ -3519,6 +3533,24 @@ export function reduceAction(
         abilities: [],
         ultimate: null,
       } satisfies CardSnapshot)
+
+    const terrainHere = (state.terrain ?? {})[`${cell.col},${cell.row}`]
+    if (terrainHere === 'water') {
+      const kws = snap.keywords ?? []
+      const canWater = kws.some(
+        (k) =>
+          k === 'Amphibious' ||
+          k === 'Flying' ||
+          String(k).startsWith('Amphibious ') ||
+          String(k).startsWith('Flying '),
+      )
+      if (!canWater) {
+        return {
+          ok: false,
+          error: 'Cannot deploy on Water without Amphibious or Flying.',
+        }
+      }
+    }
 
     const unit = makeUnitToken({
       seat,
@@ -3614,7 +3646,7 @@ export function reduceAction(
       }
       return markSlowForActivation({
         ...u,
-        moveRemaining: u.move,
+        moveRemaining: u.move + (u.tempMove || 0) + terrainMoveBonus(baseState, u),
         activationCol: u.col,
         activationRow: u.row,
         claimsThisActivation: [],
@@ -3672,7 +3704,7 @@ export function reduceAction(
       u.id === commander.id
         ? {
             ...u,
-            moveRemaining: u.move,
+            moveRemaining: u.move + (u.tempMove || 0) + terrainMoveBonus(state, u),
             activationCol: u.col,
             activationRow: u.row,
             claimsThisActivation: [],
@@ -3851,14 +3883,18 @@ export function reduceAction(
   if (action.type === 'resolveAttack') {
     if (!seat) return { ok: false, error: 'Not seated.' }
     if (state.phase !== 'Play') return { ok: false, error: 'Not play phase.' }
+    if (state.activeSeat !== seat) return { ok: false, error: 'Not your turn.' }
 
     const attacker = state.units.find((u) => u.id === action.attackerUnitId)
     const defender = state.units.find((u) => u.id === action.defenderUnitId)
     if (!attacker) return { ok: false, error: 'Attacker not found.' }
     if (!defender) return { ok: false, error: 'Defender not found.' }
+    if (attacker.seat !== seat) return { ok: false, error: 'Not your unit.' }
 
     const strikeOverride =
       attacker.trampleLeftoverDamage > 0 ? attacker.trampleLeftoverDamage : undefined
+    const usedTrampleCont = strikeOverride != null && strikeOverride > 0
+    const usedFrenzyBonus = !usedTrampleCont && !!attacker.frenzyAttackPending
 
     let result
     try {
@@ -3878,9 +3914,21 @@ export function reduceAction(
     let next: GameState = {
       ...state,
       pendingTrample: null,
-      units: state.units.map((u) =>
-        u.id === attacker.id ? { ...u, trampleLeftoverDamage: 0 } : u,
-      ),
+      units: state.units.map((u) => {
+        if (u.id !== attacker.id) return u
+        let frenzyAttackPending = u.frenzyAttackPending
+        if (usedFrenzyBonus) frenzyAttackPending = false
+        if (result.killed && hasUnitAbility(u, 'Frenzy')) {
+          frenzyAttackPending = true
+        }
+        return {
+          ...u,
+          trampleLeftoverDamage: 0,
+          attackedThisTurn: u.kind === 'commander' ? u.attackedThisTurn : true,
+          attackedThisRound: u.kind === 'commander' ? true : u.attackedThisRound,
+          frenzyAttackPending,
+        }
+      }),
     }
     if (result.hit) {
       next = applyAttackResultToState(next, defender.id, attacker.id, result)
@@ -4057,6 +4105,9 @@ export function reduceAction(
     }
     if (unit.evadeActive) {
       return { ok: false, error: 'Evade already active on this unit.' }
+    }
+    if (terrainBlocksEvade(state, unit)) {
+      return { ok: false, error: 'Cannot Evade while in Desert.' }
     }
     if (unit.kind === 'commander') {
       return { ok: false, error: 'Commanders cannot Evade.' }

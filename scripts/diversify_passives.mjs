@@ -324,7 +324,7 @@ const COMMANDER_PASSIVES = [
     replace: ['Inspiring Presence'],
     name: 'Stone Highways',
     description:
-      'Dwarf units in your army beginning activation inside Command Radius gain +1 Move and Hillborn (+1 Hit in Hills).',
+      'Dwarf units in your army beginning activation inside Command Radius gain +1 Move and Mountainborn (+1 Harden in Mountains).',
   },
   {
     commander: 'Green Court Sovereign',

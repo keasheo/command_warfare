@@ -104,6 +104,12 @@ export type UnitToken = {
   counterattack: boolean
   /** Spectral Strike — ignores Defender on the next attack this round. */
   spectralStrike: boolean
+  /** Used this unit's normal attack this player turn (cleared when the seat's turn ends). */
+  attackedThisTurn: boolean
+  /** Commander: already attacked this round (cleared at round refresh). */
+  attackedThisRound: boolean
+  /** Frenzy: may make one additional attack after a destroy. */
+  frenzyAttackPending: boolean
 }
 
 export type ObjectiveMarker = {

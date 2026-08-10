@@ -32,7 +32,7 @@ export const TERRAIN_BLOCK_HEIGHT: Record<TerrainKind, number> = {
   water: 0.38,
   wall: 2.1,
   volcanic: 0.92,
-  hills: 1.4,
+  mountains: 1.85,
 }
 
 const TERRAIN_PALETTE: Record<TerrainKind, readonly number[]> = {
@@ -43,7 +43,7 @@ const TERRAIN_PALETTE: Record<TerrainKind, readonly number[]> = {
   water: [0x4898d8, 0x50a0e0, 0x4090d0, 0x58a8e8, 0x3888c8],
   wall: [0x989ca8, 0xa0a4b0, 0x909498, 0xa8acb8, 0x888c98],
   volcanic: [0x685850, 0x706058, 0x605048, 0x786860, 0x584840],
-  hills: [0x9a8868, 0xa29070, 0x928060, 0xaa9878, 0x887858],
+  mountains: [0x6a6870, 0x747278, 0x605e68, 0x7a7880, 0x58565e],
 }
 
 const VARIANT_COLOR_TINT: Record<TerrainKind, readonly number[]> = {
@@ -54,7 +54,7 @@ const VARIANT_COLOR_TINT: Record<TerrainKind, readonly number[]> = {
   water: [0xd0e8ff, 0xc8e4ff, 0xd8ecff, 0xc0e0ff, 0xe0f0ff],
   wall: [0xffffff, 0xf4f4f6, 0xeeeef2, 0xf8f8fa, 0xe8e8ec],
   volcanic: [0xffffff, 0xfff0ec, 0xffe8e4, 0xfff4f0, 0xffe0dc],
-  hills: [0xffffff, 0xf4f2ee, 0xeeeae4, 0xf8f6f2, 0xe8e4de],
+  mountains: [0xffffff, 0xf2f2f4, 0xeaecef, 0xf6f6f8, 0xe4e6ea],
 }
 
 /** Micro-overlap hides seam lines between grid-aligned neighbors. */
@@ -88,10 +88,9 @@ const SHARED = (() => {
   const trunkGeo = new THREE.CylinderGeometry(0.12, 0.16, 1, 5)
   const foliageGeo = new THREE.ConeGeometry(0.55, 1, 6)
   const grassBladeGeo = new THREE.ConeGeometry(0.06, 0.45, 3)
-  // Deeper sphere cap (top ~1/3) — more volume while still a rolling hill top, not a full sphere.
-  const moundTheta = Math.PI / 3
-  const moundGeo = new THREE.SphereGeometry(0.5, 12, 10, 0, Math.PI * 2, 0, moundTheta)
-  moundGeo.translate(0, -0.5 * Math.cos(moundTheta), 0)
+  // Sharp mountain peaks (full cones) — not rolling mounds.
+  const peakGeo = new THREE.ConeGeometry(0.5, 1, 5)
+  const snowCapGeo = new THREE.ConeGeometry(0.22, 0.28, 5)
   const rockGeo = new THREE.DodecahedronGeometry(0.5, 0)
   const waveGeo = new THREE.TorusGeometry(0.5, 0.04, 6, 16)
   const reedGeo = new THREE.CylinderGeometry(0.025, 0.035, 1, 4)
@@ -107,7 +106,8 @@ const SHARED = (() => {
     trunkGeo,
     foliageGeo,
     grassBladeGeo,
-    moundGeo,
+    peakGeo,
+    snowCapGeo,
     rockGeo,
     waveGeo,
     reedGeo,
@@ -120,7 +120,8 @@ const SHARED = (() => {
   const trunkMat = new THREE.MeshStandardMaterial({ color: 0x5a4020, roughness: 0.85, metalness: 0.02 })
   const foliageMat = new THREE.MeshStandardMaterial({ color: 0x388840, roughness: 0.78, metalness: 0.02 })
   const grassMat = new THREE.MeshStandardMaterial({ color: 0x7cb848, roughness: 0.82, metalness: 0.02 })
-  const hillMat = new THREE.MeshStandardMaterial({ color: 0x8a7858, roughness: 0.9, metalness: 0.03 })
+  const mountainMat = new THREE.MeshStandardMaterial({ color: 0x6a6870, roughness: 0.92, metalness: 0.05 })
+  const snowMat = new THREE.MeshStandardMaterial({ color: 0xf0eeea, roughness: 0.78, metalness: 0.02 })
   const rockMat = new THREE.MeshStandardMaterial({ color: 0x888078, roughness: 0.92, metalness: 0.04 })
   const waterWaveMat = new THREE.MeshStandardMaterial({
     color: 0x88d8f8,
@@ -157,7 +158,8 @@ const SHARED = (() => {
     trunkMat,
     foliageMat,
     grassMat,
-    hillMat,
+    mountainMat,
+    snowMat,
     rockMat,
     waterWaveMat,
     reedMat,
@@ -172,7 +174,8 @@ const SHARED = (() => {
     trunkGeo,
     foliageGeo,
     grassBladeGeo,
-    moundGeo,
+    peakGeo,
+    snowCapGeo,
     rockGeo,
     waveGeo,
     reedGeo,
@@ -183,7 +186,8 @@ const SHARED = (() => {
     trunkMat,
     foliageMat,
     grassMat,
-    hillMat,
+    mountainMat,
+    snowMat,
     rockMat,
     waterWaveMat,
     reedMat,
@@ -342,7 +346,7 @@ function addGrassClump(
   }
 }
 
-function addMound(
+function addMountainPeak(
   group: THREE.Group,
   x: number,
   z: number,
@@ -350,16 +354,24 @@ function addMound(
   radius: number,
   scaleW: number,
   scaleH: number,
-  mat: THREE.Material,
-  stretchZ = 1,
+  withSnow: boolean,
 ): void {
-  const mound = new THREE.Mesh(SHARED.moundGeo, mat)
+  const peak = new THREE.Mesh(SHARED.peakGeo, SHARED.mountainMat)
   const h = radius * scaleH
-  mound.position.set(x, topY, z)
-  // Wide + low + optional Z stretch = rolling hill, not an egg.
-  mound.scale.set(radius * scaleW, h, radius * scaleW * stretchZ)
-  markDetailMesh(mound)
-  group.add(mound)
+  const w = radius * scaleW
+  peak.position.set(x, topY + h * 0.5, z)
+  peak.scale.set(w, h, w)
+  markDetailMesh(peak)
+  group.add(peak)
+
+  if (withSnow) {
+    const snow = new THREE.Mesh(SHARED.snowCapGeo, SHARED.snowMat)
+    const snowH = h * 0.22
+    snow.position.set(x, topY + h - snowH * 0.35, z)
+    snow.scale.set(w * 0.55, snowH, w * 0.55)
+    markDetailMesh(snow)
+    group.add(snow)
+  }
 }
 
 function addRock(
@@ -430,23 +442,19 @@ function addVariantDetail(
       }
       break
     }
-    case 'hills': {
-      // 1–2 broad, tall mounds — nearly fill the hex; primary + smaller secondary when two.
-      const moundCount = 1 + (variant % 2)
-      for (let i = 0; i < moundCount; i++) {
-        const { x, z } = randomInHex(rng, radius, 0.06 + rng() * 0.04)
-        const isSecondary = moundCount === 2 && i === 1
-        const sw = isSecondary
-          ? 0.5 + rng() * 0.18
-          : 0.75 + rng() * 0.22
-        const sh = isSecondary
-          ? 0.32 + rng() * 0.14
-          : 0.48 + rng() * 0.22
-        const stretch = 0.9 + rng() * 0.35
-        addMound(detailGroup, x, z, topY, radius, sw, sh, SHARED.hillMat, stretch)
+    case 'mountains': {
+      // 2–3 sharp peaks with optional snow; rocky rubble at the base.
+      const peakCount = 2 + (variant % 2)
+      for (let i = 0; i < peakCount; i++) {
+        const { x, z } = randomInHex(rng, radius, 0.12 + rng() * 0.06)
+        const isPrimary = i === 0
+        const sw = isPrimary ? 0.28 + rng() * 0.1 : 0.16 + rng() * 0.1
+        const sh = isPrimary ? 0.72 + rng() * 0.28 : 0.42 + rng() * 0.22
+        addMountainPeak(detailGroup, x, z, topY, radius, sw, sh, isPrimary || variant >= 3)
       }
-      if (variant >= 2) {
-        const { x, z } = randomInHex(rng, radius, 0.2)
+      const rockCount = 1 + (variant % 3)
+      for (let i = 0; i < rockCount; i++) {
+        const { x, z } = randomInHex(rng, radius, 0.18)
         addRock(detailGroup, x, z, topY, radius, rng)
       }
       break

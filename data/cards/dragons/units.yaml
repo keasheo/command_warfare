@@ -57,7 +57,7 @@ cards:
     tags:
       - dragon
       - infantry
-    favored_terrain: volcanic
+    favored_terrain: mountains
     balance_rev: 12
   - id: e47120bbdc684093994dab678f7fc3b8
     name: Clutch Archers
@@ -87,7 +87,7 @@ cards:
     tags:
       - dragon
       - ranged
-    favored_terrain: volcanic
+    favored_terrain: mountains
     balance_rev: 12
   - id: ba7de625313548d69f263ef62111fe96
     name: Clutchlings
@@ -117,7 +117,7 @@ cards:
     tags:
       - dragon
       - infantry
-    favored_terrain: volcanic
+    favored_terrain: plains
     balance_rev: 12
   - id: 7d65620a8840498cb34a3117cb54f063
     name: Drakelets
@@ -147,7 +147,7 @@ cards:
     tags:
       - dragon
       - flying
-    favored_terrain: volcanic
+    favored_terrain: mountains
     balance_rev: 12
   - id: 85a04c1b964647428cfbb3da85754859
     name: Egg Guard
@@ -207,7 +207,7 @@ cards:
     tags:
       - dragon
       - infantry
-    favored_terrain: volcanic
+    favored_terrain: plains
     balance_rev: 12
   - id: 6841ae17d2044971ad9fe54c1f8e9b11
     name: Kindling Mages
@@ -268,7 +268,7 @@ cards:
     tags:
       - dragon
       - infantry
-    favored_terrain: volcanic
+    favored_terrain: plains
     balance_rev: 25
   - id: 251e8a590bce423d95dabdc14ca12f38
     name: Spire Slingers
@@ -298,7 +298,7 @@ cards:
     tags:
       - dragon
       - ranged
-    favored_terrain: volcanic
+    favored_terrain: mountains
     balance_rev: 12
   - id: 78b35110441942dc94dac5a45ee2ad89
     name: Tailguard Recruits
@@ -359,7 +359,7 @@ cards:
     tags:
       - dragon
       - flying
-    favored_terrain: volcanic
+    favored_terrain: desert
     balance_rev: 12
   - id: fd8f92ed4e33450b82d0f76c6ae74b4d
     name: Ashwing Patrol
@@ -390,7 +390,7 @@ cards:
     tags:
       - dragon
       - flying
-    favored_terrain: volcanic
+    favored_terrain: mountains
   - id: 67685e0fe26d4205adb5e37a1e40021d
     name: Bonebreak Infantry
     card_type: Unit
@@ -478,7 +478,7 @@ cards:
     tags:
       - dragon
       - infantry
-    favored_terrain: volcanic
+    favored_terrain: plains
     balance_rev: 21
   - id: 81abdbf950674c3ba947ca8c6ea59994
     name: Clutch Longbows
@@ -508,7 +508,7 @@ cards:
     tags:
       - dragon
       - ranged
-    favored_terrain: volcanic
+    favored_terrain: mountains
   - id: b5b3eaa00ee640c7b72b41c5eaa5770c
     name: Clutch Spearmen
     card_type: Unit
@@ -537,7 +537,7 @@ cards:
     tags:
       - dragon
       - infantry
-    favored_terrain: volcanic
+    favored_terrain: mountains
     balance_rev: 18
   - id: d175a2d9be9845338cbf1369ea3a7238
     name: Dragonkin Warriors
@@ -596,7 +596,7 @@ cards:
     tags:
       - dragon
       - infantry
-    favored_terrain: volcanic
+    favored_terrain: mountains
   - id: df8c26a6329d4d23a41dcd7ee16932b6
     name: Ember Chanters
     card_type: Unit
@@ -657,7 +657,7 @@ cards:
     tags:
       - dragon
       - infantry
-    favored_terrain: volcanic
+    favored_terrain: mountains
     balance_rev: 26
   - id: 83133197fa2e41b7bffbd542e26db64a
     name: Pyre Acolytes
@@ -747,7 +747,7 @@ cards:
     tags:
       - dragon
       - infantry
-    favored_terrain: volcanic
+    favored_terrain: mountains
   - id: 0d28fa2919324ce7b0af6fee48af6a2f
     name: Spire Marksmen
     card_type: Unit
@@ -777,7 +777,7 @@ cards:
     tags:
       - dragon
       - ranged
-    favored_terrain: volcanic
+    favored_terrain: mountains
   - id: 6db41e5a4ddc47f896bf98fe21c14069
     name: Wing Raiders
     card_type: Unit
@@ -807,7 +807,7 @@ cards:
     tags:
       - dragon
       - flying
-    favored_terrain: volcanic
+    favored_terrain: mountains
   - id: 75ca1ddc9d0b4322a6e5d639ba4e7083
     name: Wyrmling Flyers
     card_type: Unit
@@ -836,7 +836,7 @@ cards:
     tags:
       - dragon
       - flying
-    favored_terrain: volcanic
+    favored_terrain: mountains
   - id: fe16a5702d534048973d6836e26e933c
     name: Bipedal Champion
     card_type: Unit
@@ -866,7 +866,7 @@ cards:
     tags:
       - dragon
       - infantry
-    favored_terrain: volcanic
+    favored_terrain: plains
     balance_rev: 14
   - id: 4952d5ad5d424a7ab100eeaf5da466ee
     name: Clutch Flamebows
@@ -959,7 +959,7 @@ cards:
     tags:
       - dragon
       - infantry
-    favored_terrain: volcanic
+    favored_terrain: mountains
   - id: d9ff5f0a0920437db0ed2ad436fbeaa6
     name: Scale Lexicon Mages
     card_type: Unit
@@ -1019,7 +1019,7 @@ cards:
     tags:
       - dragon
       - ranged
-    favored_terrain: volcanic
+    favored_terrain: mountains
   - id: 5247be7fed49496ba6f6a05cbeb981ad
     name: Stormwing Elite
     card_type: Unit
@@ -1050,7 +1050,7 @@ cards:
     tags:
       - dragon
       - flying
-    favored_terrain: volcanic
+    favored_terrain: mountains
     balance_rev: 19
   - id: 7b96f5ba339a452ba399f24b35dfc1bc
     name: Terror Wyrm
@@ -1082,7 +1082,7 @@ cards:
     tags:
       - dragon
       - flying
-    favored_terrain: volcanic
+    favored_terrain: mountains
     balance_rev: 8
   - id: ea008aa0b1914fa1b7cbcab5ac71898b
     name: Wyrmbone Onager
@@ -1113,7 +1113,7 @@ cards:
     tags:
       - dragon
       - siege
-    favored_terrain: volcanic
+    favored_terrain: mountains
   - id: 86ea87e4915e405ab76f2e05dfcaad97
     name: Ancient Winged Brood
     card_type: Unit
@@ -1144,7 +1144,7 @@ cards:
     tags:
       - dragon
       - flying
-    favored_terrain: volcanic
+    favored_terrain: mountains
     balance_rev: 12
   - id: 28c551a7c7314dad859662a8e3a3a566
     name: Ashen Colossus Kin
@@ -1393,5 +1393,5 @@ cards:
       - dragon
       - support
       - formation
-    favored_terrain: volcanic
+    favored_terrain: mountains
     balance_rev: 12

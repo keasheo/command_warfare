@@ -507,7 +507,8 @@ Court Paths:
   cost: Passive
   description: >-
     Elf units in your army beginning activation inside Command Radius gain +1 Move while in Forest.
-    Additionally, they gain +1 Hit on attacks while in Forest (Woodwalker bonus).
+    Additionally, they gain Woodwalker (ignore Forest Base ranged Hit Requirement penalty when
+    attacking from Forest).
   affects: self
   used_by: Commander
   tags:
@@ -746,7 +747,7 @@ Fen Drift:
   cost: Passive
   description: >-
     Lizardman units in your army beginning activation inside Command Radius gain +1 Move while in
-    Water or Swamp. Additionally, they gain +1 Hit on attacks while in Swamp (Bogstrider bonus).
+    Water or Swamp. Additionally, they gain Bogstrider (Guard while in Swamp).
   affects: self
   used_by: Commander
   tags:
@@ -1465,7 +1466,8 @@ Rootways:
   cost: Passive
   description: >-
     Nature units in your army beginning activation inside Command Radius gain Amphibious (treat
-    Water as normal terrain) and Woodwalker (+1 Hit in Forest).
+    Water as normal terrain) and Woodwalker (ignore Forest Base ranged Hit Requirement penalty when
+    attacking from Forest).
   affects: self
   used_by: Commander
   tags:
@@ -1847,7 +1849,7 @@ Still Paths:
   cost: Passive
   description: >-
     Undead units in your army beginning activation inside Command Radius gain +1 Move and Bogstrider
-    (+1 Hit in Swamp).
+    (Guard while in Swamp).
   affects: self
   used_by: Commander
   tags:
@@ -1859,8 +1861,8 @@ Stone Highways:
   type: Passive
   cost: Passive
   description: >-
-    Dwarf units in your army beginning activation inside Command Radius gain +1 Move and Hillborn
-    (+1 Hit in Hills).
+    Dwarf units in your army beginning activation inside Command Radius gain +1 Move and Mountainborn
+    (+1 Harden in Mountains).
   affects: self
   used_by: Commander
   tags:
@@ -2380,7 +2382,7 @@ Regen Paths:
   cost: Passive
   description: >-
     Beast units in your army beginning activation inside Command Radius gain +1 Move and Woodwalker
-    (+1 Hit in Forest).
+    (ignore Forest Base ranged Hit Requirement penalty when attacking from Forest).
   affects: self
   used_by: Commander
   tags:
@@ -2420,7 +2422,7 @@ Forge Dominion:
 Holdfast Doctrine:
   type: Passive
   cost: Passive
-  description: Dwarf units in your army on Hills within Command Radius gain Harden 1.
+  description: Dwarf units in your army on Mountains within Command Radius gain Harden 1.
   affects: self
   used_by: Commander
   tags:
@@ -2521,7 +2523,7 @@ Hoard Routes:
   type: Passive
   cost: Passive
   description: >-
-    Dragon units in your army beginning activation inside Command Radius gain Ashborn (+1 Hit on
+    Dragon units in your army beginning activation inside Command Radius gain Ashborn (+1 Damage on
     Volcanic).
   affects: self
   used_by: Commander

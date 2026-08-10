@@ -68,7 +68,7 @@ export function CardIdentitySection({
           <option value="forest">Forest</option>
           <option value="swamp">Swamp</option>
           <option value="volcanic">Volcanic</option>
-          <option value="hills">Hills</option>
+          <option value="mountains">Mountains</option>
           <option value="desert">Desert</option>
         </select>
       </Field>

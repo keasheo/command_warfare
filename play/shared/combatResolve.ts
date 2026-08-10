@@ -2,7 +2,17 @@ import { SCOUT_CR_EXTENSION } from './constants'
 import { hexDistOddR, hexKey, type OddR } from './hex'
 import {
   FAVORED_TERRAIN_BONUS,
+  desertBlocksEvade,
+  favoredGrantsDamageBonus,
+  favoredGrantsGuard,
+  favoredGrantsHitBonus,
+  favoredGrantsHardenBonus,
+  favoredGrantsMoveBonus,
+  forestRangedHitPenalty,
+  mountainsDefenseHitPenalty,
+  swampBlocksFlanking,
   unitHasTerrainBonus,
+  volcanicBlocksBrace,
   type TerrainKind,
 } from './terrainPieces'
 import type { CardSnapshot } from './army'
@@ -51,8 +61,31 @@ export function buildHitNeedBreakdown(
   if (unitHasFearPenalty(ctx.attacker)) {
     modifiers.push({ label: 'Fear', delta: 1 })
   }
-  if (ctx.defender.evadeActive) {
+  if (ctx.defender.evadeActive && !desertBlocksEvade(terrainAt(ctx.state, ctx.defender))) {
     modifiers.push({ label: 'Evade', delta: 1 })
+  }
+  // Mountains Base
+  if (
+    mountainsDefenseHitPenalty(
+      terrainAt(ctx.state, ctx.defender),
+      terrainAt(ctx.state, ctx.attacker),
+    )
+  ) {
+    modifiers.push({ label: 'Mountains', delta: 1 })
+  }
+  // Forest Base (ranged into Forest)
+  {
+    const defT = terrainAt(ctx.state, ctx.defender)
+    const atkT = terrainAt(ctx.state, ctx.attacker)
+    const forestFavored = unitHasTerrainBonus(
+      unitRace(ctx.state, ctx.attacker),
+      ctx.attacker.keywords,
+      'forest',
+      favoredTerrainFor(ctx.state, ctx.attacker),
+    )
+    if (forestRangedHitPenalty(defT, atkT, forestFavored, dist)) {
+      modifiers.push({ label: 'Forest', delta: 1 })
+    }
   }
   if (isFavoredTerrainHit(ctx)) {
     modifiers.push({ label: 'Favored', delta: -FAVORED_TERRAIN_BONUS.hit })
@@ -189,6 +222,19 @@ export function strikeDamage(ctx: CombatContext): number {
   }
   let dmg = effectiveDamage(ctx.attacker)
   if (ctx.defender.assaultMarked) dmg += 1
+  // Volcanic Favored: +1 Damage when attacking from Volcanic
+  const atkTerrain = terrainAt(ctx.state, ctx.attacker)
+  if (
+    favoredGrantsDamageBonus(atkTerrain) &&
+    unitHasTerrainBonus(
+      unitRace(ctx.state, ctx.attacker),
+      ctx.attacker.keywords,
+      atkTerrain,
+      favoredTerrainFor(ctx.state, ctx.attacker),
+    )
+  ) {
+    dmg += FAVORED_TERRAIN_BONUS.damage
+  }
   return dmg
 }
 
@@ -204,6 +250,14 @@ export function canTarget(attacker: UnitToken, defender: UnitToken, dist: number
 
 function isFlankingHit(ctx: CombatContext): boolean {
   if (!hasUnitAbility(ctx.attacker, 'Flanking')) return false
+  if (
+    swampBlocksFlanking(
+      terrainAt(ctx.state, ctx.defender),
+      terrainAt(ctx.state, ctx.attacker),
+    )
+  ) {
+    return false
+  }
   return ctx.state.units.some(
     (m) =>
       m.seat === ctx.attacker.seat &&
@@ -214,9 +268,44 @@ function isFlankingHit(ctx: CombatContext): boolean {
 
 function isFavoredTerrainHit(ctx: CombatContext): boolean {
   const terrain = terrainAt(ctx.state, ctx.attacker)
+  if (!favoredGrantsHitBonus(terrain)) return false
   const race = unitRace(ctx.state, ctx.attacker)
   const favored = favoredTerrainFor(ctx.state, ctx.attacker)
   return unitHasTerrainBonus(race, ctx.attacker.keywords, terrain, favored)
+}
+
+function isMountainsFavoredHarden(ctx: DamageContext): boolean {
+  const terrain = terrainAt(ctx.state, ctx.defender)
+  if (!favoredGrantsHardenBonus(terrain)) return false
+  const race = unitRace(ctx.state, ctx.defender)
+  const favored = favoredTerrainFor(ctx.state, ctx.defender)
+  return unitHasTerrainBonus(race, ctx.defender.keywords, terrain, favored)
+}
+
+/** Swamp Favored: Guard while in Swamp (for rules/UI; Disengage wiring uses this). */
+export function unitHasTerrainGuard(state: GameState, unit: UnitToken): boolean {
+  if (hasUnitAbility(unit, 'Guard')) return true
+  const terrain = terrainAt(state, unit)
+  if (!favoredGrantsGuard(terrain)) return false
+  const race = unitRace(state, unit)
+  const favored = favoredTerrainFor(state, unit)
+  return unitHasTerrainBonus(race, unit.keywords, terrain, favored)
+}
+
+export function terrainBlocksEvade(state: GameState, unit: UnitToken): boolean {
+  return desertBlocksEvade(terrainAt(state, unit))
+}
+
+export function terrainBlocksBrace(state: GameState, unit: UnitToken): boolean {
+  return volcanicBlocksBrace(terrainAt(state, unit))
+}
+
+export function terrainMoveBonus(state: GameState, unit: UnitToken): number {
+  const terrain = terrainAt(state, unit)
+  if (!favoredGrantsMoveBonus(terrain)) return 0
+  const race = unitRace(state, unit)
+  const favored = favoredTerrainFor(state, unit)
+  return unitHasTerrainBonus(race, unit.keywords, terrain, favored) ? 1 : 0
 }
 
 export function hitRequirement(ctx: CombatContext, dist: number): number {
@@ -259,9 +348,11 @@ export function applyIncomingDamage(
   const fortified = isHexFortified(state, defender)
   const piercing = !!(attacker && hasUnitAbility(attacker, 'Piercing'))
 
-  const printedHarden = Math.max(defender.harden || 0, hardenRankFromKeywords(defender))
-  let harden = printedHarden
-  if (fortified) harden = Math.max(harden, 1)
+  // Harden sources stack: unit track (printed + grants) + Fortified hex + Mountains Favored.
+  const unitHarden = Math.max(defender.harden || 0, hardenRankFromKeywords(defender))
+  const fortifiedHarden = fortified ? 1 : 0
+  const mountainsHarden = isMountainsFavoredHarden(ctx) ? 1 : 0
+  const harden = unitHarden + fortifiedHarden + mountainsHarden
 
   if (harden > 0 && !piercing) {
     dmg = reduceDamageFloor(dmg, harden)
@@ -300,6 +391,15 @@ export function validateAttack(
   }
   if (attacker.bonePrisoned) {
     return { ok: false, reason: 'Bone Prison — cannot attack this round.' }
+  }
+  const trampleCont = (attacker.trampleLeftoverDamage ?? 0) > 0
+  const frenzyBonus = !!attacker.frenzyAttackPending
+  if (attacker.kind === 'commander') {
+    if (attacker.attackedThisRound && !trampleCont && !frenzyBonus) {
+      return { ok: false, reason: 'Commander already attacked this round.' }
+    }
+  } else if (attacker.attackedThisTurn && !trampleCont && !frenzyBonus) {
+    return { ok: false, reason: 'Already attacked this turn (1 attack per unit).' }
   }
   const dmg = strikeDamage(ctx)
   if (dmg <= 0) {

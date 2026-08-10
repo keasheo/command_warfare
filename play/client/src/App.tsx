@@ -2788,16 +2788,19 @@ export default function App() {
         })
         return
       }
+      // Graves do not block movement — if a unit is selected, move onto the hex.
+      if (selectedUnitId && myPlayTurn) {
+        setSelectedDeathId(null)
+        setReviveAtClickMode(false)
+        send({ type: 'move', unitId: selectedUnitId, col, row })
+        return
+      }
       if (deathsHere.length) {
         const mostRecent = deathsHere[deathsHere.length - 1]!
         setSelectedUnitId(null)
         setSelectedDeathId((prev) =>
           prev === mostRecent.id ? null : mostRecent.id,
         )
-        return
-      }
-      if (selectedUnitId && myPlayTurn) {
-        send({ type: 'move', unitId: selectedUnitId, col, row })
       }
     }
   }
@@ -3226,7 +3229,8 @@ export default function App() {
                 <h2>Resolve</h2>
                 <p className="muted">
                   Auto-resolve attacks (buffs, Harden, Fortification, Evade,
-                  Piercing, Poison, Trample) or use manual override below.
+                  Piercing, Poison, Trample). Each unit may attack once per turn
+                  (Trample leftover and Frenzy excepted).
                 </p>
                 {pendingTrample && trampleAttacker ? (
                   <div className="trample-offer">

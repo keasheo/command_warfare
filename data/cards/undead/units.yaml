@@ -21,12 +21,12 @@ cards:
       - Revenant
     abilities: []
     ultimate: null
-    flavor_text: Burned once.
+    flavor_text: Burned once. Still warm enough to march.
     complexity: 1
     role: Frontline
     tags:
       - undead
-    favored_terrain: swamp
+    favored_terrain: volcanic
     balance_rev: 8
   - id: c24a884794bd4918916344c212a5d779
     name: Bone Archers
@@ -79,12 +79,12 @@ cards:
       - Fearless
     abilities: []
     ultimate: null
-    flavor_text: Loyal past death.
+    flavor_text: Loyal past death—and still sniffing the game trails.
     complexity: 1
     role: Frontline
     tags:
       - undead
-    favored_terrain: swamp
+    favored_terrain: forest
     balance_rev: 8
   - id: a46e5e3788324ad5be44a9c55b5e064b
     name: Chained Dead
@@ -198,12 +198,12 @@ cards:
       - Revenant
     abilities: []
     ultimate: null
-    flavor_text: Muster from memory.
+    flavor_text: Muster from memory across the open field.
     complexity: 1
     role: Frontline
     tags:
       - undead
-    favored_terrain: swamp
+    favored_terrain: plains
     balance_rev: 22
   - id: f27a550d04c24a2e9a1d59b0558957fb
     name: Shambling Spears
@@ -290,7 +290,7 @@ cards:
     role: Artillery
     tags:
       - undead
-    favored_terrain: swamp
+    favored_terrain: plains
     balance_rev: 8
   - id: 70fab50a87e149cc97a786c0fd8151e4
     name: Whisper Choir
@@ -315,12 +315,12 @@ cards:
       - Reach
     abilities: []
     ultimate: null
-    flavor_text: Harmonized dread.
+    flavor_text: Harmonized dread between the trunks.
     complexity: 1
     role: Artillery
     tags:
       - undead
-    favored_terrain: swamp
+    favored_terrain: forest
     balance_rev: 8
   - id: 62856e58fad2485a8a7f35193869af1d
     name: Zombie Horde
@@ -436,12 +436,12 @@ cards:
       - Fear
     abilities: []
     ultimate: null
-    flavor_text: Paid in advance with someone else's life.
+    flavor_text: The pack runs the woods. The woods do not object.
     complexity: 2
     role: Scout
     tags:
       - undead
-    favored_terrain: swamp
+    favored_terrain: forest
     balance_rev: 23
   - id: fddcb85a90654331b82bba5e496d8fca
     name: Crypt Guard
@@ -470,7 +470,7 @@ cards:
     role: Frontline
     tags:
       - undead
-    favored_terrain: swamp
+    favored_terrain: mountains
     balance_rev: 23
   - id: 01ac7d4cb29f43a9af86d9fdb07bfe4c
     name: Crypt Marksmen
@@ -500,7 +500,7 @@ cards:
     role: Artillery
     tags:
       - undead
-    favored_terrain: swamp
+    favored_terrain: mountains
     balance_rev: 11
   - id: 2987900f8d4e4612bdbf082cc5c4d95c
     name: Crypt Ram
@@ -530,7 +530,7 @@ cards:
     role: Frontline
     tags:
       - undead
-    favored_terrain: swamp
+    favored_terrain: mountains
     balance_rev: 11
   - id: f435d574e96547238d0040e2d61ca29a
     name: Death Knights
@@ -560,7 +560,7 @@ cards:
     role: Damage
     tags:
       - undead
-    favored_terrain: swamp
+    favored_terrain: mountains
   - id: 8973d37362d64d00befd7ed318302cb4
     name: Ghoul Packs
     card_type: Unit
@@ -583,12 +583,12 @@ cards:
       - Frenzy
     abilities: []
     ultimate: null
-    flavor_text: Paid in advance with someone else's life.
+    flavor_text: They haunt the thickets that good armies avoid.
     complexity: 2
     role: Damage
     tags:
       - undead
-    favored_terrain: swamp
+    favored_terrain: forest
     balance_rev: 11
   - id: 66d71228643d473089a8018742c35bbf
     name: Grave Archers
@@ -767,7 +767,7 @@ cards:
     role: Frontline
     tags:
       - undead
-    favored_terrain: swamp
+    favored_terrain: mountains
     balance_rev: 11
   - id: 7fa34383506a4a11a6b31a63a77224d7
     name: Tomb Spearmen
@@ -796,7 +796,7 @@ cards:
     role: Frontline
     tags:
       - undead
-    favored_terrain: swamp
+    favored_terrain: mountains
     balance_rev: 11
   - id: ff6b113fb49f4526901200b7e61d3d3a
     name: Wight Blades
@@ -826,7 +826,7 @@ cards:
     role: Damage
     tags:
       - undead
-    favored_terrain: swamp
+    favored_terrain: mountains
     balance_rev: 11
   - id: 223bd92c7a6e40c59359116785afa7fb
     name: Ancient Wight King
@@ -857,7 +857,7 @@ cards:
     role: Damage
     tags:
       - undead
-    favored_terrain: swamp
+    favored_terrain: mountains
     balance_rev: 23
   - id: caf959df745145f8b6f70768608f9f97
     name: Deathlord Cavalcade
@@ -887,7 +887,7 @@ cards:
     role: Damage
     tags:
       - undead
-    favored_terrain: swamp
+    favored_terrain: plains
     balance_rev: 12
   - id: dd3ce8894e4144779f69808463de0deb
     name: Lich Cadre
@@ -979,7 +979,7 @@ cards:
     role: Damage
     tags:
       - undead
-    favored_terrain: swamp
+    favored_terrain: plains
     balance_rev: 23
   - id: 7e0b74b3d0e24bd280e283e4de14092b
     name: Pale Bannermen
@@ -1008,7 +1008,7 @@ cards:
     role: Support
     tags:
       - undead
-    favored_terrain: swamp
+    favored_terrain: plains
     balance_rev: 15
   - id: 5e45c3a8c4b54a14af8749d74e54e2c9
     name: Revenant Legion
@@ -1094,12 +1094,12 @@ cards:
       - Reach
     abilities: []
     ultimate: null
-    flavor_text: The ledger never closes.
+    flavor_text: It throws what the forge refuses to keep.
     complexity: 3
     role: Artillery
     tags:
       - undead
-    favored_terrain: swamp
+    favored_terrain: volcanic
     balance_rev: 12
   - id: 8c2993956d274f7092ed015081b9a5e6
     name: Tomb Eternal
@@ -1130,7 +1130,7 @@ cards:
     role: Tank
     tags:
       - undead
-    favored_terrain: swamp
+    favored_terrain: mountains
     balance_rev: 12
   - id: e8138930b1dd407bb5f9ca26a5efcd6f
     name: Bone Colossus
@@ -1160,7 +1160,7 @@ cards:
     role: Damage
     tags:
       - undead
-    favored_terrain: swamp
+    favored_terrain: mountains
     balance_rev: 12
   - id: 4780d3e57c9c4c4d9d7cd8df3f1c2a88
     name: Grave Tyrant
@@ -1190,7 +1190,7 @@ cards:
     role: Tank
     tags:
       - undead
-    favored_terrain: swamp
+    favored_terrain: mountains
     balance_rev: 15
   - id: 7c1a10cff649404480a4b30085d7d65e
     name: Bone Drill Thrall
@@ -1245,14 +1245,14 @@ cards:
       - Formation Guard
     abilities: []
     ultimate: null
-    flavor_text: Interlock ribs. Pretend it helps.
+    flavor_text: Interlock ribs beneath the roots. Pretend the forest notices.
     complexity: 1
     role: Support
     tags:
       - undead
       - support
       - formation
-    favored_terrain: swamp
+    favored_terrain: forest
     balance_rev: 13
   - id: c8e20cd9e85c49dcba51750d0623e866
     name: Dirge Horn
@@ -1369,12 +1369,12 @@ cards:
       - Formation March
     abilities: []
     ultimate: null
-    flavor_text: Never loses the tail of the march.
+    flavor_text: Never loses the tail of the march on the long road.
     complexity: 1
     role: Support
     tags:
       - undead
       - support
       - formation
-    favored_terrain: swamp
+    favored_terrain: plains
     balance_rev: 13

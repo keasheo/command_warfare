@@ -68,7 +68,7 @@ export type CardSnapshot = {
   apGeneration: number | null
   /** Commander printed CC generation. */
   ccGeneration: number | null
-  /** Favored terrain for combat bonuses (plains, forest, swamp, volcanic, hills, desert). */
+  /** Favored terrain for combat bonuses (plains, forest, swamp, volcanic, mountains, desert). */
   favoredTerrain?: string | null
   /** Optional keywords for movement / combat (Flying, Amphibious, …). */
   keywords?: string[] | null

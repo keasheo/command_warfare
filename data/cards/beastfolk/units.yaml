@@ -21,13 +21,13 @@ cards:
       - Charge
     abilities: []
     ultimate: null
-    flavor_text: Tusks on a budget.
+    flavor_text: Tusks on a budget, thunder across open ground.
     complexity: 1
     role: Frontline
     tags:
       - beastfolk
       - beast
-    favored_terrain: forest
+    favored_terrain: plains
   - id: d52cc4a7fba843af9d5d835cdcab3825
     name: Brush Stalkers
     card_type: Unit
@@ -110,13 +110,13 @@ cards:
       - Pack
     abilities: []
     ultimate: null
-    flavor_text: Horizon scouts.
+    flavor_text: Horizon scouts. The grass is their map.
     complexity: 1
     role: Scout
     tags:
       - beastfolk
       - cavalry
-    favored_terrain: forest
+    favored_terrain: plains
   - id: d6fb6c0961604b198ae664e3eb243448
     name: Herd Guard
     card_type: Unit
@@ -174,7 +174,7 @@ cards:
     tags:
       - beastfolk
       - beast
-    favored_terrain: forest
+    favored_terrain: plains
   - id: a16a9dba4a7e4c13adc761ce3ce3ac1f
     name: Howl Choir
     card_type: Unit
@@ -404,13 +404,13 @@ cards:
       - Frenzy
     abilities: []
     ultimate: null
-    flavor_text: The hunt has ranks.
+    flavor_text: The hunt has ranks—and the fen keeps the score.
     complexity: 2
     role: Damage
     tags:
       - beastfolk
       - beast
-    favored_terrain: forest
+    favored_terrain: swamp
     balance_rev: 13
   - id: f7be0c62614c47819e95025d6feee575
     name: Centaur Lancers
@@ -442,7 +442,7 @@ cards:
     tags:
       - beastfolk
       - cavalry
-    favored_terrain: forest
+    favored_terrain: plains
     balance_rev: 13
   - id: 3a214788565248079fa82b2c222b7c8d
     name: Grove Chanters
@@ -563,7 +563,7 @@ cards:
     tags:
       - beastfolk
       - beast
-    favored_terrain: forest
+    favored_terrain: mountains
     balance_rev: 13
   - id: 3f171607a97f492cb8a4982f1dc5daa0
     name: Pack Flankers
@@ -625,7 +625,7 @@ cards:
     tags:
       - beastfolk
       - beast
-    favored_terrain: forest
+    favored_terrain: mountains
     balance_rev: 13
   - id: 19dda22651ed46e08db67589e36235e6
     name: Spear Centaurs
@@ -657,7 +657,7 @@ cards:
     tags:
       - beastfolk
       - cavalry
-    favored_terrain: forest
+    favored_terrain: plains
     balance_rev: 13
   - id: 810cc50f27f04495bceaef2433b691fa
     name: Stampede Herd
@@ -688,7 +688,7 @@ cards:
     tags:
       - beastfolk
       - beast
-    favored_terrain: forest
+    favored_terrain: plains
     balance_rev: 13
   - id: 7de09565464346b9bf0b102742fdcd0d
     name: Totem Bearers
@@ -747,7 +747,7 @@ cards:
     tags:
       - beastfolk
       - siege
-    favored_terrain: forest
+    favored_terrain: mountains
     balance_rev: 13
   - id: deb11c779e8140aeba83f527fcfb69ac
     name: Tusk Guard
@@ -778,7 +778,7 @@ cards:
     tags:
       - beastfolk
       - beast
-    favored_terrain: forest
+    favored_terrain: mountains
     balance_rev: 13
   - id: 4fcf8f88c13c4310bc6643503dd4e142
     name: War Beast
@@ -809,7 +809,7 @@ cards:
     tags:
       - beastfolk
       - beast
-    favored_terrain: forest
+    favored_terrain: mountains
     balance_rev: 13
   - id: 11c2777775c44d959dd594c021f4af41
     name: Werewolf Kin
@@ -902,7 +902,7 @@ cards:
     role: Damage
     tags:
       - beastfolk
-    favored_terrain: forest
+    favored_terrain: plains
     balance_rev: 13
   - id: 9204e128b1ef4f87a3766811dc054d29
     name: Den Mothers
@@ -927,12 +927,12 @@ cards:
       - Guard
     abilities: []
     ultimate: null
-    flavor_text: Legend with footprints.
+    flavor_text: They raise packs in the blackwater dens.
     complexity: 3
     role: Support
     tags:
       - beastfolk
-    favored_terrain: forest
+    favored_terrain: swamp
     balance_rev: 13
   - id: 61b9c42608a54315a0f9564a6e4ce120
     name: Herdbreaker Rams
@@ -956,12 +956,12 @@ cards:
       - Unyielding
     abilities: []
     ultimate: null
-    flavor_text: Legend with footprints.
+    flavor_text: They own the high ground the herd cannot hold.
     complexity: 3
     role: Tank
     tags:
       - beastfolk
-    favored_terrain: forest
+    favored_terrain: mountains
     balance_rev: 13
   - id: e2525f898cb144698352258380e60569
     name: Horned Avalanche
@@ -986,12 +986,12 @@ cards:
       - Trample
     abilities: []
     ultimate: null
-    flavor_text: Legend with footprints.
+    flavor_text: When the slope decides to stand up and charge.
     complexity: 3
     role: Damage
     tags:
       - beastfolk
-    favored_terrain: forest
+    favored_terrain: mountains
     balance_rev: 13
   - id: 1f80b286f90e4b5bbf0f8c310c9440bf
     name: Minotaur Warlords
@@ -1021,7 +1021,7 @@ cards:
     role: Damage
     tags:
       - beastfolk
-    favored_terrain: forest
+    favored_terrain: mountains
     balance_rev: 13
   - id: b27b2b72a2b54a579062602d581542c1
     name: Moon Pack
@@ -1078,12 +1078,12 @@ cards:
       - Flanking
     abilities: []
     ultimate: null
-    flavor_text: Legend with footprints.
+    flavor_text: Footfalls vanish in the reed-mud.
     complexity: 3
     role: Scout
     tags:
       - beastfolk
-    favored_terrain: forest
+    favored_terrain: swamp
     balance_rev: 13
   - id: 0d37dad863cf451fb6f3c578aa7bd848
     name: Thornbow Pack
@@ -1167,12 +1167,12 @@ cards:
       - Charge
     abilities: []
     ultimate: null
-    flavor_text: Legend with footprints.
+    flavor_text: Chosen under a red moon over black water.
     complexity: 3
     role: Damage
     tags:
       - beastfolk
-    favored_terrain: forest
+    favored_terrain: swamp
     balance_rev: 14
   - id: 35d94e3c399748c7b73c93758261098d
     name: Great War Beast
@@ -1203,7 +1203,7 @@ cards:
     role: Damage
     tags:
       - beastfolk
-    favored_terrain: forest
+    favored_terrain: mountains
   - id: 5d1e7a46453842d486359d929fcda265
     name: Pup Drill
     card_type: Unit
@@ -1263,7 +1263,7 @@ cards:
       - beastfolk
       - support
       - formation
-    favored_terrain: forest
+    favored_terrain: plains
   - id: 228f0d4ca2b04e81a4697637690c38bf
     name: Pack Horn
     card_type: Unit
@@ -1293,7 +1293,7 @@ cards:
       - beastfolk
       - support
       - formation
-    favored_terrain: forest
+    favored_terrain: plains
   - id: badeabb5005a475ca0836ba5949c99f7
     name: Fang Pair Alpha
     card_type: Unit
@@ -1383,4 +1383,4 @@ cards:
       - beastfolk
       - support
       - formation
-    favored_terrain: forest
+    favored_terrain: plains

@@ -167,12 +167,12 @@ cards:
       - Reach
     abilities: []
     ultimate: null
-    flavor_text: Eyes without blink.
+    flavor_text: Eyes without blink, staring down the heat-haze.
     complexity: 1
     role: Artillery
     tags:
       - construct
-    favored_terrain: plains
+    favored_terrain: desert
   - id: 0ee9f0120d8149c999b5e543bb37321e
     name: Oil Bearers
     card_type: Unit
@@ -200,7 +200,7 @@ cards:
     role: Frontline
     tags:
       - construct
-    favored_terrain: plains
+    favored_terrain: volcanic
   - id: 611e332628954fe3bb3fd546ab82c4f8
     name: Plate Thralls
     card_type: Unit
@@ -228,7 +228,7 @@ cards:
     role: Frontline
     tags:
       - construct
-    favored_terrain: plains
+    favored_terrain: mountains
   - id: 72b2e48aae354d27a8cb2602debee335
     name: Rivet Infantry
     card_type: Unit
@@ -258,7 +258,7 @@ cards:
       - construct
     favored_terrain: plains
   - id: cb2d6bc0bd354e6ba4c2eea52c7be807
-    name: Scrap Drones
+    name: Thicket Drones
     card_type: Unit
     rarity: Common
     unique: false
@@ -279,12 +279,12 @@ cards:
       - Fearless
     abilities: []
     ultimate: null
-    flavor_text: Disposable diligence.
+    flavor_text: Disposable diligence, rustling through the undergrowth.
     complexity: 1
     role: Frontline
     tags:
       - construct
-    favored_terrain: plains
+    favored_terrain: forest
   - id: bd8a6dc074964093b40214d8b4dadb55
     name: Shield Automata
     card_type: Unit
@@ -313,7 +313,7 @@ cards:
     role: Frontline
     tags:
       - construct
-    favored_terrain: plains
+    favored_terrain: mountains
   - id: 1fccb39c78074a28b90ca3f34acf19ed
     name: Wire Archers
     card_type: Unit
@@ -371,7 +371,7 @@ cards:
     role: Tank
     tags:
       - construct
-    favored_terrain: plains
+    favored_terrain: mountains
   - id: 7b144a486c9a4f7eb632f71eec05b15c
     name: Arc Projector
     card_type: Unit
@@ -401,7 +401,7 @@ cards:
     role: Artillery
     tags:
       - construct
-    favored_terrain: plains
+    favored_terrain: volcanic
     balance_rev: 24
   - id: 4c9adc1c57c4445887eda979ef9cdab2
     name: Archer Constructs
@@ -460,7 +460,7 @@ cards:
     role: Tank
     tags:
       - construct
-    favored_terrain: plains
+    favored_terrain: mountains
   - id: ced1a523bc954ef5ad8587f06221877d
     name: Chassis Breakers
     card_type: Unit
@@ -488,7 +488,7 @@ cards:
     role: Damage
     tags:
       - construct
-    favored_terrain: plains
+    favored_terrain: mountains
   - id: ef4f914e03374aa292f49086d36397ab
     name: Clockwork Phalanx
     card_type: Unit
@@ -547,7 +547,7 @@ cards:
     role: Artillery
     tags:
       - construct
-    favored_terrain: plains
+    favored_terrain: volcanic
     balance_rev: 24
   - id: 857412e49818419da8cbcd6b5f4bf598
     name: Gyro Scouts
@@ -572,12 +572,12 @@ cards:
       - Scout
     abilities: []
     ultimate: null
-    flavor_text: Precision without pity.
+    flavor_text: They map the dunes before the dust can settle.
     complexity: 2
     role: Scout
     tags:
       - construct
-    favored_terrain: plains
+    favored_terrain: desert
   - id: 0fed5abd70814f6e8a3d1241459cd036
     name: Hammer Automata
     card_type: Unit
@@ -634,9 +634,9 @@ cards:
     role: Damage
     tags:
       - construct
-    favored_terrain: plains
+    favored_terrain: mountains
   - id: 14f3d2d44cf1418a9f013a79c8330b8c
-    name: Lattice Wardens
+    name: Trellis Wardens
     card_type: Unit
     rarity: Uncommon
     unique: false
@@ -658,14 +658,14 @@ cards:
       - Defender
     abilities: []
     ultimate: null
-    flavor_text: Precision without pity.
+    flavor_text: Living lattice bolted into the treeline—and told to hold it.
     complexity: 2
     role: Tank
     tags:
       - construct
-    favored_terrain: plains
+    favored_terrain: forest
   - id: 384b121dce324a4e82c8df5fc165b70b
-    name: Null Frames
+    name: Mireframe Nulls
     card_type: Unit
     rarity: Uncommon
     unique: false
@@ -687,12 +687,12 @@ cards:
       - Harden 1
     abilities: []
     ultimate: null
-    flavor_text: Precision without pity.
+    flavor_text: Precision without pity—built to stand where the ground gives up.
     complexity: 2
     role: Control
     tags:
       - construct
-    favored_terrain: plains
+    favored_terrain: swamp
   - id: fe8273fb5d2241749fbbe4a0312e6112
     name: Overclock Blades
     card_type: Unit
@@ -721,7 +721,7 @@ cards:
     role: Damage
     tags:
       - construct
-    favored_terrain: plains
+    favored_terrain: volcanic
     balance_rev: 9
   - id: 7c81cd96fa54419cbb01021b97b9ec68
     name: Servo Medicae
@@ -811,7 +811,7 @@ cards:
     role: Artillery
     tags:
       - construct
-    favored_terrain: plains
+    favored_terrain: volcanic
     balance_rev: 24
   - id: e93e279356124b8a99dff4fede36078f
     name: Aegis Automata
@@ -842,7 +842,7 @@ cards:
     role: Tank
     tags:
       - construct
-    favored_terrain: plains
+    favored_terrain: mountains
   - id: 20dd4f866e7e43fc91256cb945dc4c91
     name: Eternal Riveters
     card_type: Unit
@@ -900,7 +900,7 @@ cards:
     role: Tank
     tags:
       - construct
-    favored_terrain: plains
+    favored_terrain: mountains
   - id: 8963293800234c0eb735b80dc68a6c2b
     name: Null Juggernaut
     card_type: Unit
@@ -930,7 +930,7 @@ cards:
     role: Tank
     tags:
       - construct
-    favored_terrain: plains
+    favored_terrain: mountains
     balance_rev: 18
   - id: 6c2051b0d8e34b588073c234ecda14a5
     name: Oracle Chassis
@@ -991,7 +991,7 @@ cards:
     role: Artillery
     tags:
       - construct
-    favored_terrain: plains
+    favored_terrain: volcanic
     balance_rev: 24
   - id: a3dd712644644b858422dc1f1d80b3bc
     name: Prism Beamers
@@ -1024,7 +1024,7 @@ cards:
       - construct
     favored_terrain: plains
   - id: d478d9fb6cbd418592d19a166580f56d
-    name: Razorschard Pack
+    name: Thornshard Pack
     card_type: Unit
     rarity: Rare
     unique: false
@@ -1046,12 +1046,12 @@ cards:
       - Frenzy
     abilities: []
     ultimate: null
-    flavor_text: Built to outlast the war.
+    flavor_text: Shrapnel that learned to hunt between the trees.
     complexity: 3
     role: Damage
     tags:
       - construct
-    favored_terrain: plains
+    favored_terrain: forest
   - id: 2dd7adee88a5421984b2479d2db05e56
     name: Siege Brain
     card_type: Unit
@@ -1082,7 +1082,7 @@ cards:
     role: Artillery
     tags:
       - construct
-    favored_terrain: plains
+    favored_terrain: volcanic
     balance_rev: 24
   - id: 2406b941765e4f69afc0c0ff58a679e3
     name: World-Nailer
@@ -1112,7 +1112,7 @@ cards:
     role: Damage
     tags:
       - construct
-    favored_terrain: plains
+    favored_terrain: mountains
   - id: 16104fde5a0741b096469f63f6f4822a
     name: Colossus Frame
     card_type: Unit
@@ -1142,7 +1142,7 @@ cards:
     role: Damage
     tags:
       - construct
-    favored_terrain: plains
+    favored_terrain: mountains
   - id: 200f60c956664cf99974e355f8bff198
     name: Crown of Gears
     card_type: Unit
@@ -1171,7 +1171,7 @@ cards:
     role: Support
     tags:
       - construct
-    favored_terrain: plains
+    favored_terrain: volcanic
   - id: 5c04cf349e4a4c2d9d4611918f4a96da
     name: Rivet Drill Unit
     card_type: Unit

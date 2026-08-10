@@ -5,7 +5,7 @@ License: CC0 1.0 Universal — free for any use, no attribution required.
 File mapping:
   plains.jpg   — Grass 001
   forest.jpg   — Ground 084 (forest floor)
-  hills.jpg    — Gravel 001
+  mountains.jpg    — Gravel 001
   swamp.jpg    — Ground 050 (mud)
   desert.jpg   — Ground 097 (sand)
   water.jpg    — Ground 061 (wet sand, tinted blue in-engine)

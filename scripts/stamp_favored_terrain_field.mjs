@@ -20,7 +20,7 @@ const RACE_TO_TERRAIN = {
   Lizardman: 'swamp',
   Dragon: 'volcanic',
   Demon: 'volcanic',
-  Dwarf: 'hills',
+  Dwarf: 'mountains',
   // Siege and no race â†’ null / omit
 }
 
@@ -29,7 +29,7 @@ const TERRAIN_KEYWORDS = new Set([
   'Woodwalker',
   'Bogstrider',
   'Ashborn',
-  'Hillborn',
+  'Mountainborn',
   'Duneborn',
   'Deepwalker',
 ])

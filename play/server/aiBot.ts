@@ -15,14 +15,30 @@ import {
 } from '../shared/combatResolve.ts'
 import {
   findDeployedOfficer,
+  foreignCommandRadiusKeys,
   officerDeployRadius,
   ownCommandRadiusKeys,
   tooCloseToObjective,
 } from '../shared/game.ts'
-import { hexDistOddR, hexKey, inBounds } from '../shared/hex.ts'
-import { reachableMoveHexes } from '../shared/movement.ts'
-import { objectiveZoneHexes } from '../shared/objectiveCards.ts'
-import { FLOOD_TERRAIN_KINDS } from '../shared/terrainPieces.ts'
+import { hexDistOddR, hexKey, inBounds, neighborsOddR } from '../shared/hex.ts'
+import {
+  passablePathDistances,
+  reachableMoveHexes,
+} from '../shared/movement.ts'
+import { flattenObjectiveHexes, objectiveZoneHexes } from '../shared/objectiveCards.ts'
+import {
+  expandTerrainPiece,
+  FLOOD_TERRAIN_KINDS,
+  landPiecesForSize,
+  normalizeRotation,
+  RACE_FAVORED_TERRAIN,
+  terrainAt,
+  terrainSetupStayConnected,
+  validateTerrainPlacement,
+  type TerrainKind,
+  type TerrainPieceDef,
+  type TerrainSizeClass,
+} from '../shared/terrainPieces.ts'
 import type {
   AiDifficulty,
   ClientAction,
@@ -141,6 +157,85 @@ function travelerFromUnit(unit: UnitToken) {
     rooted: Boolean(unit.rooted),
     slow: Boolean(unit.slow),
   }
+}
+
+function keywordsAllowWater(keywords: string[] | null | undefined): boolean {
+  const kws = keywords ?? []
+  return kws.some(
+    (k) =>
+      k === 'Amphibious' ||
+      k === 'Flying' ||
+      String(k).startsWith('Amphibious ') ||
+      String(k).startsWith('Flying '),
+  )
+}
+
+function pendingDeployToken(
+  state: GameState,
+  seat: SeatId,
+  item: { cardId: string; cardName: string; officerCardId: string | null; kind: string; move: number },
+): UnitToken | null {
+  const snap = state.cardCatalog[item.cardId]
+  if (!snap) return null
+  return {
+    id: 'pending',
+    seat,
+    kind: item.kind === 'officer' ? 'officer' : 'unit',
+    cardId: item.cardId,
+    cardName: item.cardName,
+    officerCardId: item.officerCardId,
+    col: 0,
+    row: 0,
+    move: item.move,
+    moveRemaining: 0,
+    activationCol: null,
+    activationRow: null,
+    claimsThisActivation: [],
+    movedBeyondLimit: false,
+    damage: snap.damage,
+    range: snap.range,
+    toughness: snap.toughness,
+    toughnessCurrent: snap.toughness,
+    commandRadius: snap.commandRadius,
+    keywords: [...(snap.keywords ?? [])],
+    abilities: [...(snap.abilities ?? [])],
+    ultimate: snap.ultimate ?? null,
+    rooted: false,
+    fear: false,
+    slow: false,
+    tempFearless: false,
+    unyielding: false,
+    bonePrisoned: false,
+    terrorFear: false,
+    slowPendingClear: false,
+    tempDamage: 0,
+    tempMove: 0,
+    harden: 0,
+    abilityReadyRound: {},
+    raiseOnceUsed: false,
+    ultimateUsed: false,
+    evadeActive: false,
+    poisonTokens: 0,
+    trampleLeftoverDamage: 0,
+    assaultMarked: false,
+    nullPulsed: false,
+    counterattack: false,
+    spectralStrike: false,
+    attackedThisTurn: false,
+    attackedThisRound: false,
+    frenzyAttackPending: false,
+  } as UnitToken
+}
+
+function canDeployOnTerrainHex(
+  state: GameState,
+  cell: { col: number; row: number },
+  keywords: string[] | null | undefined,
+): boolean {
+  const kind = terrainAt(state.terrain ?? {}, cell.col, cell.row)
+  if (kind === 'wall') return false
+  if (kind === 'water' && !keywordsAllowWater(keywords)) return false
+  return true
 }
 
 function occupiedKeys(state: GameState): Set<string> {
@@ -302,6 +397,30 @@ function deployPreferredRow(seat: SeatId, boardSize: number): number {
   return Math.floor(boardSize / 2)
 }
 
+function deployPreferredCol(seat: SeatId, boardSize: number): number {
+  if (seat === 'W') return 1
+  if (seat === 'E') return boardSize - 2
+  return Math.floor(boardSize / 2)
+}
+
+/** Free CR neighbors — officers want room for the rest of the company. */
+function freeCrNeighborCount(
+  cell: { col: number; row: number },
+  crKeys: Set<string>,
+  occ: Set<string>,
+  boardSize: number,
+): number {
+  let n = 0
+  for (const nb of neighborsOddR(cell)) {
+    if (!inBounds(nb, boardSize)) continue
+    const k = hexKey(nb.col, nb.row)
+    if (!crKeys.has(k)) continue
+    if (occ.has(k)) continue
+    n++
+  }
+  return n
+}
+
 function tryDeploySpot(
   state: GameState,
   seat: SeatId,
@@ -313,16 +432,20 @@ function tryDeploySpot(
 
   const occ = occupiedKeys(state)
   const candidates: Array<{ col: number; row: number }> = []
+  const pending = pendingDeployToken(state, seat, item)
+  const keywords = pending?.keywords ?? state.cardCatalog[item.cardId]?.keywords ?? []
 
+  let officer: UnitToken | null = null
+  let radius = 2
   if (item.kind === 'officer') {
     for (const key of ownCommandRadiusKeys(state, seat)) {
       const [col, row] = key.split(',').map(Number) as [number, number]
       candidates.push({ col, row })
     }
   } else {
-    const officer = findDeployedOfficer(state, seat, item.officerCardId)
+    officer = findDeployedOfficer(state, seat, item.officerCardId)
     if (!officer) return null
-    const radius = officerDeployRadius(state, officer)
+    radius = officerDeployRadius(state, officer)
     for (let col = 0; col < state.boardSize; col++) {
       for (let row = 0; row < state.boardSize; row++) {
         if (
@@ -330,7 +453,7 @@ function tryDeploySpot(
             { col, row },
             { col: officer.col, row: officer.row },
             radius,
-            null,
+            pending,
           )
         ) {
           candidates.push({ col, row })
@@ -340,19 +463,246 @@ function tryDeploySpot(
   }
 
   const preferredRow = deployPreferredRow(seat, state.boardSize)
-  candidates.sort(
-    (a, b) =>
+  const preferredCol = deployPreferredCol(seat, state.boardSize)
+  const remainingCompany = queue.filter(
+    (q, i) =>
+      i !== queueIndex &&
+      !q.placed &&
+      q.kind === 'unit' &&
+      q.officerCardId === (item.kind === 'officer' ? item.cardId : item.officerCardId),
+  ).length
+
+  const crKeys =
+    item.kind === 'officer'
+      ? ownCommandRadiusKeys(state, seat)
+      : new Set(candidates.map((c) => hexKey(c.col, c.row)))
+
+  candidates.sort((a, b) => {
+    if (item.kind === 'officer') {
+      // Prefer forward edge, but keep enough free CR neighbors for the company.
+      const roomA = freeCrNeighborCount(a, crKeys, occ, state.boardSize)
+      const roomB = freeCrNeighborCount(b, crKeys, occ, state.boardSize)
+      const roomNeed = Math.min(6, remainingCompany + 1)
+      const roomScoreA = roomA >= roomNeed ? 0 : roomNeed - roomA
+      const roomScoreB = roomB >= roomNeed ? 0 : roomNeed - roomB
+      return (
+        roomScoreA - roomScoreB ||
+        Math.abs(a.row - preferredRow) - Math.abs(b.row - preferredRow) ||
+        Math.abs(a.col - preferredCol) - Math.abs(b.col - preferredCol)
+      )
+    }
+    // Units: pack near officer (stay deep inside CR), then face preferred edge.
+    const distA = hexDistOddR(a, officer!)
+    const distB = hexDistOddR(b, officer!)
+    return (
+      distA - distB ||
       Math.abs(a.row - preferredRow) - Math.abs(b.row - preferredRow) ||
-      Math.abs(a.col - 15) - Math.abs(b.col - 15),
-  )
+      Math.abs(a.col - preferredCol) - Math.abs(b.col - preferredCol)
+    )
+  })
 
   for (const { col, row } of candidates) {
     if (!inBounds({ col, row }, state.boardSize)) continue
     if (occ.has(hexKey(col, row))) continue
-    if ((state.terrain ?? {})[hexKey(col, row)] === 'wall') continue
+    if (!canDeployOnTerrainHex(state, { col, row }, keywords)) continue
     if (tooCloseToObjective({ col, row }, state)) continue
+    // Double-check CR for units (Scout-aware).
+    if (
+      item.kind !== 'officer' &&
+      officer &&
+      !unitInOfficerRadius({ col, row }, officer, radius, pending)
+    ) {
+      continue
+    }
     return { type: 'deploy', queueIndex, col, row }
   }
+  return null
+}
+
+function seatArmyRace(state: GameState, seat: SeatId): string | null {
+  const army = state.players.find((p) => p.seat === seat)?.army
+  if (!army?.commanderCardId) return null
+  return state.cardCatalog[army.commanderCardId]?.race ?? null
+}
+
+function favoredFloodKind(state: GameState, seat: SeatId): TerrainKind {
+  const race = seatArmyRace(state, seat)
+  const favored = race ? RACE_FAVORED_TERRAIN[race] : undefined
+  if (favored && FLOOD_TERRAIN_KINDS.includes(favored)) return favored
+  if (FLOOD_TERRAIN_KINDS.includes('plains')) return 'plains'
+  return FLOOD_TERRAIN_KINDS[0] ?? 'plains'
+}
+
+function landSizeForAiStage(
+  stage: GameState['terrainStage'],
+): TerrainSizeClass | null {
+  if (stage === 'landLarge') return 'large'
+  if (stage === 'landMedium') return 'medium'
+  if (stage === 'landSmall') return 'small'
+  return null
+}
+
+function approachBias(seat: SeatId, boardSize: number): { col: number; row: number } {
+  const mid = Math.floor(boardSize / 2)
+  if (seat === 'N') return { col: mid, row: Math.floor(boardSize * 0.35) }
+  if (seat === 'S') return { col: mid, row: Math.floor(boardSize * 0.65) }
+  if (seat === 'W') return { col: Math.floor(boardSize * 0.35), row: mid }
+  return { col: Math.floor(boardSize * 0.65), row: mid }
+}
+
+function scoreTerrainPlacement(
+  state: GameState,
+  seat: SeatId,
+  def: TerrainPieceDef,
+  cells: Array<{ col: number; row: number }>,
+): number {
+  const race = seatArmyRace(state, seat)
+  const favored = race ? RACE_FAVORED_TERRAIN[race] : null
+  const bias = approachBias(seat, state.boardSize)
+  const ownCr = ownCommandRadiusKeys(state, seat)
+  const cmd = state.commanders[seat]
+  let score = 0
+
+  let overwritesWater = 0
+  let onApproach = 0
+  let inOwnCr = 0
+  for (const cell of cells) {
+    const existing = (state.terrain ?? {})[hexKey(cell.col, cell.row)]
+    if (existing === 'water' && def.kind !== 'water' && def.kind !== 'wall') {
+      overwritesWater++
+    }
+    onApproach += Math.max(0, 12 - hexDistOddR(cell, bias))
+    if (ownCr.has(hexKey(cell.col, cell.row))) inOwnCr++
+  }
+
+  if (favored && def.kind === favored) score += 40
+  if (def.kind === 'plains' && !favored) score += 8
+  // Bridges over water are high value for non-amphib armies.
+  if (overwritesWater > 0 && def.sizeClass === 'small') score += 55 + overwritesWater * 12
+  // Soft land on approach corridor toward midfield.
+  if (def.kind !== 'water' && def.kind !== 'wall') score += onApproach * 0.35
+  // Don't bury own CR in water/wall.
+  if ((def.kind === 'water' || def.kind === 'wall') && inOwnCr > 0) score -= 80
+  // Mild preference to keep favored terrain near own CR edge.
+  if (favored && def.kind === favored && cmd) {
+    score += Math.max(0, 8 - hexDistOddR(cells[0]!, cmd))
+  }
+  // Avoid sealing: water/wall pieces need connectivity — caller validates; soft prefer land.
+  if (def.kind === 'water') score -= 25
+  if (def.kind === 'wall') score -= 40
+  return score
+}
+
+/** Pick a helpful land drop, or null to skip. */
+function tryAiLandTerrain(state: GameState, seat: SeatId): ClientAction | null {
+  const size = landSizeForAiStage(state.terrainStage)
+  if (!size) return null
+  const pieces = landPiecesForSize(size)
+  if (!pieces.length) return null
+
+  const blocked = foreignCommandRadiusKeys(state, seat)
+  const objectives = flattenObjectiveHexes(state.objectives)
+  const commanders = Object.values(state.commanders).filter(
+    (c): c is { col: number; row: number } => !!c,
+  )
+  const race = seatArmyRace(state, seat)
+  const favored = race ? RACE_FAVORED_TERRAIN[race] : null
+
+  // Prefer favored kind + compact shapes; for small, try bridge pieces first.
+  const ordered = [...pieces].sort((a, b) => {
+    const favA = favored && a.kind === favored ? 0 : 1
+    const favB = favored && b.kind === favored ? 0 : 1
+    const bridgeA =
+      size === 'small' && a.kind !== 'water' && a.kind !== 'wall' ? 0 : 1
+    const bridgeB =
+      size === 'small' && b.kind !== 'water' && b.kind !== 'wall' ? 0 : 1
+    return (
+      (size === 'small' ? bridgeA - bridgeB : 0) ||
+      favA - favB ||
+      a.shape.length - b.shape.length
+    )
+  })
+
+  let best: { action: ClientAction; score: number } | null = null
+  const bias = approachBias(seat, state.boardSize)
+  const anchors: Array<{ col: number; row: number }> = []
+  // Sample around approach corridor + board mid rather than full board scan.
+  for (let d = 0; d <= Math.floor(state.boardSize / 2); d++) {
+    for (let col = bias.col - d; col <= bias.col + d; col++) {
+      for (let row = bias.row - d; row <= bias.row + d; row++) {
+        if (!inBounds({ col, row }, state.boardSize)) continue
+        if (Math.max(Math.abs(col - bias.col), Math.abs(row - bias.row)) !== d) continue
+        anchors.push({ col, row })
+      }
+    }
+    if (anchors.length > 80) break
+  }
+  // Also try water hexes as bridge anchors for small land.
+  if (size === 'small') {
+    for (const [key, kind] of Object.entries(state.terrain ?? {})) {
+      if (kind !== 'water') continue
+      const [col, row] = key.split(',').map(Number) as [number, number]
+      anchors.push({ col, row })
+    }
+  }
+
+  const tryLimit = size === 'large' ? 8 : size === 'medium' ? 12 : 16
+  let tried = 0
+  for (const def of ordered) {
+    if (tried >= tryLimit && best && best.score >= 30) break
+    for (const anchor of anchors) {
+      for (let rot = 0; rot < 6; rot++) {
+        const rotation = normalizeRotation(rot)
+        const cells = expandTerrainPiece(anchor, def.shape, rotation)
+        const isSmallBridge =
+          def.sizeClass === 'small' &&
+          def.kind !== 'water' &&
+          def.kind !== 'wall'
+        const check = validateTerrainPlacement(cells, {
+          boardSize: state.boardSize,
+          terrain: state.terrain,
+          objectives,
+          kind: def.kind,
+          blockedKeys: blocked,
+          allowOverwriteWater: isSmallBridge,
+        })
+        if (!check.ok) continue
+        if (def.kind === 'water' || def.kind === 'wall') {
+          const tentative = { ...state.terrain }
+          for (const cell of cells) {
+            tentative[hexKey(cell.col, cell.row)] = def.kind
+          }
+          if (
+            !terrainSetupStayConnected(
+              commanders,
+              objectives,
+              tentative,
+              state.boardSize,
+            )
+          ) {
+            continue
+          }
+        }
+        const score = scoreTerrainPlacement(state, seat, def, cells)
+        tried++
+        if (!best || score > best.score) {
+          best = {
+            score,
+            action: {
+              type: 'placeTerrain',
+              col: anchor.col,
+              row: anchor.row,
+              rotation,
+              pieceId: def.id,
+            },
+          }
+        }
+      }
+    }
+  }
+
+  // Only place if meaningfully helpful; otherwise skip.
+  if (best && best.score >= 18) return best.action
   return null
 }
 
@@ -409,10 +759,7 @@ function setupAction(state: GameState, seat: SeatId): ClientAction | null {
       if (state.commandZoneModes[seat] === 'flood') {
         const hand = state.terrainHands[seat] ?? []
         if (!hand.some((q) => q.flooded)) {
-          const kind = FLOOD_TERRAIN_KINDS.includes('plains')
-            ? 'plains'
-            : FLOOD_TERRAIN_KINDS[0]
-          return { type: 'floodCommandZone', kind }
+          return { type: 'floodCommandZone', kind: favoredFloodKind(state, seat) }
         }
       }
       return null
@@ -421,7 +768,7 @@ function setupAction(state: GameState, seat: SeatId): ClientAction | null {
       state.terrainStage !== 'commandZone' &&
       state.activeSeat === seat
     ) {
-      return { type: 'skipTerrain' }
+      return tryAiLandTerrain(state, seat) ?? { type: 'skipTerrain' }
     }
   }
 
@@ -429,7 +776,19 @@ function setupAction(state: GameState, seat: SeatId): ClientAction | null {
     const queue = state.deployQueues[seat] ?? []
     const nextIdx = queue.findIndex((q) => !q.placed)
     if (nextIdx >= 0) {
-      return tryDeploySpot(state, seat, nextIdx)
+      const spot = tryDeploySpot(state, seat, nextIdx)
+      if (spot) return spot
+      // If the next item has no legal hex, try later queue items (other companies).
+      for (let i = nextIdx + 1; i < queue.length; i++) {
+        const q = queue[i]
+        if (!q || q.placed) continue
+        if (q.kind === 'unit' && !findDeployedOfficer(state, seat, q.officerCardId)) {
+          continue
+        }
+        const alt = tryDeploySpot(state, seat, i)
+        if (alt) return alt
+      }
+      return null
     }
     return { type: 'confirmDeploy' }
   }
@@ -444,6 +803,57 @@ const SIMPLE_ABILITY_NAMES = new Set([
   'Bolster',
   'Inspire',
 ])
+
+function nearestEnemy(
+  state: GameState,
+  seat: SeatId,
+  cell: { col: number; row: number },
+): UnitToken | null {
+  let best: UnitToken | null = null
+  let bestDist = Infinity
+  for (const u of state.units) {
+    if (u.seat === seat) continue
+    if (u.kind === 'commander') continue
+    const d = hexDistOddR(cell, u)
+    if (d < bestDist) {
+      bestDist = d
+      best = u
+    }
+  }
+  return best
+}
+
+/** Best contested-zone hex to path toward (crow-flies pick; path cost scored later). */
+function nearestContestObjectiveHex(
+  state: GameState,
+  seat: SeatId,
+  cell: { col: number; row: number },
+  movingUnitId?: string,
+): { col: number; row: number } | null {
+  let bestHex: { col: number; row: number } | null = null
+  let bestDist = Infinity
+  for (const objective of state.objectives) {
+    const presence = zonePresence(state, seat, objective, movingUnitId)
+    if (zoneContestPriority(presence, seat) < 8) continue
+    for (const h of objectiveZoneHexes(objective)) {
+      const d = hexDistOddR(cell, h)
+      if (d < bestDist) {
+        bestDist = d
+        bestHex = h
+      }
+    }
+  }
+  return bestHex
+}
+
+function pathDistOr(
+  distances: Map<string, number> | null,
+  cell: { col: number; row: number },
+  fallback: number,
+): number {
+  if (!distances) return fallback
+  return distances.get(hexKey(cell.col, cell.row)) ?? fallback
+}
 
 function enumeratePlayActions(
   state: GameState,
@@ -466,9 +876,25 @@ function enumeratePlayActions(
     }
   }
 
-  // Attacks (any of our units with damage in range — engine does not require activation)
+  // Attacks — one per unit per turn (engine enforces; Trample leftover / Frenzy excepted)
   for (const attacker of mine) {
     if ((attacker.damage ?? 0) <= 0 && !(attacker.trampleLeftoverDamage > 0)) {
+      continue
+    }
+    if (
+      attacker.kind !== 'commander' &&
+      attacker.attackedThisTurn &&
+      !(attacker.trampleLeftoverDamage > 0) &&
+      !attacker.frenzyAttackPending
+    ) {
+      continue
+    }
+    if (
+      attacker.kind === 'commander' &&
+      attacker.attackedThisRound &&
+      !(attacker.trampleLeftoverDamage > 0) &&
+      !attacker.frenzyAttackPending
+    ) {
       continue
     }
     for (const defender of enemies) {
@@ -544,6 +970,7 @@ function enumeratePlayActions(
   for (const unit of movable) {
     const occ = occupiedKeys(state)
     occ.delete(hexKey(unit.col, unit.row))
+    const traveler = travelerFromUnit(unit)
     const reach = reachableMoveHexes({
       origin: { col: unit.col, row: unit.row },
       budget: unit.moveRemaining,
@@ -551,32 +978,65 @@ function enumeratePlayActions(
       terrain: state.terrain ?? {},
       occupied: occ,
       friendlyOccupied: friendlyOccupiedKeys(state, seat, unit.id),
-      traveler: travelerFromUnit(unit),
+      traveler,
     })
-    const before = nearestEnemyDist(state, seat, unit)
-    const objDistBefore = nearestContestObjectiveDist(state, seat, unit, unit.id)
+
+    // Path-aware goals: route around water instead of hugging the shoreline.
+    const enemyGoal = nearestEnemy(state, seat, unit)
+    const objGoal = nearestContestObjectiveHex(state, seat, unit, unit.id)
+    const blockedForPath = occupiedKeys(state)
+    blockedForPath.delete(hexKey(unit.col, unit.row))
+    if (enemyGoal) blockedForPath.delete(hexKey(enemyGoal.col, enemyGoal.row))
+    if (objGoal) blockedForPath.delete(hexKey(objGoal.col, objGoal.row))
+
+    const enemyPath = enemyGoal
+      ? passablePathDistances({
+          origin: { col: enemyGoal.col, row: enemyGoal.row },
+          boardSize: state.boardSize,
+          terrain: state.terrain ?? {},
+          blocked: blockedForPath,
+          traveler,
+        })
+      : null
+    const objPath = objGoal
+      ? passablePathDistances({
+          origin: objGoal,
+          boardSize: state.boardSize,
+          terrain: state.terrain ?? {},
+          blocked: blockedForPath,
+          traveler,
+        })
+      : null
+
+    const pathBeforeEnemy = pathDistOr(enemyPath, unit, 40)
+    const pathBeforeObj = pathDistOr(objPath, unit, 40)
+    const crowBefore = nearestEnemyDist(state, seat, unit)
     const onHexBefore = objectiveOnHexValue(state, seat, unit, unit.id)
     let bestMove: ScoredAction | null = null
     for (const cell of reach.values()) {
       if (cell.col === unit.col && cell.row === unit.row) continue
       if (occ.has(hexKey(cell.col, cell.row))) continue
-      const after = nearestEnemyDist(state, seat, cell)
-      const closed =
-        (Number.isFinite(before) ? before : 30) -
-        (Number.isFinite(after) ? after : 30)
-      const objDistAfter = nearestContestObjectiveDist(state, seat, cell, unit.id)
-      const objClosed =
-        (Number.isFinite(objDistBefore) ? objDistBefore : 30) -
-        (Number.isFinite(objDistAfter) ? objDistAfter : 30)
+      const pathAfterEnemy = pathDistOr(enemyPath, cell, 40)
+      const pathAfterObj = pathDistOr(objPath, cell, 40)
+      const pathClosedEnemy = pathBeforeEnemy - pathAfterEnemy
+      const pathClosedObj = pathBeforeObj - pathAfterObj
+      const crowAfter = nearestEnemyDist(state, seat, cell)
+      const crowClosed =
+        (Number.isFinite(crowBefore) ? crowBefore : 30) -
+        (Number.isFinite(crowAfter) ? crowAfter : 30)
       const onHexAfter = objectiveOnHexValue(state, seat, cell, unit.id)
       const onHexDelta = onHexAfter - onHexBefore
-      // Combat close + objective approach/claim; claim can outscore pure chase
+      // Prefer true path progress; penalize shoreline traps (crow closer, path not).
+      const shoreTrap =
+        crowClosed > 0 && pathClosedEnemy <= 0 && pathBeforeEnemy < 40 ? 1 : 0
       const score =
-        closed * 12 * policy.aggression +
-        objClosed * 10 * policy.objectiveFocus +
+        pathClosedEnemy * 14 * policy.aggression +
+        pathClosedObj * 11 * policy.objectiveFocus +
         onHexDelta * 0.95 * policy.objectiveFocus +
+        crowClosed * 2 * policy.aggression +
         (cell.spent > 0 ? 2 : 0) -
-        (closed < 0 ? 8 : 0)
+        (pathClosedEnemy < 0 ? 10 : 0) -
+        shoreTrap * 18
       if (!bestMove || score > bestMove.score) {
         bestMove = {
           action: { type: 'move', unitId: unit.id, col: cell.col, row: cell.row },

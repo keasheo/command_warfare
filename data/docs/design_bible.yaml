@@ -1625,8 +1625,8 @@ sections:
     them. Do not erase the Move 2 identity with permanent Move buffs.
 
 
-    Occupying a Fortified hex grants Harden 1 (same Harden state as keywords/abilities). Defensive
-    Reaction Brace also grants Harden 1 — track one Harden value per unit.'
+    Occupying a Fortified hex grants Harden 1 (stacks with printed Harden and other Harden sources). Defensive
+    Reaction Brace also grants Harden 1 — Harden sources stack.'
 - id: 4c4fe93901
   title: UV Budget Philosophy
   body: 'UV (Unit Value) is the single balancing currency used throughout the game.

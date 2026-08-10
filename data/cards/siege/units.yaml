@@ -27,6 +27,7 @@ cards:
     role: Support
     tags:
       - siege
+    favored_terrain: plains
   - id: cf6f7675cda04b47b088b1aa58c76108
     name: Field Ballista
     card_type: Unit
@@ -56,6 +57,7 @@ cards:
     tags:
       - siege
       - ranged
+    favored_terrain: plains
   - id: 90e5c12b76b445809c9bfea04e0129a7
     name: Ironhead Ram
     card_type: Unit
@@ -83,6 +85,7 @@ cards:
     role: Frontline
     tags:
       - siege
+    favored_terrain: mountains
   - id: 7a1bb3f7d99d40c38eb77fb65dd40ee2
     name: Timber Catapult
     card_type: Unit
@@ -112,6 +115,7 @@ cards:
     role: Artillery
     tags:
       - siege
+    favored_terrain: forest
   - id: a1e72a87b5e44386bf2f685e29080ea1
     name: Long-Arm Trebuchet
     card_type: Unit
@@ -141,6 +145,7 @@ cards:
     role: Artillery
     tags:
       - siege
+    favored_terrain: plains
   - id: 05baf2863b274292b1f046d4d38f96df
     name: Rolling Siege Tower
     card_type: Unit
@@ -168,3 +173,4 @@ cards:
     role: Support
     tags:
       - siege
+    favored_terrain: mountains

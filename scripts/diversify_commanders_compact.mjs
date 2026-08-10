@@ -128,7 +128,7 @@ const NEW_ABILITIES = {
   'Holdfast Doctrine': {
     type: 'Passive',
     cost: 'Passive',
-    description: 'Dwarf units in your army on Hills within Command Radius gain Harden 1.',
+    description: 'Dwarf units in your army on Mountains within Command Radius gain Harden 1.',
     affects: 'self',
     used_by: 'Commander',
     tags: ['passive', 'dwarf', 'defense'],

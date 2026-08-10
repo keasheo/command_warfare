@@ -1,4 +1,11 @@
-export type FavoredTerrainKind = 'plains' | 'forest' | 'swamp' | 'volcanic' | 'hills'
+export type FavoredTerrainKind =
+  | 'plains'
+  | 'forest'
+  | 'swamp'
+  | 'desert'
+  | 'volcanic'
+  | 'mountains'
+  | 'water'
 
 const RACE_TO_TERRAIN: Record<string, FavoredTerrainKind> = {
   Human: 'plains',
@@ -9,23 +16,27 @@ const RACE_TO_TERRAIN: Record<string, FavoredTerrainKind> = {
   Lizardman: 'swamp',
   Dragon: 'volcanic',
   Demon: 'volcanic',
-  Dwarf: 'hills',
+  Dwarf: 'mountains',
 }
 
 const KEYWORD_TO_TERRAIN: Record<string, FavoredTerrainKind> = {
   'Open Ground': 'plains',
   Woodwalker: 'forest',
   Bogstrider: 'swamp',
+  Duneborn: 'desert',
   Ashborn: 'volcanic',
-  Hillborn: 'hills',
+  Mountainborn: 'mountains',
+  Deepwalker: 'water',
 }
 
 const TERRAIN_LABELS: Record<FavoredTerrainKind, string> = {
   plains: 'Plains',
   forest: 'Forest',
   swamp: 'Swamp',
+  desert: 'Desert',
   volcanic: 'Volcanic',
-  hills: 'Hills',
+  mountains: 'Mountains',
+  water: 'Water',
 }
 
 export function resolveFavoredTerrain(
@@ -51,7 +62,7 @@ export function resolveFavoredTerrain(
 }
 
 function isValidTerrainKind(value: string): boolean {
-  return ['plains', 'forest', 'swamp', 'volcanic', 'hills', 'desert'].includes(value)
+  return value in TERRAIN_LABELS
 }
 
 export function favoredTerrainIconUrl(kind: FavoredTerrainKind): string {
@@ -59,5 +70,20 @@ export function favoredTerrainIconUrl(kind: FavoredTerrainKind): string {
 }
 
 export function favoredTerrainTooltip(kind: FavoredTerrainKind): string {
-  return `Favored: ${TERRAIN_LABELS[kind]} (+1 Hit)`
+  switch (kind) {
+    case 'mountains':
+      return 'Favored: Mountains (+1 Harden)'
+    case 'forest':
+      return 'Favored: Forest (ignore Forest ranged penalty)'
+    case 'swamp':
+      return 'Favored: Swamp (Guard)'
+    case 'volcanic':
+      return 'Favored: Volcanic (+1 Damage)'
+    case 'water':
+      return 'Favored: Water (+1 Move)'
+    case 'desert':
+      return 'Favored: Desert (+1 Hit)'
+    default:
+      return `Favored: ${TERRAIN_LABELS[kind]} (+1 Hit)`
+  }
 }

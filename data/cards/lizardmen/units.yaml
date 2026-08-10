@@ -27,9 +27,9 @@ cards:
     tags:
       - lizardman
       - crocodile
-    favored_terrain: swamp
+    favored_terrain: water
   - id: 2d24db67c8eb4a5789f5101db9df2bba
-    name: Bog Javelins
+    name: Reed Javelins
     card_type: Unit
     rarity: Common
     unique: false
@@ -51,13 +51,13 @@ cards:
       - Reach
     abilities: []
     ultimate: null
-    flavor_text: Throws sticks. Catches respect.
+    flavor_text: Thrown from the reedline before the water even ripples.
     complexity: 1
     role: Artillery
     tags:
       - lizardman
       - ranged
-    favored_terrain: swamp
+    favored_terrain: water
   - id: 04f202c9091149faaa9d5162a42b03c5
     name: Camo Ambusher
     card_type: Unit
@@ -144,7 +144,7 @@ cards:
     tags:
       - lizardman
       - skink
-    favored_terrain: swamp
+    favored_terrain: forest
   - id: 30c5d095f504426f9500c5ec9803661b
     name: Fang Slinger
     card_type: Unit
@@ -292,9 +292,9 @@ cards:
     tags:
       - lizardman
       - hydra
-    favored_terrain: swamp
+    favored_terrain: water
   - id: 94f58e4e284942ab877b2b00fcbe952f
-    name: Lith Guard
+    name: Stone Guard
     card_type: Unit
     rarity: Common
     unique: false
@@ -322,7 +322,7 @@ cards:
     tags:
       - lizardman
       - infantry
-    favored_terrain: swamp
+    favored_terrain: mountains
   - id: 337bf4b03cd54ce9947c0b9e5a4a765b
     name: Marsh Spears
     card_type: Unit
@@ -380,7 +380,7 @@ cards:
     tags:
       - lizardman
       - amphibious
-    favored_terrain: swamp
+    favored_terrain: water
   - id: 64d978718e144e74aa8b61a2288293ec
     name: Pathcroc
     card_type: Unit
@@ -409,7 +409,7 @@ cards:
     tags:
       - lizardman
       - crocodile
-    favored_terrain: swamp
+    favored_terrain: water
   - id: 83567bf35be64d078e66a97e7f74b46e
     name: Reed Scout
     card_type: Unit
@@ -467,7 +467,7 @@ cards:
     tags:
       - lizardman
       - infantry
-    favored_terrain: swamp
+    favored_terrain: plains
   - id: bb005ba87fbb4b15a441ba94e8c9dd06
     name: Stonegaze Gorgon
     card_type: Unit
@@ -497,7 +497,7 @@ cards:
     tags:
       - lizardman
       - gorgon
-    favored_terrain: swamp
+    favored_terrain: mountains
   - id: 01903b9eb7164a59b8ad6418c4696035
     name: Stonejaw Crusher
     card_type: Unit
@@ -526,7 +526,7 @@ cards:
     tags:
       - lizardman
       - infantry
-    favored_terrain: swamp
+    favored_terrain: mountains
   - id: 43a396307b6f458da0969151c0d2877b
     name: Coil Priest
     card_type: Unit
@@ -618,9 +618,9 @@ cards:
     tags:
       - lizardman
       - hydra
-    favored_terrain: swamp
+    favored_terrain: water
   - id: 098ceb366aff4ef8b85740b34bfd4e1b
-    name: Lith Pillar
+    name: Mountain Pillar
     card_type: Unit
     rarity: Uncommon
     unique: false
@@ -648,7 +648,7 @@ cards:
     tags:
       - lizardman
       - infantry
-    favored_terrain: swamp
+    favored_terrain: mountains
   - id: 90e3370181f24b86b93fa8ff1722e335
     name: Marsh Naga
     card_type: Unit
@@ -708,7 +708,7 @@ cards:
     tags:
       - lizardman
       - beast
-    favored_terrain: swamp
+    favored_terrain: water
   - id: 85f9f1c12e2a46a4bd9d7c3452e8b82b
     name: Mudbrace Line
     card_type: Unit
@@ -768,7 +768,7 @@ cards:
     tags:
       - lizardman
       - crocodile
-    favored_terrain: swamp
+    favored_terrain: water
   - id: 3a6d8b2e49314777877b91b6d74a4a15
     name: Swamp Hydra
     card_type: Unit
@@ -822,13 +822,13 @@ cards:
       - Frenzy
     abilities: []
     ultimate: null
-    flavor_text: Rip first. Ask the fen later.
+    flavor_text: Rip first. Ask the current later.
     complexity: 2
     role: Damage
     tags:
       - lizardman
       - skink
-    favored_terrain: swamp
+    favored_terrain: water
   - id: bf13277766bd4012b31e6dc61d07d0b7
     name: Venom Spitter
     card_type: Unit
@@ -888,7 +888,7 @@ cards:
     tags:
       - lizardman
       - serpent
-    favored_terrain: swamp
+    favored_terrain: forest
   - id: 1fbd4cf1306c4d4cb699a3de2b898748
     name: Chameleon Warden
     card_type: Unit
@@ -918,7 +918,7 @@ cards:
     tags:
       - lizardman
       - skink
-    favored_terrain: swamp
+    favored_terrain: forest
     balance_rev: 14
   - id: 444865db4f5f427ba2b5855607ce62a1
     name: Deathroll
@@ -950,7 +950,7 @@ cards:
     tags:
       - lizardman
       - crocodile
-    favored_terrain: swamp
+    favored_terrain: water
     balance_rev: 12
   - id: 132734f23fdd42ecbcc677611ff44414
     name: Fen Basilisk
@@ -984,7 +984,7 @@ cards:
     favored_terrain: swamp
     balance_rev: 12
   - id: a30424fd478d495ca2b6d0be3c43c732
-    name: Obsidian Hydra Brood
+    name: Riverstone Hydra Brood
     card_type: Unit
     rarity: Rare
     unique: false
@@ -1012,7 +1012,7 @@ cards:
     tags:
       - lizardman
       - hydra
-    favored_terrain: swamp
+    favored_terrain: water
     balance_rev: 12
   - id: 21958b06db084bffba992e0a404f9b7c
     name: Temple Scale Guard
@@ -1044,7 +1044,7 @@ cards:
     tags:
       - lizardman
       - infantry
-    favored_terrain: swamp
+    favored_terrain: mountains
     balance_rev: 12
   - id: 74edf0ac30674277a6b48c04a6890e91
     name: Viperfang Hydra
@@ -1075,7 +1075,7 @@ cards:
     tags:
       - lizardman
       - hydra
-    favored_terrain: swamp
+    favored_terrain: water
     balance_rev: 12
   - id: b164ae761150477aadb7d329e5b931e6
     name: Muck Stalker
@@ -1171,7 +1171,7 @@ cards:
       - lizardman
       - serpent
       - legend
-    favored_terrain: swamp
+    favored_terrain: water
     balance_rev: 12
   - id: 8456cb476f4f4b8782c8e61031dda4de
     name: Spawning Pool
@@ -1196,13 +1196,13 @@ cards:
       - Regenerate
     abilities: []
     ultimate: null
-    flavor_text: Where the fen writes new arguments.
+    flavor_text: Where deep water writes new arguments.
     complexity: 5
     role: Support
     tags:
       - lizardman
       - nature
-    favored_terrain: swamp
+    favored_terrain: water
     balance_rev: 12
   - id: 9a734fc804474241a04e8aa0cc05436a
     name: Hatchling Drill
@@ -1355,7 +1355,7 @@ cards:
       - formation
     favored_terrain: swamp
   - id: 23974e0554264d999eb62b9ac0bcba53
-    name: Bog Pacekeeper
+    name: Shoal Pacekeeper
     card_type: Unit
     rarity: Common
     unique: false
@@ -1383,4 +1383,4 @@ cards:
       - lizardman
       - support
       - formation
-    favored_terrain: swamp
+    favored_terrain: water

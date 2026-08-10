@@ -81,14 +81,15 @@ const TERRAIN_COST = {
   desert: 1,
   swamp: 1,
   volcanic: 1,
-  hills: 1,
+  mountains: 1,
   water: Infinity,
   wall: Infinity,
 }
 
 /**
- * Favored terrain by race — units on favored terrain get combat bonuses.
- * Replaces old difficult terrain system.
+ * Favored terrain by race — bonuses are terrain-specific (see TERRAIN EFFECTS).
+ * Plains/Desert: +1 Hit. Forest: ignore ranged Forest penalty. Swamp: Guard.
+ * Volcanic: +1 Damage. Mountains: +1 Harden. Water: +1 Move.
  */
 const RACE_FAVORED_TERRAIN = {
   Human: 'plains',
@@ -99,11 +100,38 @@ const RACE_FAVORED_TERRAIN = {
   Demon: 'volcanic',
   Undead: 'swamp',
   Lizardman: 'swamp',
-  Dwarf: 'hills',
+  Dwarf: 'mountains',
 }
 
-/** Combat bonus for standing on favored terrain: +1 Hit. */
+const TERRAIN_KEYWORD_TO_KIND = {
+  'Open Ground': 'plains',
+  Woodwalker: 'forest',
+  Bogstrider: 'swamp',
+  Duneborn: 'desert',
+  Ashborn: 'volcanic',
+  Mountainborn: 'mountains',
+  Deepwalker: 'water',
+}
+
+/** Combat +1 Hit for Plains/Desert Favored. */
 const FAVORED_TERRAIN_HIT_BONUS = 1
+const FAVORED_TERRAIN_DAMAGE_BONUS = 1
+
+function unitFavoredTerrain(unit) {
+  return unit.favoredTerrain || (unit.race && RACE_FAVORED_TERRAIN[unit.race]) || null
+}
+
+function unitHasTerrainFavored(unit, terrain) {
+  if (!unit || !terrain) return false
+  if (unit._grantedFavored === terrain) return true
+  if (unitFavoredTerrain(unit) === terrain) return true
+  const kws = unit.keywords || []
+  return kws.some((k) => TERRAIN_KEYWORD_TO_KIND[String(k)] === terrain)
+}
+
+function unitHasMountainsFavored(unit) {
+  return unitHasTerrainFavored(unit, 'mountains')
+}
 
 /**
  * Get terrain type at a hex, treating objectives as plains (neutral land).
@@ -239,27 +267,37 @@ function primaryObjective(map) {
  */
 function hitBonus(attacker, defender, models, dist = 1, map = null) {
   let bonus = attacker.tempHitBonus || 0
-  // Favored terrain: +1 Hit when standing on favored terrain
+  // Favored terrain: +1 Hit only for Plains / Desert (other terrains use different Favored effects).
   if (map && attacker.hex) {
     const terrain = getTerrainAt(map, attacker.hex)
-    // Prefer explicit favoredTerrain field, fallback to race default
-    const favoredTerrain = attacker.favoredTerrain || (attacker.race && RACE_FAVORED_TERRAIN[attacker.race])
-    if (favoredTerrain === terrain) {
+    if (
+      (terrain === 'plains' || terrain === 'desert') &&
+      unitHasTerrainFavored(attacker, terrain)
+    ) {
       bonus += FAVORED_TERRAIN_HIT_BONUS
     }
   }
   const flanking =
     hasAbility(attacker, 'Flanking') || attacker._tempFlanking
   if (flanking && defender?.hex && models?.length) {
-    const flanked = models.some(
-      (m) =>
-        m.alive &&
-        m.side === attacker.side &&
-        m.id !== attacker.id &&
-        m.hex &&
-        hexDist(m.hex, defender.hex) === 1,
-    )
-    if (flanked) bonus += 1
+    // Swamp Base: Flanking does not apply unless attacker is also in Swamp.
+    let swampBlocked = false
+    if (map) {
+      const defT = getTerrainAt(map, defender.hex)
+      const atkT = attacker.hex ? getTerrainAt(map, attacker.hex) : 'plains'
+      swampBlocked = defT === 'swamp' && atkT !== 'swamp'
+    }
+    if (!swampBlocked) {
+      const flanked = models.some(
+        (m) =>
+          m.alive &&
+          m.side === attacker.side &&
+          m.id !== attacker.id &&
+          m.hex &&
+          hexDist(m.hex, defender.hex) === 1,
+      )
+      if (flanked) bonus += 1
+    }
   }
   // Pack: +1 Hit on melee while adjacent to at least two other Pack units.
   if (dist === 1 && hasAbility(attacker, 'Pack') && models?.length && attacker.hex) {
@@ -310,7 +348,7 @@ function hitBonus(attacker, defender, models, dist = 1, map = null) {
   if (attacker._volleyDiscipline && defender?._shotThisRoundBySide?.[attacker.side]) bonus += 1
   if (attacker._spottingLine) bonus += 1
   if (attacker._siegeSync) bonus += 1
-  if (attacker._marshStrideHit) bonus += 1
+  // Marsh Stride no longer grants +1 Hit on water (Deepwalker is +1 Move).
   if (attacker._scarLedger) bonus += 1
   if (attacker._namedFangs && defender?._hurtBeastThisRound) bonus += 1
   if (attacker._spearpointAdvance) bonus += 1
@@ -369,7 +407,28 @@ function hitRequirement(attacker, defender, dist, models, map = null) {
   let need = HIT_NEED[dist] ?? HIT_NEED_MAX
   // Harder to hit — Fearless ignores Fear penalty
   if (attacker.fear && !hasAbility(attacker, 'Fearless') && !attacker._tempFearless) need += 1
-  if (defender._evade) need += 1 // Evade reaction
+  // Desert Base: cannot Evade — ignore active Evade while in Desert.
+  if (defender._evade) {
+    const defTerrain =
+      map && defender.hex ? getTerrainAt(map, defender.hex) : null
+    if (defTerrain !== 'desert') need += 1
+  }
+  // Mountains Base: +1 Hit Requirement unless attacker is also in Mountains.
+  if (map && defender.hex) {
+    const defTerrain = getTerrainAt(map, defender.hex)
+    if (defTerrain === 'mountains') {
+      const atkTerrain = attacker.hex ? getTerrainAt(map, attacker.hex) : 'plains'
+      if (atkTerrain !== 'mountains') need += 1
+    }
+    // Forest Base: ranged (dist ≥ 2) into Forest +1 Hit Requirement;
+    // Favored (Woodwalker): ignore when attacking from Forest.
+    if (dist >= 2 && defTerrain === 'forest') {
+      const atkTerrain = attacker.hex ? getTerrainAt(map, attacker.hex) : 'plains'
+      const ignore =
+        unitHasTerrainFavored(attacker, 'forest') && atkTerrain === 'forest'
+      if (!ignore) need += 1
+    }
+  }
   // Easier to hit (+1 Hit ⇒ −1 need) — from keywords, Compact dials, Flanking, favored terrain, etc.
   need -= hitBonus(attacker, defender, models, dist, map)
   return Math.max(HIT_NEED_MIN, Math.min(HIT_NEED_MAX, need))
@@ -466,14 +525,14 @@ function fortifyHex(map, hex) {
   return true
 }
 
-/** Fortify and grant Harden 2 to a friendly occupant (Dwarf fortify kit). */
+/** Fortify hex; occupant gains +1 Harden (stacks). Fortified hex also adds +1 Harden at damage time. */
 function fortifyHexWithOccupantHarden(map, hex, models, side) {
   if (!fortifyHex(map, hex)) return false
   if (!models?.length || !hex) return true
   const occ = models.find(
     (m) => m.alive && m.side === side && m.hex && m.hex.q === hex.q && m.hex.r === hex.r,
   )
-  if (occ) occ.harden = Math.max(occ.harden || 0, 2)
+  if (occ) occ.harden = (occ.harden || 0) + 1
   return true
 }
 
@@ -699,8 +758,8 @@ function placeTerrainPiece(
   return placed
 }
 
-const LAND_KINDS = ['forest', 'swamp', 'desert', 'volcanic', 'hills', 'water', 'plains']
-const COMMAND_ZONE_KINDS = ['plains', 'forest', 'swamp', 'desert', 'volcanic', 'hills', 'water']
+const LAND_KINDS = ['forest', 'swamp', 'desert', 'volcanic', 'mountains', 'water', 'plains']
+const COMMAND_ZONE_KINDS = ['plains', 'forest', 'swamp', 'desert', 'volcanic', 'mountains', 'water']
 
 function pickLandKind(rng, sizeClass) {
   // Small pieces may include walls; large/medium stay land/water.
@@ -710,7 +769,7 @@ function pickLandKind(rng, sizeClass) {
   if (roll < 0.32) return 'swamp'
   if (roll < 0.46) return 'desert'
   if (roll < 0.56) return 'volcanic'
-  if (roll < 0.66) return 'hills'
+  if (roll < 0.66) return 'mountains'
   if (roll < 0.82) return 'water'
   return 'plains'
 }
@@ -1548,6 +1607,11 @@ function makeModel(entry, side, id, opts = {}) {
 
 function resetRoundFlags(m) {
   m.attackedThisRound = false
+  m._attackedThisAct = false
+  m._allowExtraAttack = false
+  m._bonusAttack = false
+  m._freeAttack = false
+  m._extraFreeAttack = false
   m.tempDamage = 0
   m.tempMove = 0
   m.hasCharge = hasAbility(m, 'Charge')
@@ -1599,7 +1663,7 @@ function resetRoundFlags(m) {
   m.suppressUntilEor = 0
   m.rootedUntilEor = false
   m.regenEor = 0
-  m.harden = Math.max(m.harden || 0, hardenRankFromKeywords(m))
+  m.harden = (m.harden || 0) + hardenRankFromKeywords(m)
   m._atkBuffs = null
   m._defBuffs = null
 }
@@ -1756,7 +1820,7 @@ function moveModelToward(map, model, target, models, budget, opts = {}) {
   return budget - remaining
 }
 
-function effectiveMove(model, models = null) {
+function effectiveMove(model, models = null, map = null) {
   if (model.rootedUntilEor) return 0
   let mv = model.baseMove + (model.tempMove || 0)
   if (model.slow) mv -= 1
@@ -1767,8 +1831,10 @@ function effectiveMove(model, models = null) {
   ) {
     mv += 1
   }
-  // Beastfolk dial-down: Pack bodies arrive a beat slower (elites keep pace).
-  // REMOVED — not printable; pace comes from March / Inspiring Presence / printed Move.
+  // Water Favored (Deepwalker): +1 Move while in Water.
+  if (map && model.hex && unitHasTerrainFavored(model, 'water')) {
+    if (getTerrainAt(map, model.hex) === 'water') mv += 1
+  }
   return Math.max(0, mv)
 }
 
@@ -2039,7 +2105,7 @@ function applyRacialCompactAura(unit, models) {
     const bonus = compactBonusForRace(race)
     if (bonus.damage > 0) unit.tempDamage += bonus.damage
     if (bonus.harden > 0) {
-      unit.harden = Math.max(unit.harden || 0, bonus.harden)
+      unit.harden = (unit.harden || 0) + bonus.harden
     }
     if (bonus.hit > 0) {
       unit.tempHitBonus = (unit.tempHitBonus || 0) + bonus.hit
@@ -2070,6 +2136,7 @@ function gatherKeywords(model, officer, models, map = null) {
   model._spottingLine = false
   model._siegeSync = false
   model._marshStrideHit = false
+  model._grantedFavored = null
   model._scarLedger = false
   model._namedFangs = false
   model._spearpointAdvance = false
@@ -2167,7 +2234,7 @@ function gatherKeywords(model, officer, models, map = null) {
       model.hex
     ) {
       const cell = map.cells.get(hexKey(model.hex.q, model.hex.r))
-      if (cell?.terrain === 'hills') model.harden = Math.max(model.harden || 0, 1)
+      if (cell?.terrain === 'mountains') model.harden = (model.harden || 0) + 1
     }
     if (
       hasAbility(src, 'Oath Anvil') &&
@@ -2232,21 +2299,58 @@ function gatherKeywords(model, officer, models, map = null) {
     for (const name of CMD_PATH) {
       if (!hasAbility(src, name)) continue
       let ok = false
-      if (name === 'Vector March') ok = isConstructLike(model)
-      else if (name === 'Hoard Routes') ok = String(model.race) === 'Dragon'
-      else if (name === 'Stone Highways') {
+      let grantTerrain = null
+      if (name === 'Vector March') {
+        ok = isConstructLike(model)
+        grantTerrain = 'plains'
+      } else if (name === 'Hoard Routes') {
+        ok = String(model.race) === 'Dragon'
+        grantTerrain = 'volcanic'
+      } else if (name === 'Stone Highways') {
         ok = String(model.race) === 'Dwarf'
+        if (ok) {
+          buffs.inspiringPresence = true
+          buffs.pathMoveBonus = 1
+          grantTerrain = 'mountains'
+        }
+      } else if (name === 'Rootways') {
+        ok = isNatureLike(model)
+        grantTerrain = 'forest'
+      } else if (name === 'Open Ground') {
+        ok = isMounted(model) || isBeastType(model)
+        grantTerrain = 'plains'
+        if (ok) {
+          buffs.inspiringPresence = true
+          buffs.pathMoveBonus = 1
+        }
+      } else if (name === 'Regen Paths') {
+        ok = isBeastType(model)
+        grantTerrain = 'forest'
+        if (ok) {
+          buffs.inspiringPresence = true
+          buffs.pathMoveBonus = 1
+        }
+      } else if (name === 'Still Paths') {
+        ok = String(model.race) === 'Undead'
+        grantTerrain = 'swamp'
         if (ok) {
           buffs.inspiringPresence = true
           buffs.pathMoveBonus = 1
         }
       }
-      else if (name === 'Rootways') ok = isNatureLike(model)
-      else if (name === 'Open Ground') {
-        ok = isMounted(model) || isBeastType(model)
-      } else if (name === 'Regen Paths') ok = isBeastType(model)
-      else if (name === 'Still Paths') ok = String(model.race) === 'Undead'
-      if (ok) buffs.disciplinedAdvance = true
+      if (ok) {
+        buffs.disciplinedAdvance = true
+        if (grantTerrain) model._grantedFavored = grantTerrain
+      }
+    }
+    if (hasAbility(src, 'Disciplined Advance')) {
+      model._grantedFavored = model._grantedFavored || 'plains'
+    }
+    if (hasAbility(src, 'Court Paths') && String(model.race) === 'Elf') {
+      model._grantedFavored = model._grantedFavored || 'forest'
+    }
+    if (hasAbility(src, 'Fen Drift') && String(model.race) === 'Lizardman') {
+      model._grantedFavored = model._grantedFavored || 'swamp'
     }
     if (hasAbility(src, 'Spearpoint Advance') && isInfantryLike(model)) {
       model._spearpointAdvance = true
@@ -2336,7 +2440,7 @@ function gatherKeywords(model, officer, models, map = null) {
       )
       if (adj) {
         model._closeOrder = true
-        model.harden = Math.max(model.harden || 0, 1)
+        model.harden = (model.harden || 0) + 1
       }
     }
     if (hasAbility(src, 'Lockstep Brace') && model.tags?.has?.('heavy')) {
@@ -2349,7 +2453,7 @@ function gatherKeywords(model, officer, models, map = null) {
       model.tags?.has?.('heavy') &&
       !(model.movedThisAct > 0)
     ) {
-      model.harden = Math.max(model.harden || 0, 1)
+      model.harden = (model.harden || 0) + 1
       model._stoneblood = true
     }
     if (hasAbility(src, 'Clutch Bond') && String(model.race) === 'Dragon') {
@@ -2365,7 +2469,7 @@ function gatherKeywords(model, officer, models, map = null) {
           hexDist(m.hex, model.hex) === 1,
       )
       if (buddy) {
-        model.harden = Math.max(model.harden || 0, 1)
+        model.harden = (model.harden || 0) + 1
         model._clutchBond = true
       }
     }
@@ -2388,7 +2492,7 @@ function gatherKeywords(model, officer, models, map = null) {
           hexDist(m.hex, src.hex) <= (src.radius || 4),
       )
       if (flyer && isInfantryLike(model)) {
-        model.harden = Math.max(model.harden || 0, 1)
+        model.harden = (model.harden || 0) + 1
         model._eyesOnSky = true
       }
     }
@@ -2396,7 +2500,7 @@ function gatherKeywords(model, officer, models, map = null) {
       const cell = map.cells.get(hexKey(model.hex.q, model.hex.r))
       const onObj = map.objectives?.some((o) => o.q === model.hex.q && o.r === model.hex.r)
       if (onObj || cell?.fortified) {
-        model.harden = Math.max(model.harden || 0, 1)
+        model.harden = (model.harden || 0) + 1
         model._unyieldingPost = true
       }
     }
@@ -2409,9 +2513,10 @@ function gatherKeywords(model, officer, models, map = null) {
     }
     if (hasAbility(src, 'Marsh Stride') && (hasAbility(model, 'Amphibious') || model.tags?.has?.('amphibious'))) {
       model._marshStride = true
+      // Deepwalker-style: water is passable; Move bonus applied in effectiveMove via Deepwalker/favored.
       if (map && model.hex) {
         const cell = map.cells.get(hexKey(model.hex.q, model.hex.r))
-        if (cell?.terrain === 'water') model._marshStrideHit = true
+        if (cell?.terrain === 'water') model._grantedFavored = model._grantedFavored || 'water'
       }
     }
     if (hasAbility(src, 'Root Latch') && isNatureLike(model) && map && model.hex) {
@@ -2510,24 +2615,24 @@ function companyOf(sides, model) {
  * Brace/Evade persist until next activation or round (mutually exclusive); Retaliate is once/round.
  * Returns null to conserve AP.
  */
-function pickDefenseReaction(defender, attacker, models, rng) {
+function pickDefenseReaction(defender, attacker, models, rng, map = null) {
   if (!defender?.hex || !attacker?.hex) return null
   const dist = Math.max(1, Math.round(hexDist(defender.hex, attacker.hex)))
-  const threat = effectiveDamage(attacker, models, defender)
-  const myDmg = effectiveDamage(defender, models, attacker)
+  const threat = effectiveDamage(attacker, models, defender, map)
+  const myDmg = effectiveDamage(defender, models, attacker, map)
   const canRetaliate =
     !defender._retaliateUsedThisRound &&
     (defender.baseDamage || 0) > 0 &&
     dist <= effectiveRange(defender) &&
     canTarget(defender, attacker, dist)
+  const defTerrain = map ? getTerrainAt(map, defender.hex) : null
+  // Desert Base: cannot Evade. Volcanic Base: cannot Brace.
+  const canBrace = defTerrain !== 'volcanic'
+  const canEvade = defTerrain !== 'desert'
   // Brace and Evade are mutually exclusive lasting stances.
-  // Brace grants Harden 1 — skip if the unit already has Harden.
-  const alreadyHard =
-    (defender.harden || 0) >= 1 ||
-    hardenRankFromKeywords(defender) >= 1 ||
-    defender._reactionBrace
-  const needBrace = !alreadyHard && !defender._evade
-  const needEvade = !defender._evade && !defender._reactionBrace
+  // Brace grants Harden 1 and stacks — skip only if Brace already active.
+  const needBrace = canBrace && !defender._reactionBrace && !defender._evade
+  const needEvade = canEvade && !defender._evade && !defender._reactionBrace
 
   // Already protected and can't/won't retaliate
   if (!needBrace && !needEvade && !canRetaliate) return null
@@ -2559,17 +2664,23 @@ function pickDefenseReaction(defender, attacker, models, rng) {
  * a unit may not have Brace and Evade at the same time.
  * Retaliate fires immediately and may only be used once per round.
  */
-function declareDefenseReaction(defender, attacker, models, sides, rng) {
+function declareDefenseReaction(defender, attacker, models, sides, rng, map = null) {
   if (!sides || defender.role === 'commander') return null
   const co = companyOf(sides, defender)
   if (!co?.officerModel?.alive) return null
   const cost = actionApCost(DEFENSE_REACTION_AP, defender)
   if (co.ap < cost) return null
-  const choice = pickDefenseReaction(defender, attacker, models, rng)
+  const choice = pickDefenseReaction(defender, attacker, models, rng, map)
   if (!choice) return null
   if (choice === 'brace' && (defender._reactionBrace || defender._evade)) return null
   if (choice === 'evade' && (defender._evade || defender._reactionBrace)) return null
   if (choice === 'retaliate' && defender._retaliateUsedThisRound) return null
+  // Terrain Base blocks (also checked in pick, but re-check after AP spend path).
+  if (map && defender.hex) {
+    const t = getTerrainAt(map, defender.hex)
+    if (choice === 'brace' && t === 'volcanic') return null
+    if (choice === 'evade' && t === 'desert') return null
+  }
   if (!spendAp(co, cost)) return null
   if (choice === 'brace') {
     defender._reactionBrace = true
@@ -2626,7 +2737,7 @@ function resolveRetaliate(defender, attacker, models, map, sideState, kills, vp,
     )
     return
   }
-  const dmg = effectiveDamage(defender, models, attacker)
+  const dmg = effectiveDamage(defender, models, attacker, map)
   applyIncomingDamage(attacker, dmg, defender, models, map)
   const killed = !attacker.alive
   if (killed) {
@@ -2723,7 +2834,7 @@ function canEndFlyingMoveOnHex(map, hex, model, models, occupied) {
   return moveCost(map, hex, model, { forEndMove: true }) < Infinity
 }
 
-function effectiveDamage(model, models, defender = null) {
+function effectiveDamage(model, models, defender = null, map = null) {
   let dmg = model.baseDamage + (model.tempDamage || 0)
   if (hasAbility(model, 'Adaptive Attack')) dmg = model.hp
   // Defender cannot initiate Charge.
@@ -2763,6 +2874,10 @@ function effectiveDamage(model, models, defender = null) {
     )
   ) {
     dmg += 1
+  }
+  // Volcanic Favored (Ashborn): +1 Damage when attacking from Volcanic.
+  if (map && model.hex && unitHasTerrainFavored(model, 'volcanic')) {
+    if (getTerrainAt(map, model.hex) === 'volcanic') dmg += FAVORED_TERRAIN_DAMAGE_BONUS
   }
   if (model.suppressUntilEor) dmg = Math.max(1, dmg - 1)
   if (model._tempRangeBonus) {
@@ -2804,13 +2919,16 @@ function applyIncomingDamage(defender, raw, attacker, models = null, map = null)
     }
     return 0
   }
-  // Single Harden track: printed Harden X / granted / Fortified hex / reaction Brace (max, no stack).
+  // Harden sources stack: unit track (printed + grants) + Fortified hex + reaction Brace + Mountains Favored.
   const fortified = isHexFortified(map, defender.hex)
-  const printedHarden = Math.max(defender.harden || 0, hardenRankFromKeywords(defender))
-  let harden = printedHarden
-  if (fortified) harden = Math.max(harden, 1)
+  const unitHarden = Math.max(defender.harden || 0, hardenRankFromKeywords(defender))
   const braceHarden = !!defender._reactionBrace
-  if (braceHarden) harden = Math.max(harden, 1)
+  const mountainsFavored =
+    map &&
+    defender.hex &&
+    getTerrainAt(map, defender.hex) === 'mountains' &&
+    unitHasMountainsFavored(defender)
+  const harden = unitHarden + (fortified ? 1 : 0) + (braceHarden ? 1 : 0) + (mountainsFavored ? 1 : 0)
 
   let before = dmg
   // Defender: +1 Toughness while defending ≈ −1 damage (floor 1).
@@ -2871,9 +2989,18 @@ function applyIncomingDamage(defender, raw, attacker, models = null, map = null)
   if (harden && !(attacker && (hasAbility(attacker, 'Piercing') || attacker._flankPierce || attacker._tempPiercing))) {
     dmg = reduceDamageFloor(dmg, harden)
     const cut = Math.max(0, before - dmg)
-    if (braceHarden && printedHarden < 1 && !fortified) sources.brace += cut
-    else if (fortified && printedHarden < 1 && !braceHarden) sources.fortified += cut
-    else sources.harden += cut
+    let remaining = cut
+    if (braceHarden && remaining > 0) {
+      const part = Math.min(1, remaining)
+      sources.brace += part
+      remaining -= part
+    }
+    if (fortified && remaining > 0) {
+      const part = Math.min(1, remaining)
+      sources.fortified += part
+      remaining -= part
+    }
+    if (remaining > 0) sources.harden += remaining
     before = dmg
   }
   // Iron Covenant: once/round, first damage to a friendly in radius −1 (floor 1)
@@ -3267,12 +3394,12 @@ function tryCastAbility({
     const hardenFloor = dialEffects().holdTheLineHarden || 1
     for (const u of radiusFriends) {
       if (buffStrength(abilityName, caster, u) <= 0) continue
-      u.harden = Math.max(u.harden || 0, hardenFloor)
+      u.harden = (u.harden || 0) + hardenFloor
     }
   } else if (abilityName === 'Shield Column') {
     for (const u of radiusFriends) {
       if (buffStrength(abilityName, caster, u) <= 0) continue
-      u.harden = Math.max(u.harden || 0, 2)
+      u.harden = (u.harden || 0) + 2
       u._tempShieldwall = true
     }
   } else if (
@@ -3282,7 +3409,7 @@ function tryCastAbility({
   ) {
     const u = [...radiusFriends].sort((a, b) => a.hp - b.hp)[0]
     if (u) {
-      u.harden = Math.max(u.harden || 0, 2)
+      u.harden = (u.harden || 0) + 2
     }
   } else if (abilityName === 'Fortify Works' || abilityName === 'Stoneworks') {
     const origin = caster.hex
@@ -3412,7 +3539,7 @@ function tryCastAbility({
     }
   } else if (abilityName === 'Scale Ward') {
     for (const u of radiusFriends.filter(isDragonLike)) {
-      u.harden = Math.max(u.harden || 0, 2)
+      u.harden = (u.harden || 0) + 2
     }
   } else if (abilityName === 'Scorch Mark') {
     const u = [...radiusFriends]
@@ -3452,7 +3579,7 @@ function tryCastAbility({
   } else if (abilityName === "Tyrant's Command") {
     for (const u of radiusFriends.filter(isDragonLike)) {
       u.tempDamage += 2
-      u.harden = Math.max(u.harden || 0, 1)
+      u.harden = (u.harden || 0) + 1
     }
   } else if (abilityName === 'Cataclysm Breath') {
     const foe = models
@@ -3476,13 +3603,13 @@ function tryCastAbility({
     const dragons = radiusFriends.filter(isDragonLike)
     for (const u of dragons) {
       u.tempDamage += 2
-      if (held > 0) u.harden = Math.max(u.harden || 0, held)
+      if (held > 0) u.harden = (u.harden || 0) + held
       u._freeAttack = true
       tagAtkBuff(u, abilityName)
     }
   } else if (abilityName === 'Anvil Advance') {
     for (const u of radiusFriends) {
-      u.harden = Math.max(u.harden || 0, 2)
+      u.harden = (u.harden || 0) + 2
       const obj = map.objectives?.[0]
       if (obj) moveModelToward(map, u, obj, models, 1, { ignoreTerrainCosts: true })
     }
@@ -3512,7 +3639,7 @@ function tryCastAbility({
   } else if (abilityName === 'Shield Brotherhood') {
     for (const u of radiusFriends.filter(isInfantryLike)) {
       u._tempShieldwall = true
-      u.harden = Math.max(u.harden || 0, 1)
+      u.harden = (u.harden || 0) + 1
     }
   } else if (abilityName === 'Unbreakable Hold') {
     let n = 0
@@ -3521,7 +3648,7 @@ function tryCastAbility({
       if (fortifyHexWithOccupantHarden(map, h, models, sideState.side)) n++
     }
     for (const u of radiusFriends) {
-      u.harden = Math.max(u.harden || 0, 2)
+      u.harden = (u.harden || 0) + 2
       u.tempDamage += 1
     }
   } else if (abilityName === 'Depth Charge') {
@@ -3549,12 +3676,12 @@ function tryCastAbility({
     }
   } else if (abilityName === 'Anvil Decree') {
     for (const u of radiusFriends) {
-      u.harden = Math.max(u.harden || 0, 2)
+      u.harden = (u.harden || 0) + 2
       u.tempDamage += 1
     }
   } else if (abilityName === "Korrik's Stand") {
     for (const u of radiusFriends) {
-      u.harden = Math.max(u.harden || 0, 2)
+      u.harden = (u.harden || 0) + 2
       u.tempDamage += 1
       u._unyielding = true
     }
@@ -3797,7 +3924,7 @@ function tryCastAbility({
   } else if (abilityName === 'Barrow Ward') {
     // Company units in CR gain Harden 3
     for (const u of radiusFriends) {
-      u.harden = Math.max(u.harden || 0, 3)
+      u.harden = (u.harden || 0) + 3
       tagDefBuff(u, abilityName)
     }
   } else if (abilityName === 'Grave Fortify') {
@@ -3865,7 +3992,7 @@ function tryCastAbility({
     for (const u of radiusFriends.filter(isBeastType)) u.tempMove += 1
   } else if (abilityName === "Matriarch's Protection") {
     for (const u of radiusFriends.filter(isBeastType)) {
-      u.harden = Math.max(u.harden || 0, 1)
+      u.harden = (u.harden || 0) + 1
       tagDefBuff(u, abilityName)
     }
   } else if (abilityName === 'Tribal Cadence') {
@@ -3920,7 +4047,7 @@ function tryCastAbility({
       const foe = models
         .filter((m) => m.alive && m.side !== sideState.side && m.hex)
         .sort((a, b) => hexDist(u.hex, a.hex) - hexDist(u.hex, b.hex))[0]
-      if (foe) moveModelToward(map, u, foe.hex, models, effectiveMove(u, models))
+      if (foe) moveModelToward(map, u, foe.hex, models, effectiveMove(u, models, map))
       u._freeAttack = true
       tagAtkBuff(u, abilityName)
     }
@@ -3979,7 +4106,7 @@ function tryCastAbility({
     for (const u of radiusFriends.filter(isConstructLike)) {
       u._tempFearless = true
       u.poisonTokens = 0
-      u.harden = Math.max(u.harden || 0, 1)
+      u.harden = (u.harden || 0) + 1
     }
   } else if (abilityName === 'Magnetic Line') {
     const u =
@@ -4047,9 +4174,10 @@ function tryCastAbility({
       tagAtkBuff(u, abilityName)
     }
   } else if (abilityName === 'Arrowstorm Command') {
-    // One free shot for one shooter (dialed from two)
+    // One free shot for one shooter (dialed from two); still grants printed +1 range.
     const ranged = radiusFriends.filter(isRanged).slice(0, 1)
     for (const u of ranged) {
+      u._tempRangeBonus = (u._tempRangeBonus || 0) + 1
       u._freeAttack = true
       tagAtkBuff(u, abilityName)
     }
@@ -4130,7 +4258,7 @@ function tryCastAbility({
   } else if (abilityName === 'Forced March') {
     const u = radiusFriends[0]
     if (u) {
-      u.tempMove += effectiveMove(u, models)
+      u.tempMove += effectiveMove(u, models, map)
       u._noAttack = true
     }
   } else if (abilityName === 'Rally') {
@@ -4138,7 +4266,7 @@ function tryCastAbility({
     if (co) co.ap += 1
   } else if (abilityName === 'Tactical Withdrawal') {
     const u = radiusFriends.sort((a, b) => a.hp - b.hp)[0]
-    if (u && cmd) moveModelToward(map, u, cmd.hex, models, effectiveMove(u, models))
+    if (u && cmd) moveModelToward(map, u, cmd.hex, models, effectiveMove(u, models, map))
     syncOccupants(map, models)
   } else if (abilityName === 'Cinder March') {
     // YAML: +1 move and ignore first AoO — AoO not modeled, so move only (was wrongly ignoring first hit).
@@ -4166,7 +4294,7 @@ function tryCastAbility({
     for (const f of foes) f.poisonTokens += 2
   } else if (abilityName === 'Unbroken Hearth') {
     for (const u of radiusFriends) {
-      u.harden = Math.max(u.harden || 0, 1)
+      u.harden = (u.harden || 0) + 1
       u.tempDamage += 1
       u.regenEor = Math.max(u.regenEor, 1)
       u._tempShieldwall = true
@@ -4174,7 +4302,7 @@ function tryCastAbility({
   } else if (abilityName === 'Realmward Unity') {
     for (const u of radiusFriends) {
       u.tempMove += 1
-      u.harden = Math.max(u.harden || 0, 1)
+      u.harden = (u.harden || 0) + 1
       u._objDamageBonus = 1
     }
   } else if (abilityName === 'Iron Covenant Charge') {
@@ -4193,7 +4321,7 @@ function tryCastAbility({
     syncOccupants(map, models)
   } else if (abilityName === 'Hearthbound Stand') {
     for (const u of cmdRad) {
-      u.harden = Math.max(u.harden, 2)
+      u.harden = (u.harden || 0) + 2
       u._rooted = true
       u._tempShieldwall = true
       u.tempDamage += 1
@@ -4216,9 +4344,11 @@ function tryCastAbility({
       tagAtkBuff(u, abilityName)
     }
   } else if (abilityName === 'Moonlit Volley') {
-    const ranged = radiusFriends.filter(isRanged).slice(0, 2)
-    for (const u of ranged) {
+    // Printed: all Ranged in CR immediately perform two attacks each.
+    for (const u of radiusFriends.filter(isRanged)) {
       u._freeAttack = true
+      u._extraFreeAttack = true
+      tagAtkBuff(u, abilityName)
     }
   } else if (abilityName === 'Infernal Rush') {
     // Printed: all Frenzy or Charge in CR move 1 and attack (no 2-unit cap).
@@ -4363,7 +4493,7 @@ function tryCastAbility({
     }
   } else if (abilityName === 'Stone Serpent Stand') {
     for (const u of radiusFriends) {
-      u.harden = Math.max(u.harden || 0, 2)
+      u.harden = (u.harden || 0) + 2
       u._tempReach = true
       u.hasPoisonAtk = true
     }
@@ -4626,7 +4756,7 @@ function tryCastAbility({
   } else if (abilityName === 'Kindred Roar') {
     for (const u of radiusFriends.filter(isDragonLike)) {
       u.tempDamage += 1
-      u.harden = Math.max(u.harden || 0, 1)
+      u.harden = (u.harden || 0) + 1
     }
   }
 
@@ -5023,7 +5153,7 @@ function resolveStrike(
   // May spend AP for Brace/Evade (lasting) or Retaliate (immediate, once/round).
   let willRetaliate = false
   if (declare) {
-    const choice = declareDefenseReaction(defender, attacker, models, sides, rng)
+    const choice = declareDefenseReaction(defender, attacker, models, sides, rng, map)
     willRetaliate = allowRetaliate && choice === 'retaliate'
   }
 
@@ -5069,7 +5199,7 @@ function resolveStrike(
 
   // Commander ability Counterattack: free rebound if still alive (not AP Retaliate).
   if (defender._counterattack && attacker.alive && defender.alive) {
-    const back = Math.max(1, effectiveDamage(defender, models, attacker))
+    const back = Math.max(1, effectiveDamage(defender, models, attacker, map))
     applyIncomingDamage(attacker, back, defender, models, map)
   }
 
@@ -5249,6 +5379,14 @@ function resolveStrike(
 
 function resolveAttack(attacker, defender, models, map, sideState, company, kills, vp, rng, sides = null) {
   if (attacker._noAttack || attacker._bonePrisoned || !attacker.hex || !defender?.hex) return null
+
+  // One declared attack per activation/turn unless an explicit extra is granted
+  // (Frenzy bonus, ability free attack, Trample continuation).
+  const isExtra = !!attacker._allowExtraAttack
+  if (attacker._allowExtraAttack) attacker._allowExtraAttack = false
+  if (attacker._attackedThisAct && !isExtra) return null
+  if (attacker.role === 'commander' && attacker.attackedThisRound && !isExtra) return null
+
   const dist = Math.max(1, Math.round(hexDist(attacker.hex, defender.hex)))
   const range = effectiveRange(attacker)
   if (dist > range) return null
@@ -5257,7 +5395,7 @@ function resolveAttack(attacker, defender, models, map, sideState, company, kill
     return null
   }
 
-  let pool = effectiveDamage(attacker, models, defender)
+  let pool = effectiveDamage(attacker, models, defender, map)
   if (pool <= 0) return null
 
   // Hex Pressure: magic/nature get +1 Hit vs enemies in difficult terrain.
@@ -5318,6 +5456,7 @@ function resolveAttack(attacker, defender, models, map, sideState, company, kill
     }
   }
 
+  attacker._attackedThisAct = true
   attacker.attackedThisRound = true
   if (blastR > 0) attacker._blastRadius = 0
   // Harass: after attacking (hit or miss), may Move 1 (ignores Disengagement/Guard).
@@ -5371,6 +5510,9 @@ function activateCompany(sideState, company, models, map, rng, abilityMap, kills
     // Brace/Evade end when the unit activates (or at round refresh — whichever first).
     clearLastingDefense(u)
     u.movedThisAct = 0
+    u._attackedThisAct = false
+    u._allowExtraAttack = false
+    u._bonusAttack = false
     u.isolated = !inRadius(u, officer)
     u._consumeSlow = !!u.slow
     u._noAttack = false
@@ -5393,6 +5535,10 @@ function activateCompany(sideState, company, models, map, rng, abilityMap, kills
     }
   }
   clearLastingDefense(officer)
+  officer.movedThisAct = 0
+  officer._attackedThisAct = false
+  officer._allowExtraAttack = false
+  officer._bonusAttack = false
 
   tryOfficerActives(sideState, company, models, map, rng, abilityMap, kills, vp, round)
 
@@ -5406,7 +5552,7 @@ function activateCompany(sideState, company, models, map, rng, abilityMap, kills
       const cost = actionApCost(OUT_OF_RADIUS_MOVE_AP, u)
       if (!spendAp(company, cost)) continue
     }
-    moveModelToward(map, u, target, models, effectiveMove(u, models))
+    moveModelToward(map, u, target, models, effectiveMove(u, models, map))
     moved++
     // update isolation after move
     u.isolated = !inRadius(u, officer)
@@ -5418,21 +5564,30 @@ function activateCompany(sideState, company, models, map, rng, abilityMap, kills
       officer,
       pickMoveTarget(officer, sideState.side, map, models, officer, rng),
       models,
-      effectiveMove(officer, models),
+      effectiveMove(officer, models, map),
     )
   }
   syncOccupants(map, models)
 
-  // Combat: each unit may attack for Company AP
+  // Officer/ability free attacks (Battery Link, Coordinated Volley, …) fire after move,
+  // as extras — they must not replace the company's normal paid attack below.
+  resolveSideFreeAttacks(sideState, models, map, kills, vp, rng, sides)
+
+  // Combat: each unit may attack once for Company AP (Frenzy extras excepted)
   let attacks = 0
   const foes = () => models.filter((m) => m.alive && m.side !== sideState.side && m.hex)
   const attackWith = (atk) => {
     if (!atk.alive || !atk.hex) return
-    const cost = actionApCost(ATTACK_AP, atk)
-    const free = atk._freeAttack || atk._extraFreeAttack
-    if (!free && !spendAp(company, cost)) return
-    if (atk._freeAttack) atk._freeAttack = false
-    else if (atk._extraFreeAttack) atk._extraFreeAttack = false
+    if (atk._attackedThisAct && !atk._bonusAttack) return
+    // Frenzy leftover from an earlier free attack: free, no Company AP.
+    const frenzyOnly = atk._attackedThisAct && atk._bonusAttack
+    if (frenzyOnly) {
+      atk._bonusAttack = false
+      atk._allowExtraAttack = true
+    } else {
+      const cost = actionApCost(ATTACK_AP, atk)
+      if (!spendAp(company, cost)) return
+    }
     const enemies = foes()
     if (!enemies.length) return
     enemies.sort((a, b) => {
@@ -5458,19 +5613,7 @@ function activateCompany(sideState, company, models, map, rng, abilityMap, kills
     }
     resolveAttack(atk, target, models, map, sideState, company, kills, vp, rng, sides)
     attacks++
-    if (atk._extraFreeAttack) {
-      atk._extraFreeAttack = false
-      const more = foes().filter(
-        (e) =>
-          hexDist(atk.hex, e.hex) <= effectiveRange(atk) &&
-          canTarget(atk, e, hexDist(atk.hex, e.hex)),
-      )
-      if (more.length) {
-        more.sort((a, b) => a.hp - b.hp)
-        resolveAttack(atk, more[0], models, map, sideState, company, kills, vp, rng, sides)
-        attacks++
-      }
-    }
+    // Frenzy: free bonus attack after a destroy (matches play / keyword).
     if (atk._bonusAttack) {
       atk._bonusAttack = false
       const more = foes().filter(
@@ -5478,8 +5621,9 @@ function activateCompany(sideState, company, models, map, rng, abilityMap, kills
           hexDist(atk.hex, e.hex) <= effectiveRange(atk) &&
           canTarget(atk, e, hexDist(atk.hex, e.hex)),
       )
-      if (more.length && spendAp(company, actionApCost(ATTACK_AP, atk))) {
+      if (more.length) {
         more.sort((a, b) => a.hp - b.hp)
+        atk._allowExtraAttack = true
         resolveAttack(atk, more[0], models, map, sideState, company, kills, vp, rng, sides)
         attacks++
       }
@@ -5503,6 +5647,12 @@ function activateCompany(sideState, company, models, map, rng, abilityMap, kills
 function resolveSideFreeAttacks(sideState, models, map, kills, vp, rng, sides = null) {
   for (const u of models.filter((m) => m.alive && m.side === sideState.side && m.hex)) {
     while (u._freeAttack || u._extraFreeAttack) {
+      // Attack-locked (Bone Prison, Suppress attack lock, etc.) cannot take free strikes.
+      if (u._noAttack || u._bonePrisoned) {
+        u._freeAttack = false
+        u._extraFreeAttack = false
+        break
+      }
       const foes = models.filter((m) => m.alive && m.side !== sideState.side && m.hex)
       const t = foes
         .filter(
@@ -5514,7 +5664,28 @@ function resolveSideFreeAttacks(sideState, models, map, kills, vp, rng, sides = 
       if (u._freeAttack) u._freeAttack = false
       else u._extraFreeAttack = false
       if (!t) break
+      // Ability free attacks are bonus declarations (Wild Hunt, Tribal Convergence, …).
+      u._allowExtraAttack = true
       resolveAttack(u, t, models, map, sideState, null, kills, vp, rng, sides)
+      // Do not consume the unit's later company/commander act attack.
+      u._attackedThisAct = false
+      // Frenzy from a free-attack kill: take the bonus strike now, still leave act attack free.
+      if (u._bonusAttack) {
+        u._bonusAttack = false
+        const more = foes.filter(
+          (f) =>
+            f.alive &&
+            f.hex &&
+            hexDist(u.hex, f.hex) <= effectiveRange(u) &&
+            canTarget(u, f, hexDist(u.hex, f.hex)),
+        )
+        if (more.length) {
+          more.sort((a, b) => a.hp - b.hp)
+          u._allowExtraAttack = true
+          resolveAttack(u, more[0], models, map, sideState, null, kills, vp, rng, sides)
+          u._attackedThisAct = false
+        }
+      }
     }
   }
 }
@@ -5677,6 +5848,9 @@ function activateCommander(sideState, models, map, rng, kills, vp, abilityMap, r
   sideState.commanderActivatedThisRound = true
   clearLastingDefense(cmd)
   cmd.movedThisAct = 0
+  cmd._attackedThisAct = false
+  cmd._allowExtraAttack = false
+  cmd._bonusAttack = false
   const consumeSlow = !!cmd.slow
   const inRad = friendsInCommanderRadius(models, cmd)
   for (const u of inRad) {
@@ -5732,13 +5906,13 @@ function activateCommander(sideState, models, map, rng, kills, vp, abilityMap, r
   }
 
   const target = pickMoveTarget(cmd, sideState.side, map, models, null, rng)
-  moveModelToward(map, cmd, target, models, effectiveMove(cmd, models))
+  moveModelToward(map, cmd, target, models, effectiveMove(cmd, models, map))
   if (consumeSlow) cmd.slow = false
   syncOccupants(map, models)
 
   resolveSideFreeAttacks(sideState, models, map, kills, vp, rng, sides)
 
-  if (cmd.baseDamage > 0 && sideState.commanderAp >= 1) {
+  if (cmd.baseDamage > 0 && sideState.commanderAp >= 1 && !cmd.attackedThisRound) {
     const foes = models.filter((m) => m.alive && m.side !== sideState.side && m.hex)
     const t = foes
       .filter(

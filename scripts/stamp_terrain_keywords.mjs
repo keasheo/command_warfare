@@ -24,7 +24,7 @@ const RACE_KEYWORD_MAP = {
   Demon: 'Ashborn',
   Undead: 'Bogstrider',
   Lizardman: 'Bogstrider',
-  Dwarf: 'Hillborn',
+  Dwarf: 'Mountainborn',
 }
 
 function getAllCardYamlFiles(baseDir) {

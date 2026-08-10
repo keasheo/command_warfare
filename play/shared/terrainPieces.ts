@@ -24,7 +24,7 @@ export type TerrainKind =
   | 'water'
   | 'wall'
   | 'volcanic'
-  | 'hills'
+  | 'mountains'
 
 /** Setup draw tier — large land first, then gap-fill / barriers. */
 export type TerrainSizeClass = 'large' | 'medium' | 'small'
@@ -457,7 +457,7 @@ const TERRAIN_TYPE_META: Array<{ kind: TerrainKind; label: string }> = [
   { kind: 'swamp', label: 'Swamp' },
   { kind: 'desert', label: 'Desert' },
   { kind: 'volcanic', label: 'Volcanic' },
-  { kind: 'hills', label: 'Hills' },
+  { kind: 'mountains', label: 'Mountains' },
   { kind: 'water', label: 'Water' },
 ]
 
@@ -548,7 +548,7 @@ export const LAND_TERRAIN_KINDS: TerrainKind[] = [
   'swamp',
   'desert',
   'volcanic',
-  'hills',
+  'mountains',
   'water',
 ]
 
@@ -564,7 +564,7 @@ export function terrainMayCoverCommander(kind: TerrainKind): boolean {
     kind === 'desert' ||
     kind === 'swamp' ||
     kind === 'volcanic' ||
-    kind === 'hills'
+    kind === 'mountains'
   )
 }
 
@@ -602,7 +602,7 @@ export const FLOOD_TERRAIN_KINDS: TerrainKind[] = [
   'swamp',
   'desert',
   'volcanic',
-  'hills',
+  'mountains',
   'water',
 ]
 
@@ -667,7 +667,7 @@ const ALL_LAND_KINDS: TerrainKind[] = [
   'swamp',
   'desert',
   'volcanic',
-  'hills',
+  'mountains',
   'water',
 ]
 
@@ -1094,15 +1094,20 @@ export const TERRAIN_FILL: Record<TerrainKind, string> = {
   swamp: '#364436',
   desert: '#8c6533',
   volcanic: '#181210',
-  hills: '#5a5040',
+  mountains: '#5a5040',
   water: '#40608c',
   wall: 'rgba(90, 95, 105, 0.95)',
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// FAVORED TERRAIN SYSTEM
-// Units on their favored terrain gain combat bonuses (+1 Hit, +1 Damage).
-// Bonuses are modest but meaningful — roughly equivalent to old "ignore difficult" power level.
+// TERRAIN EFFECTS (Base / Favored)
+// Plains Favored: +1 Hit from Plains
+// Forest Base: ranged into Forest +1 Hit Requirement; Favored: ignore when attacking from Forest
+// Mountains Base: +1 Hit Requirement unless attacker in Mountains; Favored: +1 Harden
+// Swamp Base: Flanking blocked unless attacker in Swamp; Favored: Guard while in Swamp
+// Desert Base: cannot Evade; Favored: +1 Hit from Desert
+// Volcanic Base: cannot Brace; Favored: +1 Damage from Volcanic
+// Water Favored: +1 Move while in Water
 // ═══════════════════════════════════════════════════════════════════════════
 
 /** Favored terrain by race. */
@@ -1115,7 +1120,7 @@ export const RACE_FAVORED_TERRAIN: Record<string, TerrainKind> = {
   Demon: 'volcanic',
   Undead: 'swamp',
   Lizardman: 'swamp',
-  Dwarf: 'hills',
+  Dwarf: 'mountains',
 }
 
 /**
@@ -1128,7 +1133,7 @@ export const TERRAIN_KEYWORD_NAMES: Record<TerrainKind, string> = {
   swamp: 'Bogstrider',
   desert: 'Duneborn',
   volcanic: 'Ashborn',
-  hills: 'Hillborn',
+  mountains: 'Mountainborn',
   water: 'Deepwalker',
   wall: 'Wallbreaker',
 }
@@ -1138,14 +1143,73 @@ export const KEYWORD_TO_TERRAIN: Record<string, TerrainKind> = Object.fromEntrie
   Object.entries(TERRAIN_KEYWORD_NAMES).map(([kind, kw]) => [kw, kind as TerrainKind]),
 )
 
-/**
- * Combat bonuses on favored terrain.
- * Balanced to be meaningful but not overwhelming — replaces "ignore difficult" power level.
- */
+/** Hit bonus magnitude for terrains whose Favored is +1 Hit. */
 export const FAVORED_TERRAIN_BONUS = {
   hit: 1,
-  damage: 0,
+  damage: 1,
 } as const
+
+/** Terrains whose Favored bonus is +1 Hit when attacking from that terrain. */
+export function favoredGrantsHitBonus(terrain: TerrainKind | undefined): boolean {
+  return terrain === 'plains' || terrain === 'desert'
+}
+
+/** Terrains whose Favored bonus is +1 Damage when attacking from that terrain. */
+export function favoredGrantsDamageBonus(terrain: TerrainKind | undefined): boolean {
+  return terrain === 'volcanic'
+}
+
+/** Terrains whose Favored bonus is +1 Harden while occupying. */
+export function favoredGrantsHardenBonus(terrain: TerrainKind | undefined): boolean {
+  return terrain === 'mountains'
+}
+
+/** Terrains whose Favored bonus is Guard while occupying. */
+export function favoredGrantsGuard(terrain: TerrainKind | undefined): boolean {
+  return terrain === 'swamp'
+}
+
+/** Terrains whose Favored bonus is +1 Move while occupying. */
+export function favoredGrantsMoveBonus(terrain: TerrainKind | undefined): boolean {
+  return terrain === 'water'
+}
+
+/** Forest Base: ranged (dist ≥ 2) into Forest gets +1 Hit Requirement. */
+export function forestRangedHitPenalty(
+  defenderTerrain: TerrainKind | undefined,
+  attackerTerrain: TerrainKind | undefined,
+  attackerHasForestFavored: boolean,
+  dist: number,
+): boolean {
+  if (dist < 2 || defenderTerrain !== 'forest') return false
+  // Favored: ignore penalty when attacking from Forest.
+  if (attackerHasForestFavored && attackerTerrain === 'forest') return false
+  return true
+}
+
+/** Mountains Base: +1 Hit Requirement unless attacker also in Mountains. */
+export function mountainsDefenseHitPenalty(
+  defenderTerrain: TerrainKind | undefined,
+  attackerTerrain: TerrainKind | undefined,
+): boolean {
+  return defenderTerrain === 'mountains' && attackerTerrain !== 'mountains'
+}
+
+/** Swamp Base: Flanking does not apply unless attacker also in Swamp. */
+export function swampBlocksFlanking(
+  defenderTerrain: TerrainKind | undefined,
+  attackerTerrain: TerrainKind | undefined,
+): boolean {
+  return defenderTerrain === 'swamp' && attackerTerrain !== 'swamp'
+}
+
+export function desertBlocksEvade(terrain: TerrainKind | undefined): boolean {
+  return terrain === 'desert'
+}
+
+export function volcanicBlocksBrace(terrain: TerrainKind | undefined): boolean {
+  return terrain === 'volcanic'
+}
 
 /** Check if a race has favored terrain for a given terrain kind. */
 export function isFavoredTerrain(
