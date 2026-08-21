@@ -66,6 +66,11 @@ textarea {
   gap: 0.35rem;
 }
 
+.sidebar-settings {
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
 .brand {
   padding: 0.35rem 0.65rem 1.1rem;
 }

@@ -8,17 +8,17 @@ cards:
     primary_type: Infantry
     secondary_type: Heavy
     uv: 2
-    move: 3
+    move: 5
     damage: 2
     range: 1
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
-    keywords:
-      - Harden 1
+    keywords: []
     abilities: []
     ultimate: null
     flavor_text: Round defense, sharp temper.
@@ -38,12 +38,13 @@ cards:
     primary_type: Infantry
     secondary_type: null
     uv: 2
-    move: 3
+    move: 4
     damage: 2
     range: 1
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -67,17 +68,17 @@ cards:
     primary_type: Infantry
     secondary_type: Light
     uv: 2
-    move: 3
+    move: 5
     damage: 2
     range: 1
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
-    keywords:
-      - Harden 1
+    keywords: []
     abilities: []
     ultimate: null
     flavor_text: Picks, panic, and payday.
@@ -96,12 +97,13 @@ cards:
     primary_type: Infantry
     secondary_type: Light
     uv: 2
-    move: 3
+    move: 5
     damage: 2
     range: 1
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -126,12 +128,13 @@ cards:
     primary_type: Infantry
     secondary_type: null
     uv: 2
-    move: 3
+    move: 5
     damage: 2
     range: 1
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -156,12 +159,13 @@ cards:
     primary_type: Infantry
     secondary_type: null
     uv: 2
-    move: 3
+    move: 5
     damage: 2
     range: 1
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -186,12 +190,13 @@ cards:
     primary_type: Infantry
     secondary_type: null
     uv: 2
-    move: 3
+    move: 5
     damage: 2
     range: 1
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -216,12 +221,13 @@ cards:
     primary_type: Infantry
     secondary_type: Light
     uv: 2
-    move: 3
+    move: 5
     damage: 2
     range: 1
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -245,12 +251,13 @@ cards:
     primary_type: Infantry
     secondary_type: Heavy
     uv: 2
-    move: 3
+    move: 4
     damage: 2
     range: 1
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -274,12 +281,13 @@ cards:
     primary_type: Ranged
     secondary_type: Light
     uv: 2
-    move: 3
+    move: 5
     damage: 2
     range: 2
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -303,12 +311,13 @@ cards:
     primary_type: Ranged
     secondary_type: null
     uv: 2
-    move: 3
+    move: 5
     damage: 2
     range: 3
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -333,12 +342,13 @@ cards:
     primary_type: Infantry
     secondary_type: Light
     uv: 2
-    move: 3
+    move: 5
     damage: 2
     range: 1
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -363,18 +373,18 @@ cards:
     primary_type: Infantry
     secondary_type: Heavy
     uv: 3
-    move: 3
-    damage: 4
+    move: 5
+    damage: 3
     range: 1
-    toughness: 5
+    toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
     keywords:
       - Defender
-      - Harden 1
     abilities: []
     ultimate: null
     flavor_text: Anvil work for the hold.
@@ -384,7 +394,7 @@ cards:
       - dwarf
       - infantry
     favored_terrain: mountains
-    balance_rev: 11
+    balance_rev: 12
   - id: 7d8a88c6e8a74fae929c0a16d184daf8
     name: Deep Lanterns
     card_type: Unit
@@ -394,12 +404,13 @@ cards:
     primary_type: Magic
     secondary_type: null
     uv: 3
-    move: 3
-    damage: 4
+    move: 5
+    damage: 3
     range: 2
-    toughness: 5
+    toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -415,7 +426,7 @@ cards:
       - dwarf
       - magic
     favored_terrain: volcanic
-    balance_rev: 11
+    balance_rev: 12
   - id: f04f725c93444902a84e1e818ebbd6a2
     name: Deepguard Axes
     card_type: Unit
@@ -425,17 +436,17 @@ cards:
     primary_type: Infantry
     secondary_type: Heavy
     uv: 3
-    move: 3
-    damage: 4
+    move: 5
+    damage: 3
     range: 1
-    toughness: 5
+    toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
-    keywords:
-      - Harden 1
+    keywords: []
     abilities: []
     ultimate: null
     flavor_text: Deepguard work for the hold.
@@ -445,7 +456,7 @@ cards:
       - dwarf
       - infantry
     favored_terrain: mountains
-    balance_rev: 11
+    balance_rev: 12
   - id: deb7217cfb094df5b95893661099dbe0
     name: Forgebreakers
     card_type: Unit
@@ -455,12 +466,13 @@ cards:
     primary_type: Infantry
     secondary_type: Heavy
     uv: 3
-    move: 3
-    damage: 4
+    move: 4
+    damage: 3
     range: 1
-    toughness: 5
+    toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -475,7 +487,7 @@ cards:
       - dwarf
       - infantry
     favored_terrain: volcanic
-    balance_rev: 11
+    balance_rev: 12
   - id: 06633fc9ceca42f49464cb7fe5616434
     name: Granite Wardens
     card_type: Unit
@@ -485,17 +497,17 @@ cards:
     primary_type: Infantry
     secondary_type: Heavy
     uv: 3
-    move: 3
-    damage: 4
+    move: 5
+    damage: 3
     range: 1
-    toughness: 5
+    toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
-    keywords:
-      - Unyielding
+    keywords: []
     abilities: []
     ultimate: null
     flavor_text: Granite work for the hold.
@@ -505,7 +517,7 @@ cards:
       - dwarf
       - infantry
     favored_terrain: mountains
-    balance_rev: 11
+    balance_rev: 12
   - id: 0f9574ae0dca4c8e82b14c968035038b
     name: Grudge Bolters
     card_type: Unit
@@ -515,12 +527,13 @@ cards:
     primary_type: Ranged
     secondary_type: Heavy
     uv: 3
-    move: 3
-    damage: 4
+    move: 5
+    damage: 3
     range: 3
-    toughness: 5
+    toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -535,7 +548,7 @@ cards:
       - dwarf
       - ranged
     favored_terrain: mountains
-    balance_rev: 11
+    balance_rev: 12
   - id: 4270673526704006bce1528080d7cb47
     name: Hold Crossbows
     card_type: Unit
@@ -545,12 +558,13 @@ cards:
     primary_type: Ranged
     secondary_type: null
     uv: 3
-    move: 3
-    damage: 4
+    move: 5
+    damage: 3
     range: 3
-    toughness: 5
+    toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -566,7 +580,7 @@ cards:
       - dwarf
       - ranged
     favored_terrain: mountains
-    balance_rev: 11
+    balance_rev: 12
   - id: 8667f53c4c564bd8bc6a24567eba624b
     name: Holdmark Archers
     card_type: Unit
@@ -576,12 +590,13 @@ cards:
     primary_type: Ranged
     secondary_type: null
     uv: 3
-    move: 3
-    damage: 4
+    move: 5
+    damage: 3
     range: 3
-    toughness: 5
+    toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -596,7 +611,7 @@ cards:
       - dwarf
       - ranged
     favored_terrain: mountains
-    balance_rev: 11
+    balance_rev: 12
   - id: 25d3fcf457734491a32d80297a5f0c9e
     name: Ironpike Line
     card_type: Unit
@@ -606,12 +621,13 @@ cards:
     primary_type: Infantry
     secondary_type: Heavy
     uv: 3
-    move: 3
-    damage: 4
+    move: 4
+    damage: 3
     range: 1
-    toughness: 5
+    toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -627,7 +643,7 @@ cards:
       - dwarf
       - infantry
     favored_terrain: mountains
-    balance_rev: 11
+    balance_rev: 12
   - id: 652d547bcb0646b881d5dcb114e6f9f0
     name: Mountain Hearthkin
     card_type: Unit
@@ -637,17 +653,17 @@ cards:
     primary_type: Infantry
     secondary_type: null
     uv: 3
-    move: 3
-    damage: 4
+    move: 5
+    damage: 3
     range: 1
-    toughness: 5
+    toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
-    keywords:
-      - Harden 1
+    keywords: []
     abilities: []
     ultimate: null
     flavor_text: Mountain work for the hold.
@@ -657,7 +673,7 @@ cards:
       - dwarf
       - infantry
     favored_terrain: mountains
-    balance_rev: 11
+    balance_rev: 12
   - id: a1feaa11a95846d8a38f7c54689dd7cf
     name: Oathsworn Blades
     card_type: Unit
@@ -667,12 +683,13 @@ cards:
     primary_type: Infantry
     secondary_type: null
     uv: 3
-    move: 3
-    damage: 4
+    move: 5
+    damage: 3
     range: 1
-    toughness: 5
+    toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -687,7 +704,7 @@ cards:
       - dwarf
       - infantry
     favored_terrain: plains
-    balance_rev: 11
+    balance_rev: 12
   - id: 47690aa3a5be474d87719a43b007daef
     name: Powder Handlers
     card_type: Unit
@@ -697,12 +714,13 @@ cards:
     primary_type: Ranged
     secondary_type: Light
     uv: 3
-    move: 3
-    damage: 4
+    move: 5
+    damage: 3
     range: 2
-    toughness: 5
+    toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -717,7 +735,7 @@ cards:
       - dwarf
       - ranged
     favored_terrain: volcanic
-    balance_rev: 11
+    balance_rev: 12
   - id: ba1fadc95e964e189701ecb1e4e5da09
     name: Rune Halberds
     card_type: Unit
@@ -727,18 +745,18 @@ cards:
     primary_type: Infantry
     secondary_type: Heavy
     uv: 3
-    move: 3
-    damage: 4
+    move: 5
+    damage: 3
     range: 1
-    toughness: 5
+    toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
     keywords:
       - Reach
-      - Harden 1
     abilities: []
     ultimate: null
     flavor_text: Rune work for the hold.
@@ -748,7 +766,7 @@ cards:
       - dwarf
       - infantry
     favored_terrain: mountains
-    balance_rev: 11
+    balance_rev: 12
   - id: 37da14bb06304523ac73b970d9e61724
     name: Siege Sappers
     card_type: Unit
@@ -759,11 +777,12 @@ cards:
     secondary_type: Light
     uv: 3
     move: 3
-    damage: 4
+    damage: 3
     range: 1
-    toughness: 5
+    toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -778,7 +797,7 @@ cards:
       - dwarf
       - infantry
     favored_terrain: mountains
-    balance_rev: 11
+    balance_rev: 12
   - id: 5a585a6b1f0d4759a159b8c0a6fa3ca9
     name: Stone Miners
     card_type: Unit
@@ -788,12 +807,13 @@ cards:
     primary_type: Infantry
     secondary_type: null
     uv: 3
-    move: 3
-    damage: 4
+    move: 5
+    damage: 3
     range: 1
-    toughness: 5
+    toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -809,7 +829,7 @@ cards:
       - dwarf
       - infantry
     favored_terrain: mountains
-    balance_rev: 11
+    balance_rev: 12
   - id: 2f14da0d99ac49f9a5e12054b497755e
     name: Vault Spearmen
     card_type: Unit
@@ -819,12 +839,13 @@ cards:
     primary_type: Infantry
     secondary_type: null
     uv: 3
-    move: 3
-    damage: 4
+    move: 5
+    damage: 3
     range: 1
-    toughness: 5
+    toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -839,7 +860,7 @@ cards:
       - dwarf
       - infantry
     favored_terrain: mountains
-    balance_rev: 11
+    balance_rev: 12
   - id: e16717493a954aeea7bc4d1052eeb111
     name: Cliffbow Veterans
     card_type: Unit
@@ -849,12 +870,13 @@ cards:
     primary_type: Ranged
     secondary_type: null
     uv: 4
-    move: 3
-    damage: 5
+    move: 5
+    damage: 4
     range: 3
     toughness: 5
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -880,18 +902,18 @@ cards:
     primary_type: Infantry
     secondary_type: Elite
     uv: 6
-    move: 3
-    damage: 5
+    move: 5
+    damage: 4
     range: 1
-    toughness: 6
+    toughness: 5
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
     keywords:
       - Frenzy
-      - Harden 1
       - Reach
     abilities: []
     ultimate: null
@@ -902,7 +924,7 @@ cards:
       - dwarf
       - infantry
     favored_terrain: plains
-    balance_rev: 12
+    balance_rev: 13
   - id: cc513841df1a4bcdbeb22be9b4230a09
     name: Fieldbreaker Hammers
     card_type: Unit
@@ -912,12 +934,13 @@ cards:
     primary_type: Infantry
     secondary_type: Heavy
     uv: 5
-    move: 3
-    damage: 5
+    move: 5
+    damage: 4
     range: 1
     toughness: 5
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -943,17 +966,18 @@ cards:
     secondary_type: Heavy
     uv: 5
     move: 3
-    damage: 5
-    range: 3
+    damage: 4
+    range: 2
     toughness: 5
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
     keywords:
+      - Blast
       - Siege
-      - Unyielding
       - Reach
     abilities: []
     ultimate: null
@@ -964,7 +988,7 @@ cards:
       - dwarf
       - siege
     favored_terrain: mountains
-    balance_rev: 12
+    balance_rev: 14
   - id: 7df2f890d0c84a7db09cf6179fbcf294
     name: Ironbreaker Phalanx
     card_type: Unit
@@ -974,19 +998,18 @@ cards:
     primary_type: Infantry
     secondary_type: Heavy
     uv: 5
-    move: 3
-    damage: 5
+    move: 4
+    damage: 4
     range: 1
-    toughness: 6
+    toughness: 5
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
     keywords:
-      - Unyielding
       - Shieldwall
-      - Harden 1
       - Reach
     abilities: []
     ultimate: null
@@ -997,7 +1020,7 @@ cards:
       - dwarf
       - infantry
     favored_terrain: mountains
-    balance_rev: 12
+    balance_rev: 13
   - id: 29818af5022142cfa6088a9e2540f052
     name: King's Gatekeepers
     card_type: Unit
@@ -1007,12 +1030,13 @@ cards:
     primary_type: Infantry
     secondary_type: Elite
     uv: 6
-    move: 3
-    damage: 5
+    move: 4
+    damage: 4
     range: 1
-    toughness: 6
+    toughness: 5
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -1028,7 +1052,7 @@ cards:
       - dwarf
       - infantry
     favored_terrain: mountains
-    balance_rev: 12
+    balance_rev: 13
   - id: c7d70ee24c254f6b9cf331fee23a203e
     name: Oathbound Sappers
     card_type: Unit
@@ -1039,11 +1063,12 @@ cards:
     secondary_type: Light
     uv: 4
     move: 3
-    damage: 5
+    damage: 4
     range: 1
     toughness: 5
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -1068,12 +1093,13 @@ cards:
     primary_type: Magic
     secondary_type: null
     uv: 5
-    move: 3
+    move: 5
     damage: 5
     range: 2
     toughness: 5
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -1102,15 +1128,17 @@ cards:
     secondary_type: null
     uv: 4
     move: 3
-    damage: 5
+    damage: 4
     range: 2
     toughness: 5
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
     keywords:
+      - Blast
       - Siege
       - Reach
     abilities: []
@@ -1122,7 +1150,7 @@ cards:
       - dwarf
       - siege
     favored_terrain: mountains
-    balance_rev: 12
+    balance_rev: 13
   - id: a0b2c8cc9a1f47d48eb01ea3bbdadec0
     name: Stoneheart Defenders
     card_type: Unit
@@ -1132,18 +1160,18 @@ cards:
     primary_type: Infantry
     secondary_type: Heavy
     uv: 5
-    move: 3
-    damage: 5
+    move: 5
+    damage: 4
     range: 1
-    toughness: 6
+    toughness: 5
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
     keywords:
       - Defender
-      - Unyielding
     abilities: []
     ultimate: null
     flavor_text: Named in the ledgers of the deep.
@@ -1153,7 +1181,7 @@ cards:
       - dwarf
       - infantry
     favored_terrain: mountains
-    balance_rev: 12
+    balance_rev: 14
   - id: 7b06a5ae8603466dad9f7fc5bb886afb
     name: Thunderpeak Marksmen
     card_type: Unit
@@ -1163,12 +1191,13 @@ cards:
     primary_type: Ranged
     secondary_type: Elite
     uv: 5
-    move: 3
-    damage: 5
+    move: 5
+    damage: 4
     range: 3
     toughness: 5
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -1194,19 +1223,19 @@ cards:
     primary_type: Infantry
     secondary_type: Elite
     uv: 8
-    move: 3
-    damage: 5
+    move: 5
+    damage: 4
     range: 1
-    toughness: 6
+    toughness: 5
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
     keywords:
       - Harden 1
       - Unyielding
-      - Regenerate
       - Reach
     abilities: []
     ultimate: null
@@ -1217,7 +1246,7 @@ cards:
       - dwarf
       - infantry
     favored_terrain: volcanic
-    balance_rev: 11
+    balance_rev: 12
   - id: 8229a4ff65da4c9c8dc1821288b9c355
     name: Delve Drill Lad
     card_type: Unit
@@ -1227,12 +1256,13 @@ cards:
     primary_type: Infantry
     secondary_type: Light
     uv: 1
-    move: 3
+    move: 5
     damage: 1
     range: 1
     toughness: 2
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -1257,12 +1287,13 @@ cards:
     primary_type: Infantry
     secondary_type: Heavy
     uv: 1
-    move: 3
+    move: 5
     damage: 1
     range: 1
     toughness: 2
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -1287,12 +1318,13 @@ cards:
     primary_type: Infantry
     secondary_type: null
     uv: 2
-    move: 3
+    move: 5
     damage: 1
     range: 1
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -1317,12 +1349,13 @@ cards:
     primary_type: Infantry
     secondary_type: Light
     uv: 2
-    move: 3
+    move: 5
     damage: 2
     range: 1
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -1347,12 +1380,13 @@ cards:
     primary_type: Infantry
     secondary_type: Heavy
     uv: 2
-    move: 3
+    move: 5
     damage: 2
     range: 1
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -1378,12 +1412,13 @@ cards:
     primary_type: Infantry
     secondary_type: null
     uv: 2
-    move: 3
+    move: 5
     damage: 1
     range: 1
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null

@@ -443,6 +443,8 @@ function upsertCardPayload(body: Record<string, unknown>, id: string) {
     company_ap: (body.companyAp as number) ?? (body.company_ap as number) ?? null,
     company_capacity:
       (body.companyCapacity as number) ?? (body.company_capacity as number) ?? null,
+    company_unit_cap:
+      (body.companyUnitCap as number) ?? (body.company_unit_cap as number) ?? null,
     command_radius:
       (body.commandRadius as number) ?? (body.command_radius as number) ?? null,
     ap_generation:
@@ -501,12 +503,12 @@ app.post('/api/cards', (req, res) => {
       .prepare(
         `INSERT INTO cards (
           id, name, card_type, rarity, unique_flag, race, primary_type, secondary_type,
-          uv, move, damage, range_value, toughness, company_ap, company_capacity,
+          uv, move, damage, range_value, toughness, company_ap, company_capacity, company_unit_cap,
           command_radius, ap_generation, cc_generation, abilities_json, keywords_json, ultimate,
           flavor_text, complexity, role, tags_json, support_json, search_blob
         ) VALUES (
           @id, @name, @card_type, @rarity, @unique_flag, @race, @primary_type, @secondary_type,
-          @uv, @move, @damage, @range_value, @toughness, @company_ap, @company_capacity,
+          @uv, @move, @damage, @range_value, @toughness, @company_ap, @company_capacity, @company_unit_cap,
           @command_radius, @ap_generation, @cc_generation, @abilities_json, @keywords_json, @ultimate,
           @flavor_text, @complexity, @role, @tags_json, @support_json, @search_blob
         )`,
@@ -536,7 +538,7 @@ app.put('/api/cards/:id', (req, res) => {
           name=@name, card_type=@card_type, rarity=@rarity, unique_flag=@unique_flag,
           race=@race, primary_type=@primary_type, secondary_type=@secondary_type,
           uv=@uv, move=@move, damage=@damage, range_value=@range_value, toughness=@toughness,
-          company_ap=@company_ap, company_capacity=@company_capacity,
+          company_ap=@company_ap, company_capacity=@company_capacity, company_unit_cap=@company_unit_cap,
           command_radius=@command_radius, ap_generation=@ap_generation, cc_generation=@cc_generation,
           abilities_json=@abilities_json, keywords_json=@keywords_json, ultimate=@ultimate, flavor_text=@flavor_text,
           complexity=@complexity, role=@role, tags_json=@tags_json, support_json=@support_json,

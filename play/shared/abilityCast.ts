@@ -96,3 +96,47 @@ export function abilitySpendForCaster(
 
   return { error: 'Ability has no spendable cost.' }
 }
+
+/**
+ * Abilities that need a unit click before casting.
+ * Names are resolved effect names (after commander aliases).
+ */
+const UNIT_TARGET_ABILITIES = new Set(
+  [
+    'Harden Order',
+    'Overdrive',
+    'Withering Gaze',
+    'Heal',
+    'Medic',
+    'Repair',
+    'Rebuild Protocol',
+    'Counterattack',
+    'Spectral Strike',
+    'Tactical Withdrawal',
+    'Focused Assault',
+    'Null Pulse',
+    'Arc Discharge',
+    'Hellspark',
+    "Marshal's Shot",
+    'Wyrm Lash',
+    'Anvil Strike',
+    'Alpha Rush',
+    'Spear Thrust',
+    'Basilisk Glare',
+    'Grave Bind',
+    'Moonbind',
+    'Snare',
+    'Bone Prison',
+    'Entangling Roots',
+    'Serpent Coil',
+    'Shadow Orb',
+    'Forge Mend',
+    'Repair Rites',
+  ].map((n) => n.toLowerCase()),
+)
+
+/** True if this ability should use pick-target → confirm before cast. */
+export function abilityRequiresUnitTarget(abilityName: string): boolean {
+  const resolved = resolveEffectAbilityName(abilityName.trim())
+  return UNIT_TARGET_ABILITIES.has(resolved.toLowerCase())
+}

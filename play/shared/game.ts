@@ -4,9 +4,12 @@ import {
   boardMid,
   boardSizeForPlayers,
   DEFAULT_UNIT_MOVE,
-  DEPLOY_DEPTH,
+  DEFAULT_OFFICER_COMMAND_RADIUS,
+  DEFAULT_COMMANDER_COMMAND_RADIUS,
+  DEPLOY_ZONE_DEPTH,
+  DEPLOY_ZONE_WIDTH,
+  SIEGE_DEPLOY_DEPTH,
   MAX_ROUNDS,
-  MIN_OBJECTIVE_DISTANCE,
   SCOUT_CR_EXTENSION,
   SEATS_2P,
   SEATS_4P,
@@ -37,6 +40,7 @@ import {
   objectiveZoneHexes,
   objectiveZonesOnBoard,
 } from './objectiveCards'
+import { generateCornerBiomeMap, generateRandomBiomeMap } from './randomMap'
 import {
   commanderHasEscapePath,
   FLOOD_TERRAIN_KINDS,
@@ -69,14 +73,22 @@ import {
 } from './abilityCast'
 import {
   applyAttackResultToState,
+  applyBlastSplashToState,
+  applyOverpenetrateChain,
+  blastSplashTargets,
   effectiveDamage,
+  effectiveRadiusForUnit,
+  hasBlast,
   hasScoutAbility,
   hasUnitAbility,
   resolveAttack as resolveCombatAttack,
+  resolveBlastSplashHit,
   terrainBlocksEvade,
   terrainMoveBonus,
   unitInOfficerRadius,
 } from './combatResolve'
+import { formationMarchBonus } from './formation'
+import { isSiegeCard } from './siege'
 import {
   DEFAULT_UNIT_STATUSES,
   canGainFear,
@@ -113,15 +125,66 @@ export function edgeCommanderHex(seat: SeatId, boardSize = BOARD_SIZE): OddR {
   return { col: boardSize - 1, row: mid }
 }
 
-export function inDeployZone(seat: SeatId, cell: OddR, boardSize = BOARD_SIZE): boolean {
-  if (seat === 'N') return cell.row >= 0 && cell.row < DEPLOY_DEPTH
-  if (seat === 'S') return cell.row > boardSize - 1 - DEPLOY_DEPTH && cell.row < boardSize
-  if (seat === 'W') return cell.col >= 0 && cell.col < DEPLOY_DEPTH
-  return cell.col > boardSize - 1 - DEPLOY_DEPTH && cell.col < boardSize
+function deployZoneColRange(boardSize: number): { lo: number; hi: number } {
+  const mid = Math.floor((boardSize - 1) / 2)
+  const half = Math.floor(DEPLOY_ZONE_WIDTH / 2)
+  const lo = Math.max(0, mid - half)
+  const hi = Math.min(boardSize - 1, mid + half)
+  return { lo, hi }
 }
 
-/** All hex keys in a seat's edge deploy wedge. */
-export function deployWedgeKeys(seat: SeatId, boardSize = BOARD_SIZE): Set<string> {
+function deployZoneRowRange(boardSize: number): { lo: number; hi: number } {
+  return deployZoneColRange(boardSize)
+}
+
+/** Shared 13×8 edge deployment zone (centered on edge mid). */
+export function inDeployZone(
+  seat: SeatId,
+  cell: OddR,
+  boardSize = BOARD_SIZE,
+): boolean {
+  if (seat === 'N' || seat === 'S') {
+    const { lo, hi } = deployZoneColRange(boardSize)
+    if (cell.col < lo || cell.col > hi) return false
+    if (seat === 'N') {
+      return cell.row >= 0 && cell.row < DEPLOY_ZONE_DEPTH
+    }
+    return (
+      cell.row > boardSize - 1 - DEPLOY_ZONE_DEPTH && cell.row < boardSize
+    )
+  }
+  const { lo, hi } = deployZoneRowRange(boardSize)
+  if (cell.row < lo || cell.row > hi) return false
+  if (seat === 'W') {
+    return cell.col >= 0 && cell.col < DEPLOY_ZONE_DEPTH
+  }
+  return cell.col > boardSize - 1 - DEPLOY_ZONE_DEPTH && cell.col < boardSize
+}
+
+/** Rear-most SIEGE_DEPLOY_DEPTH hexes of the seat deploy zone (toward the edge). */
+export function inSiegeDeployBand(
+  seat: SeatId,
+  cell: OddR,
+  boardSize = BOARD_SIZE,
+): boolean {
+  if (!inDeployZone(seat, cell, boardSize)) return false
+  if (seat === 'N') {
+    return cell.row >= 0 && cell.row < SIEGE_DEPLOY_DEPTH
+  }
+  if (seat === 'S') {
+    return cell.row > boardSize - 1 - SIEGE_DEPLOY_DEPTH && cell.row < boardSize
+  }
+  if (seat === 'W') {
+    return cell.col >= 0 && cell.col < SIEGE_DEPLOY_DEPTH
+  }
+  return cell.col > boardSize - 1 - SIEGE_DEPLOY_DEPTH && cell.col < boardSize
+}
+
+/** All hex keys in a seat's shared deploy zone. */
+export function deployWedgeKeys(
+  seat: SeatId,
+  boardSize = BOARD_SIZE,
+): Set<string> {
   const keys = new Set<string>()
   for (let row = 0; row < boardSize; row++) {
     for (let col = 0; col < boardSize; col++) {
@@ -133,13 +196,60 @@ export function deployWedgeKeys(seat: SeatId, boardSize = BOARD_SIZE): Set<strin
   return keys
 }
 
-export function tooCloseToObjective(cell: OddR, state: GameState): boolean {
+export function siegeDeployBandKeys(
+  seat: SeatId,
+  boardSize = BOARD_SIZE,
+): Set<string> {
+  const keys = new Set<string>()
+  for (const key of deployWedgeKeys(seat, boardSize)) {
+    const [col, row] = key.split(',').map(Number) as [number, number]
+    if (inSiegeDeployBand(seat, { col, row }, boardSize)) keys.add(key)
+  }
+  return keys
+}
+
+/** True if the hex is part of an objective zone (cannot start on it). */
+export function onObjectiveHex(cell: OddR, state: GameState): boolean {
   for (const o of state.objectives) {
     for (const h of objectiveZoneHexes(o)) {
-      if (hexDistOddR(cell, h) < MIN_OBJECTIVE_DISTANCE) return true
+      if (h.col === cell.col && h.row === cell.row) return true
     }
   }
   return false
+}
+
+/** @deprecated Prefer onObjectiveHex — distance ring removed from deploy. */
+export function tooCloseToObjective(cell: OddR, state: GameState): boolean {
+  return onObjectiveHex(cell, state)
+}
+
+/**
+ * Officer hexes in the deploy zone from which CR reaches at least one siege-band hex.
+ * Used when the company still has unplaced Siege.
+ */
+export function officerDeployHexesForSiegeCompany(
+  state: GameState,
+  seat: SeatId,
+  officerRadius: number,
+): Set<string> {
+  const zone = deployWedgeKeys(seat, state.boardSize)
+  const siegeBand = siegeDeployBandKeys(seat, state.boardSize)
+  const out = new Set<string>()
+  for (const key of zone) {
+    const [col, row] = key.split(',').map(Number) as [number, number]
+    const cr = commandRadiusKeys(
+      { col, row },
+      officerRadius > 0 ? officerRadius : DEFAULT_OFFICER_COMMAND_RADIUS,
+      state.boardSize,
+    )
+    for (const sk of siegeBand) {
+      if (cr.has(sk)) {
+        out.add(key)
+        break
+      }
+    }
+  }
+  return out
 }
 
 /** Find the on-board officer token for a company (by officer card id). */
@@ -166,7 +276,36 @@ export function officerDeployRadius(
   if (fromToken && fromToken > 0) return fromToken
   const fromCard = state.cardCatalog?.[officer.cardId]?.commandRadius
   if (fromCard && fromCard > 0) return fromCard
-  return 2
+  return DEFAULT_OFFICER_COMMAND_RADIUS
+}
+
+/**
+ * Regular units deploy in officer Command Radius (Scout-extended), not the
+ * commander/officer edge zone. Siege is still clipped to the rear band.
+ */
+export function unitDeployHexKeys(
+  state: GameState,
+  seat: SeatId,
+  officer: UnitToken,
+  pendingUnit: UnitToken | null,
+  siege: boolean,
+): Set<string> {
+  const radius = effectiveRadiusForUnit(
+    officerDeployRadius(state, officer),
+    pendingUnit,
+  )
+  const keys = commandRadiusKeys(
+    { col: officer.col, row: officer.row },
+    radius,
+    state.boardSize,
+  )
+  if (!siege) return keys
+  const band = siegeDeployBandKeys(seat, state.boardSize)
+  const clipped = new Set<string>()
+  for (const key of keys) {
+    if (band.has(key)) clipped.add(key)
+  }
+  return clipped
 }
 
 export function createEmptyRoom(
@@ -176,6 +315,8 @@ export function createEmptyRoom(
   opponent: 'human' | 'ai' = 'human',
   aiDifficulty: 'easy' | 'medium' | 'hard' | null = null,
   loadoutPools?: Partial<LoadoutPools> | null,
+  randomMap = false,
+  aiCommanderId: string | null = null,
 ): GameState {
   const raceRule = enforceCommanderRace
     ? 'mono-race armies'
@@ -186,12 +327,15 @@ export function createEmptyRoom(
     opponent === 'ai'
       ? `vs AI (${aiDifficulty ?? 'medium'})`
       : 'vs Human'
+  const mapLabel = randomMap ? 'random biomes' : 'player terrain'
   return {
     roomCode,
     maxPlayers,
     enforceCommanderRace,
+    randomMap: Boolean(randomMap),
     opponent,
     aiDifficulty: opponent === 'ai' ? (aiDifficulty ?? 'medium') : null,
+    aiCommanderId: opponent === 'ai' ? aiCommanderId : null,
     loadoutPools: pools,
     boardSize,
     hostSeat: 'N',
@@ -230,7 +374,7 @@ export function createEmptyRoom(
     abilityCatalog: {},
     log: [
       formatGameLogLine(
-        `Room ${roomCode} created (${maxPlayers}P, ${boardSize}×${boardSize}, ${raceRule}, ${vsLabel}, deploy ≤${pools.deployMax}, reserve ≤${pools.reserveMax}). Build armies before commanders.`,
+        `Room ${roomCode} created (${maxPlayers}P, ${boardSize}×${boardSize}, ${raceRule}, ${vsLabel}, ${mapLabel}, deploy ≤${pools.deployMax}, reserve ≤${pools.reserveMax}). Build armies before force selection.`,
       ),
     ],
   }
@@ -475,6 +619,8 @@ export function createEmptyRoomState(
   opponent: 'human' | 'ai' = 'human',
   aiDifficulty: 'easy' | 'medium' | 'hard' | null = null,
   loadoutPools?: Partial<LoadoutPools> | null,
+  randomMap = false,
+  aiCommanderId: string | null = null,
 ): GameState {
   resolvedBySeat.delete(roomCode)
   loadoutBySeat.delete(roomCode)
@@ -486,6 +632,8 @@ export function createEmptyRoomState(
     opponent,
     aiDifficulty,
     loadoutPools,
+    randomMap,
+    aiCommanderId,
   )
 }
 
@@ -605,6 +753,31 @@ function allCommandersReady(state: GameState): boolean {
   return state.players.every((p) => p.commanderReady)
 }
 
+/**
+ * Place each locked army's commander on their edge mid-hex and mark commanderReady.
+ * Used when leaving ArmyBuild so we can skip the redundant "confirm commander" step.
+ */
+function seatCommandersOnField(state: GameState): GameState {
+  const commanders: GameState['commanders'] = { ...state.commanders }
+  const commanderRadii: GameState['commanderRadii'] = { ...state.commanderRadii }
+  const players = state.players.map((p) => {
+    if (!p.armyReady) return p
+    const army = roomArmies(state.roomCode).get(p.seat)
+    const cr = army?.commander.commandRadius
+    commanders[p.seat] = edgeCommanderHex(p.seat, state.boardSize)
+    commanderRadii[p.seat] = cr && cr > 0 ? cr : DEFAULT_COMMANDER_COMMAND_RADIUS
+    return { ...p, commanderReady: true }
+  })
+  return { ...state, commanders, commanderRadii, players }
+}
+
+/** Lock armies → seat commanders → draw objectives → force select. */
+function advanceAfterArmiesReady(state: GameState): GameState {
+  let next = seatCommandersOnField(state)
+  next = pushLog(next, 'Armies locked — command zone anchors set at edge mid. Choose battle loadouts.')
+  return beginObjectives(next)
+}
+
 function beginObjectives(state: GameState): GameState {
   const card = drawObjectiveCardOutsideCommandRadii(
     state.boardSize,
@@ -654,7 +827,7 @@ function allForceSelectReady(state: GameState): boolean {
 export function canForceStart(
   state: GameState,
   seat: SeatId,
-): { ok: true; next: 'Commanders' | 'ForceSelect' | 'Terrain' } | { ok: false; error: string } {
+): { ok: true; next: 'ForceSelect' | 'Terrain' } | { ok: false; error: string } {
   if (seat !== state.hostSeat) {
     return { ok: false, error: 'Only the host can force-start.' }
   }
@@ -668,13 +841,8 @@ export function canForceStart(
   if (!state.players.every((p) => p.armyReady && p.army)) {
     return { ok: false, error: 'Every joined player must lock an army first.' }
   }
-  if (state.phase === 'ArmyBuild') {
-    return { ok: true, next: 'Commanders' }
-  }
-  if (state.phase === 'Commanders') {
-    if (!state.players.every((p) => p.commanderReady)) {
-      return { ok: false, error: 'Every joined player must confirm commander first.' }
-    }
+  // ArmyBuild / leftover Commanders both advance straight into force selection.
+  if (state.phase === 'ArmyBuild' || state.phase === 'Commanders') {
     return { ok: true, next: 'ForceSelect' }
   }
   if (state.phase === 'ForceSelect') {
@@ -818,8 +986,41 @@ function beginTerrain(state: GameState): GameState {
   for (const p of state.players) {
     const army = armies.get(p.seat)
     const cr = army?.commander.commandRadius
-    commanderRadii[p.seat] = cr && cr > 0 ? cr : 5
+    commanderRadii[p.seat] = cr && cr > 0 ? cr : DEFAULT_COMMANDER_COMMAND_RADIUS
   }
+
+  const objectiveKeys = new Set(
+    flattenObjectiveHexes(state.objectives).map((h) => hexKey(h.col, h.row)),
+  )
+  const mapOpts = {
+    boardSize: state.boardSize,
+    roomCode: state.roomCode,
+    commanders: state.commanders,
+    commanderRadii,
+    objectiveKeys,
+  }
+
+  // Random biome maps skip interactive terrain and go straight to deploy.
+  if (state.randomMap) {
+    const terrain = generateRandomBiomeMap(mapOpts)
+    let next: GameState = {
+      ...state,
+      commanderRadii,
+      terrain,
+      terrainHands: {},
+      terrainQueue: [],
+      commandZoneModes: {},
+      landDropsUsed: {},
+      players: state.players.map((p) => ({ ...p, terrainReady: true })),
+    }
+    next = pushLog(
+      next,
+      'Random biome map generated (low water in command radii) — skipping terrain placement.',
+    )
+    return beginDeploy(next)
+  }
+
+  const cornerTerrain = generateCornerBiomeMap(mapOpts)
   const terrainHands: GameState['terrainHands'] = {}
   for (const p of state.players) terrainHands[p.seat] = []
   const quota = terrainQuotaLabel(state)
@@ -828,6 +1029,7 @@ function beginTerrain(state: GameState): GameState {
       ...state,
       phase: 'Terrain',
       terrainStage: 'commandZone',
+      terrain: cornerTerrain,
       terrainHands,
       terrainQueue: [],
       commandZoneModes: {},
@@ -836,7 +1038,7 @@ function beginTerrain(state: GameState): GameState {
       activeSeat: null,
       players: state.players.map((p) => ({ ...p, terrainReady: false })),
     },
-    `Terrain — command zone: flood your CR with one terrain type OR place pieces (${quota}). Then large → medium → small land on the battlefield. Same-kind overlap OK. CR water is small-only; battlefield water uses the soft cap (${WATER_HEX_CAP} hexes). Water/Wall may not seal your commander in.`,
+    `Terrain — corners seeded with random biomes; center is open to build. Command zone: flood your CR with one terrain type OR place pieces (${quota}). Then large → medium → small land on the battlefield. Same-kind overlap OK. CR water is small-only; battlefield water uses the soft cap (${WATER_HEX_CAP} hexes). Water/Wall may not seal your commander in.`,
   )
 }
 
@@ -1020,7 +1222,7 @@ export function foreignCommandRadiusKeys(
     if (seat === placerSeat) continue
     const origin = state.commanders[seat]
     if (!origin) continue
-    const radius = state.commanderRadii[seat] ?? 5
+    const radius = state.commanderRadii[seat] ?? DEFAULT_COMMANDER_COMMAND_RADIUS
     for (const key of commandRadiusKeys(origin, radius, state.boardSize)) {
       blocked.add(key)
     }
@@ -1034,14 +1236,13 @@ export function ownCommandRadiusKeys(
 ): Set<string> {
   const origin = state.commanders[seat]
   if (!origin) return new Set()
-  const radius = state.commanderRadii[seat] ?? 5
+  const radius = state.commanderRadii[seat] ?? DEFAULT_COMMANDER_COMMAND_RADIUS
   return commandRadiusKeys(origin, radius, state.boardSize)
 }
 
 function beginDeploy(state: GameState): GameState {
   const armies = roomArmies(state.roomCode)
   const commanders: GameState['commanders'] = {}
-  const units: UnitToken[] = []
   const deployQueues: GameState['deployQueues'] = {}
   const reserveStore = roomReserveQueues(state.roomCode)
   reserveStore.clear()
@@ -1049,22 +1250,13 @@ function beginDeploy(state: GameState): GameState {
   const filled =
     Object.keys(terrain).length - Object.keys(state.terrain ?? {}).length
 
+  // Keep edge-mid command-zone anchors (no commander tokens until player places them).
+  // Strip any leftover tokens from earlier phases.
   for (const p of state.players) {
     const army = armies.get(p.seat)
     const loadout = roomLoadouts(state.roomCode).get(p.seat)
     if (!army || !loadout) continue
-    const hex = edgeCommanderHex(p.seat, state.boardSize)
-    commanders[p.seat] = hex
-    units.push(
-      makeUnitToken({
-        seat: p.seat,
-        kind: 'commander',
-        card: army.commander,
-        officerCardId: null,
-        col: hex.col,
-        row: hex.row,
-      }),
-    )
+    commanders[p.seat] = edgeCommanderHex(p.seat, state.boardSize)
     deployQueues[p.seat] = queueItemsFromArmyBucket(army, loadout, 'deploy')
     reserveStore.set(p.seat, queueItemsFromArmyBucket(army, loadout, 'reserve'))
   }
@@ -1075,13 +1267,13 @@ function beginDeploy(state: GameState): GameState {
       phase: 'Deploy',
       terrain,
       commanders,
-      units,
+      units: [],
       deployQueues,
       activeSeat: null,
       activeCompanyOfficerId: null,
       players: state.players.map((p) => ({ ...p, deployDone: false })),
     },
-    `Open hexes filled with plains (${filled} hexes). Deploy: officers in your Command Radius; units inside their officer’s Command Radius. ≥${MIN_OBJECTIVE_DISTANCE} hexes from objective zones.`,
+    `Open hexes filled with plains (${filled} hexes). Commander and officers deploy in your ${DEPLOY_ZONE_WIDTH}×${DEPLOY_ZONE_DEPTH} zone (commander first). Units deploy in officer Command Radius (may leave the zone). Siege only in the rear ${SIEGE_DEPLOY_DEPTH} hexes. Cannot start on objectives.`,
   )
 }
 
@@ -1288,6 +1480,7 @@ function cardSnapshotFromDeath(
     range: death.range,
     toughness: death.toughness,
     companyCapacity: null,
+    companyUnitCap: null,
     commandRadius: death.commandRadius,
     companyAp: null,
     apGeneration: null,
@@ -1513,6 +1706,40 @@ function endPreviousCompanyActivation(
   }
 }
 
+/**
+ * Grant (or remove) temporary Move.
+ * If the unit is mid-activation, also adjust moveRemaining so the bonus is
+ * spendable now — not only shown as a higher max.
+ */
+function grantTempMove(u: UnitToken, delta: number): UnitToken {
+  if (!delta) return u
+  const tempMove = (u.tempMove || 0) + delta
+  const inActivation = u.activationCol != null || u.activationRow != null
+  if (!inActivation) {
+    return { ...u, tempMove }
+  }
+  return {
+    ...u,
+    tempMove,
+    moveRemaining: Math.max(0, (u.moveRemaining || 0) + delta),
+  }
+}
+
+function tempMoveGrant(
+  u: UnitToken,
+  delta: number,
+): Pick<UnitToken, 'tempMove' | 'moveRemaining'> {
+  const next = grantTempMove(u, delta)
+  return { tempMove: next.tempMove, moveRemaining: next.moveRemaining }
+}
+
+function setTempMove(
+  u: UnitToken,
+  tempMove: number,
+): Pick<UnitToken, 'tempMove' | 'moveRemaining'> {
+  return tempMoveGrant(u, tempMove - (u.tempMove || 0))
+}
+
 function patchUnitsById(
   state: GameState,
   ids: Set<string>,
@@ -1612,7 +1839,7 @@ function applyCastEffect(opts: {
         ...state,
         units: state.units.map((u) => {
           const f = hit.find((h) => h.id === u.id)
-          return f ? { ...u, tempMove: (u.tempMove || 0) + 1 } : u
+          return f ? grantTempMove(u, 1) : u
         }),
       },
       note: `Beast Banner: +1 Move to ${hit.length} Beast(s) of one company in CR.`,
@@ -1691,7 +1918,7 @@ function applyCastEffect(opts: {
           effectName === "Beastmaster's Call" ||
           effectName === 'Anvil Advance'
         ) {
-          next.tempMove = (u.tempMove || 0) + 1
+          Object.assign(next, tempMoveGrant(u, 1))
         }
         if (effectName === 'Death March' && isUndeadUnit(state, u)) {
           next.slow = false
@@ -1925,7 +2152,7 @@ function applyCastEffect(opts: {
       ok: true,
       state: patchUnitsById(state, new Set([foe.id]), {
         ...patchRoot(),
-        tempMove: Math.min(foe.tempMove || 0, -1),
+        ...setTempMove(foe, Math.min(foe.tempMove || 0, -1)),
       }),
       note: `${foe.cardName} is Rooted (−1 Move).`,
     }
@@ -2133,7 +2360,7 @@ function applyCastEffect(opts: {
           return {
             ...u,
             toughnessCurrent: Math.min(f.toughness, f.toughnessCurrent + 2),
-            tempMove: (u.tempMove || 0) + 1,
+            ...tempMoveGrant(u, 1),
           }
         }),
       },
@@ -2145,7 +2372,7 @@ function applyCastEffect(opts: {
     const { units, count } = bumpFriends(
       () => true,
       (u) => ({
-        tempMove: (u.tempMove || 0) + 1,
+        ...tempMoveGrant(u, 1),
         harden: (u.harden || 0) + 1,
       }),
     )
@@ -2181,7 +2408,7 @@ function applyCastEffect(opts: {
         ...state,
         units: state.units.map((u) => {
           const f = hit.find((h) => h.id === u.id)
-          return f ? { ...u, tempMove: (u.tempMove || 0) + 1 } : u
+          return f ? grantTempMove(u, 1) : u
         }),
       },
       note: `Fenbrood Drum: ${hit.length} Lizardman ally/allies gain +1 Move, Regen 1, and a free attack (Regen/attack resolve manually).`,
@@ -2234,7 +2461,7 @@ function applyCastEffect(opts: {
         ...state,
         units: state.units.map((u) => {
           const f = hit.find((h) => h.id === u.id)
-          return f ? { ...u, tempMove: (u.tempMove || 0) + 1 } : u
+          return f ? grantTempMove(u, 1) : u
         }),
       },
       note: `Directive Tempo: ${hit.length} Construct ally/allies gain +1 Move this activation.`,
@@ -2249,7 +2476,7 @@ function applyCastEffect(opts: {
         ...state,
         units: state.units.map((u) => {
           const f = hit.find((h) => h.id === u.id)
-          return f ? { ...u, tempMove: (u.tempMove || 0) + 1 } : u
+          return f ? grantTempMove(u, 1) : u
         }),
       },
       note: `Summit Currents: ${hit.length} Amphibious ally/allies gain +1 Move this activation.`,
@@ -2429,7 +2656,7 @@ function applyCastEffect(opts: {
     if (!ally || ally.toughness == null || ally.toughnessCurrent == null) {
       return { ok: true, state, note: 'Forge Mend: no injured Siege or Dwarf ally.' }
     }
-    const nextTough = Math.min(ally.toughness, ally.toughnessCurrent + 2)
+    const nextTough = Math.min(ally.toughness, ally.toughnessCurrent + 1)
     return {
       ok: true,
       state: {
@@ -2837,28 +3064,29 @@ export function reduceAction(
     }
     next = pushLog(next, `${seat} locked army: ${summary}`)
     if (allArmiesReady(next)) {
-      next = pushLog(
-        { ...next, phase: 'Commanders' },
-        'All armies ready — confirm commanders.',
-      )
+      next = advanceAfterArmiesReady(next)
     }
     return { ok: true, state: next }
   }
 
   if (action.type === 'readyCommander') {
+    // Kept for older clients / mid-migration rooms; seating is normally automatic.
     if (!seat) return { ok: false, error: 'Not seated.' }
     const player = state.players.find((p) => p.seat === seat)
     if (!player?.armyReady) {
       return { ok: false, error: 'Lock an army before confirming commander.' }
     }
-    if (state.phase !== 'Commanders' && state.phase !== 'ArmyBuild') {
+    if (
+      state.phase !== 'Commanders' &&
+      state.phase !== 'ArmyBuild' &&
+      state.phase !== 'ForceSelect'
+    ) {
       return { ok: false, error: 'Cannot ready now.' }
     }
     const army = roomArmies(state.roomCode).get(seat)
     const cr = army?.commander.commandRadius
     let next: GameState = {
       ...state,
-      phase: 'Commanders',
       players: state.players.map((p) =>
         p.seat === seat ? { ...p, commanderReady: true } : p,
       ),
@@ -2868,11 +3096,11 @@ export function reduceAction(
       },
       commanderRadii: {
         ...state.commanderRadii,
-        [seat]: cr && cr > 0 ? cr : 5,
+        [seat]: cr && cr > 0 ? cr : DEFAULT_COMMANDER_COMMAND_RADIUS,
       },
     }
     next = pushLog(next, `${seat} confirmed commander on the field.`)
-    if (allCommandersReady(next) && allArmiesReady(next)) {
+    if (allCommandersReady(next) && allArmiesReady(next) && state.phase !== 'ForceSelect') {
       next = beginObjectives(next)
     }
     return { ok: true, state: next }
@@ -2940,20 +3168,15 @@ export function reduceAction(
     if (!seat) return { ok: false, error: 'Not seated.' }
     const gate = canForceStart(state, seat)
     if (!gate.ok) return gate
-    if (gate.next === 'Commanders') {
-      return {
-        ok: true,
-        state: pushLog(
-          { ...state, phase: 'Commanders' },
-          `Host force-started with ${state.players.length}/${state.maxPlayers} players — confirm commanders.`,
-        ),
-      }
-    }
     if (gate.next === 'ForceSelect') {
+      let next = state
+      if (state.phase === 'ArmyBuild' || state.phase === 'Commanders') {
+        next = seatCommandersOnField(state)
+      }
       return {
         ok: true,
         state: pushLog(
-          beginObjectives(state),
+          beginObjectives(next),
           `Host force-started with ${state.players.length}/${state.maxPlayers} players — force selection.`,
         ),
       }
@@ -3419,16 +3642,51 @@ export function reduceAction(
     const cell = { col: action.col, row: action.row }
     if (!inBounds(cell, state.boardSize)) return { ok: false, error: 'Out of bounds.' }
 
-    if (item.kind === 'officer') {
-      const cr = ownCommandRadiusKeys(state, seat)
-      if (!cr.has(hexKey(cell.col, cell.row))) {
+    const unitSnap = state.cardCatalog[item.cardId]
+    const isSiege =
+      item.kind === 'unit' &&
+      isSiegeCard({
+        primaryType: unitSnap?.primaryType,
+        keywords: unitSnap?.keywords,
+      })
+
+    if (item.kind === 'commander' || item.kind === 'officer') {
+      if (!inDeployZone(seat, cell, state.boardSize)) {
         return {
           ok: false,
-          error: 'Officers must deploy inside your Command Radius.',
+          error: `Commander and officers must deploy inside your ${DEPLOY_ZONE_WIDTH}×${DEPLOY_ZONE_DEPTH} deployment zone.`,
+        }
+      }
+    }
+
+    if (item.kind === 'commander') {
+      // Commander: deploy zone only (already checked).
+    } else if (item.kind === 'officer') {
+      const companyHasSiege = queue.some(
+        (q) =>
+          q.kind === 'unit' &&
+          q.officerCardId === item.cardId &&
+          isSiegeCard({
+            primaryType: state.cardCatalog[q.cardId]?.primaryType,
+            keywords: state.cardCatalog[q.cardId]?.keywords,
+          }),
+      )
+      if (companyHasSiege) {
+        const radius =
+          unitSnap?.commandRadius && unitSnap.commandRadius > 0
+            ? unitSnap.commandRadius
+            : DEFAULT_OFFICER_COMMAND_RADIUS
+        const allowed = officerDeployHexesForSiegeCompany(state, seat, radius)
+        if (!allowed.has(hexKey(cell.col, cell.row))) {
+          return {
+            ok: false,
+            error:
+              'This company has Siege — place the officer where their Command Radius still reaches the rear Siege band.',
+          }
         }
       }
     } else {
-      // Units deploy in their officer's CR only — not the commander CR.
+      // Units: must also be in officer CR (Scout extends).
       const officer = findDeployedOfficer(state, seat, item.officerCardId)
       if (!officer) {
         return {
@@ -3437,7 +3695,6 @@ export function reduceAction(
         }
       }
       const radius = officerDeployRadius(state, officer)
-      const unitSnap = state.cardCatalog[item.cardId]
       const pendingUnit =
         unitSnap != null
           ? {
@@ -3496,12 +3753,18 @@ export function reduceAction(
           error: `Units must deploy within their officer’s Command Radius (${radius}${pendingUnit && hasScoutAbility(pendingUnit) ? `, +${SCOUT_CR_EXTENSION} Scout` : ''}).`,
         }
       }
+      if (isSiege && !inSiegeDeployBand(seat, cell, state.boardSize)) {
+        return {
+          ok: false,
+          error: `Siege units must deploy in the rear ${SIEGE_DEPLOY_DEPTH} hexes of your deployment zone.`,
+        }
+      }
     }
 
-    if (tooCloseToObjective(cell, state)) {
+    if (onObjectiveHex(cell, state)) {
       return {
         ok: false,
-        error: `Must be ≥${MIN_OBJECTIVE_DISTANCE} hexes from objective zones.`,
+        error: 'Cannot deploy on an objective hex.',
       }
     }
     if (occupiedKeys(state).has(`${cell.col},${cell.row}`)) {
@@ -3516,7 +3779,12 @@ export function reduceAction(
       ({
         id: item.cardId,
         name: item.cardName,
-        cardType: item.kind === 'officer' ? 'Officer' : 'Unit',
+        cardType:
+          item.kind === 'commander'
+            ? 'Commander'
+            : item.kind === 'officer'
+              ? 'Officer'
+              : 'Unit',
         rarity: null,
         unique: false,
         race: null,
@@ -3526,6 +3794,7 @@ export function reduceAction(
         range: null,
         toughness: null,
         companyCapacity: null,
+        companyUnitCap: null,
         commandRadius: null,
         companyAp: null,
         apGeneration: null,
@@ -3556,11 +3825,10 @@ export function reduceAction(
       seat,
       kind: item.kind,
       card: snap,
-      officerCardId: item.officerCardId,
+      officerCardId: item.kind === 'commander' ? null : item.officerCardId || item.cardId,
       col: cell.col,
       row: cell.row,
     })
-    // Prefer deploy-queue move if snapshot lacks it.
     if (item.move > 0) {
       unit.move = item.move
     }
@@ -3570,10 +3838,21 @@ export function reduceAction(
         i === action.queueIndex ? { ...q, placed: true } : q,
       ),
     }
+    let nextState: GameState = {
+      ...state,
+      units: [...state.units, unit],
+      deployQueues,
+    }
+    if (item.kind === 'commander') {
+      nextState = {
+        ...nextState,
+        commanders: { ...nextState.commanders, [seat]: { ...cell } },
+      }
+    }
     return {
       ok: true,
       state: pushLog(
-        { ...state, units: [...state.units, unit], deployQueues },
+        nextState,
         `${seat} deployed ${item.cardName} at (${cell.col},${cell.row}).`,
       ),
     }
@@ -3646,7 +3925,11 @@ export function reduceAction(
       }
       return markSlowForActivation({
         ...u,
-        moveRemaining: u.move + (u.tempMove || 0) + terrainMoveBonus(baseState, u),
+        moveRemaining:
+          u.move +
+          (u.tempMove || 0) +
+          terrainMoveBonus(baseState, u) +
+          formationMarchBonus(baseState, u),
         activationCol: u.col,
         activationRow: u.row,
         claimsThisActivation: [],
@@ -3704,7 +3987,11 @@ export function reduceAction(
       u.id === commander.id
         ? {
             ...u,
-            moveRemaining: u.move + (u.tempMove || 0) + terrainMoveBonus(state, u),
+            moveRemaining:
+              u.move +
+              (u.tempMove || 0) +
+              terrainMoveBonus(state, u) +
+              formationMarchBonus(state, u),
             activationCol: u.col,
             activationRow: u.row,
             claimsThisActivation: [],
@@ -3956,15 +4243,86 @@ export function reduceAction(
       }
     }
 
+    const splashHits: Array<{
+      defenderId: string
+      defenderName: string
+      col: number
+      row: number
+      hit: boolean
+      dealt: number
+      killed: boolean
+    }> = []
+    if (hasBlast(attacker)) {
+      const liveAtk = next.units.find((u) => u.id === attacker.id) ?? attacker
+      const splashTargets = blastSplashTargets(next, liveAtk, defender)
+      for (const t of splashTargets) {
+        const live = next.units.find((u) => u.id === t.id)
+        if (!live || (live.toughnessCurrent ?? 0) <= 0) continue
+        const splash = resolveBlastSplashHit({
+          state: next,
+          attacker: liveAtk,
+          defender: live,
+        })
+        splashHits.push({
+          defenderId: splash.defenderId,
+          defenderName: splash.defenderName,
+          col: splash.col,
+          row: splash.row,
+          hit: splash.hit,
+          dealt: splash.dealt,
+          killed: splash.killed,
+        })
+        if (splash.hit && splash.dealt > 0) {
+          next = applyBlastSplashToState(next, splash)
+          next = removeDestroyedUnits(next)
+        }
+      }
+    }
+
+    const pierceHits: Array<{
+      defenderId: string
+      defenderName: string
+      col: number
+      row: number
+      hit: boolean
+      dealt: number
+      killed: boolean
+    }> = []
+    if (result.killed && result.overpenetrateLeftover > 0) {
+      const liveAtk = next.units.find((u) => u.id === attacker.id) ?? attacker
+      const chain = applyOverpenetrateChain(
+        next,
+        liveAtk,
+        defender,
+        result.overpenetrateLeftover,
+      )
+      next = chain.state
+      for (const hit of chain.hits) {
+        pierceHits.push({
+          defenderId: hit.defenderId,
+          defenderName: hit.defenderName,
+          col: hit.col,
+          row: hit.row,
+          hit: hit.hit,
+          dealt: hit.dealt,
+          killed: hit.killed,
+        })
+      }
+      if (chain.hits.some((h) => h.hit && h.dealt > 0)) {
+        next = removeDestroyedUnits(next)
+      }
+    }
+
     const bonusBits = [
       result.fearPenalty ? 'Fear +1 to hit need' : null,
       result.favoredTerrainHit ? 'favored terrain +1 Hit' : null,
       result.flanking ? 'Flanking +1 Hit' : null,
+      result.formationDrill ? 'Formation Drill +1 Hit' : null,
       result.evadeActive ? 'Evade +1 to hit need' : null,
       result.unyieldingBlocked ? 'Unyielding (ignored hit)' : null,
       result.fortifiedHex && !result.piercing ? 'Fortified Harden 1' : null,
       result.piercing && (result.fortifiedHex || result.mitigated > 0)
-        ? 'Piercing (ignores Harden)'
+        ? 'ignores Harden (Piercing / melee Siege)'
         : null,
       result.mitigated > 0 && !result.piercing && !result.unyieldingBlocked
         ? `mitigation −${result.mitigated}`
@@ -3984,11 +4342,16 @@ export function reduceAction(
       : 'MISS'
 
     const lastCombatResult = {
+      seq: state.log.length + 1,
       seat,
       attackerId: attacker.id,
       attackerName: attacker.cardName,
+      attackerCol: attacker.col,
+      attackerRow: attacker.row,
       defenderId: defender.id,
       defenderName: defender.cardName,
+      defenderCol: defender.col,
+      defenderRow: defender.row,
       distance: result.distance,
       hitNeed: result.hitNeed,
       dice: result.dice,
@@ -3999,6 +4362,7 @@ export function reduceAction(
       mitigated: result.mitigated,
       favoredTerrainHit: result.favoredTerrainHit,
       flanking: result.flanking,
+      formationDrill: result.formationDrill,
       killed: result.killed,
       evadeActive: result.evadeActive,
       fearPenalty: result.fearPenalty,
@@ -4010,6 +4374,8 @@ export function reduceAction(
       unyieldingBlocked: result.unyieldingBlocked,
       trampleOffer: result.trampleEligible,
       trampleLeftover: result.trampleLeftover,
+      splashHits: splashHits.length ? splashHits : undefined,
+      pierceHits: pierceHits.length ? pierceHits : undefined,
     }
     const lastDiceRoll = {
       seat,
@@ -4038,7 +4404,25 @@ export function reduceAction(
         lastCombatResult,
         lastDiceRoll,
       },
-      `${seat} resolves attack: ${attacker.cardName} → ${defender.cardName} @ ${result.distance} hex · need ${result.hitNeed}+ · rolled 2d6=[${result.dice.join('+')}]=${result.roll} · ${outcome}${bonusBits.length ? ` (${bonusBits.join(', ')})` : ''}${result.trampleEligible ? ' · Trample available' : ''}.`,
+      `${seat} resolves attack: ${attacker.cardName} → ${defender.cardName} @ ${result.distance} hex · need ${result.hitNeed}+ · rolled 2d6=[${result.dice.join('+')}]=${result.roll} · ${outcome}${bonusBits.length ? ` (${bonusBits.join(', ')})` : ''}${result.trampleEligible ? ' · Trample available' : ''}${
+        splashHits.length
+          ? ` · Blast ${splashHits
+              .map(
+                (s) =>
+                  `${s.defenderName} ${s.hit ? `HIT ${s.dealt}${s.killed ? ' (destroyed)' : ''}` : 'MISS'}`,
+              )
+              .join(', ')}`
+          : ''
+      }${
+        pierceHits.length
+          ? ` · Overpenetrate ${pierceHits
+              .map(
+                (s) =>
+                  `${s.defenderName} ${s.hit ? `HIT ${s.dealt}${s.killed ? ' (destroyed)' : ''}` : 'MISS'}`,
+              )
+              .join(', ')}`
+          : ''
+      }.`,
     )
     return { ok: true, state: next }
   }
@@ -4445,20 +4829,35 @@ export function reduceAction(
     if (
       unit.col === unit.activationCol &&
       unit.row === unit.activationRow &&
-      unit.moveRemaining === unit.move
+      unit.moveRemaining ===
+        unit.move +
+          (unit.tempMove || 0) +
+          terrainMoveBonus(state, unit) +
+          formationMarchBonus(state, unit)
     ) {
       return { ok: false, error: 'Nothing to undo — unit is still at its start hex.' }
     }
 
-    const units = state.units.map((u) =>
+    const restored: UnitToken = {
+      ...unit,
+      col: unit.activationCol!,
+      row: unit.activationRow!,
+      claimsThisActivation: [],
+      movedBeyondLimit: false,
+    }
+    const unitsPreview = state.units.map((u) =>
+      u.id === unit.id ? restored : u,
+    )
+    const previewState = { ...state, units: unitsPreview }
+    const units = unitsPreview.map((u) =>
       u.id === unit.id
         ? {
             ...u,
-            col: unit.activationCol!,
-            row: unit.activationRow!,
-            moveRemaining: u.move,
-            claimsThisActivation: [],
-            movedBeyondLimit: false,
+            moveRemaining:
+              u.move +
+              (u.tempMove || 0) +
+              terrainMoveBonus(previewState, u) +
+              formationMarchBonus(previewState, u),
           }
         : u,
     )

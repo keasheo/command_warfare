@@ -14,6 +14,8 @@ export type Card = {
   toughness: number | null
   companyAp: number | null
   companyCapacity: number | null
+  /** Max unit models in this officer's company (not counting the officer). */
+  companyUnitCap: number | null
   commandRadius: number | null
   apGeneration: number | null
   ccGeneration: number | null

@@ -98,7 +98,14 @@ export function normalizeLoadedState(state: GameState): GameState {
     ...state,
     opponent,
     aiDifficulty,
+    aiCommanderId:
+      opponent === 'ai'
+        ? typeof state.aiCommanderId === 'string' && state.aiCommanderId.trim()
+          ? state.aiCommanderId.trim()
+          : null
+        : null,
     loadoutPools: normalizeLoadoutPools(state.loadoutPools),
+    randomMap: Boolean(state.randomMap),
     hostSeat: state.hostSeat ?? 'N',
     commandZoneModes: state.commandZoneModes ?? {},
     fortifiedHexes: state.fortifiedHexes ?? {},

@@ -8,15 +8,16 @@ cards:
     primary_type: Infantry
     secondary_type: Heavy
     uv: 5
-    move: 3
+    move: 5
     damage: 2
     range: 1
     toughness: 5
     company_ap: null
     company_capacity: null
-    command_radius: 6
+    company_unit_cap: null
+    command_radius: 8
     ap_generation: 6
-    cc_generation: 8
+    cc_generation: 7
     keywords: []
     abilities:
       - Anvil Advance
@@ -42,15 +43,16 @@ cards:
     primary_type: Infantry
     secondary_type: null
     uv: 6
-    move: 3
+    move: 5
     damage: 3
     range: 1
     toughness: 5
     company_ap: null
     company_capacity: null
-    command_radius: 6
+    company_unit_cap: null
+    command_radius: 8
     ap_generation: 6
-    cc_generation: 7
+    cc_generation: 6
     keywords: []
     abilities:
       - Anvil Advance
@@ -77,15 +79,16 @@ cards:
     primary_type: Infantry
     secondary_type: null
     uv: 12
-    move: 3
+    move: 5
     damage: 2
     range: 1
     toughness: 5
     company_ap: null
     company_capacity: null
-    command_radius: 7
+    company_unit_cap: null
+    command_radius: 8
     ap_generation: 6
-    cc_generation: 7
+    cc_generation: 6
     keywords: []
     abilities:
       - Dwarf Compact
@@ -112,18 +115,18 @@ cards:
     primary_type: Infantry
     secondary_type: Heavy
     uv: 12
-    move: 3
+    move: 5
     damage: 2
     range: 1
     toughness: 5
     company_ap: null
     company_capacity: null
-    command_radius: 6
+    company_unit_cap: null
+    command_radius: 8
     ap_generation: 6
-    cc_generation: 7
+    cc_generation: 6
     keywords:
       - Unyielding
-      - Harden 1
     abilities:
       - Anvil Advance
       - Holdfast Gate

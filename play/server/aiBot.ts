@@ -6,7 +6,11 @@ import {
   defaultBattleLoadout,
   resolveArmy,
 } from '../shared/army.ts'
-import { loadDemoArmy, type DemoArmyPack } from './demoArmy.ts'
+import {
+  loadQuickPickArmy,
+  loadRandomQuickPickArmy,
+  listQuickPickPresets,
+} from './demoArmy.ts'
 import {
   previewAttack,
   unitInOfficerRadius,
@@ -14,12 +18,20 @@ import {
   type CombatContext,
 } from '../shared/combatResolve.ts'
 import {
+  deployWedgeKeys,
   findDeployedOfficer,
   foreignCommandRadiusKeys,
+  officerDeployHexesForSiegeCompany,
   officerDeployRadius,
+  onObjectiveHex,
   ownCommandRadiusKeys,
-  tooCloseToObjective,
+  unitDeployHexKeys,
 } from '../shared/game.ts'
+import {
+  DEFAULT_OFFICER_COMMAND_RADIUS,
+  DEPLOY_ZONE_DEPTH,
+} from '../shared/constants.ts'
+import { isSiegeCard } from '../shared/siege.ts'
 import { hexDistOddR, hexKey, inBounds, neighborsOddR } from '../shared/hex.ts'
 import {
   passablePathDistances,
@@ -55,7 +67,7 @@ import {
 } from './cards.ts'
 import { isPassiveAbility } from '../shared/abilityCast.ts'
 
-export { loadDemoArmy, loadQuickPickArmy, listQuickPickPresets, type DemoArmyPack } from './demoArmy.ts'
+export { loadDemoArmy, loadQuickPickArmy, loadRandomQuickPickArmy, listQuickPickPresets, type DemoArmyPack } from './demoArmy.ts'
 
 export function aiDisplayName(difficulty: AiDifficulty): string {
   const label =
@@ -128,6 +140,7 @@ export function aiSeatNeedingAction(state: GameState): SeatId | null {
     case 'ArmyBuild':
       return ai.armyReady ? null : seat
     case 'Commanders':
+      // Legacy: auto-confirm so rooms never stall on the removed confirm step.
       return ai.commanderReady ? null : seat
     case 'ForceSelect':
       return ai.forceSelectReady ? null : seat
@@ -180,7 +193,12 @@ function pendingDeployToken(
   return {
     id: 'pending',
     seat,
-    kind: item.kind === 'officer' ? 'officer' : 'unit',
+    kind:
+      item.kind === 'officer'
+        ? 'officer'
+        : item.kind === 'commander'
+          ? 'commander'
+          : 'unit',
     cardId: item.cardId,
     cardName: item.cardName,
     officerCardId: item.officerCardId,
@@ -390,17 +408,89 @@ function companyObjectivePull(
   return best
 }
 
-function deployPreferredRow(seat: SeatId, boardSize: number): number {
-  if (seat === 'N') return 1
-  if (seat === 'S') return boardSize - 2
-  if (seat === 'W') return Math.floor(boardSize / 2)
-  return Math.floor(boardSize / 2)
+/** Hexes from the home edge toward the board interior. */
+function inwardDepth(
+  seat: SeatId,
+  cell: { col: number; row: number },
+  boardSize: number,
+): number {
+  if (seat === 'N') return cell.row
+  if (seat === 'S') return boardSize - 1 - cell.row
+  if (seat === 'W') return cell.col
+  return boardSize - 1 - cell.col
 }
 
-function deployPreferredCol(seat: SeatId, boardSize: number): number {
-  if (seat === 'W') return 1
-  if (seat === 'E') return boardSize - 2
-  return Math.floor(boardSize / 2)
+function deployFrontCenter(
+  seat: SeatId,
+  boardSize: number,
+): { col: number; row: number } {
+  const mid = Math.floor((boardSize - 1) / 2)
+  const front = Math.max(0, DEPLOY_ZONE_DEPTH - 1)
+  if (seat === 'N') return { col: mid, row: front }
+  if (seat === 'S') return { col: mid, row: boardSize - 1 - front }
+  if (seat === 'W') return { col: front, row: mid }
+  return { col: boardSize - 1 - front, row: mid }
+}
+
+function officerIdsInQueueOrder(
+  queue: GameState['deployQueues'][SeatId],
+): string[] {
+  const ids: string[] = []
+  for (const item of queue ?? []) {
+    if (item.kind !== 'officer') continue
+    if (!ids.includes(item.cardId)) ids.push(item.cardId)
+  }
+  return ids
+}
+
+/** Spread companies across the nearest contestable objectives. */
+function assignedObjectiveForCompany(
+  state: GameState,
+  seat: SeatId,
+  officerCardId: string,
+): ObjectiveMarker | null {
+  const objs = state.objectives
+  if (!objs.length) return null
+  const origin = deployFrontCenter(seat, state.boardSize)
+  const ranked = [...objs].sort((a, b) => {
+    const da = distToZone(origin, a)
+    const db = distToZone(origin, b)
+    return da - db || a.col - b.col || a.row - b.row
+  })
+  const officerIds = officerIdsInQueueOrder(state.deployQueues[seat])
+  const idx = Math.max(0, officerIds.indexOf(officerCardId))
+  return ranked[idx % ranked.length] ?? ranked[0] ?? null
+}
+
+function friendlyCrowding(
+  state: GameState,
+  seat: SeatId,
+  cell: { col: number; row: number },
+): number {
+  let score = 0
+  for (const u of state.units) {
+    if (u.seat !== seat) continue
+    const d = hexDistOddR(cell, u)
+    if (d <= 0) score += 40
+    else if (d === 1) score += 10
+    else if (d === 2) score += 4
+    else if (d === 3) score += 1
+  }
+  return score
+}
+
+function officerSpacingPenalty(
+  state: GameState,
+  seat: SeatId,
+  cell: { col: number; row: number },
+): number {
+  let p = 0
+  for (const u of state.units) {
+    if (u.seat !== seat || u.kind !== 'officer') continue
+    const d = hexDistOddR(cell, u)
+    if (d < 6) p += (6 - d) * (6 - d)
+  }
+  return p
 }
 
 /** Free CR neighbors — officers want room for the rest of the company. */
@@ -425,6 +515,7 @@ function tryDeploySpot(
   state: GameState,
   seat: SeatId,
   queueIndex: number,
+  objectiveFocus = 0.7,
 ): ClientAction | null {
   const queue = state.deployQueues[seat] ?? []
   const item = queue[queueIndex]
@@ -434,11 +525,35 @@ function tryDeploySpot(
   const candidates: Array<{ col: number; row: number }> = []
   const pending = pendingDeployToken(state, seat, item)
   const keywords = pending?.keywords ?? state.cardCatalog[item.cardId]?.keywords ?? []
+  const zone = deployWedgeKeys(seat, state.boardSize)
+  const snap = state.cardCatalog[item.cardId]
 
   let officer: UnitToken | null = null
   let radius = 2
-  if (item.kind === 'officer') {
-    for (const key of ownCommandRadiusKeys(state, seat)) {
+
+  if (item.kind === 'commander') {
+    for (const key of zone) {
+      const [col, row] = key.split(',').map(Number) as [number, number]
+      candidates.push({ col, row })
+    }
+  } else if (item.kind === 'officer') {
+    const companyHasSiege = queue.some(
+      (q) =>
+        q.kind === 'unit' &&
+        q.officerCardId === item.cardId &&
+        isSiegeCard({
+          primaryType: state.cardCatalog[q.cardId]?.primaryType,
+          keywords: state.cardCatalog[q.cardId]?.keywords,
+        }),
+    )
+    const officerRadius =
+      snap?.commandRadius && snap.commandRadius > 0
+        ? snap.commandRadius
+        : DEFAULT_OFFICER_COMMAND_RADIUS
+    const allowed = companyHasSiege
+      ? officerDeployHexesForSiegeCompany(state, seat, officerRadius)
+      : zone
+    for (const key of allowed) {
       const [col, row] = key.split(',').map(Number) as [number, number]
       candidates.push({ col, row })
     }
@@ -446,24 +561,16 @@ function tryDeploySpot(
     officer = findDeployedOfficer(state, seat, item.officerCardId)
     if (!officer) return null
     radius = officerDeployRadius(state, officer)
-    for (let col = 0; col < state.boardSize; col++) {
-      for (let row = 0; row < state.boardSize; row++) {
-        if (
-          unitInOfficerRadius(
-            { col, row },
-            { col: officer.col, row: officer.row },
-            radius,
-            pending,
-          )
-        ) {
-          candidates.push({ col, row })
-        }
-      }
+    const siege = isSiegeCard({
+      primaryType: snap?.primaryType,
+      keywords: snap?.keywords ?? keywords,
+    })
+    for (const key of unitDeployHexKeys(state, seat, officer, pending, siege)) {
+      const [col, row] = key.split(',').map(Number) as [number, number]
+      candidates.push({ col, row })
     }
   }
 
-  const preferredRow = deployPreferredRow(seat, state.boardSize)
-  const preferredCol = deployPreferredCol(seat, state.boardSize)
   const remainingCompany = queue.filter(
     (q, i) =>
       i !== queueIndex &&
@@ -471,52 +578,66 @@ function tryDeploySpot(
       q.kind === 'unit' &&
       q.officerCardId === (item.kind === 'officer' ? item.cardId : item.officerCardId),
   ).length
-
-  const crKeys =
+  const crKeys = new Set(candidates.map((c) => hexKey(c.col, c.row)))
+  const focus = Math.max(0.2, objectiveFocus)
+  const officerCardId =
     item.kind === 'officer'
-      ? ownCommandRadiusKeys(state, seat)
-      : new Set(candidates.map((c) => hexKey(c.col, c.row)))
+      ? item.cardId
+      : item.kind === 'unit'
+        ? item.officerCardId
+        : ''
+  const targetObj = officerCardId
+    ? assignedObjectiveForCompany(state, seat, officerCardId)
+    : assignedObjectiveForCompany(state, seat, officerIdsInQueueOrder(queue)[0] ?? '')
+  const front = deployFrontCenter(seat, state.boardSize)
 
-  candidates.sort((a, b) => {
-    if (item.kind === 'officer') {
-      // Prefer forward edge, but keep enough free CR neighbors for the company.
-      const roomA = freeCrNeighborCount(a, crKeys, occ, state.boardSize)
-      const roomB = freeCrNeighborCount(b, crKeys, occ, state.boardSize)
+  const scoreCell = (cell: { col: number; row: number }): number => {
+    const depth = inwardDepth(seat, cell, state.boardSize)
+    const crowd = friendlyCrowding(state, seat, cell)
+    const objDist = targetObj ? distToZone(cell, targetObj) : hexDistOddR(cell, front)
+    let score = 0
+    score -= objDist * (6 + 8 * focus)
+    score -= crowd * (6 + 5 * focus)
+    if (item.kind === 'commander') {
+      const depthTarget = Math.max(2, Math.floor(DEPLOY_ZONE_DEPTH * 0.4))
+      score += 10 - Math.abs(depth - depthTarget) * 2.4
+      score -= Math.abs(cell.col - front.col) + Math.abs(cell.row - front.row)
+      score -= crowd * 2
+    } else if (item.kind === 'officer') {
+      score += depth * (5 + 5 * focus)
+      score -= officerSpacingPenalty(state, seat, cell) * (2.5 + 2 * focus)
+      const room = freeCrNeighborCount(cell, crKeys, occ, state.boardSize)
       const roomNeed = Math.min(6, remainingCompany + 1)
-      const roomScoreA = roomA >= roomNeed ? 0 : roomNeed - roomA
-      const roomScoreB = roomB >= roomNeed ? 0 : roomNeed - roomB
-      return (
-        roomScoreA - roomScoreB ||
-        Math.abs(a.row - preferredRow) - Math.abs(b.row - preferredRow) ||
-        Math.abs(a.col - preferredCol) - Math.abs(b.col - preferredCol)
-      )
+      if (room < roomNeed) score -= (roomNeed - room) * 3
+    } else {
+      score += depth * (3 + 4 * focus)
+      if (officer) {
+        const dOff = hexDistOddR(cell, officer)
+        if (dOff <= 1) score -= 14
+      }
     }
-    // Units: pack near officer (stay deep inside CR), then face preferred edge.
-    const distA = hexDistOddR(a, officer!)
-    const distB = hexDistOddR(b, officer!)
-    return (
-      distA - distB ||
-      Math.abs(a.row - preferredRow) - Math.abs(b.row - preferredRow) ||
-      Math.abs(a.col - preferredCol) - Math.abs(b.col - preferredCol)
-    )
-  })
+    score += ((cell.col * 73 + cell.row * 19) % 7) * 0.05
+    return score
+  }
 
+  let best: { col: number; row: number; score: number } | null = null
   for (const { col, row } of candidates) {
     if (!inBounds({ col, row }, state.boardSize)) continue
     if (occ.has(hexKey(col, row))) continue
     if (!canDeployOnTerrainHex(state, { col, row }, keywords)) continue
-    if (tooCloseToObjective({ col, row }, state)) continue
-    // Double-check CR for units (Scout-aware).
+    if (onObjectiveHex({ col, row }, state)) continue
     if (
-      item.kind !== 'officer' &&
+      item.kind === 'unit' &&
       officer &&
       !unitInOfficerRadius({ col, row }, officer, radius, pending)
     ) {
       continue
     }
-    return { type: 'deploy', queueIndex, col, row }
+    const score = scoreCell({ col, row })
+    if (!best || score > best.score) best = { col, row, score }
   }
-  return null
+  if (!best) return null
+  return { type: 'deploy', queueIndex, col: best.col, row: best.row }
 }
 
 function seatArmyRace(state: GameState, seat: SeatId): string | null {
@@ -706,7 +827,11 @@ function tryAiLandTerrain(state: GameState, seat: SeatId): ClientAction | null {
   return null
 }
 
-function setupAction(state: GameState, seat: SeatId): ClientAction | null {
+function setupAction(
+  state: GameState,
+  seat: SeatId,
+  difficulty: AiDifficulty = 'medium',
+): ClientAction | null {
   const player = state.players.find((p) => p.seat === seat)
   if (!player) return null
 
@@ -715,7 +840,13 @@ function setupAction(state: GameState, seat: SeatId): ClientAction | null {
     !player.armyReady
   ) {
     try {
-      const demo = loadDemoArmy()
+      const wanted = state.aiCommanderId?.trim() || null
+      const known =
+        wanted &&
+        listQuickPickPresets().some((p) => p.commanderId === wanted)
+      const demo = known
+        ? loadQuickPickArmy(wanted)
+        : loadRandomQuickPickArmy()
       const serverCards = loadCardSnapshots(armyCardIds(demo.army))
       const cards = [...demo.cards]
       for (const [id, c] of serverCards) {
@@ -775,8 +906,9 @@ function setupAction(state: GameState, seat: SeatId): ClientAction | null {
   if (state.phase === 'Deploy' && !player.deployDone) {
     const queue = state.deployQueues[seat] ?? []
     const nextIdx = queue.findIndex((q) => !q.placed)
+    const focus = policyForDifficulty(difficulty).objectiveFocus
     if (nextIdx >= 0) {
-      const spot = tryDeploySpot(state, seat, nextIdx)
+      const spot = tryDeploySpot(state, seat, nextIdx, focus)
       if (spot) return spot
       // If the next item has no legal hex, try later queue items (other companies).
       for (let i = nextIdx + 1; i < queue.length; i++) {
@@ -785,7 +917,7 @@ function setupAction(state: GameState, seat: SeatId): ClientAction | null {
         if (q.kind === 'unit' && !findDeployedOfficer(state, seat, q.officerCardId)) {
           continue
         }
-        const alt = tryDeploySpot(state, seat, i)
+        const alt = tryDeploySpot(state, seat, i, focus)
         if (alt) return alt
       }
       return null
@@ -1124,7 +1256,7 @@ export function chooseBotAction(
   rng: () => number = Math.random,
 ): ClientAction | null {
   if (state.phase !== 'Play') {
-    return setupAction(state, seat)
+    return setupAction(state, seat, difficulty)
   }
   if (state.activeSeat !== seat) return null
   const policy = policyForDifficulty(difficulty)

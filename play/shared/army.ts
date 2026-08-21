@@ -5,6 +5,7 @@ import {
   maxArmyCopiesForRarity,
   RESERVE_UV_MAX,
 } from './constants'
+import { validateDeploySiegeCap } from './siege'
 
 /** Battle-lock bucket for a company (officer + units). Commander always deploys. */
 export type BattleBucket = 'deploy' | 'reserve' | 'unused'
@@ -61,6 +62,8 @@ export type CardSnapshot = {
   range: number | null
   toughness: number | null
   companyCapacity: number | null
+  /** Max unit models in the company (not counting the officer). Officers 5–10. */
+  companyUnitCap: number | null
   commandRadius: number | null
   /** Officer printed Company AP. */
   companyAp: number | null
@@ -76,6 +79,11 @@ export type CardSnapshot = {
   abilities?: string[] | null
   /** Commander ultimate ability name. */
   ultimate?: string | null
+  /** Unit / officer type line (e.g. Infantry). */
+  primaryType?: string | null
+  secondaryType?: string | null
+  role?: string | null
+  flavorText?: string | null
 }
 
 export type ArmyUnitEntry = {
@@ -227,6 +235,16 @@ export function resolveArmy(
         error: `${officer.name} company UV ${companyUv} exceeds capacity ${cap}.`,
       }
     }
+    const unitCap = officer.companyUnitCap ?? 0
+    if (unitCap <= 0) {
+      return { ok: false, error: `${officer.name} has no unit cap.` }
+    }
+    if (units.length > unitCap) {
+      return {
+        ok: false,
+        error: `${officer.name} company has ${units.length} units (cap ${unitCap}).`,
+      }
+    }
     if (!units.length) {
       return { ok: false, error: `${officer.name} needs at least one unit.` }
     }
@@ -343,6 +361,9 @@ export function validateBattleLoadout(
   }
   // Unused has no hard cap — under-filling deploy/reserve is allowed.
 
+  const siegeCheck = validateDeploySiegeCap(army.companies, loadout)
+  if (!siegeCheck.ok) return siegeCheck
+
   const assigned =
     totals.deploy + totals.reserve + totals.unused
   const companyUv = army.companies.reduce((s, co) => s + resolvedCompanyUv(co), 0)
@@ -359,12 +380,22 @@ export function deployQueueFromArmy(
   loadout: BattleLoadout,
   bucket: BattleBucket = 'deploy',
 ): Array<{
-  kind: 'officer' | 'unit'
+  kind: 'commander' | 'officer' | 'unit'
   card: CardSnapshot
   officerCardId: string
 }> {
-  const q: Array<{ kind: 'officer' | 'unit'; card: CardSnapshot; officerCardId: string }> =
-    []
+  const q: Array<{
+    kind: 'commander' | 'officer' | 'unit'
+    card: CardSnapshot
+    officerCardId: string
+  }> = []
+  if (bucket === 'deploy') {
+    q.push({
+      kind: 'commander',
+      card: army.commander,
+      officerCardId: '',
+    })
+  }
   for (const co of army.companies) {
     if (loadout[co.officer.id] !== bucket) continue
     q.push({ kind: 'officer', card: co.officer, officerCardId: co.officer.id })

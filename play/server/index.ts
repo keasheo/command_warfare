@@ -22,6 +22,7 @@ import {
   aiSeatNeedingAction,
   chooseBotAction,
   enrichSubmitArmy,
+  listQuickPickPresets,
   thinkDelayMs,
 } from './aiBot.ts'
 import {
@@ -321,9 +322,21 @@ function handleMessage(ws: WebSocket, raw: string) {
       action.aiDifficulty === 'medium'
         ? action.aiDifficulty
         : 'medium'
+    const rawAiCommander =
+      typeof action.aiCommanderId === 'string'
+        ? action.aiCommanderId.trim()
+        : ''
+    const aiCommanderId =
+      opponent === 'ai' &&
+      rawAiCommander &&
+      rawAiCommander.toLowerCase() !== 'random' &&
+      listQuickPickPresets().some((p) => p.commanderId === rawAiCommander)
+        ? rawAiCommander
+        : null
     // vs AI is always a 2P match for this MVP.
     const maxPlayers = opponent === 'ai' ? 2 : action.maxPlayers === 4 ? 4 : 2
     const enforceCommanderRace = action.enforceCommanderRace !== false
+    const randomMap = action.randomMap === true
     let state = createEmptyRoomState(
       code,
       maxPlayers,
@@ -331,6 +344,8 @@ function handleMessage(ws: WebSocket, raw: string) {
       opponent,
       opponent === 'ai' ? aiDifficulty : null,
       action.loadoutPools,
+      randomMap,
+      aiCommanderId,
     )
     const joined = reduceJoin(state, action.name)
     if (!joined.ok) {

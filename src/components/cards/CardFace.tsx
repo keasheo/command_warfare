@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import {
   formatDamage,
   formatRange,
@@ -55,12 +56,19 @@ export function CardFace({
   artNonce = 0,
   previewUrl = null,
   abilityByName,
+  occupyingTerrain = null,
+  activeTerrainBuffs = null,
 }: {
   card: Card
   artNonce?: number
   previewUrl?: string | null
   abilityByName: Map<string, Ability>
+  /** Current hex terrain kind (e.g. plains) — highlights favored icon when matching. */
+  occupyingTerrain?: string | null
+  /** Active terrain buff labels to append to the favored-terrain tooltip. */
+  activeTerrainBuffs?: string[] | null
 }) {
+  const [artFailed, setArtFailed] = useState(false)
   const stats: [string, string][] = [
     ['UV', card.uv == null ? '—' : String(card.uv)],
     ['Move', card.move == null ? '—' : String(card.move)],
@@ -71,7 +79,8 @@ export function CardFace({
   if (card.cardType === 'Officer') {
     stats.push(
       ['Company AP', card.companyAp == null ? '—' : String(card.companyAp)],
-      ['Company Cap.', card.companyCapacity == null ? '—' : String(card.companyCapacity)],
+      ['Company UV', card.companyCapacity == null ? '—' : String(card.companyCapacity)],
+      ['Unit cap', card.companyUnitCap == null ? '—' : String(card.companyUnitCap)],
       ['Cmd Radius', card.commandRadius == null ? '—' : String(card.commandRadius)],
     )
   }
@@ -86,6 +95,10 @@ export function CardFace({
   const artSrc =
     previewUrl ||
     (card.hasArt && card.artUrl ? `${card.artUrl}?v=${artNonce}` : null)
+
+  useEffect(() => {
+    setArtFailed(false)
+  }, [artSrc, card.id, artNonce])
 
   const bannerClass =
     card.cardType === 'Commander'
@@ -102,6 +115,22 @@ export function CardFace({
 
   const keywords = card.keywords ?? []
   const favoredTerrain = resolveFavoredTerrain(card.favoredTerrain, card.race, keywords)
+  const onFavoredTerrain =
+    !!favoredTerrain &&
+    !!occupyingTerrain &&
+    occupyingTerrain.toLowerCase() === favoredTerrain.toLowerCase()
+  const terrainTitle = (() => {
+    if (!favoredTerrain) return undefined
+    const base = favoredTerrainTooltip(favoredTerrain)
+    if (onFavoredTerrain && activeTerrainBuffs?.length) {
+      return `${base} — Active: ${activeTerrainBuffs.join(', ')}`
+    }
+    if (onFavoredTerrain) return `${base} — Active on this hex`
+    if (occupyingTerrain) {
+      return `${base} (now on ${occupyingTerrain})`
+    }
+    return base
+  })()
 
   function renderAbilityRow(name: string, ultimate = false) {
     const ability = abilityByName.get(name)
@@ -142,8 +171,12 @@ export function CardFace({
 
       <div className="kb-mid">
         <div className="kb-art">
-          {artSrc ? (
-            <img src={artSrc} alt={`${card.name} art`} />
+          {artSrc && !artFailed ? (
+            <img
+              src={artSrc}
+              alt={`${card.name} art`}
+              onError={() => setArtFailed(true)}
+            />
           ) : (
             <div className="card-art-empty">No image</div>
           )}
@@ -187,8 +220,8 @@ export function CardFace({
         <div className="kb-rules-footer">
           {favoredTerrain ? (
             <span
-              className="kb-favored-terrain"
-              title={favoredTerrainTooltip(favoredTerrain)}
+              className={`kb-favored-terrain${onFavoredTerrain ? ' active' : ''}`}
+              title={terrainTitle}
             >
               <img
                 src={favoredTerrainIconUrl(favoredTerrain)}

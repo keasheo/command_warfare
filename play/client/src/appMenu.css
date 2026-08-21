@@ -1,0 +1,126 @@
+.app-menu {
+  position: relative;
+  z-index: 20;
+  flex: 0 0 auto;
+}
+
+.app-menu-overlay {
+  position: fixed;
+  top: auto;
+  right: 0.75rem;
+  bottom: calc(0.75rem + var(--play-bottom-safe, env(safe-area-inset-bottom, 0px)));
+  z-index: 80;
+}
+
+.app-menu-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0.45rem;
+  border: 1px solid #3d4a5c;
+  border-radius: 6px;
+  background: #2a3344;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.app-menu-toggle span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: #d8dee8;
+  border-radius: 1px;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.app-menu-toggle.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.app-menu-toggle.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.app-menu-toggle.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.app-menu-dropdown {
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  right: 0;
+  width: min(18rem, calc(100vw - 1.5rem));
+  padding: 0.75rem 0.85rem 0.9rem;
+  border: 1px solid #2a3140;
+  border-radius: 10px;
+  background: rgba(18, 22, 30, 0.97);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+.app-menu-overlay .app-menu-dropdown {
+  top: auto;
+  bottom: calc(100% + 0.45rem);
+}
+
+.app-menu-dropdown h3 {
+  margin: 0 0 0.55rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #9aa3b2;
+}
+
+.app-menu .audio-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.app-menu .check-field,
+.app-menu .check-field {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0;
+  font-size: 0.85rem;
+  color: #c5ccd8;
+  cursor: pointer;
+}
+
+.app-menu .audio-slider-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.82rem;
+  color: #c5ccd8;
+}
+
+.app-menu .audio-slider-field input[type='range'] {
+  width: 100%;
+  accent-color: #7a9cc6;
+}
+
+.app-menu .audio-now-playing {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0.25rem 0 0;
+  font-size: 0.78rem;
+  color: #9aa3b2;
+}
+
+.app-menu .audio-skip,
+.app-menu .ghost {
+  padding: 0.15rem 0.45rem;
+  font-size: 0.72rem;
+  border: 1px solid #2a3140;
+  border-radius: 6px;
+  background: #1c2430;
+  color: #d8dee8;
+  cursor: pointer;
+}

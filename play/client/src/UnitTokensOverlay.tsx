@@ -65,7 +65,7 @@ function makeLabelTexture(text: string, color: string): THREE.CanvasTexture {
 }
 
 function unitLabel(unit: UnitToken): string {
-  if (unit.kind === 'commander') return unit.seat
+  if (unit.kind === 'commander') return `C${unit.seat}`
   if (unit.kind === 'officer') return 'O'
   return 'U'
 }

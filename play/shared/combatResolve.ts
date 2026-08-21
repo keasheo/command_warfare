@@ -1,5 +1,5 @@
 import { SCOUT_CR_EXTENSION } from './constants'
-import { hexDistOddR, hexKey, type OddR } from './hex'
+import { hexBehind, hexDistOddR, hexKey, inBounds, neighborsOddR, type OddR } from './hex'
 import {
   FAVORED_TERRAIN_BONUS,
   desertBlocksEvade,
@@ -20,7 +20,12 @@ import {
   canGainFear,
   unitHasFearPenalty,
 } from './statusEffects'
+import {
+  formationDrillHitBonus,
+  formationGuardMitigation,
+} from './formation'
 import type { GameState, UnitToken } from './types'
+import { isMeleeSiegeWeapon } from './siege'
 
 /** To-hit by hex distance (2d6 sum): adjacent 7+, +1 per hex out (cap 10+). */
 const HIT_NEED: Record<number, number> = { 1: 7, 2: 8, 3: 9, 4: 10 }
@@ -93,6 +98,9 @@ export function buildHitNeedBreakdown(
   if (dist === 1 && isFlankingHit(ctx)) {
     modifiers.push({ label: 'Flanking', delta: -1 })
   }
+  if (formationDrillHitBonus(ctx.state, ctx.attacker) > 0) {
+    modifiers.push({ label: 'Formation Drill', delta: -1 })
+  }
   const raw = baseNeed + modifiers.reduce((sum, m) => sum + m.delta, 0)
   const finalNeed = Math.max(HIT_NEED_MIN, Math.min(HIT_NEED_MAX, raw))
   return { baseNeed, modifiers, finalNeed }
@@ -106,6 +114,7 @@ export function hitNeedBreakdownFromFlags(input: {
   evadeActive?: boolean
   favoredTerrainHit?: boolean
   flanking?: boolean
+  formationDrill?: boolean
 }): HitNeedBreakdown {
   const baseNeed = baseHitNeedForDistance(input.distance)
   const modifiers: HitNeedModifier[] = []
@@ -115,6 +124,9 @@ export function hitNeedBreakdownFromFlags(input: {
     modifiers.push({ label: 'Favored', delta: -FAVORED_TERRAIN_BONUS.hit })
   }
   if (input.flanking) modifiers.push({ label: 'Flanking', delta: -1 })
+  if (input.formationDrill) {
+    modifiers.push({ label: 'Formation Drill', delta: -1 })
+  }
   return { baseNeed, modifiers, finalNeed: input.hitNeed }
 }
 
@@ -135,6 +147,7 @@ export type AttackPreview = {
   rawDamage: number
   flanking: boolean
   favoredTerrainHit: boolean
+  formationDrill: boolean
   evadeActive: boolean
   fearPenalty: boolean
   fortifiedHex: boolean
@@ -155,6 +168,7 @@ export type AttackResult = AttackPreview & {
   unyieldingBlocked: boolean
   trampleLeftover: number
   trampleEligible: boolean
+  overpenetrateLeftover: number
 }
 
 export function hasUnitAbility(unit: UnitToken, name: string): boolean {
@@ -172,6 +186,103 @@ export function hasScoutAbility(unit: UnitToken): boolean {
 
 export function hasTrample(unit: UnitToken): boolean {
   return hasUnitAbility(unit, 'Trample')
+}
+
+export function hasBlast(unit: UnitToken): boolean {
+  return hasUnitAbility(unit, 'Blast')
+}
+
+export function hasOverpenetrate(unit: UnitToken): boolean {
+  return hasUnitAbility(unit, 'Overpenetrate')
+}
+
+export function occupantAtHex(state: GameState, cell: OddR): UnitToken | null {
+  return (
+    state.units.find(
+      (u) =>
+        u.col === cell.col &&
+        u.row === cell.row &&
+        (u.kind === 'commander' || (u.toughnessCurrent ?? 0) > 0),
+    ) ?? null
+  )
+}
+
+export type BlastSplashHit = {
+  defenderId: string
+  defenderName: string
+  col: number
+  row: number
+  dice: [number, number]
+  roll: number
+  hitNeed: number
+  hit: boolean
+  dealt: number
+  killed: boolean
+}
+
+/** Enemies adjacent to the primary target (not the primary, not friendlies). */
+export function blastSplashTargets(
+  state: GameState,
+  attacker: UnitToken,
+  primary: UnitToken,
+): UnitToken[] {
+  if (!hasBlast(attacker)) return []
+  const adj = new Set(
+    neighborsOddR({ col: primary.col, row: primary.row }).map((h) =>
+      hexKey(h.col, h.row),
+    ),
+  )
+  return state.units.filter(
+    (u) =>
+      u.id !== primary.id &&
+      u.id !== attacker.id &&
+      u.seat !== attacker.seat &&
+      (u.toughnessCurrent ?? 0) > 0 &&
+      adj.has(hexKey(u.col, u.row)),
+  )
+}
+
+/** Separate Hit roll vs one Blast splash enemy. Does not require attacker range. */
+export function resolveBlastSplashHit(ctx: CombatContext): BlastSplashHit {
+  const dist = hexDistOddR(ctx.attacker, ctx.defender)
+  const hitNeed = hitRequirement(ctx, dist)
+  const rng = ctx.rng ?? Math.random
+  const dice = rollHitDice(rng)
+  const roll = dice[0] + dice[1]
+  const hit = roll >= hitNeed
+  const raw = strikeDamage(ctx)
+  if (!hit) {
+    return {
+      defenderId: ctx.defender.id,
+      defenderName: ctx.defender.cardName,
+      col: ctx.defender.col,
+      row: ctx.defender.row,
+      dice,
+      roll,
+      hitNeed,
+      hit: false,
+      dealt: 0,
+      killed: false,
+    }
+  }
+  const { dealt, unyieldingBlocked } = applyIncomingDamage(
+    { state: ctx.state, defender: ctx.defender, attacker: ctx.attacker },
+    raw,
+  )
+  const tough = ctx.defender.toughnessCurrent ?? 0
+  const killed = !unyieldingBlocked && dealt > 0 && tough - dealt <= 0
+  return {
+    defenderId: ctx.defender.id,
+    defenderName: ctx.defender.cardName,
+    col: ctx.defender.col,
+    row: ctx.defender.row,
+    dice,
+    roll,
+    hitNeed,
+    hit: true,
+    dealt: unyieldingBlocked ? 0 : dealt,
+    killed,
+  }
 }
 
 export function hardenRankFromKeywords(unit: UnitToken): number {
@@ -222,6 +333,7 @@ export function strikeDamage(ctx: CombatContext): number {
   }
   let dmg = effectiveDamage(ctx.attacker)
   if (ctx.defender.assaultMarked) dmg += 1
+  // TODO(damageTypes): wire damageTypeBonus(attackerTags, defenderTags) once matrix is filled.
   // Volcanic Favored: +1 Damage when attacking from Volcanic
   const atkTerrain = terrainAt(ctx.state, ctx.attacker)
   if (
@@ -308,6 +420,92 @@ export function terrainMoveBonus(state: GameState, unit: UnitToken): number {
   return unitHasTerrainBonus(race, unit.keywords, terrain, favored) ? 1 : 0
 }
 
+/** Terrain kind under this unit (defaults to plains). */
+export function unitHexTerrain(state: GameState, unit: UnitToken): TerrainKind {
+  return terrainAt(state, unit)
+}
+
+function unitHasFavoredOnHex(state: GameState, unit: UnitToken): boolean {
+  const terrain = terrainAt(state, unit)
+  return unitHasTerrainBonus(
+    unitRace(state, unit),
+    unit.keywords,
+    terrain,
+    favoredTerrainFor(state, unit),
+  )
+}
+
+/** Favored plains/desert: +1 Hit while attacking from this hex. */
+export function terrainHitBonus(state: GameState, unit: UnitToken): number {
+  const terrain = terrainAt(state, unit)
+  if (!favoredGrantsHitBonus(terrain)) return 0
+  return unitHasFavoredOnHex(state, unit) ? FAVORED_TERRAIN_BONUS.hit : 0
+}
+
+/** Favored volcanic: +1 Damage while attacking from this hex. */
+export function terrainDamageBonus(state: GameState, unit: UnitToken): number {
+  const terrain = terrainAt(state, unit)
+  if (!favoredGrantsDamageBonus(terrain)) return 0
+  return unitHasFavoredOnHex(state, unit) ? FAVORED_TERRAIN_BONUS.damage : 0
+}
+
+/** Favored mountains: +1 Harden while occupying. */
+export function terrainHardenBonus(state: GameState, unit: UnitToken): number {
+  const terrain = terrainAt(state, unit)
+  if (!favoredGrantsHardenBonus(terrain)) return 0
+  return unitHasFavoredOnHex(state, unit) ? 1 : 0
+}
+
+const TERRAIN_LABEL: Record<TerrainKind, string> = {
+  plains: 'Plains',
+  forest: 'Forest',
+  swamp: 'Swamp',
+  desert: 'Desert',
+  volcanic: 'Volcanic',
+  mountains: 'Mountains',
+  water: 'Water',
+  wall: 'Wall',
+}
+
+/**
+ * Active terrain buffs/debuffs for UI (hover / selected).
+ * Matches combatResolve terrain Base + Favored rules.
+ */
+export function unitActiveTerrainEffects(
+  state: GameState,
+  unit: UnitToken,
+): { buffs: string[]; debuffs: string[]; terrainLabel: string } {
+  const terrain = terrainAt(state, unit)
+  const favored = unitHasFavoredOnHex(state, unit)
+  const buffs: string[] = []
+  const debuffs: string[] = []
+
+  if (favored) {
+    if (favoredGrantsHitBonus(terrain)) buffs.push('+1 Hit')
+    if (favoredGrantsDamageBonus(terrain)) buffs.push('+1 Damage')
+    if (favoredGrantsHardenBonus(terrain)) buffs.push('Harden 1')
+    if (favoredGrantsGuard(terrain)) buffs.push('Guard')
+    if (favoredGrantsMoveBonus(terrain)) buffs.push('+1 Move')
+    if (terrain === 'forest') buffs.push('Ignore Forest penalty')
+  }
+
+  // Base defensive cover (anyone on the hex)
+  if (terrain === 'mountains') buffs.push('Mountains cover')
+  if (terrain === 'forest') buffs.push('Forest cover')
+  if (terrain === 'swamp') buffs.push('Blocks Flanking')
+
+  // Base restrictions
+  if (desertBlocksEvade(terrain)) debuffs.push('No Evade')
+  if (volcanicBlocksBrace(terrain)) debuffs.push('No Brace')
+
+  return {
+    buffs,
+    debuffs,
+    terrainLabel: TERRAIN_LABEL[terrain] ?? terrain,
+  }
+}
+
+
 export function hitRequirement(ctx: CombatContext, dist: number): number {
   return buildHitNeedBreakdown(ctx, dist).finalNeed
 }
@@ -346,7 +544,11 @@ export function applyIncomingDamage(
   let dmg = Math.max(0, raw)
   const before = dmg
   const fortified = isHexFortified(state, defender)
-  const piercing = !!(attacker && hasUnitAbility(attacker, 'Piercing'))
+  const piercing = !!(
+    attacker &&
+    (hasUnitAbility(attacker, 'Piercing') ||
+      isMeleeSiegeWeapon(attacker, state.cardCatalog?.[attacker.cardId]))
+  )
 
   // Harden sources stack: unit track (printed + grants) + Fortified hex + Mountains Favored.
   const unitHarden = Math.max(defender.harden || 0, hardenRankFromKeywords(defender))
@@ -359,6 +561,10 @@ export function applyIncomingDamage(
   }
   if (hasUnitAbility(defender, 'Defender') && !attacker?.spectralStrike) {
     dmg = reduceDamageFloor(dmg, 1)
+  }
+  const formationGuard = formationGuardMitigation(state, defender)
+  if (formationGuard > 0) {
+    dmg = reduceDamageFloor(dmg, formationGuard)
   }
   if (raw > 0 && dmg > 0) dmg = Math.max(1, dmg)
 
@@ -425,10 +631,13 @@ export function previewAttack(ctx: CombatContext): AttackPreview {
   const dist = hexDistOddR(ctx.attacker, ctx.defender)
   const flanking = dist === 1 && isFlankingHit(ctx)
   const favoredTerrainHit = isFavoredTerrainHit(ctx)
+  const formationDrill = formationDrillHitBonus(ctx.state, ctx.attacker) > 0
   const evadeActive = !!ctx.defender.evadeActive
   const fearPenalty = unitHasFearPenalty(ctx.attacker)
   const fortifiedHex = isHexFortified(ctx.state, ctx.defender)
-  const piercing = hasUnitAbility(ctx.attacker, 'Piercing')
+  const piercing =
+    hasUnitAbility(ctx.attacker, 'Piercing') ||
+    isMeleeSiegeWeapon(ctx.attacker, ctx.state.cardCatalog?.[ctx.attacker.cardId])
   const trampleStrike = ctx.strikeDamageOverride != null && ctx.strikeDamageOverride > 0
   const check = validateAttack(ctx)
   if (!check.ok) {
@@ -440,6 +649,7 @@ export function previewAttack(ctx: CombatContext): AttackPreview {
       rawDamage: strikeDamage(ctx),
       flanking,
       favoredTerrainHit,
+      formationDrill,
       evadeActive,
       fearPenalty,
       fortifiedHex,
@@ -454,6 +664,7 @@ export function previewAttack(ctx: CombatContext): AttackPreview {
     rawDamage: strikeDamage(ctx),
     flanking,
     favoredTerrainHit,
+    formationDrill,
     evadeActive,
     fearPenalty,
     fortifiedHex,
@@ -489,6 +700,7 @@ export function resolveAttack(ctx: CombatContext): AttackResult {
       unyieldingBlocked: false,
       trampleLeftover: 0,
       trampleEligible: false,
+      overpenetrateLeftover: 0,
     }
   }
 
@@ -524,6 +736,10 @@ export function resolveAttack(ctx: CombatContext): AttackResult {
       : 0
   const trampleEligible =
     killed && hasTrample(ctx.attacker) && dist === 1
+  const overpenetrateLeftover =
+    killed && hasOverpenetrate(ctx.attacker) && !hasBlast(ctx.attacker)
+      ? trampleLeftoverDamage(raw, defenderHpBefore)
+      : 0
 
   return {
     ...preview,
@@ -539,6 +755,7 @@ export function resolveAttack(ctx: CombatContext): AttackResult {
     unyieldingBlocked,
     trampleLeftover,
     trampleEligible,
+    overpenetrateLeftover,
   }
 }
 
@@ -564,6 +781,69 @@ export function effectiveRadiusForUnit(
 ): number {
   if (unit && hasScoutAbility(unit)) return baseRadius + SCOUT_CR_EXTENSION
   return baseRadius
+}
+
+export function applyBlastSplashToState(
+  state: GameState,
+  splash: BlastSplashHit,
+): GameState {
+  if (!splash.hit || splash.dealt <= 0) return state
+  return {
+    ...state,
+    units: state.units.map((u) => {
+      if (u.id !== splash.defenderId) return u
+      if (u.toughnessCurrent == null) return u
+      return {
+        ...u,
+        toughnessCurrent: Math.max(0, u.toughnessCurrent - splash.dealt),
+      }
+    }),
+  }
+}
+
+/** Bolt continues behind a destroyed primary; leftover Damage, new Hit rolls. */
+export function applyOverpenetrateChain(
+  state: GameState,
+  attacker: UnitToken,
+  primary: UnitToken,
+  leftover: number,
+): { state: GameState; hits: BlastSplashHit[] } {
+  const hits: BlastSplashHit[] = []
+  if (!hasOverpenetrate(attacker) || leftover <= 0) return { state, hits }
+  const origin: OddR = { col: attacker.col, row: attacker.row }
+  let next = state
+  let through: OddR = { col: primary.col, row: primary.row }
+  let dmg = leftover
+  const liveAtk = () => next.units.find((u) => u.id === attacker.id) ?? attacker
+
+  for (let step = 0; step < next.boardSize && dmg > 0; step++) {
+    const behind = hexBehind(origin, through)
+    if (!behind || !inBounds(behind, next.boardSize)) break
+    const occ = occupantAtHex(next, behind)
+    if (!occ) {
+      through = behind
+      continue
+    }
+    if (occ.seat === attacker.seat || occ.kind === 'commander') break
+    const hpBefore = occ.toughnessCurrent ?? 0
+    if (hpBefore <= 0) {
+      through = behind
+      continue
+    }
+    const splash = resolveBlastSplashHit({
+      state: next,
+      attacker: liveAtk(),
+      defender: occ,
+      strikeDamageOverride: dmg,
+    })
+    hits.push(splash)
+    if (!splash.hit || splash.dealt <= 0) break
+    next = applyBlastSplashToState(next, splash)
+    if (!splash.killed) break
+    dmg = trampleLeftoverDamage(dmg, hpBefore)
+    through = { col: occ.col, row: occ.row }
+  }
+  return { state: next, hits }
 }
 
 export function applyAttackResultToState(

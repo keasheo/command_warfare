@@ -8,13 +8,14 @@ cards:
     primary_type: Flying
     secondary_type: null
     uv: 13
-    move: 4
+    move: 5
     damage: 3
     range: 1
     toughness: 7
     company_ap: null
     company_capacity: null
-    command_radius: 6
+    company_unit_cap: null
+    command_radius: 8
     ap_generation: 5
     cc_generation: 5
     keywords:
@@ -42,13 +43,14 @@ cards:
     primary_type: Flying
     secondary_type: null
     uv: 16
-    move: 3
+    move: 5
     damage: 4
     range: 3
     toughness: 7
     company_ap: null
     company_capacity: null
-    command_radius: 6
+    company_unit_cap: null
+    command_radius: 8
     ap_generation: 5
     cc_generation: 6
     keywords:
@@ -78,13 +80,14 @@ cards:
     primary_type: Infantry
     secondary_type: null
     uv: 14
-    move: 3
+    move: 5
     damage: 2
     range: 1
     toughness: 6
     company_ap: null
     company_capacity: null
-    command_radius: 7
+    company_unit_cap: null
+    command_radius: 9
     ap_generation: 5
     cc_generation: 5
     keywords: []
@@ -114,13 +117,14 @@ cards:
     primary_type: Flying
     secondary_type: Elite
     uv: 26
-    move: 3
+    move: 5
     damage: 4
     range: 1
     toughness: 8
     company_ap: null
     company_capacity: null
-    command_radius: 5
+    company_unit_cap: null
+    command_radius: 7
     ap_generation: 5
     cc_generation: 5
     keywords:

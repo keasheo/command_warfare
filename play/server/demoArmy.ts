@@ -132,7 +132,17 @@ export function loadQuickPickArmy(commanderId?: string | null): DemoArmyPack {
   return { army: resolved.army, cards }
 }
 
-/** Default preset for CPU / smoke (stable: first commander in file). */
+/** Default preset for smoke / API fallback (stable: first commander in file). */
 export function loadDemoArmy(): DemoArmyPack {
   return loadQuickPickArmy()
+}
+
+/** Random commander preset — used by AI opponents. */
+export function loadRandomQuickPickArmy(): DemoArmyPack {
+  const presets = listQuickPickPresets()
+  if (!presets.length) {
+    throw new Error('No quick-pick army presets found')
+  }
+  const pick = presets[Math.floor(Math.random() * presets.length)]!
+  return loadQuickPickArmy(pick.commanderId)
 }

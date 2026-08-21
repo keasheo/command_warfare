@@ -1,47 +1,314 @@
 {
   "keywords": [
-    {"name": "Adaptive Attack", "description": "This unit's Damage is always equal to its current Toughness.", "tags": ["passive"]},
-    {"name": "Amphibious", "description": "Treat water as normal terrain.", "tags": ["passive"]},
-    {"name": "Blast", "description": "Deal Damage to the primary target and each enemy within 1 hex of it. Attack Method — cannot combine with Cleave or Trample.", "tags": ["passive", "dragon", "siege"]},
-    {"name": "Charge", "description": "If this unit moved at least 2 spaces before attacking, increase its damage by 1.", "tags": ["passive"]},
-    {"name": "Cleave", "description": "When attacking, this unit may divide its Damage among up to as many targets as its Damage value.", "tags": ["passive"]},
-    {"name": "Defender", "description": "Cannot initiate Charge but gains +1 Toughness while defending.", "tags": ["passive"]},
-    {"name": "Fear", "description": "Successful attacks apply Fear. While a unit has Fear, its attacks suffer −1 Hit. Ends at round refresh.", "tags": ["passive"]},
-    {"name": "Fearless", "description": "This unit is immune to Fear.", "tags": ["passive"]},
-    {"name": "Flanking", "description": "When attacking an enemy adjacent to another friendly unit, this attack gains +1 Hit.", "tags": ["passive"]},
-    {"name": "Flying", "description": "Ignores terrain and friendly units while moving. May path across Wall hexes but cannot occupy them.", "tags": ["passive"]},
-    {"name": "Formation Drill", "description": "Adjacent friendly units of this company with UV 3 or less gain +1 Hit on attacks.", "tags": ["passive", "formation"]},
-    {"name": "Formation Guard", "description": "Adjacent friendly units of this company with UV 3 or less gain +1 Toughness while defending.", "tags": ["passive", "formation"]},
-    {"name": "Formation March", "description": "Adjacent friendly units of this company with UV 3 or less gain +1 Move.", "tags": ["passive", "formation"]},
-    {"name": "Frenzy", "description": "After destroying a unit, immediately gain one additional attack.", "tags": ["passive"]},
-    {"name": "Guard", "description": "When an enemy leaves adjacency with this unit, it must take a Disengagement Strike from this unit.", "tags": ["passive"]},
-    {"name": "Harden", "description": "Print as Harden X. Reduce incoming Damage by the sum of all Harden sources. Damage cannot be reduced below 1. Piercing ignores Harden.", "tags": ["passive", "parameterized"]},
-    {"name": "Mounted", "description": "Trait keyword used for synergy. Has no inherent rules unless another card references it.", "tags": ["passive"]},
-    {"name": "MultiStrike", "description": "Make X attacks against the same target. Roll separately for each attack.", "tags": ["passive"]},
-    {"name": "Pack", "description": "While adjacent to at least two friendly units with Pack, this unit's melee attacks gain +1 Hit.", "tags": ["passive"]},
-    {"name": "Petrified", "description": "This unit cannot Move, Attack, or use abilities while Petrified until an effect removes it.", "tags": ["passive"]},
-    {"name": "Overpenetrate", "description": "When this unit's attack destroys the primary target, leftover Damage continues in a straight line behind them.", "tags": ["passive", "siege"]},
-    {"name": "Piercing", "description": "Ignore Harden (printed Harden, Fortified hexes, Brace, and other Harden sources).", "tags": ["passive", "siege"]},
-    {"name": "Poison", "description": "Successful attacks apply Poison. At the beginning of the poisoned unit's next activation, it loses 1 Toughness, then Poison ends.", "tags": ["passive"]},
-    {"name": "Reach", "description": "This unit may attack Flying units.", "tags": ["passive"]},
-    {"name": "Regenerate", "description": "Restore X Toughness. A unit may never exceed its starting Toughness.", "tags": ["passive"]},
-    {"name": "Revenant", "description": "The first time this unit is destroyed each battle, return it once with half starting Toughness (rounded down, min 1).", "tags": ["passive"]},
-    {"name": "Scout", "description": "May deploy one additional space beyond the normal deployment zone. May be up to 3 spaces outside Command Radius.", "tags": ["passive"]},
-    {"name": "Shieldwall", "description": "While adjacent to another unit with Shieldwall, gain +1 Toughness.", "tags": ["passive"]},
-    {"name": "Siege", "description": "This unit may Demolish Fortifications. +1 Damage vs units on a Fortified hex unless the card states a higher bonus.", "tags": ["passive"]},
-    {"name": "Slow", "description": "On a successful attack, apply Slow. Reduce Movement by 1 during the next activation, then Slow ends.", "tags": ["passive"]},
-    {"name": "Spellcaster", "description": "This unit may use magical abilities.", "tags": ["passive"]},
-    {"name": "Stealth", "description": "Cannot be targeted by ranged attacks unless it attacked this round.", "tags": ["passive"]},
-    {"name": "Harass", "description": "After this unit attacks, it may Move 1. That Move ignores Disengagement (including Guard).", "tags": ["passive"]},
-    {"name": "Trample", "description": "When this unit destroys an adjacent enemy, retain remaining Damage, occupy the hex, and attack another adjacent enemy.", "tags": ["passive"]},
-    {"name": "Unyielding", "description": "This unit cannot be moved by enemy effects.", "tags": ["passive"]},
-    {"name": "Open Ground", "description": "While attacking from a Plains hex, this unit's attacks gain +1 Hit.", "tags": ["passive", "terrain"]},
-    {"name": "Woodwalker", "description": "While attacking from a Forest hex, this unit ignores the Forest Base ranged Hit Requirement penalty.", "tags": ["passive", "terrain"]},
-    {"name": "Bogstrider", "description": "While standing on a Swamp hex, this unit has Guard.", "tags": ["passive", "terrain"]},
-    {"name": "Duneborn", "description": "While attacking from a Desert hex, this unit's attacks gain +1 Hit.", "tags": ["passive", "terrain"]},
-    {"name": "Ashborn", "description": "While attacking from a Volcanic hex, this unit's attacks gain +1 Damage.", "tags": ["passive", "terrain"]},
-    {"name": "Mountainborn", "description": "While standing on a Mountains hex, increase this unit's Harden by 1.", "tags": ["passive", "terrain"]},
-    {"name": "Deepwalker", "description": "While standing on a Water hex (requires Amphibious or Flying), this unit gains +1 Move.", "tags": ["passive", "terrain"]}
+    {
+      "name": "Adaptive Attack",
+      "description": "This unit's Damage is always equal to its current Toughness.",
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "name": "Amphibious",
+      "description": "Treat water as normal terrain.",
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "name": "Ashborn",
+      "description": "This unit is born of fire and ash. While attacking from a Volcanic hex, this unit's attacks gain +1 Damage. Dragon and Demon units have this bonus by default.",
+      "tags": [
+        "passive",
+        "terrain"
+      ]
+    },
+    {
+      "name": "Blast",
+      "description": "When this unit attacks, choose a primary target. Deal Damage to that target and each enemy within 1 hex of it (the six adjacent hexes around the target). Roll Hit separately against each enemy. Missed enemies take no Damage. Does not hit friendly units unless a card says so. Blast is an Attack Method — it cannot be combined with Cleave or Trample. Blast does not scale; printed Blast and effects that grant Blast always use this 1-hex radius. Some Siege artillery also have Blast.",
+      "tags": [
+        "passive",
+        "dragon",
+        "siege"
+      ]
+    },
+    {
+      "name": "Bogstrider",
+      "description": "This unit is at home in swamps and marshes. While standing on a Swamp hex, this unit has Guard. Undead and Lizardman units have this bonus by default.",
+      "tags": [
+        "passive",
+        "terrain"
+      ]
+    },
+    {
+      "name": "Charge",
+      "description": "If this unit moved at least 2 spaces before attacking, increase its damage by 1.",
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "name": "Cleave",
+      "description": "When attacking, this unit may divide its Damage among up to as many targets as its Damage value (each target must receive at least 1 Damage). For example, Damage 3 may strike one target for 3, two targets for 2 and 1, or three targets for 1 each. Damage assignments must be declared before any Hit rolls. Roll separately against each target. Missed attacks lose their assigned Damage.",
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "name": "Deepwalker",
+      "description": "This unit is at home in deep water. While standing on a Water hex (requires Amphibious or Flying), this unit gains +1 Move. ",
+      "tags": [
+        "passive",
+        "terrain"
+      ]
+    },
+    {
+      "name": "Defender",
+      "description": "Cannot initiate Charge but gains +1 Toughness while defending.",
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "name": "Duneborn",
+      "description": "This unit thrives in desert heat. While attacking from a Desert hex, this unit's attacks gain +1 Hit.",
+      "tags": [
+        "passive",
+        "terrain"
+      ]
+    },
+    {
+      "name": "Fear",
+      "description": "Successful attacks by a unit with Fear apply Fear to the defender. While a unit has Fear, its attacks suffer −1 Hit. Fear ends at the start of the next round (when sides refresh).",
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "name": "Fearless",
+      "description": "This unit is immune to Fear.",
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "name": "Flanking",
+      "description": "When attacking an enemy adjacent to another friendly unit, this attack gains +1 Hit.",
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "name": "Flying",
+      "description": "Ignores terrain and friendly units while moving. May path across Wall hexes but cannot occupy them (cannot end a move on a Wall). May attack other Flying units.",
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "name": "Formation Drill",
+      "description": "Adjacent friendly units of this company with UV 3 or less gain +1 Hit on attacks.",
+      "tags": [
+        "passive",
+        "formation"
+      ]
+    },
+    {
+      "name": "Formation Guard",
+      "description": "Adjacent friendly units of this company with UV 3 or less gain +1 Toughness while defending.",
+      "tags": [
+        "passive",
+        "formation"
+      ]
+    },
+    {
+      "name": "Formation March",
+      "description": "Adjacent friendly units of this company with UV 3 or less gain +1 Move.",
+      "tags": [
+        "passive",
+        "formation"
+      ]
+    },
+    {
+      "name": "Frenzy",
+      "description": "After destroying a unit, immediately gain one additional attack.",
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "name": "Guard",
+      "description": "When an enemy leaves adjacency with this unit, it must take a Disengagement Strike from this unit. That enemy cannot avoid the Strike by spending +1 Company AP.",
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "name": "Harass",
+      "description": "After this unit attacks, it may Move 1. That Move ignores Disengagement (including Guard).",
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "name": "Harden",
+      "description": "Print as Harden X (e.g. Harden 1, Harden 2). Reduce incoming Damage by the sum of all Harden sources on this unit. Damage cannot be reduced below 1 unless another rule states otherwise. Piercing ignores Harden. The Defensive Reaction Brace grants Harden 1 until this unit's next activation or the next round (whichever first); a unit may not have Brace and Evade at once. Brace is reaction-only — abilities never grant Brace. Harden sources stack (add their X values).",
+      "tags": [
+        "passive",
+        "parameterized"
+      ]
+    },
+    {
+      "name": "Mountainborn",
+      "description": "This unit commands the high ground. While standing on a Mountains hex, increase this unit's Harden by 1 (Harden sources stack). Dwarf units have this bonus by default.",
+      "tags": [
+        "passive",
+        "terrain"
+      ]
+    },
+    {
+      "name": "Mounted",
+      "description": "Trait keyword used for synergy. Has no inherent rules unless another card references it.",
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "name": "MultiStrike",
+      "description": "Make X attacks against the same target. Roll separately for each attack. If the target is destroyed, remaining attacks are lost.",
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "name": "Open Ground",
+      "description": "This unit fights best on plains. While attacking from a Plains hex, this unit's attacks gain +1 Hit. Human and Construct units have this bonus by default.",
+      "tags": [
+        "passive",
+        "terrain"
+      ]
+    },
+    {
+      "name": "Overpenetrate",
+      "description": "When this unit's attack destroys the primary target, leftover Damage continues in a straight line behind them. Empty hexes are skipped. The next enemy on that line takes a new Hit roll using the leftover Damage. Friendly units and commanders block the bolt. If that enemy is also destroyed, leftover Damage may continue. Does not hit friendlies. Overpenetrate cannot be combined with Blast.",
+      "tags": [
+        "passive",
+        "siege"
+      ]
+    },
+    {
+      "name": "Pack",
+      "description": "While adjacent to at least two friendly units with Pack, this unit's melee attacks gain +1 Hit.",
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "name": "Petrified",
+      "description": "This unit cannot Move, Attack, or use abilities while Petrified. Petrified has no automatic end — it lasts until an effect removes it.",
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "name": "Piercing",
+      "description": "Ignore Harden (printed Harden, Fortified hexes, Brace, and other Harden sources). Melee Siege (Range 1) also ignores Harden, even without this keyword.",
+      "tags": [
+        "passive",
+        "siege"
+      ]
+    },
+    {
+      "name": "Poison",
+      "description": "Successful attacks by a unit with Poison apply Poison to the defender. At the beginning of the poisoned unit's next activation, it loses 1 Toughness, then Poison ends (one tick removes it).",
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "name": "Reach",
+      "description": "This unit may attack Flying units.",
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "name": "Regenerate",
+      "description": "Restore X Toughness. A unit may never exceed its starting Toughness.",
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "name": "Revenant",
+      "description": "The first time this unit is destroyed each battle, return it to play once with half its starting Toughness (rounded down, minimum 1) in the hex where it was destroyed, or the closest unoccupied hex to that space. A unit returned this way cannot Revenant again that battle. Prefer this once-budget on Undead; compensate with weaker baseline stats (~−1 Toughness and/or −1 Damage vs same-UV peers) and tune via sims.",
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "name": "Scout",
+      "description": "May deploy one additional space beyond the normal deployment zone. This unit may be up to 3 spaces outside a friendly Command Radius and still receive bonuses as if it were inside that Command Radius.",
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "name": "Shieldwall",
+      "description": "While adjacent to another unit with Shieldwall, gain +1 Toughness.",
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "name": "Siege",
+      "description": "This unit may Demolish Fortifications. When dealing Damage to a unit on a Fortified hex, increase that Damage by 1 unless the card states a higher bonus (for example +2).",
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "name": "Slow",
+      "description": "Only an enemy Combat Unit with Slow applies Slow — on a successful attack against the defender. Friendly effects never put Slow on your own units. While a unit has Slow, reduce its Movement by 1 during its next activation; Slow then ends. A unit does not have Slow unless an enemy unit applied it this way (or an enemy ability that explicitly applies Slow).",
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "name": "Spellcaster",
+      "description": "This unit may use magical abilities.",
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "name": "Stealth",
+      "description": "Cannot be targeted by ranged attacks unless it attacked this round.",
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "name": "Trample",
+      "description": "When this unit destroys an adjacent enemy, retain remaining Damage. Move into the defeated unit's hex. Immediately attack another adjacent enemy using the remaining Damage. Roll separately for each attack.",
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "name": "Unyielding",
+      "description": "This unit cannot be moved by enemy effects.",
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "name": "Woodwalker",
+      "description": "This unit moves silently through forests. While attacking from a Forest hex, this unit ignores the Forest Base ranged Hit Requirement penalty. Beastfolk and Elf units have this bonus by default.",
+      "tags": [
+        "passive",
+        "terrain"
+      ]
+    }
   ],
-  "exportedAt": "2026-08-20T03:56:00.000Z"
+  "exportedAt": "2026-08-21T03:08:16.217Z"
 }

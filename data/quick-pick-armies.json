@@ -1,12 +1,12 @@
 {
   "version": 1,
-  "generatedAt": "2026-08-09T01:21:52.020Z",
+  "generatedAt": "2026-08-19T16:32:56.868Z",
   "presets": {
     "a9ef572519124c378d64752881e7ac5e": {
       "commanderId": "a9ef572519124c378d64752881e7ac5e",
       "commanderName": "Blood Moon Alpha",
       "race": "Beastfolk",
-      "totalUv": 195,
+      "totalUv": 200,
       "companyCount": 6,
       "list": {
         "commander": "Blood Moon Alpha",
@@ -15,19 +15,15 @@
             "officer": "Hoofthunder Lead",
             "units": [
               {
+                "name": "Centaur Lancers",
+                "count": 3
+              },
+              {
+                "name": "Centaur Outriders",
+                "count": 1
+              },
+              {
                 "name": "Pup Drill",
-                "count": 4
-              },
-              {
-                "name": "Flank Link",
-                "count": 4
-              },
-              {
-                "name": "Boar Boys",
-                "count": 4
-              },
-              {
-                "name": "Camp Archers",
                 "count": 1
               }
             ]
@@ -36,16 +32,12 @@
             "officer": "Scout Tracker Fen",
             "units": [
               {
-                "name": "Camp Archers",
+                "name": "Hunt Masters",
                 "count": 3
               },
               {
-                "name": "Sling Wolfkin",
-                "count": 4
-              },
-              {
-                "name": "Tribal Spears",
-                "count": 2
+                "name": "Pack Pups",
+                "count": 1
               }
             ]
           },
@@ -53,16 +45,12 @@
             "officer": "Trail Alpha Nira",
             "units": [
               {
-                "name": "Tribal Spears",
-                "count": 2
-              },
-              {
-                "name": "Pack Horn",
-                "count": 4
-              },
-              {
-                "name": "Fang Pair Alpha",
+                "name": "Pack Pups",
                 "count": 3
+              },
+              {
+                "name": "Silent Stalkers",
+                "count": 1
               }
             ]
           },
@@ -70,16 +58,12 @@
             "officer": "Centaur Marshal",
             "units": [
               {
-                "name": "Fang Pair Alpha",
+                "name": "Spear Centaurs",
+                "count": 3
+              },
+              {
+                "name": "Centaur Outriders",
                 "count": 1
-              },
-              {
-                "name": "Den Sergeant",
-                "count": 4
-              },
-              {
-                "name": "Brush Stalkers",
-                "count": 2
               }
             ]
           },
@@ -87,12 +71,20 @@
             "officer": "Wolfkin Alpha",
             "units": [
               {
-                "name": "Brush Stalkers",
-                "count": 2
+                "name": "Werewolf Kin",
+                "count": 1
               },
               {
-                "name": "Centaur Outriders",
-                "count": 4
+                "name": "Moon Pack",
+                "count": 1
+              },
+              {
+                "name": "Axe Wolfkin",
+                "count": 1
+              },
+              {
+                "name": "Pup Drill",
+                "count": 1
               }
             ]
           },
@@ -100,12 +92,28 @@
             "officer": "Beastmaster Rowan",
             "units": [
               {
-                "name": "Herd Guard",
-                "count": 4
+                "name": "Trail Pacekeeper",
+                "count": 1
               },
               {
-                "name": "Howl Choir",
-                "count": 2
+                "name": "Grove Chanters",
+                "count": 1
+              },
+              {
+                "name": "Totem Bearers",
+                "count": 1
+              },
+              {
+                "name": "Den Mothers",
+                "count": 1
+              },
+              {
+                "name": "Pup Drill",
+                "count": 1
+              },
+              {
+                "name": "Flank Link",
+                "count": 1
               }
             ]
           }
@@ -116,7 +124,7 @@
       "commanderId": "e5603605f3af647fb41256adc98794f8",
       "commanderName": "High Alpha of Tribes",
       "race": "Beastfolk",
-      "totalUv": 199,
+      "totalUv": 204,
       "companyCount": 6,
       "list": {
         "commander": "High Alpha of Tribes",
@@ -125,19 +133,15 @@
             "officer": "Hoofthunder Lead",
             "units": [
               {
+                "name": "Centaur Lancers",
+                "count": 3
+              },
+              {
+                "name": "Centaur Outriders",
+                "count": 1
+              },
+              {
                 "name": "Pup Drill",
-                "count": 4
-              },
-              {
-                "name": "Flank Link",
-                "count": 4
-              },
-              {
-                "name": "Boar Boys",
-                "count": 4
-              },
-              {
-                "name": "Camp Archers",
                 "count": 1
               }
             ]
@@ -146,16 +150,12 @@
             "officer": "Scout Tracker Fen",
             "units": [
               {
-                "name": "Camp Archers",
+                "name": "Hunt Masters",
                 "count": 3
               },
               {
-                "name": "Sling Wolfkin",
-                "count": 4
-              },
-              {
-                "name": "Tribal Spears",
-                "count": 2
+                "name": "Pack Pups",
+                "count": 1
               }
             ]
           },
@@ -163,16 +163,12 @@
             "officer": "Trail Alpha Nira",
             "units": [
               {
-                "name": "Tribal Spears",
-                "count": 2
-              },
-              {
-                "name": "Pack Horn",
-                "count": 4
-              },
-              {
-                "name": "Fang Pair Alpha",
+                "name": "Pack Pups",
                 "count": 3
+              },
+              {
+                "name": "Silent Stalkers",
+                "count": 1
               }
             ]
           },
@@ -180,16 +176,12 @@
             "officer": "Centaur Marshal",
             "units": [
               {
-                "name": "Fang Pair Alpha",
+                "name": "Spear Centaurs",
+                "count": 3
+              },
+              {
+                "name": "Centaur Outriders",
                 "count": 1
-              },
-              {
-                "name": "Den Sergeant",
-                "count": 4
-              },
-              {
-                "name": "Brush Stalkers",
-                "count": 2
               }
             ]
           },
@@ -197,12 +189,20 @@
             "officer": "Wolfkin Alpha",
             "units": [
               {
-                "name": "Brush Stalkers",
-                "count": 2
+                "name": "Werewolf Kin",
+                "count": 1
               },
               {
-                "name": "Centaur Outriders",
-                "count": 4
+                "name": "Moon Pack",
+                "count": 1
+              },
+              {
+                "name": "Axe Wolfkin",
+                "count": 1
+              },
+              {
+                "name": "Pup Drill",
+                "count": 1
               }
             ]
           },
@@ -210,12 +210,28 @@
             "officer": "Beastmaster Rowan",
             "units": [
               {
-                "name": "Herd Guard",
-                "count": 4
+                "name": "Trail Pacekeeper",
+                "count": 1
               },
               {
-                "name": "Howl Choir",
-                "count": 2
+                "name": "Grove Chanters",
+                "count": 1
+              },
+              {
+                "name": "Totem Bearers",
+                "count": 1
+              },
+              {
+                "name": "Den Mothers",
+                "count": 1
+              },
+              {
+                "name": "Pup Drill",
+                "count": 1
+              },
+              {
+                "name": "Flank Link",
+                "count": 1
               }
             ]
           }
@@ -226,7 +242,7 @@
       "commanderId": "b6b3c6ac4b7b48618b1c5d2a8ed4e836",
       "commanderName": "Howling Matriarch",
       "race": "Beastfolk",
-      "totalUv": 203,
+      "totalUv": 208,
       "companyCount": 6,
       "list": {
         "commander": "Howling Matriarch",
@@ -235,19 +251,15 @@
             "officer": "Hoofthunder Lead",
             "units": [
               {
+                "name": "Centaur Lancers",
+                "count": 3
+              },
+              {
+                "name": "Centaur Outriders",
+                "count": 1
+              },
+              {
                 "name": "Pup Drill",
-                "count": 4
-              },
-              {
-                "name": "Flank Link",
-                "count": 4
-              },
-              {
-                "name": "Boar Boys",
-                "count": 4
-              },
-              {
-                "name": "Camp Archers",
                 "count": 1
               }
             ]
@@ -256,16 +268,12 @@
             "officer": "Scout Tracker Fen",
             "units": [
               {
-                "name": "Camp Archers",
+                "name": "Hunt Masters",
                 "count": 3
               },
               {
-                "name": "Sling Wolfkin",
-                "count": 4
-              },
-              {
-                "name": "Tribal Spears",
-                "count": 2
+                "name": "Pack Pups",
+                "count": 1
               }
             ]
           },
@@ -273,16 +281,12 @@
             "officer": "Trail Alpha Nira",
             "units": [
               {
-                "name": "Tribal Spears",
-                "count": 2
-              },
-              {
-                "name": "Pack Horn",
-                "count": 4
-              },
-              {
-                "name": "Fang Pair Alpha",
+                "name": "Pack Pups",
                 "count": 3
+              },
+              {
+                "name": "Silent Stalkers",
+                "count": 1
               }
             ]
           },
@@ -290,16 +294,12 @@
             "officer": "Centaur Marshal",
             "units": [
               {
-                "name": "Fang Pair Alpha",
+                "name": "Spear Centaurs",
+                "count": 3
+              },
+              {
+                "name": "Centaur Outriders",
                 "count": 1
-              },
-              {
-                "name": "Den Sergeant",
-                "count": 4
-              },
-              {
-                "name": "Brush Stalkers",
-                "count": 2
               }
             ]
           },
@@ -307,12 +307,20 @@
             "officer": "Wolfkin Alpha",
             "units": [
               {
-                "name": "Brush Stalkers",
-                "count": 2
+                "name": "Werewolf Kin",
+                "count": 1
               },
               {
-                "name": "Centaur Outriders",
-                "count": 4
+                "name": "Moon Pack",
+                "count": 1
+              },
+              {
+                "name": "Axe Wolfkin",
+                "count": 1
+              },
+              {
+                "name": "Pup Drill",
+                "count": 1
               }
             ]
           },
@@ -320,12 +328,28 @@
             "officer": "Beastmaster Rowan",
             "units": [
               {
-                "name": "Herd Guard",
-                "count": 4
+                "name": "Trail Pacekeeper",
+                "count": 1
               },
               {
-                "name": "Howl Choir",
-                "count": 2
+                "name": "Grove Chanters",
+                "count": 1
+              },
+              {
+                "name": "Totem Bearers",
+                "count": 1
+              },
+              {
+                "name": "Den Mothers",
+                "count": 1
+              },
+              {
+                "name": "Pup Drill",
+                "count": 1
+              },
+              {
+                "name": "Flank Link",
+                "count": 1
               }
             ]
           }
@@ -336,7 +360,7 @@
       "commanderId": "ae4883dd1d5d4239b58394624f42a522",
       "commanderName": "Wild Hunt Lord",
       "race": "Beastfolk",
-      "totalUv": 194,
+      "totalUv": 199,
       "companyCount": 6,
       "list": {
         "commander": "Wild Hunt Lord",
@@ -345,19 +369,15 @@
             "officer": "Hoofthunder Lead",
             "units": [
               {
+                "name": "Centaur Lancers",
+                "count": 3
+              },
+              {
+                "name": "Centaur Outriders",
+                "count": 1
+              },
+              {
                 "name": "Pup Drill",
-                "count": 4
-              },
-              {
-                "name": "Flank Link",
-                "count": 4
-              },
-              {
-                "name": "Boar Boys",
-                "count": 4
-              },
-              {
-                "name": "Camp Archers",
                 "count": 1
               }
             ]
@@ -366,16 +386,12 @@
             "officer": "Scout Tracker Fen",
             "units": [
               {
-                "name": "Camp Archers",
+                "name": "Hunt Masters",
                 "count": 3
               },
               {
-                "name": "Sling Wolfkin",
-                "count": 4
-              },
-              {
-                "name": "Tribal Spears",
-                "count": 2
+                "name": "Pack Pups",
+                "count": 1
               }
             ]
           },
@@ -383,16 +399,12 @@
             "officer": "Trail Alpha Nira",
             "units": [
               {
-                "name": "Tribal Spears",
-                "count": 2
-              },
-              {
-                "name": "Pack Horn",
-                "count": 4
-              },
-              {
-                "name": "Fang Pair Alpha",
+                "name": "Pack Pups",
                 "count": 3
+              },
+              {
+                "name": "Silent Stalkers",
+                "count": 1
               }
             ]
           },
@@ -400,16 +412,12 @@
             "officer": "Centaur Marshal",
             "units": [
               {
-                "name": "Fang Pair Alpha",
+                "name": "Spear Centaurs",
+                "count": 3
+              },
+              {
+                "name": "Centaur Outriders",
                 "count": 1
-              },
-              {
-                "name": "Den Sergeant",
-                "count": 4
-              },
-              {
-                "name": "Brush Stalkers",
-                "count": 2
               }
             ]
           },
@@ -417,12 +425,20 @@
             "officer": "Wolfkin Alpha",
             "units": [
               {
-                "name": "Brush Stalkers",
-                "count": 2
+                "name": "Werewolf Kin",
+                "count": 1
               },
               {
-                "name": "Centaur Outriders",
-                "count": 4
+                "name": "Moon Pack",
+                "count": 1
+              },
+              {
+                "name": "Axe Wolfkin",
+                "count": 1
+              },
+              {
+                "name": "Pup Drill",
+                "count": 1
               }
             ]
           },
@@ -430,12 +446,28 @@
             "officer": "Beastmaster Rowan",
             "units": [
               {
-                "name": "Herd Guard",
-                "count": 4
+                "name": "Trail Pacekeeper",
+                "count": 1
               },
               {
-                "name": "Howl Choir",
-                "count": 2
+                "name": "Grove Chanters",
+                "count": 1
+              },
+              {
+                "name": "Totem Bearers",
+                "count": 1
+              },
+              {
+                "name": "Den Mothers",
+                "count": 1
+              },
+              {
+                "name": "Pup Drill",
+                "count": 1
+              },
+              {
+                "name": "Flank Link",
+                "count": 1
               }
             ]
           }
@@ -446,7 +478,7 @@
       "commanderId": "cfed71294b8442fa836c49f097021707",
       "commanderName": "Barrage Mind Helix",
       "race": "Construct",
-      "totalUv": 193,
+      "totalUv": 194,
       "companyCount": 6,
       "list": {
         "commander": "Barrage Mind Helix",
@@ -455,20 +487,12 @@
             "officer": "Null Sentinel Prime",
             "units": [
               {
-                "name": "Rivet Drill Unit",
-                "count": 4
+                "name": "Mireframe Nulls",
+                "count": 3
               },
               {
-                "name": "Plate Link",
-                "count": 4
-              },
-              {
-                "name": "Floor Sweepers",
-                "count": 4
-              },
-              {
-                "name": "Gear Militia",
-                "count": 2
+                "name": "Bulwark Frames",
+                "count": 1
               }
             ]
           },
@@ -476,16 +500,16 @@
             "officer": "Null Lattice Warden",
             "units": [
               {
-                "name": "Gear Militia",
+                "name": "Bulwark Frames",
                 "count": 2
               },
               {
-                "name": "Oil Bearers",
-                "count": 4
+                "name": "Juggernaut Chassis",
+                "count": 1
               },
               {
-                "name": "Plate Thralls",
-                "count": 4
+                "name": "Anchor Constructs",
+                "count": 1
               }
             ]
           },
@@ -493,15 +517,15 @@
             "officer": "Gear Warden Axle",
             "units": [
               {
-                "name": "Thicket Drones",
-                "count": 4
+                "name": "Servo Medicae",
+                "count": 2
               },
               {
-                "name": "Shield Automata",
-                "count": 4
+                "name": "Crown of Gears",
+                "count": 1
               },
               {
-                "name": "Gear Horn",
+                "name": "Rivet Drill Unit",
                 "count": 1
               }
             ]
@@ -510,15 +534,15 @@
             "officer": "Line Binder Rivet",
             "units": [
               {
-                "name": "Gear Horn",
-                "count": 3
-              },
-              {
-                "name": "Clamp Pair Lead",
-                "count": 4
+                "name": "Eternal Riveters",
+                "count": 2
               },
               {
                 "name": "Clamp Guards",
+                "count": 1
+              },
+              {
+                "name": "Rivet Drill Unit",
                 "count": 1
               }
             ]
@@ -527,12 +551,16 @@
             "officer": "Overdrive Chief Spark",
             "units": [
               {
-                "name": "Clamp Guards",
-                "count": 3
+                "name": "Juggernaut Chassis",
+                "count": 1
               },
               {
-                "name": "Cog Spearmen",
-                "count": 3
+                "name": "Thornshard Pack",
+                "count": 1
+              },
+              {
+                "name": "Chassis Breakers",
+                "count": 1
               }
             ]
           },
@@ -540,15 +568,15 @@
             "officer": "Siege Conductor Bolt",
             "units": [
               {
-                "name": "Cog Spearmen",
+                "name": "Arc Projector",
                 "count": 1
               },
               {
-                "name": "Lens Scouts",
-                "count": 4
+                "name": "Walking Battery",
+                "count": 1
               },
               {
-                "name": "Rivet Infantry",
+                "name": "Archer Constructs",
                 "count": 1
               }
             ]
@@ -560,7 +588,7 @@
       "commanderId": "1db78fa77d534122ad9e5ac6556c415d",
       "commanderName": "Null Architect Void",
       "race": "Construct",
-      "totalUv": 201,
+      "totalUv": 202,
       "companyCount": 6,
       "list": {
         "commander": "Null Architect Void",
@@ -569,20 +597,12 @@
             "officer": "Null Sentinel Prime",
             "units": [
               {
-                "name": "Rivet Drill Unit",
-                "count": 4
+                "name": "Mireframe Nulls",
+                "count": 3
               },
               {
-                "name": "Plate Link",
-                "count": 4
-              },
-              {
-                "name": "Floor Sweepers",
-                "count": 4
-              },
-              {
-                "name": "Gear Militia",
-                "count": 2
+                "name": "Bulwark Frames",
+                "count": 1
               }
             ]
           },
@@ -590,16 +610,16 @@
             "officer": "Null Lattice Warden",
             "units": [
               {
-                "name": "Gear Militia",
+                "name": "Bulwark Frames",
                 "count": 2
               },
               {
-                "name": "Oil Bearers",
-                "count": 4
+                "name": "Juggernaut Chassis",
+                "count": 1
               },
               {
-                "name": "Plate Thralls",
-                "count": 4
+                "name": "Anchor Constructs",
+                "count": 1
               }
             ]
           },
@@ -607,15 +627,15 @@
             "officer": "Gear Warden Axle",
             "units": [
               {
-                "name": "Thicket Drones",
-                "count": 4
+                "name": "Servo Medicae",
+                "count": 2
               },
               {
-                "name": "Shield Automata",
-                "count": 4
+                "name": "Crown of Gears",
+                "count": 1
               },
               {
-                "name": "Gear Horn",
+                "name": "Rivet Drill Unit",
                 "count": 1
               }
             ]
@@ -624,15 +644,15 @@
             "officer": "Line Binder Rivet",
             "units": [
               {
-                "name": "Gear Horn",
-                "count": 3
-              },
-              {
-                "name": "Clamp Pair Lead",
-                "count": 4
+                "name": "Eternal Riveters",
+                "count": 2
               },
               {
                 "name": "Clamp Guards",
+                "count": 1
+              },
+              {
+                "name": "Rivet Drill Unit",
                 "count": 1
               }
             ]
@@ -641,12 +661,16 @@
             "officer": "Overdrive Chief Spark",
             "units": [
               {
-                "name": "Clamp Guards",
-                "count": 3
+                "name": "Juggernaut Chassis",
+                "count": 1
               },
               {
-                "name": "Cog Spearmen",
-                "count": 3
+                "name": "Thornshard Pack",
+                "count": 1
+              },
+              {
+                "name": "Chassis Breakers",
+                "count": 1
               }
             ]
           },
@@ -654,15 +678,15 @@
             "officer": "Siege Conductor Bolt",
             "units": [
               {
-                "name": "Cog Spearmen",
+                "name": "Arc Projector",
                 "count": 1
               },
               {
-                "name": "Lens Scouts",
-                "count": 4
+                "name": "Walking Battery",
+                "count": 1
               },
               {
-                "name": "Rivet Infantry",
+                "name": "Archer Constructs",
                 "count": 1
               }
             ]
@@ -674,7 +698,7 @@
       "commanderId": "d3f73e79c99cf65dfee3b0d1ecd29a68",
       "commanderName": "Prime Directive Core",
       "race": "Construct",
-      "totalUv": 191,
+      "totalUv": 192,
       "companyCount": 6,
       "list": {
         "commander": "Prime Directive Core",
@@ -683,20 +707,12 @@
             "officer": "Null Sentinel Prime",
             "units": [
               {
-                "name": "Rivet Drill Unit",
-                "count": 4
+                "name": "Mireframe Nulls",
+                "count": 3
               },
               {
-                "name": "Plate Link",
-                "count": 4
-              },
-              {
-                "name": "Floor Sweepers",
-                "count": 4
-              },
-              {
-                "name": "Gear Militia",
-                "count": 2
+                "name": "Bulwark Frames",
+                "count": 1
               }
             ]
           },
@@ -704,16 +720,16 @@
             "officer": "Null Lattice Warden",
             "units": [
               {
-                "name": "Gear Militia",
+                "name": "Bulwark Frames",
                 "count": 2
               },
               {
-                "name": "Oil Bearers",
-                "count": 4
+                "name": "Juggernaut Chassis",
+                "count": 1
               },
               {
-                "name": "Plate Thralls",
-                "count": 4
+                "name": "Anchor Constructs",
+                "count": 1
               }
             ]
           },
@@ -721,15 +737,15 @@
             "officer": "Gear Warden Axle",
             "units": [
               {
-                "name": "Thicket Drones",
-                "count": 4
+                "name": "Servo Medicae",
+                "count": 2
               },
               {
-                "name": "Shield Automata",
-                "count": 4
+                "name": "Crown of Gears",
+                "count": 1
               },
               {
-                "name": "Gear Horn",
+                "name": "Rivet Drill Unit",
                 "count": 1
               }
             ]
@@ -738,15 +754,15 @@
             "officer": "Line Binder Rivet",
             "units": [
               {
-                "name": "Gear Horn",
-                "count": 3
-              },
-              {
-                "name": "Clamp Pair Lead",
-                "count": 4
+                "name": "Eternal Riveters",
+                "count": 2
               },
               {
                 "name": "Clamp Guards",
+                "count": 1
+              },
+              {
+                "name": "Rivet Drill Unit",
                 "count": 1
               }
             ]
@@ -755,12 +771,16 @@
             "officer": "Overdrive Chief Spark",
             "units": [
               {
-                "name": "Clamp Guards",
-                "count": 3
+                "name": "Juggernaut Chassis",
+                "count": 1
               },
               {
-                "name": "Cog Spearmen",
-                "count": 3
+                "name": "Thornshard Pack",
+                "count": 1
+              },
+              {
+                "name": "Chassis Breakers",
+                "count": 1
               }
             ]
           },
@@ -768,15 +788,15 @@
             "officer": "Siege Conductor Bolt",
             "units": [
               {
-                "name": "Cog Spearmen",
+                "name": "Arc Projector",
                 "count": 1
               },
               {
-                "name": "Lens Scouts",
-                "count": 4
+                "name": "Walking Battery",
+                "count": 1
               },
               {
-                "name": "Rivet Infantry",
+                "name": "Archer Constructs",
                 "count": 1
               }
             ]
@@ -788,7 +808,7 @@
       "commanderId": "a0cf4252a34f448899876645a07cdce2",
       "commanderName": "Rebuild Core Sigma",
       "race": "Construct",
-      "totalUv": 190,
+      "totalUv": 191,
       "companyCount": 6,
       "list": {
         "commander": "Rebuild Core Sigma",
@@ -797,20 +817,12 @@
             "officer": "Null Sentinel Prime",
             "units": [
               {
-                "name": "Rivet Drill Unit",
-                "count": 4
+                "name": "Mireframe Nulls",
+                "count": 3
               },
               {
-                "name": "Plate Link",
-                "count": 4
-              },
-              {
-                "name": "Floor Sweepers",
-                "count": 4
-              },
-              {
-                "name": "Gear Militia",
-                "count": 2
+                "name": "Bulwark Frames",
+                "count": 1
               }
             ]
           },
@@ -818,16 +830,16 @@
             "officer": "Null Lattice Warden",
             "units": [
               {
-                "name": "Gear Militia",
+                "name": "Bulwark Frames",
                 "count": 2
               },
               {
-                "name": "Oil Bearers",
-                "count": 4
+                "name": "Juggernaut Chassis",
+                "count": 1
               },
               {
-                "name": "Plate Thralls",
-                "count": 4
+                "name": "Anchor Constructs",
+                "count": 1
               }
             ]
           },
@@ -835,15 +847,15 @@
             "officer": "Gear Warden Axle",
             "units": [
               {
-                "name": "Thicket Drones",
-                "count": 4
+                "name": "Servo Medicae",
+                "count": 2
               },
               {
-                "name": "Shield Automata",
-                "count": 4
+                "name": "Crown of Gears",
+                "count": 1
               },
               {
-                "name": "Gear Horn",
+                "name": "Rivet Drill Unit",
                 "count": 1
               }
             ]
@@ -852,15 +864,15 @@
             "officer": "Line Binder Rivet",
             "units": [
               {
-                "name": "Gear Horn",
-                "count": 3
-              },
-              {
-                "name": "Clamp Pair Lead",
-                "count": 4
+                "name": "Eternal Riveters",
+                "count": 2
               },
               {
                 "name": "Clamp Guards",
+                "count": 1
+              },
+              {
+                "name": "Rivet Drill Unit",
                 "count": 1
               }
             ]
@@ -869,12 +881,16 @@
             "officer": "Overdrive Chief Spark",
             "units": [
               {
-                "name": "Clamp Guards",
-                "count": 3
+                "name": "Juggernaut Chassis",
+                "count": 1
               },
               {
-                "name": "Cog Spearmen",
-                "count": 3
+                "name": "Thornshard Pack",
+                "count": 1
+              },
+              {
+                "name": "Chassis Breakers",
+                "count": 1
               }
             ]
           },
@@ -882,15 +898,15 @@
             "officer": "Siege Conductor Bolt",
             "units": [
               {
-                "name": "Cog Spearmen",
+                "name": "Arc Projector",
                 "count": 1
               },
               {
-                "name": "Lens Scouts",
-                "count": 4
+                "name": "Walking Battery",
+                "count": 1
               },
               {
-                "name": "Rivet Infantry",
+                "name": "Archer Constructs",
                 "count": 1
               }
             ]
@@ -911,20 +927,16 @@
             "officer": "Chain Warden",
             "units": [
               {
-                "name": "Ash Drill Imp",
-                "count": 4
+                "name": "Soulpit Bombardier",
+                "count": 2
               },
               {
-                "name": "Chain Link Fiend",
-                "count": 4
+                "name": "Emberfall Cult",
+                "count": 2
               },
               {
-                "name": "Emberleaf Skitter",
-                "count": 4
-              },
-              {
-                "name": "Doom Cultist",
-                "count": 3
+                "name": "Magma Spitter",
+                "count": 2
               }
             ]
           },
@@ -932,20 +944,28 @@
             "officer": "Soulpit Overseer",
             "units": [
               {
-                "name": "Doom Cultist",
+                "name": "Pit Sergeant",
+                "count": 2
+              },
+              {
+                "name": "March Overseer",
+                "count": 2
+              },
+              {
+                "name": "Ashen Boneflayer",
                 "count": 1
               },
               {
-                "name": "Magma Spitter",
-                "count": 4
+                "name": "Ash Drill Imp",
+                "count": 1
               },
               {
-                "name": "Sulfur Piker",
-                "count": 4
+                "name": "Chain Link Fiend",
+                "count": 1
               },
               {
-                "name": "Umbral Stalker",
-                "count": 2
+                "name": "Brim Hornling",
+                "count": 1
               }
             ]
           },
@@ -953,16 +973,12 @@
             "officer": "Scorch Guide",
             "units": [
               {
-                "name": "Umbral Stalker",
-                "count": 2
+                "name": "Clawed Pit Beast",
+                "count": 1
               },
               {
-                "name": "Brim Hornling",
-                "count": 4
-              },
-              {
-                "name": "Cinder Pair Boss",
-                "count": 4
+                "name": "Void Abomination",
+                "count": 3
               }
             ]
           },
@@ -974,8 +990,12 @@
                 "count": 4
               },
               {
-                "name": "Ashwrought Berserker",
-                "count": 2
+                "name": "Flamecaller",
+                "count": 1
+              },
+              {
+                "name": "Ash Drill Imp",
+                "count": 1
               }
             ]
           },
@@ -983,12 +1003,16 @@
             "officer": "Cinderlash Handler",
             "units": [
               {
-                "name": "Ashwrought Berserker",
-                "count": 2
+                "name": "Soulburner",
+                "count": 3
               },
               {
-                "name": "Brim Imp",
-                "count": 4
+                "name": "Soulpit Bombardier",
+                "count": 1
+              },
+              {
+                "name": "Emberfall Cult",
+                "count": 1
               }
             ]
           },
@@ -996,12 +1020,20 @@
             "officer": "Hellgate Sentry",
             "units": [
               {
-                "name": "Cacodemon Wretch",
-                "count": 4
+                "name": "Clawed Pit Beast",
+                "count": 1
               },
               {
-                "name": "Cinderlash Fiend",
-                "count": 2
+                "name": "Tyrant Spawn",
+                "count": 1
+              },
+              {
+                "name": "Ashtrail Raider",
+                "count": 1
+              },
+              {
+                "name": "Ash Drill Imp",
+                "count": 1
               }
             ]
           }
@@ -1021,20 +1053,16 @@
             "officer": "Chain Warden",
             "units": [
               {
-                "name": "Ash Drill Imp",
-                "count": 4
+                "name": "Soulpit Bombardier",
+                "count": 2
               },
               {
-                "name": "Chain Link Fiend",
-                "count": 4
+                "name": "Emberfall Cult",
+                "count": 2
               },
               {
-                "name": "Emberleaf Skitter",
-                "count": 4
-              },
-              {
-                "name": "Doom Cultist",
-                "count": 3
+                "name": "Magma Spitter",
+                "count": 2
               }
             ]
           },
@@ -1042,20 +1070,28 @@
             "officer": "Soulpit Overseer",
             "units": [
               {
-                "name": "Doom Cultist",
+                "name": "Pit Sergeant",
+                "count": 2
+              },
+              {
+                "name": "March Overseer",
+                "count": 2
+              },
+              {
+                "name": "Ashen Boneflayer",
                 "count": 1
               },
               {
-                "name": "Magma Spitter",
-                "count": 4
+                "name": "Ash Drill Imp",
+                "count": 1
               },
               {
-                "name": "Sulfur Piker",
-                "count": 4
+                "name": "Chain Link Fiend",
+                "count": 1
               },
               {
-                "name": "Umbral Stalker",
-                "count": 2
+                "name": "Brim Hornling",
+                "count": 1
               }
             ]
           },
@@ -1063,16 +1099,12 @@
             "officer": "Scorch Guide",
             "units": [
               {
-                "name": "Umbral Stalker",
-                "count": 2
+                "name": "Clawed Pit Beast",
+                "count": 1
               },
               {
-                "name": "Brim Hornling",
-                "count": 4
-              },
-              {
-                "name": "Cinder Pair Boss",
-                "count": 4
+                "name": "Void Abomination",
+                "count": 3
               }
             ]
           },
@@ -1084,8 +1116,12 @@
                 "count": 4
               },
               {
-                "name": "Ashwrought Berserker",
-                "count": 2
+                "name": "Flamecaller",
+                "count": 1
+              },
+              {
+                "name": "Ash Drill Imp",
+                "count": 1
               }
             ]
           },
@@ -1093,12 +1129,16 @@
             "officer": "Cinderlash Handler",
             "units": [
               {
-                "name": "Ashwrought Berserker",
-                "count": 2
+                "name": "Soulburner",
+                "count": 3
               },
               {
-                "name": "Brim Imp",
-                "count": 4
+                "name": "Soulpit Bombardier",
+                "count": 1
+              },
+              {
+                "name": "Emberfall Cult",
+                "count": 1
               }
             ]
           },
@@ -1106,12 +1146,20 @@
             "officer": "Hellgate Sentry",
             "units": [
               {
-                "name": "Cacodemon Wretch",
-                "count": 4
+                "name": "Clawed Pit Beast",
+                "count": 1
               },
               {
-                "name": "Cinderlash Fiend",
-                "count": 2
+                "name": "Tyrant Spawn",
+                "count": 1
+              },
+              {
+                "name": "Ashtrail Raider",
+                "count": 1
+              },
+              {
+                "name": "Ash Drill Imp",
+                "count": 1
               }
             ]
           }
@@ -1131,20 +1179,16 @@
             "officer": "Chain Warden",
             "units": [
               {
-                "name": "Ash Drill Imp",
-                "count": 4
+                "name": "Soulpit Bombardier",
+                "count": 2
               },
               {
-                "name": "Chain Link Fiend",
-                "count": 4
+                "name": "Emberfall Cult",
+                "count": 2
               },
               {
-                "name": "Emberleaf Skitter",
-                "count": 4
-              },
-              {
-                "name": "Doom Cultist",
-                "count": 3
+                "name": "Magma Spitter",
+                "count": 2
               }
             ]
           },
@@ -1152,20 +1196,28 @@
             "officer": "Soulpit Overseer",
             "units": [
               {
-                "name": "Doom Cultist",
+                "name": "Pit Sergeant",
+                "count": 2
+              },
+              {
+                "name": "March Overseer",
+                "count": 2
+              },
+              {
+                "name": "Ashen Boneflayer",
                 "count": 1
               },
               {
-                "name": "Magma Spitter",
-                "count": 4
+                "name": "Ash Drill Imp",
+                "count": 1
               },
               {
-                "name": "Sulfur Piker",
-                "count": 4
+                "name": "Chain Link Fiend",
+                "count": 1
               },
               {
-                "name": "Umbral Stalker",
-                "count": 2
+                "name": "Brim Hornling",
+                "count": 1
               }
             ]
           },
@@ -1173,16 +1225,12 @@
             "officer": "Scorch Guide",
             "units": [
               {
-                "name": "Umbral Stalker",
-                "count": 2
+                "name": "Clawed Pit Beast",
+                "count": 1
               },
               {
-                "name": "Brim Hornling",
-                "count": 4
-              },
-              {
-                "name": "Cinder Pair Boss",
-                "count": 4
+                "name": "Void Abomination",
+                "count": 3
               }
             ]
           },
@@ -1194,8 +1242,12 @@
                 "count": 4
               },
               {
-                "name": "Ashwrought Berserker",
-                "count": 2
+                "name": "Flamecaller",
+                "count": 1
+              },
+              {
+                "name": "Ash Drill Imp",
+                "count": 1
               }
             ]
           },
@@ -1203,12 +1255,16 @@
             "officer": "Cinderlash Handler",
             "units": [
               {
-                "name": "Ashwrought Berserker",
-                "count": 2
+                "name": "Soulburner",
+                "count": 3
               },
               {
-                "name": "Brim Imp",
-                "count": 4
+                "name": "Soulpit Bombardier",
+                "count": 1
+              },
+              {
+                "name": "Emberfall Cult",
+                "count": 1
               }
             ]
           },
@@ -1216,12 +1272,20 @@
             "officer": "Hellgate Sentry",
             "units": [
               {
-                "name": "Cacodemon Wretch",
-                "count": 4
+                "name": "Clawed Pit Beast",
+                "count": 1
               },
               {
-                "name": "Cinderlash Fiend",
-                "count": 2
+                "name": "Tyrant Spawn",
+                "count": 1
+              },
+              {
+                "name": "Ashtrail Raider",
+                "count": 1
+              },
+              {
+                "name": "Ash Drill Imp",
+                "count": 1
               }
             ]
           }
@@ -1241,20 +1305,16 @@
             "officer": "Chain Warden",
             "units": [
               {
-                "name": "Ash Drill Imp",
-                "count": 4
+                "name": "Soulpit Bombardier",
+                "count": 2
               },
               {
-                "name": "Chain Link Fiend",
-                "count": 4
+                "name": "Emberfall Cult",
+                "count": 2
               },
               {
-                "name": "Emberleaf Skitter",
-                "count": 4
-              },
-              {
-                "name": "Doom Cultist",
-                "count": 3
+                "name": "Magma Spitter",
+                "count": 2
               }
             ]
           },
@@ -1262,20 +1322,28 @@
             "officer": "Soulpit Overseer",
             "units": [
               {
-                "name": "Doom Cultist",
+                "name": "Pit Sergeant",
+                "count": 2
+              },
+              {
+                "name": "March Overseer",
+                "count": 2
+              },
+              {
+                "name": "Ashen Boneflayer",
                 "count": 1
               },
               {
-                "name": "Magma Spitter",
-                "count": 4
+                "name": "Ash Drill Imp",
+                "count": 1
               },
               {
-                "name": "Sulfur Piker",
-                "count": 4
+                "name": "Chain Link Fiend",
+                "count": 1
               },
               {
-                "name": "Umbral Stalker",
-                "count": 2
+                "name": "Brim Hornling",
+                "count": 1
               }
             ]
           },
@@ -1283,16 +1351,12 @@
             "officer": "Scorch Guide",
             "units": [
               {
-                "name": "Umbral Stalker",
-                "count": 2
+                "name": "Clawed Pit Beast",
+                "count": 1
               },
               {
-                "name": "Brim Hornling",
-                "count": 4
-              },
-              {
-                "name": "Cinder Pair Boss",
-                "count": 4
+                "name": "Void Abomination",
+                "count": 3
               }
             ]
           },
@@ -1304,8 +1368,12 @@
                 "count": 4
               },
               {
-                "name": "Ashwrought Berserker",
-                "count": 2
+                "name": "Flamecaller",
+                "count": 1
+              },
+              {
+                "name": "Ash Drill Imp",
+                "count": 1
               }
             ]
           },
@@ -1313,12 +1381,16 @@
             "officer": "Cinderlash Handler",
             "units": [
               {
-                "name": "Ashwrought Berserker",
-                "count": 2
+                "name": "Soulburner",
+                "count": 3
               },
               {
-                "name": "Brim Imp",
-                "count": 4
+                "name": "Soulpit Bombardier",
+                "count": 1
+              },
+              {
+                "name": "Emberfall Cult",
+                "count": 1
               }
             ]
           },
@@ -1326,12 +1398,20 @@
             "officer": "Hellgate Sentry",
             "units": [
               {
-                "name": "Cacodemon Wretch",
-                "count": 4
+                "name": "Clawed Pit Beast",
+                "count": 1
               },
               {
-                "name": "Cinderlash Fiend",
-                "count": 2
+                "name": "Tyrant Spawn",
+                "count": 1
+              },
+              {
+                "name": "Ashtrail Raider",
+                "count": 1
+              },
+              {
+                "name": "Ash Drill Imp",
+                "count": 1
               }
             ]
           }
@@ -1342,7 +1422,7 @@
       "commanderId": "ea7d3c1f1eec479e84cef036b19058a7",
       "commanderName": "Cataclysm Elder Pyrr",
       "race": "Dragon",
-      "totalUv": 202,
+      "totalUv": 204,
       "companyCount": 6,
       "list": {
         "commander": "Cataclysm Elder Pyrr",
@@ -1351,20 +1431,16 @@
             "officer": "Basalt Scale Captain",
             "units": [
               {
-                "name": "Clutch Drillling",
-                "count": 4
-              },
-              {
-                "name": "Scale Link Whelp",
-                "count": 4
-              },
-              {
-                "name": "Ashkin Militia",
-                "count": 4
-              },
-              {
-                "name": "Clutchlings",
+                "name": "Hoard Guardians",
                 "count": 2
+              },
+              {
+                "name": "Egg Guard",
+                "count": 1
+              },
+              {
+                "name": "Clutch Drillling",
+                "count": 1
               }
             ]
           },
@@ -1372,16 +1448,20 @@
             "officer": "Spire Archer Captain Quill",
             "units": [
               {
-                "name": "Clutchlings",
+                "name": "Spire Master Archers",
+                "count": 1
+              },
+              {
+                "name": "Clutch Archers",
                 "count": 2
               },
               {
-                "name": "Hatchling Swarm",
-                "count": 4
+                "name": "Breath Spitters",
+                "count": 1
               },
               {
-                "name": "Spire Slingers",
-                "count": 3
+                "name": "Clutch Drillling",
+                "count": 1
               }
             ]
           },
@@ -1389,16 +1469,16 @@
             "officer": "Skywake Lieutenant",
             "units": [
               {
-                "name": "Spire Slingers",
+                "name": "Ashwing Patrol",
+                "count": 2
+              },
+              {
+                "name": "Stormwing Elite",
                 "count": 1
               },
               {
-                "name": "Nest Horn Whelp",
-                "count": 4
-              },
-              {
-                "name": "Claw Pair Tutor",
-                "count": 4
+                "name": "Clutch Drillling",
+                "count": 1
               }
             ]
           },
@@ -1406,12 +1486,16 @@
             "officer": "Brood Lieutenant Sath",
             "units": [
               {
-                "name": "Cave Brood",
-                "count": 4
+                "name": "Clutch Sergeant",
+                "count": 2
               },
               {
-                "name": "Clutch Archers",
+                "name": "Rook Guide",
                 "count": 2
+              },
+              {
+                "name": "Drake Riders' Kin",
+                "count": 1
               }
             ]
           },
@@ -1419,12 +1503,12 @@
             "officer": "Terror Herald Nyx",
             "units": [
               {
-                "name": "Clutch Archers",
-                "count": 2
+                "name": "Stormwing Elite",
+                "count": 1
               },
               {
-                "name": "Drakelets",
-                "count": 4
+                "name": "Wing Raiders",
+                "count": 2
               }
             ]
           },
@@ -1432,12 +1516,24 @@
             "officer": "Wing Captain Aeris",
             "units": [
               {
-                "name": "Egg Guard",
-                "count": 4
+                "name": "Ashwing Patrol",
+                "count": 1
               },
               {
-                "name": "Kindling Mages",
-                "count": 2
+                "name": "Drakelets",
+                "count": 1
+              },
+              {
+                "name": "Winged Scouts",
+                "count": 1
+              },
+              {
+                "name": "Wyrmling Flyers",
+                "count": 1
+              },
+              {
+                "name": "Clutch Drillling",
+                "count": 1
               }
             ]
           }
@@ -1448,7 +1544,7 @@
       "commanderId": "3466060d28df459891f8c8a75bcd75d8",
       "commanderName": "Hoard Sovereign Khar",
       "race": "Dragon",
-      "totalUv": 212,
+      "totalUv": 214,
       "companyCount": 6,
       "list": {
         "commander": "Hoard Sovereign Khar",
@@ -1457,20 +1553,16 @@
             "officer": "Basalt Scale Captain",
             "units": [
               {
-                "name": "Clutch Drillling",
-                "count": 4
-              },
-              {
-                "name": "Scale Link Whelp",
-                "count": 4
-              },
-              {
-                "name": "Ashkin Militia",
-                "count": 4
-              },
-              {
-                "name": "Clutchlings",
+                "name": "Hoard Guardians",
                 "count": 2
+              },
+              {
+                "name": "Egg Guard",
+                "count": 1
+              },
+              {
+                "name": "Clutch Drillling",
+                "count": 1
               }
             ]
           },
@@ -1478,16 +1570,20 @@
             "officer": "Spire Archer Captain Quill",
             "units": [
               {
-                "name": "Clutchlings",
+                "name": "Spire Master Archers",
+                "count": 1
+              },
+              {
+                "name": "Clutch Archers",
                 "count": 2
               },
               {
-                "name": "Hatchling Swarm",
-                "count": 4
+                "name": "Breath Spitters",
+                "count": 1
               },
               {
-                "name": "Spire Slingers",
-                "count": 3
+                "name": "Clutch Drillling",
+                "count": 1
               }
             ]
           },
@@ -1495,16 +1591,16 @@
             "officer": "Skywake Lieutenant",
             "units": [
               {
-                "name": "Spire Slingers",
+                "name": "Ashwing Patrol",
+                "count": 2
+              },
+              {
+                "name": "Stormwing Elite",
                 "count": 1
               },
               {
-                "name": "Nest Horn Whelp",
-                "count": 4
-              },
-              {
-                "name": "Claw Pair Tutor",
-                "count": 4
+                "name": "Clutch Drillling",
+                "count": 1
               }
             ]
           },
@@ -1512,12 +1608,16 @@
             "officer": "Brood Lieutenant Sath",
             "units": [
               {
-                "name": "Cave Brood",
-                "count": 4
+                "name": "Clutch Sergeant",
+                "count": 2
               },
               {
-                "name": "Clutch Archers",
+                "name": "Rook Guide",
                 "count": 2
+              },
+              {
+                "name": "Drake Riders' Kin",
+                "count": 1
               }
             ]
           },
@@ -1525,12 +1625,12 @@
             "officer": "Terror Herald Nyx",
             "units": [
               {
-                "name": "Clutch Archers",
-                "count": 2
+                "name": "Stormwing Elite",
+                "count": 1
               },
               {
-                "name": "Drakelets",
-                "count": 4
+                "name": "Wing Raiders",
+                "count": 2
               }
             ]
           },
@@ -1538,12 +1638,24 @@
             "officer": "Wing Captain Aeris",
             "units": [
               {
-                "name": "Egg Guard",
-                "count": 4
+                "name": "Ashwing Patrol",
+                "count": 1
               },
               {
-                "name": "Kindling Mages",
-                "count": 2
+                "name": "Drakelets",
+                "count": 1
+              },
+              {
+                "name": "Winged Scouts",
+                "count": 1
+              },
+              {
+                "name": "Wyrmling Flyers",
+                "count": 1
+              },
+              {
+                "name": "Clutch Drillling",
+                "count": 1
               }
             ]
           }
@@ -1554,7 +1666,7 @@
       "commanderId": "dcb98c0372a289f999d2520b42071e69",
       "commanderName": "Kindred Tyrant",
       "race": "Dragon",
-      "totalUv": 200,
+      "totalUv": 202,
       "companyCount": 6,
       "list": {
         "commander": "Kindred Tyrant",
@@ -1563,20 +1675,16 @@
             "officer": "Basalt Scale Captain",
             "units": [
               {
-                "name": "Clutch Drillling",
-                "count": 4
-              },
-              {
-                "name": "Scale Link Whelp",
-                "count": 4
-              },
-              {
-                "name": "Ashkin Militia",
-                "count": 4
-              },
-              {
-                "name": "Clutchlings",
+                "name": "Hoard Guardians",
                 "count": 2
+              },
+              {
+                "name": "Egg Guard",
+                "count": 1
+              },
+              {
+                "name": "Clutch Drillling",
+                "count": 1
               }
             ]
           },
@@ -1584,16 +1692,20 @@
             "officer": "Spire Archer Captain Quill",
             "units": [
               {
-                "name": "Clutchlings",
+                "name": "Spire Master Archers",
+                "count": 1
+              },
+              {
+                "name": "Clutch Archers",
                 "count": 2
               },
               {
-                "name": "Hatchling Swarm",
-                "count": 4
+                "name": "Breath Spitters",
+                "count": 1
               },
               {
-                "name": "Spire Slingers",
-                "count": 3
+                "name": "Clutch Drillling",
+                "count": 1
               }
             ]
           },
@@ -1601,16 +1713,16 @@
             "officer": "Skywake Lieutenant",
             "units": [
               {
-                "name": "Spire Slingers",
+                "name": "Ashwing Patrol",
+                "count": 2
+              },
+              {
+                "name": "Stormwing Elite",
                 "count": 1
               },
               {
-                "name": "Nest Horn Whelp",
-                "count": 4
-              },
-              {
-                "name": "Claw Pair Tutor",
-                "count": 4
+                "name": "Clutch Drillling",
+                "count": 1
               }
             ]
           },
@@ -1618,12 +1730,16 @@
             "officer": "Brood Lieutenant Sath",
             "units": [
               {
-                "name": "Cave Brood",
-                "count": 4
+                "name": "Clutch Sergeant",
+                "count": 2
               },
               {
-                "name": "Clutch Archers",
+                "name": "Rook Guide",
                 "count": 2
+              },
+              {
+                "name": "Drake Riders' Kin",
+                "count": 1
               }
             ]
           },
@@ -1631,12 +1747,12 @@
             "officer": "Terror Herald Nyx",
             "units": [
               {
-                "name": "Clutch Archers",
-                "count": 2
+                "name": "Stormwing Elite",
+                "count": 1
               },
               {
-                "name": "Drakelets",
-                "count": 4
+                "name": "Wing Raiders",
+                "count": 2
               }
             ]
           },
@@ -1644,12 +1760,24 @@
             "officer": "Wing Captain Aeris",
             "units": [
               {
-                "name": "Egg Guard",
-                "count": 4
+                "name": "Ashwing Patrol",
+                "count": 1
               },
               {
-                "name": "Kindling Mages",
-                "count": 2
+                "name": "Drakelets",
+                "count": 1
+              },
+              {
+                "name": "Winged Scouts",
+                "count": 1
+              },
+              {
+                "name": "Wyrmling Flyers",
+                "count": 1
+              },
+              {
+                "name": "Clutch Drillling",
+                "count": 1
               }
             ]
           }
@@ -1660,7 +1788,7 @@
       "commanderId": "316517fd1b8448339e2d3f69ad322d5e",
       "commanderName": "Sky Tyrant Vexis",
       "race": "Dragon",
-      "totalUv": 199,
+      "totalUv": 201,
       "companyCount": 6,
       "list": {
         "commander": "Sky Tyrant Vexis",
@@ -1669,20 +1797,16 @@
             "officer": "Basalt Scale Captain",
             "units": [
               {
-                "name": "Clutch Drillling",
-                "count": 4
-              },
-              {
-                "name": "Scale Link Whelp",
-                "count": 4
-              },
-              {
-                "name": "Ashkin Militia",
-                "count": 4
-              },
-              {
-                "name": "Clutchlings",
+                "name": "Hoard Guardians",
                 "count": 2
+              },
+              {
+                "name": "Egg Guard",
+                "count": 1
+              },
+              {
+                "name": "Clutch Drillling",
+                "count": 1
               }
             ]
           },
@@ -1690,16 +1814,20 @@
             "officer": "Spire Archer Captain Quill",
             "units": [
               {
-                "name": "Clutchlings",
+                "name": "Spire Master Archers",
+                "count": 1
+              },
+              {
+                "name": "Clutch Archers",
                 "count": 2
               },
               {
-                "name": "Hatchling Swarm",
-                "count": 4
+                "name": "Breath Spitters",
+                "count": 1
               },
               {
-                "name": "Spire Slingers",
-                "count": 3
+                "name": "Clutch Drillling",
+                "count": 1
               }
             ]
           },
@@ -1707,16 +1835,16 @@
             "officer": "Skywake Lieutenant",
             "units": [
               {
-                "name": "Spire Slingers",
+                "name": "Ashwing Patrol",
+                "count": 2
+              },
+              {
+                "name": "Stormwing Elite",
                 "count": 1
               },
               {
-                "name": "Nest Horn Whelp",
-                "count": 4
-              },
-              {
-                "name": "Claw Pair Tutor",
-                "count": 4
+                "name": "Clutch Drillling",
+                "count": 1
               }
             ]
           },
@@ -1724,12 +1852,16 @@
             "officer": "Brood Lieutenant Sath",
             "units": [
               {
-                "name": "Cave Brood",
-                "count": 4
+                "name": "Clutch Sergeant",
+                "count": 2
               },
               {
-                "name": "Clutch Archers",
+                "name": "Rook Guide",
                 "count": 2
+              },
+              {
+                "name": "Drake Riders' Kin",
+                "count": 1
               }
             ]
           },
@@ -1737,12 +1869,12 @@
             "officer": "Terror Herald Nyx",
             "units": [
               {
-                "name": "Clutch Archers",
-                "count": 2
+                "name": "Stormwing Elite",
+                "count": 1
               },
               {
-                "name": "Drakelets",
-                "count": 4
+                "name": "Wing Raiders",
+                "count": 2
               }
             ]
           },
@@ -1750,12 +1882,24 @@
             "officer": "Wing Captain Aeris",
             "units": [
               {
-                "name": "Egg Guard",
-                "count": 4
+                "name": "Ashwing Patrol",
+                "count": 1
               },
               {
-                "name": "Kindling Mages",
-                "count": 2
+                "name": "Drakelets",
+                "count": 1
+              },
+              {
+                "name": "Winged Scouts",
+                "count": 1
+              },
+              {
+                "name": "Wyrmling Flyers",
+                "count": 1
+              },
+              {
+                "name": "Clutch Drillling",
+                "count": 1
               }
             ]
           }
@@ -1775,20 +1919,16 @@
             "officer": "Stonewright Kel",
             "units": [
               {
-                "name": "Delve Drill Lad",
-                "count": 4
+                "name": "Siege Sappers",
+                "count": 3
               },
               {
-                "name": "Shield Link Thrall",
-                "count": 4
-              },
-              {
-                "name": "Barrelshields",
-                "count": 4
-              },
-              {
-                "name": "Brewguard Militia",
+                "name": "Oathbound Sappers",
                 "count": 2
+              },
+              {
+                "name": "Delve Drill Lad",
+                "count": 1
               }
             ]
           },
@@ -1796,16 +1936,16 @@
             "officer": "Ironbreaker Lead Mog",
             "units": [
               {
-                "name": "Brewguard Militia",
+                "name": "Ironbreaker Phalanx",
                 "count": 2
               },
               {
-                "name": "Delve Levy",
-                "count": 4
+                "name": "Deepforge Ancients",
+                "count": 1
               },
               {
-                "name": "Dustfoot Scouts",
-                "count": 4
+                "name": "Shield Link Thrall",
+                "count": 2
               }
             ]
           },
@@ -1813,15 +1953,19 @@
             "officer": "Anvil Guard Durn",
             "units": [
               {
-                "name": "Grudge Bearers",
-                "count": 4
+                "name": "Ironpike Line",
+                "count": 3
               },
               {
-                "name": "Hold Spearmen",
-                "count": 4
+                "name": "Shield Thralls",
+                "count": 3
               },
               {
-                "name": "Mine Wardens",
+                "name": "Deepguard Axes",
+                "count": 1
+              },
+              {
+                "name": "Shield Link Thrall",
                 "count": 1
               }
             ]
@@ -1830,16 +1974,24 @@
             "officer": "Battery Sergeant Korr",
             "units": [
               {
-                "name": "Mine Wardens",
-                "count": 3
-              },
-              {
-                "name": "Rivet Boys",
-                "count": 4
-              },
-              {
-                "name": "Shield Thralls",
+                "name": "Ironbreaker Cannon",
                 "count": 2
+              },
+              {
+                "name": "Grudge Bolters",
+                "count": 1
+              },
+              {
+                "name": "Hold Crossbows",
+                "count": 1
+              },
+              {
+                "name": "Sling Crews",
+                "count": 1
+              },
+              {
+                "name": "Delve Drill Lad",
+                "count": 1
               }
             ]
           },
@@ -1847,16 +1999,20 @@
             "officer": "Shield Captain Brann",
             "units": [
               {
-                "name": "Shield Thralls",
+                "name": "Deepguard Axes",
                 "count": 2
               },
               {
-                "name": "Sling Crews",
-                "count": 4
+                "name": "Rune Halberds",
+                "count": 3
               },
               {
-                "name": "Stonechip Archers",
-                "count": 3
+                "name": "Barrelshields",
+                "count": 1
+              },
+              {
+                "name": "Shield Link Thrall",
+                "count": 1
               }
             ]
           },
@@ -1864,16 +2020,28 @@
             "officer": "Cannon Officer Durik",
             "units": [
               {
-                "name": "Stonechip Archers",
+                "name": "Grudge Bolters",
                 "count": 1
               },
               {
-                "name": "Rootway Runners",
-                "count": 4
+                "name": "Hold Crossbows",
+                "count": 1
               },
               {
-                "name": "Anvil Drum",
-                "count": 4
+                "name": "Holdmark Archers",
+                "count": 1
+              },
+              {
+                "name": "Cliffbow Veterans",
+                "count": 1
+              },
+              {
+                "name": "Runed Mortar",
+                "count": 1
+              },
+              {
+                "name": "Delve Drill Lad",
+                "count": 1
               }
             ]
           }
@@ -1893,20 +2061,16 @@
             "officer": "Stonewright Kel",
             "units": [
               {
-                "name": "Delve Drill Lad",
-                "count": 4
+                "name": "Siege Sappers",
+                "count": 3
               },
               {
-                "name": "Shield Link Thrall",
-                "count": 4
-              },
-              {
-                "name": "Barrelshields",
-                "count": 4
-              },
-              {
-                "name": "Brewguard Militia",
+                "name": "Oathbound Sappers",
                 "count": 2
+              },
+              {
+                "name": "Delve Drill Lad",
+                "count": 1
               }
             ]
           },
@@ -1914,16 +2078,16 @@
             "officer": "Ironbreaker Lead Mog",
             "units": [
               {
-                "name": "Brewguard Militia",
+                "name": "Ironbreaker Phalanx",
                 "count": 2
               },
               {
-                "name": "Delve Levy",
-                "count": 4
+                "name": "Deepforge Ancients",
+                "count": 1
               },
               {
-                "name": "Dustfoot Scouts",
-                "count": 4
+                "name": "Shield Link Thrall",
+                "count": 2
               }
             ]
           },
@@ -1931,15 +2095,19 @@
             "officer": "Anvil Guard Durn",
             "units": [
               {
-                "name": "Grudge Bearers",
-                "count": 4
+                "name": "Ironpike Line",
+                "count": 3
               },
               {
-                "name": "Hold Spearmen",
-                "count": 4
+                "name": "Shield Thralls",
+                "count": 3
               },
               {
-                "name": "Mine Wardens",
+                "name": "Deepguard Axes",
+                "count": 1
+              },
+              {
+                "name": "Shield Link Thrall",
                 "count": 1
               }
             ]
@@ -1948,16 +2116,24 @@
             "officer": "Battery Sergeant Korr",
             "units": [
               {
-                "name": "Mine Wardens",
-                "count": 3
-              },
-              {
-                "name": "Rivet Boys",
-                "count": 4
-              },
-              {
-                "name": "Shield Thralls",
+                "name": "Ironbreaker Cannon",
                 "count": 2
+              },
+              {
+                "name": "Grudge Bolters",
+                "count": 1
+              },
+              {
+                "name": "Hold Crossbows",
+                "count": 1
+              },
+              {
+                "name": "Sling Crews",
+                "count": 1
+              },
+              {
+                "name": "Delve Drill Lad",
+                "count": 1
               }
             ]
           },
@@ -1965,16 +2141,20 @@
             "officer": "Shield Captain Brann",
             "units": [
               {
-                "name": "Shield Thralls",
+                "name": "Deepguard Axes",
                 "count": 2
               },
               {
-                "name": "Sling Crews",
-                "count": 4
+                "name": "Rune Halberds",
+                "count": 3
               },
               {
-                "name": "Stonechip Archers",
-                "count": 3
+                "name": "Barrelshields",
+                "count": 1
+              },
+              {
+                "name": "Shield Link Thrall",
+                "count": 1
               }
             ]
           },
@@ -1982,16 +2162,28 @@
             "officer": "Cannon Officer Durik",
             "units": [
               {
-                "name": "Stonechip Archers",
+                "name": "Grudge Bolters",
                 "count": 1
               },
               {
-                "name": "Rootway Runners",
-                "count": 4
+                "name": "Hold Crossbows",
+                "count": 1
               },
               {
-                "name": "Anvil Drum",
-                "count": 4
+                "name": "Holdmark Archers",
+                "count": 1
+              },
+              {
+                "name": "Cliffbow Veterans",
+                "count": 1
+              },
+              {
+                "name": "Runed Mortar",
+                "count": 1
+              },
+              {
+                "name": "Delve Drill Lad",
+                "count": 1
               }
             ]
           }
@@ -2011,20 +2203,16 @@
             "officer": "Stonewright Kel",
             "units": [
               {
-                "name": "Delve Drill Lad",
-                "count": 4
+                "name": "Siege Sappers",
+                "count": 3
               },
               {
-                "name": "Shield Link Thrall",
-                "count": 4
-              },
-              {
-                "name": "Barrelshields",
-                "count": 4
-              },
-              {
-                "name": "Brewguard Militia",
+                "name": "Oathbound Sappers",
                 "count": 2
+              },
+              {
+                "name": "Delve Drill Lad",
+                "count": 1
               }
             ]
           },
@@ -2032,16 +2220,16 @@
             "officer": "Ironbreaker Lead Mog",
             "units": [
               {
-                "name": "Brewguard Militia",
+                "name": "Ironbreaker Phalanx",
                 "count": 2
               },
               {
-                "name": "Delve Levy",
-                "count": 4
+                "name": "Deepforge Ancients",
+                "count": 1
               },
               {
-                "name": "Dustfoot Scouts",
-                "count": 4
+                "name": "Shield Link Thrall",
+                "count": 2
               }
             ]
           },
@@ -2049,15 +2237,19 @@
             "officer": "Anvil Guard Durn",
             "units": [
               {
-                "name": "Grudge Bearers",
-                "count": 4
+                "name": "Ironpike Line",
+                "count": 3
               },
               {
-                "name": "Hold Spearmen",
-                "count": 4
+                "name": "Shield Thralls",
+                "count": 3
               },
               {
-                "name": "Mine Wardens",
+                "name": "Deepguard Axes",
+                "count": 1
+              },
+              {
+                "name": "Shield Link Thrall",
                 "count": 1
               }
             ]
@@ -2066,16 +2258,24 @@
             "officer": "Battery Sergeant Korr",
             "units": [
               {
-                "name": "Mine Wardens",
-                "count": 3
-              },
-              {
-                "name": "Rivet Boys",
-                "count": 4
-              },
-              {
-                "name": "Shield Thralls",
+                "name": "Ironbreaker Cannon",
                 "count": 2
+              },
+              {
+                "name": "Grudge Bolters",
+                "count": 1
+              },
+              {
+                "name": "Hold Crossbows",
+                "count": 1
+              },
+              {
+                "name": "Sling Crews",
+                "count": 1
+              },
+              {
+                "name": "Delve Drill Lad",
+                "count": 1
               }
             ]
           },
@@ -2083,16 +2283,20 @@
             "officer": "Shield Captain Brann",
             "units": [
               {
-                "name": "Shield Thralls",
+                "name": "Deepguard Axes",
                 "count": 2
               },
               {
-                "name": "Sling Crews",
-                "count": 4
+                "name": "Rune Halberds",
+                "count": 3
               },
               {
-                "name": "Stonechip Archers",
-                "count": 3
+                "name": "Barrelshields",
+                "count": 1
+              },
+              {
+                "name": "Shield Link Thrall",
+                "count": 1
               }
             ]
           },
@@ -2100,16 +2304,28 @@
             "officer": "Cannon Officer Durik",
             "units": [
               {
-                "name": "Stonechip Archers",
+                "name": "Grudge Bolters",
                 "count": 1
               },
               {
-                "name": "Rootway Runners",
-                "count": 4
+                "name": "Hold Crossbows",
+                "count": 1
               },
               {
-                "name": "Anvil Drum",
-                "count": 4
+                "name": "Holdmark Archers",
+                "count": 1
+              },
+              {
+                "name": "Cliffbow Veterans",
+                "count": 1
+              },
+              {
+                "name": "Runed Mortar",
+                "count": 1
+              },
+              {
+                "name": "Delve Drill Lad",
+                "count": 1
               }
             ]
           }
@@ -2129,20 +2345,16 @@
             "officer": "Stonewright Kel",
             "units": [
               {
-                "name": "Delve Drill Lad",
-                "count": 4
+                "name": "Siege Sappers",
+                "count": 3
               },
               {
-                "name": "Shield Link Thrall",
-                "count": 4
-              },
-              {
-                "name": "Barrelshields",
-                "count": 4
-              },
-              {
-                "name": "Brewguard Militia",
+                "name": "Oathbound Sappers",
                 "count": 2
+              },
+              {
+                "name": "Delve Drill Lad",
+                "count": 1
               }
             ]
           },
@@ -2150,16 +2362,16 @@
             "officer": "Ironbreaker Lead Mog",
             "units": [
               {
-                "name": "Brewguard Militia",
+                "name": "Ironbreaker Phalanx",
                 "count": 2
               },
               {
-                "name": "Delve Levy",
-                "count": 4
+                "name": "Deepforge Ancients",
+                "count": 1
               },
               {
-                "name": "Dustfoot Scouts",
-                "count": 4
+                "name": "Shield Link Thrall",
+                "count": 2
               }
             ]
           },
@@ -2167,15 +2379,19 @@
             "officer": "Anvil Guard Durn",
             "units": [
               {
-                "name": "Grudge Bearers",
-                "count": 4
+                "name": "Ironpike Line",
+                "count": 3
               },
               {
-                "name": "Hold Spearmen",
-                "count": 4
+                "name": "Shield Thralls",
+                "count": 3
               },
               {
-                "name": "Mine Wardens",
+                "name": "Deepguard Axes",
+                "count": 1
+              },
+              {
+                "name": "Shield Link Thrall",
                 "count": 1
               }
             ]
@@ -2184,16 +2400,24 @@
             "officer": "Battery Sergeant Korr",
             "units": [
               {
-                "name": "Mine Wardens",
-                "count": 3
-              },
-              {
-                "name": "Rivet Boys",
-                "count": 4
-              },
-              {
-                "name": "Shield Thralls",
+                "name": "Ironbreaker Cannon",
                 "count": 2
+              },
+              {
+                "name": "Grudge Bolters",
+                "count": 1
+              },
+              {
+                "name": "Hold Crossbows",
+                "count": 1
+              },
+              {
+                "name": "Sling Crews",
+                "count": 1
+              },
+              {
+                "name": "Delve Drill Lad",
+                "count": 1
               }
             ]
           },
@@ -2201,16 +2425,20 @@
             "officer": "Shield Captain Brann",
             "units": [
               {
-                "name": "Shield Thralls",
+                "name": "Deepguard Axes",
                 "count": 2
               },
               {
-                "name": "Sling Crews",
-                "count": 4
+                "name": "Rune Halberds",
+                "count": 3
               },
               {
-                "name": "Stonechip Archers",
-                "count": 3
+                "name": "Barrelshields",
+                "count": 1
+              },
+              {
+                "name": "Shield Link Thrall",
+                "count": 1
               }
             ]
           },
@@ -2218,16 +2446,28 @@
             "officer": "Cannon Officer Durik",
             "units": [
               {
-                "name": "Stonechip Archers",
+                "name": "Grudge Bolters",
                 "count": 1
               },
               {
-                "name": "Rootway Runners",
-                "count": 4
+                "name": "Hold Crossbows",
+                "count": 1
               },
               {
-                "name": "Anvil Drum",
-                "count": 4
+                "name": "Holdmark Archers",
+                "count": 1
+              },
+              {
+                "name": "Cliffbow Veterans",
+                "count": 1
+              },
+              {
+                "name": "Runed Mortar",
+                "count": 1
+              },
+              {
+                "name": "Delve Drill Lad",
+                "count": 1
               }
             ]
           }
@@ -2247,20 +2487,24 @@
             "officer": "Greensignal",
             "units": [
               {
-                "name": "Sapling Drill",
-                "count": 4
+                "name": "Spiritbow of Moonfall",
+                "count": 1
               },
               {
-                "name": "Thorn Link",
-                "count": 4
+                "name": "Boughlong Archers",
+                "count": 2
               },
               {
-                "name": "Greenspire Spears",
-                "count": 4
+                "name": "Constellation Greatbow",
+                "count": 1
+              },
+              {
+                "name": "Quietbranch Sniper",
+                "count": 1
               },
               {
                 "name": "Leafcrown Archers",
-                "count": 3
+                "count": 1
               }
             ]
           },
@@ -2268,20 +2512,24 @@
             "officer": "Startrail Tracker",
             "units": [
               {
-                "name": "Leafcrown Archers",
+                "name": "Dryad Circle",
                 "count": 1
               },
               {
-                "name": "Nightstem Stalker",
-                "count": 4
-              },
-              {
-                "name": "Thornspike Trapline",
-                "count": 4
-              },
-              {
-                "name": "Whisperleaf Skirmisher",
+                "name": "Trail Warden",
                 "count": 2
+              },
+              {
+                "name": "Mossweave Druid",
+                "count": 1
+              },
+              {
+                "name": "Sapling Drill",
+                "count": 1
+              },
+              {
+                "name": "Leafsignal Runner",
+                "count": 1
               }
             ]
           },
@@ -2289,16 +2537,24 @@
             "officer": "Beastwhisper Liaison",
             "units": [
               {
-                "name": "Whisperleaf Skirmisher",
+                "name": "Wild Hunt Riders",
+                "count": 1
+              },
+              {
+                "name": "Grove Wolf Pack",
                 "count": 2
               },
               {
-                "name": "Zephyr Runner",
-                "count": 4
+                "name": "Windgliders",
+                "count": 1
               },
               {
-                "name": "Leafsignal Runner",
-                "count": 4
+                "name": "Mistfall Owl",
+                "count": 1
+              },
+              {
+                "name": "Sapling Drill",
+                "count": 1
               }
             ]
           },
@@ -2306,12 +2562,16 @@
             "officer": "Gale String",
             "units": [
               {
-                "name": "Bow Pair Tutor",
-                "count": 4
+                "name": "Galewood Wisps",
+                "count": 1
               },
               {
-                "name": "Barkwarden",
-                "count": 4
+                "name": "Windcaller",
+                "count": 2
+              },
+              {
+                "name": "Sapling Drill",
+                "count": 1
               }
             ]
           },
@@ -2319,12 +2579,28 @@
             "officer": "Longshot Choir Lead",
             "units": [
               {
-                "name": "Boughlong Archers",
-                "count": 4
+                "name": "Spiritbow of Moonfall",
+                "count": 1
               },
               {
-                "name": "Windgliders",
-                "count": 2
+                "name": "Boughlong Archers",
+                "count": 1
+              },
+              {
+                "name": "Constellation Greatbow",
+                "count": 1
+              },
+              {
+                "name": "Quietbranch Sniper",
+                "count": 1
+              },
+              {
+                "name": "Leafcrown Archers",
+                "count": 1
+              },
+              {
+                "name": "Sapling Drill",
+                "count": 1
               }
             ]
           },
@@ -2332,12 +2608,20 @@
             "officer": "Ley Watcher",
             "units": [
               {
-                "name": "Windgliders",
-                "count": 2
+                "name": "Dryad Circle",
+                "count": 1
               },
               {
-                "name": "Leafblade Duelist",
-                "count": 4
+                "name": "Tidehawk",
+                "count": 1
+              },
+              {
+                "name": "Leafcrown Archers",
+                "count": 1
+              },
+              {
+                "name": "Thorn Link",
+                "count": 1
               }
             ]
           }
@@ -2357,20 +2641,24 @@
             "officer": "Greensignal",
             "units": [
               {
-                "name": "Sapling Drill",
-                "count": 4
+                "name": "Spiritbow of Moonfall",
+                "count": 1
               },
               {
-                "name": "Thorn Link",
-                "count": 4
+                "name": "Boughlong Archers",
+                "count": 2
               },
               {
-                "name": "Greenspire Spears",
-                "count": 4
+                "name": "Constellation Greatbow",
+                "count": 1
+              },
+              {
+                "name": "Quietbranch Sniper",
+                "count": 1
               },
               {
                 "name": "Leafcrown Archers",
-                "count": 3
+                "count": 1
               }
             ]
           },
@@ -2378,20 +2666,24 @@
             "officer": "Startrail Tracker",
             "units": [
               {
-                "name": "Leafcrown Archers",
+                "name": "Dryad Circle",
                 "count": 1
               },
               {
-                "name": "Nightstem Stalker",
-                "count": 4
-              },
-              {
-                "name": "Thornspike Trapline",
-                "count": 4
-              },
-              {
-                "name": "Whisperleaf Skirmisher",
+                "name": "Trail Warden",
                 "count": 2
+              },
+              {
+                "name": "Mossweave Druid",
+                "count": 1
+              },
+              {
+                "name": "Sapling Drill",
+                "count": 1
+              },
+              {
+                "name": "Leafsignal Runner",
+                "count": 1
               }
             ]
           },
@@ -2399,16 +2691,24 @@
             "officer": "Beastwhisper Liaison",
             "units": [
               {
-                "name": "Whisperleaf Skirmisher",
+                "name": "Wild Hunt Riders",
+                "count": 1
+              },
+              {
+                "name": "Grove Wolf Pack",
                 "count": 2
               },
               {
-                "name": "Zephyr Runner",
-                "count": 4
+                "name": "Windgliders",
+                "count": 1
               },
               {
-                "name": "Leafsignal Runner",
-                "count": 4
+                "name": "Mistfall Owl",
+                "count": 1
+              },
+              {
+                "name": "Sapling Drill",
+                "count": 1
               }
             ]
           },
@@ -2416,12 +2716,16 @@
             "officer": "Gale String",
             "units": [
               {
-                "name": "Bow Pair Tutor",
-                "count": 4
+                "name": "Galewood Wisps",
+                "count": 1
               },
               {
-                "name": "Barkwarden",
-                "count": 4
+                "name": "Windcaller",
+                "count": 2
+              },
+              {
+                "name": "Sapling Drill",
+                "count": 1
               }
             ]
           },
@@ -2429,12 +2733,28 @@
             "officer": "Longshot Choir Lead",
             "units": [
               {
-                "name": "Boughlong Archers",
-                "count": 4
+                "name": "Spiritbow of Moonfall",
+                "count": 1
               },
               {
-                "name": "Windgliders",
-                "count": 2
+                "name": "Boughlong Archers",
+                "count": 1
+              },
+              {
+                "name": "Constellation Greatbow",
+                "count": 1
+              },
+              {
+                "name": "Quietbranch Sniper",
+                "count": 1
+              },
+              {
+                "name": "Leafcrown Archers",
+                "count": 1
+              },
+              {
+                "name": "Sapling Drill",
+                "count": 1
               }
             ]
           },
@@ -2442,12 +2762,20 @@
             "officer": "Ley Watcher",
             "units": [
               {
-                "name": "Windgliders",
-                "count": 2
+                "name": "Dryad Circle",
+                "count": 1
               },
               {
-                "name": "Leafblade Duelist",
-                "count": 4
+                "name": "Tidehawk",
+                "count": 1
+              },
+              {
+                "name": "Leafcrown Archers",
+                "count": 1
+              },
+              {
+                "name": "Thorn Link",
+                "count": 1
               }
             ]
           }
@@ -2467,20 +2795,24 @@
             "officer": "Greensignal",
             "units": [
               {
-                "name": "Sapling Drill",
-                "count": 4
+                "name": "Spiritbow of Moonfall",
+                "count": 1
               },
               {
-                "name": "Thorn Link",
-                "count": 4
+                "name": "Boughlong Archers",
+                "count": 2
               },
               {
-                "name": "Greenspire Spears",
-                "count": 4
+                "name": "Constellation Greatbow",
+                "count": 1
+              },
+              {
+                "name": "Quietbranch Sniper",
+                "count": 1
               },
               {
                 "name": "Leafcrown Archers",
-                "count": 3
+                "count": 1
               }
             ]
           },
@@ -2488,20 +2820,24 @@
             "officer": "Startrail Tracker",
             "units": [
               {
-                "name": "Leafcrown Archers",
+                "name": "Dryad Circle",
                 "count": 1
               },
               {
-                "name": "Nightstem Stalker",
-                "count": 4
-              },
-              {
-                "name": "Thornspike Trapline",
-                "count": 4
-              },
-              {
-                "name": "Whisperleaf Skirmisher",
+                "name": "Trail Warden",
                 "count": 2
+              },
+              {
+                "name": "Mossweave Druid",
+                "count": 1
+              },
+              {
+                "name": "Sapling Drill",
+                "count": 1
+              },
+              {
+                "name": "Leafsignal Runner",
+                "count": 1
               }
             ]
           },
@@ -2509,16 +2845,24 @@
             "officer": "Beastwhisper Liaison",
             "units": [
               {
-                "name": "Whisperleaf Skirmisher",
+                "name": "Wild Hunt Riders",
+                "count": 1
+              },
+              {
+                "name": "Grove Wolf Pack",
                 "count": 2
               },
               {
-                "name": "Zephyr Runner",
-                "count": 4
+                "name": "Windgliders",
+                "count": 1
               },
               {
-                "name": "Leafsignal Runner",
-                "count": 4
+                "name": "Mistfall Owl",
+                "count": 1
+              },
+              {
+                "name": "Sapling Drill",
+                "count": 1
               }
             ]
           },
@@ -2526,12 +2870,16 @@
             "officer": "Gale String",
             "units": [
               {
-                "name": "Bow Pair Tutor",
-                "count": 4
+                "name": "Galewood Wisps",
+                "count": 1
               },
               {
-                "name": "Barkwarden",
-                "count": 4
+                "name": "Windcaller",
+                "count": 2
+              },
+              {
+                "name": "Sapling Drill",
+                "count": 1
               }
             ]
           },
@@ -2539,12 +2887,28 @@
             "officer": "Longshot Choir Lead",
             "units": [
               {
-                "name": "Boughlong Archers",
-                "count": 4
+                "name": "Spiritbow of Moonfall",
+                "count": 1
               },
               {
-                "name": "Windgliders",
-                "count": 2
+                "name": "Boughlong Archers",
+                "count": 1
+              },
+              {
+                "name": "Constellation Greatbow",
+                "count": 1
+              },
+              {
+                "name": "Quietbranch Sniper",
+                "count": 1
+              },
+              {
+                "name": "Leafcrown Archers",
+                "count": 1
+              },
+              {
+                "name": "Sapling Drill",
+                "count": 1
               }
             ]
           },
@@ -2552,12 +2916,20 @@
             "officer": "Ley Watcher",
             "units": [
               {
-                "name": "Windgliders",
-                "count": 2
+                "name": "Dryad Circle",
+                "count": 1
               },
               {
-                "name": "Leafblade Duelist",
-                "count": 4
+                "name": "Tidehawk",
+                "count": 1
+              },
+              {
+                "name": "Leafcrown Archers",
+                "count": 1
+              },
+              {
+                "name": "Thorn Link",
+                "count": 1
               }
             ]
           }
@@ -2577,20 +2949,24 @@
             "officer": "Greensignal",
             "units": [
               {
-                "name": "Sapling Drill",
-                "count": 4
+                "name": "Spiritbow of Moonfall",
+                "count": 1
               },
               {
-                "name": "Thorn Link",
-                "count": 4
+                "name": "Boughlong Archers",
+                "count": 2
               },
               {
-                "name": "Greenspire Spears",
-                "count": 4
+                "name": "Constellation Greatbow",
+                "count": 1
+              },
+              {
+                "name": "Quietbranch Sniper",
+                "count": 1
               },
               {
                 "name": "Leafcrown Archers",
-                "count": 3
+                "count": 1
               }
             ]
           },
@@ -2598,20 +2974,24 @@
             "officer": "Startrail Tracker",
             "units": [
               {
-                "name": "Leafcrown Archers",
+                "name": "Dryad Circle",
                 "count": 1
               },
               {
-                "name": "Nightstem Stalker",
-                "count": 4
-              },
-              {
-                "name": "Thornspike Trapline",
-                "count": 4
-              },
-              {
-                "name": "Whisperleaf Skirmisher",
+                "name": "Trail Warden",
                 "count": 2
+              },
+              {
+                "name": "Mossweave Druid",
+                "count": 1
+              },
+              {
+                "name": "Sapling Drill",
+                "count": 1
+              },
+              {
+                "name": "Leafsignal Runner",
+                "count": 1
               }
             ]
           },
@@ -2619,16 +2999,24 @@
             "officer": "Beastwhisper Liaison",
             "units": [
               {
-                "name": "Whisperleaf Skirmisher",
+                "name": "Wild Hunt Riders",
+                "count": 1
+              },
+              {
+                "name": "Grove Wolf Pack",
                 "count": 2
               },
               {
-                "name": "Zephyr Runner",
-                "count": 4
+                "name": "Windgliders",
+                "count": 1
               },
               {
-                "name": "Leafsignal Runner",
-                "count": 4
+                "name": "Mistfall Owl",
+                "count": 1
+              },
+              {
+                "name": "Sapling Drill",
+                "count": 1
               }
             ]
           },
@@ -2636,12 +3024,16 @@
             "officer": "Gale String",
             "units": [
               {
-                "name": "Bow Pair Tutor",
-                "count": 4
+                "name": "Galewood Wisps",
+                "count": 1
               },
               {
-                "name": "Barkwarden",
-                "count": 4
+                "name": "Windcaller",
+                "count": 2
+              },
+              {
+                "name": "Sapling Drill",
+                "count": 1
               }
             ]
           },
@@ -2649,12 +3041,28 @@
             "officer": "Longshot Choir Lead",
             "units": [
               {
-                "name": "Boughlong Archers",
-                "count": 4
+                "name": "Spiritbow of Moonfall",
+                "count": 1
               },
               {
-                "name": "Windgliders",
-                "count": 2
+                "name": "Boughlong Archers",
+                "count": 1
+              },
+              {
+                "name": "Constellation Greatbow",
+                "count": 1
+              },
+              {
+                "name": "Quietbranch Sniper",
+                "count": 1
+              },
+              {
+                "name": "Leafcrown Archers",
+                "count": 1
+              },
+              {
+                "name": "Sapling Drill",
+                "count": 1
               }
             ]
           },
@@ -2662,12 +3070,20 @@
             "officer": "Ley Watcher",
             "units": [
               {
-                "name": "Windgliders",
-                "count": 2
+                "name": "Dryad Circle",
+                "count": 1
               },
               {
-                "name": "Leafblade Duelist",
-                "count": 4
+                "name": "Tidehawk",
+                "count": 1
+              },
+              {
+                "name": "Leafcrown Archers",
+                "count": 1
+              },
+              {
+                "name": "Thorn Link",
+                "count": 1
               }
             ]
           }
@@ -2678,7 +3094,7 @@
       "commanderId": "575b42870d7e4f0c81e089373ba7bfaf",
       "commanderName": "Hearthstone Covenant",
       "race": "Human",
-      "totalUv": 211,
+      "totalUv": 207,
       "companyCount": 6,
       "list": {
         "commander": "Hearthstone Covenant",
@@ -2687,20 +3103,20 @@
             "officer": "Flamebanner Bearer",
             "units": [
               {
-                "name": "Drill Cadet",
-                "count": 4
+                "name": "Boltstorm Company",
+                "count": 2
               },
               {
-                "name": "Buckler Link",
-                "count": 4
-              },
-              {
-                "name": "Fencepost Pikes",
-                "count": 4
+                "name": "Quarryside Crossbows",
+                "count": 2
               },
               {
                 "name": "Market Slingers",
-                "count": 3
+                "count": 1
+              },
+              {
+                "name": "Warmarch Longbows",
+                "count": 1
               }
             ]
           },
@@ -2708,20 +3124,20 @@
             "officer": "Cohort Standard",
             "units": [
               {
-                "name": "Market Slingers",
+                "name": "Anvil Champion",
                 "count": 1
               },
               {
-                "name": "Parish Levy",
-                "count": 4
-              },
-              {
-                "name": "Redpike Line",
-                "count": 4
-              },
-              {
-                "name": "Warmarch Longbows",
+                "name": "Sergeant-at-Arms",
                 "count": 2
+              },
+              {
+                "name": "Column Guide",
+                "count": 2
+              },
+              {
+                "name": "Drill Cadet",
+                "count": 1
               }
             ]
           },
@@ -2729,16 +3145,16 @@
             "officer": "Tuskline Handler",
             "units": [
               {
-                "name": "Warmarch Longbows",
-                "count": 2
+                "name": "Brushmastiffs",
+                "count": 3
               },
               {
-                "name": "Drum Corporal",
-                "count": 4
+                "name": "Siege Mammoth",
+                "count": 1
               },
               {
-                "name": "Lance Pair Leader",
-                "count": 4
+                "name": "Dusttrail Scouts",
+                "count": 1
               }
             ]
           },
@@ -2746,12 +3162,24 @@
             "officer": "Column Cartographer",
             "units": [
               {
-                "name": "Boltstorm Company",
-                "count": 4
+                "name": "Oathstandard",
+                "count": 1
               },
               {
                 "name": "Dusttrail Scouts",
+                "count": 1
+              },
+              {
+                "name": "Marchland Outriders",
+                "count": 1
+              },
+              {
+                "name": "Drill Cadet",
                 "count": 2
+              },
+              {
+                "name": "Buckler Link",
+                "count": 1
               }
             ]
           },
@@ -2759,12 +3187,24 @@
             "officer": "Field Chirurgeon Wren",
             "units": [
               {
-                "name": "Dusttrail Scouts",
+                "name": "Column Guide",
                 "count": 2
               },
               {
-                "name": "Keepguard",
-                "count": 4
+                "name": "Anvil Champion",
+                "count": 1
+              },
+              {
+                "name": "Sergeant-at-Arms",
+                "count": 1
+              },
+              {
+                "name": "Drill Cadet",
+                "count": 1
+              },
+              {
+                "name": "Buckler Link",
+                "count": 1
               }
             ]
           },
@@ -2772,12 +3212,28 @@
             "officer": "Cadence Drillmaster",
             "units": [
               {
-                "name": "Keystone Guard",
-                "count": 4
+                "name": "Boltstorm Company",
+                "count": 1
               },
               {
-                "name": "Lockstep Cohort",
-                "count": 2
+                "name": "Oathbill Halberdiers",
+                "count": 1
+              },
+              {
+                "name": "Quarryside Crossbows",
+                "count": 1
+              },
+              {
+                "name": "Cleaving Oathsworn",
+                "count": 1
+              },
+              {
+                "name": "Market Slingers",
+                "count": 1
+              },
+              {
+                "name": "Buckler Link",
+                "count": 1
               }
             ]
           }
@@ -2788,7 +3244,7 @@
       "commanderId": "aeca0712895443379cf701493b16d0f1",
       "commanderName": "Iron Covenant Spear",
       "race": "Human",
-      "totalUv": 219,
+      "totalUv": 215,
       "companyCount": 6,
       "list": {
         "commander": "Iron Covenant Spear",
@@ -2797,20 +3253,20 @@
             "officer": "Flamebanner Bearer",
             "units": [
               {
-                "name": "Drill Cadet",
-                "count": 4
+                "name": "Boltstorm Company",
+                "count": 2
               },
               {
-                "name": "Buckler Link",
-                "count": 4
-              },
-              {
-                "name": "Fencepost Pikes",
-                "count": 4
+                "name": "Quarryside Crossbows",
+                "count": 2
               },
               {
                 "name": "Market Slingers",
-                "count": 3
+                "count": 1
+              },
+              {
+                "name": "Warmarch Longbows",
+                "count": 1
               }
             ]
           },
@@ -2818,20 +3274,20 @@
             "officer": "Cohort Standard",
             "units": [
               {
-                "name": "Market Slingers",
+                "name": "Anvil Champion",
                 "count": 1
               },
               {
-                "name": "Parish Levy",
-                "count": 4
-              },
-              {
-                "name": "Redpike Line",
-                "count": 4
-              },
-              {
-                "name": "Warmarch Longbows",
+                "name": "Sergeant-at-Arms",
                 "count": 2
+              },
+              {
+                "name": "Column Guide",
+                "count": 2
+              },
+              {
+                "name": "Drill Cadet",
+                "count": 1
               }
             ]
           },
@@ -2839,16 +3295,16 @@
             "officer": "Tuskline Handler",
             "units": [
               {
-                "name": "Warmarch Longbows",
-                "count": 2
+                "name": "Brushmastiffs",
+                "count": 3
               },
               {
-                "name": "Drum Corporal",
-                "count": 4
+                "name": "Siege Mammoth",
+                "count": 1
               },
               {
-                "name": "Lance Pair Leader",
-                "count": 4
+                "name": "Dusttrail Scouts",
+                "count": 1
               }
             ]
           },
@@ -2856,12 +3312,24 @@
             "officer": "Column Cartographer",
             "units": [
               {
-                "name": "Boltstorm Company",
-                "count": 4
+                "name": "Oathstandard",
+                "count": 1
               },
               {
                 "name": "Dusttrail Scouts",
+                "count": 1
+              },
+              {
+                "name": "Marchland Outriders",
+                "count": 1
+              },
+              {
+                "name": "Drill Cadet",
                 "count": 2
+              },
+              {
+                "name": "Buckler Link",
+                "count": 1
               }
             ]
           },
@@ -2869,12 +3337,24 @@
             "officer": "Field Chirurgeon Wren",
             "units": [
               {
-                "name": "Dusttrail Scouts",
+                "name": "Column Guide",
                 "count": 2
               },
               {
-                "name": "Keepguard",
-                "count": 4
+                "name": "Anvil Champion",
+                "count": 1
+              },
+              {
+                "name": "Sergeant-at-Arms",
+                "count": 1
+              },
+              {
+                "name": "Drill Cadet",
+                "count": 1
+              },
+              {
+                "name": "Buckler Link",
+                "count": 1
               }
             ]
           },
@@ -2882,12 +3362,28 @@
             "officer": "Cadence Drillmaster",
             "units": [
               {
-                "name": "Keystone Guard",
-                "count": 4
+                "name": "Boltstorm Company",
+                "count": 1
               },
               {
-                "name": "Lockstep Cohort",
-                "count": 2
+                "name": "Oathbill Halberdiers",
+                "count": 1
+              },
+              {
+                "name": "Quarryside Crossbows",
+                "count": 1
+              },
+              {
+                "name": "Cleaving Oathsworn",
+                "count": 1
+              },
+              {
+                "name": "Market Slingers",
+                "count": 1
+              },
+              {
+                "name": "Buckler Link",
+                "count": 1
               }
             ]
           }
@@ -2898,7 +3394,7 @@
       "commanderId": "bc9be6b3883e19520b855f27ff390b5e",
       "commanderName": "Realmward High Marshal",
       "race": "Human",
-      "totalUv": 220,
+      "totalUv": 216,
       "companyCount": 6,
       "list": {
         "commander": "Realmward High Marshal",
@@ -2907,20 +3403,20 @@
             "officer": "Flamebanner Bearer",
             "units": [
               {
-                "name": "Drill Cadet",
-                "count": 4
+                "name": "Boltstorm Company",
+                "count": 2
               },
               {
-                "name": "Buckler Link",
-                "count": 4
-              },
-              {
-                "name": "Fencepost Pikes",
-                "count": 4
+                "name": "Quarryside Crossbows",
+                "count": 2
               },
               {
                 "name": "Market Slingers",
-                "count": 3
+                "count": 1
+              },
+              {
+                "name": "Warmarch Longbows",
+                "count": 1
               }
             ]
           },
@@ -2928,20 +3424,20 @@
             "officer": "Cohort Standard",
             "units": [
               {
-                "name": "Market Slingers",
+                "name": "Anvil Champion",
                 "count": 1
               },
               {
-                "name": "Parish Levy",
-                "count": 4
-              },
-              {
-                "name": "Redpike Line",
-                "count": 4
-              },
-              {
-                "name": "Warmarch Longbows",
+                "name": "Sergeant-at-Arms",
                 "count": 2
+              },
+              {
+                "name": "Column Guide",
+                "count": 2
+              },
+              {
+                "name": "Drill Cadet",
+                "count": 1
               }
             ]
           },
@@ -2949,16 +3445,16 @@
             "officer": "Tuskline Handler",
             "units": [
               {
-                "name": "Warmarch Longbows",
-                "count": 2
+                "name": "Brushmastiffs",
+                "count": 3
               },
               {
-                "name": "Drum Corporal",
-                "count": 4
+                "name": "Siege Mammoth",
+                "count": 1
               },
               {
-                "name": "Lance Pair Leader",
-                "count": 4
+                "name": "Dusttrail Scouts",
+                "count": 1
               }
             ]
           },
@@ -2966,12 +3462,24 @@
             "officer": "Column Cartographer",
             "units": [
               {
-                "name": "Boltstorm Company",
-                "count": 4
+                "name": "Oathstandard",
+                "count": 1
               },
               {
                 "name": "Dusttrail Scouts",
+                "count": 1
+              },
+              {
+                "name": "Marchland Outriders",
+                "count": 1
+              },
+              {
+                "name": "Drill Cadet",
                 "count": 2
+              },
+              {
+                "name": "Buckler Link",
+                "count": 1
               }
             ]
           },
@@ -2979,12 +3487,24 @@
             "officer": "Field Chirurgeon Wren",
             "units": [
               {
-                "name": "Dusttrail Scouts",
+                "name": "Column Guide",
                 "count": 2
               },
               {
-                "name": "Keepguard",
-                "count": 4
+                "name": "Anvil Champion",
+                "count": 1
+              },
+              {
+                "name": "Sergeant-at-Arms",
+                "count": 1
+              },
+              {
+                "name": "Drill Cadet",
+                "count": 1
+              },
+              {
+                "name": "Buckler Link",
+                "count": 1
               }
             ]
           },
@@ -2992,12 +3512,28 @@
             "officer": "Cadence Drillmaster",
             "units": [
               {
-                "name": "Keystone Guard",
-                "count": 4
+                "name": "Boltstorm Company",
+                "count": 1
               },
               {
-                "name": "Lockstep Cohort",
-                "count": 2
+                "name": "Oathbill Halberdiers",
+                "count": 1
+              },
+              {
+                "name": "Quarryside Crossbows",
+                "count": 1
+              },
+              {
+                "name": "Cleaving Oathsworn",
+                "count": 1
+              },
+              {
+                "name": "Market Slingers",
+                "count": 1
+              },
+              {
+                "name": "Buckler Link",
+                "count": 1
               }
             ]
           }
@@ -3008,7 +3544,7 @@
       "commanderId": "89231155022744888f9f52b67caee6b8",
       "commanderName": "Thunderhoof Caller",
       "race": "Human",
-      "totalUv": 213,
+      "totalUv": 209,
       "companyCount": 6,
       "list": {
         "commander": "Thunderhoof Caller",
@@ -3017,20 +3553,20 @@
             "officer": "Flamebanner Bearer",
             "units": [
               {
-                "name": "Drill Cadet",
-                "count": 4
+                "name": "Boltstorm Company",
+                "count": 2
               },
               {
-                "name": "Buckler Link",
-                "count": 4
-              },
-              {
-                "name": "Fencepost Pikes",
-                "count": 4
+                "name": "Quarryside Crossbows",
+                "count": 2
               },
               {
                 "name": "Market Slingers",
-                "count": 3
+                "count": 1
+              },
+              {
+                "name": "Warmarch Longbows",
+                "count": 1
               }
             ]
           },
@@ -3038,20 +3574,20 @@
             "officer": "Cohort Standard",
             "units": [
               {
-                "name": "Market Slingers",
+                "name": "Anvil Champion",
                 "count": 1
               },
               {
-                "name": "Parish Levy",
-                "count": 4
-              },
-              {
-                "name": "Redpike Line",
-                "count": 4
-              },
-              {
-                "name": "Warmarch Longbows",
+                "name": "Sergeant-at-Arms",
                 "count": 2
+              },
+              {
+                "name": "Column Guide",
+                "count": 2
+              },
+              {
+                "name": "Drill Cadet",
+                "count": 1
               }
             ]
           },
@@ -3059,16 +3595,16 @@
             "officer": "Tuskline Handler",
             "units": [
               {
-                "name": "Warmarch Longbows",
-                "count": 2
+                "name": "Brushmastiffs",
+                "count": 3
               },
               {
-                "name": "Drum Corporal",
-                "count": 4
+                "name": "Siege Mammoth",
+                "count": 1
               },
               {
-                "name": "Lance Pair Leader",
-                "count": 4
+                "name": "Dusttrail Scouts",
+                "count": 1
               }
             ]
           },
@@ -3076,12 +3612,24 @@
             "officer": "Column Cartographer",
             "units": [
               {
-                "name": "Boltstorm Company",
-                "count": 4
+                "name": "Oathstandard",
+                "count": 1
               },
               {
                 "name": "Dusttrail Scouts",
+                "count": 1
+              },
+              {
+                "name": "Marchland Outriders",
+                "count": 1
+              },
+              {
+                "name": "Drill Cadet",
                 "count": 2
+              },
+              {
+                "name": "Buckler Link",
+                "count": 1
               }
             ]
           },
@@ -3089,12 +3637,24 @@
             "officer": "Field Chirurgeon Wren",
             "units": [
               {
-                "name": "Dusttrail Scouts",
+                "name": "Column Guide",
                 "count": 2
               },
               {
-                "name": "Keepguard",
-                "count": 4
+                "name": "Anvil Champion",
+                "count": 1
+              },
+              {
+                "name": "Sergeant-at-Arms",
+                "count": 1
+              },
+              {
+                "name": "Drill Cadet",
+                "count": 1
+              },
+              {
+                "name": "Buckler Link",
+                "count": 1
               }
             ]
           },
@@ -3102,12 +3662,28 @@
             "officer": "Cadence Drillmaster",
             "units": [
               {
-                "name": "Keystone Guard",
-                "count": 4
+                "name": "Boltstorm Company",
+                "count": 1
               },
               {
-                "name": "Lockstep Cohort",
-                "count": 2
+                "name": "Oathbill Halberdiers",
+                "count": 1
+              },
+              {
+                "name": "Quarryside Crossbows",
+                "count": 1
+              },
+              {
+                "name": "Cleaving Oathsworn",
+                "count": 1
+              },
+              {
+                "name": "Market Slingers",
+                "count": 1
+              },
+              {
+                "name": "Buckler Link",
+                "count": 1
               }
             ]
           }
@@ -3118,7 +3694,7 @@
       "commanderId": "829cae12d03a0657c509b711624edcdb",
       "commanderName": "Fenbrood Scale-King",
       "race": "Lizardman",
-      "totalUv": 213,
+      "totalUv": 209,
       "companyCount": 6,
       "list": {
         "commander": "Fenbrood Scale-King",
@@ -3127,20 +3703,16 @@
             "officer": "Coil Handler",
             "units": [
               {
-                "name": "Hatchling Drill",
-                "count": 4
-              },
-              {
-                "name": "Scale Link",
-                "count": 4
+                "name": "Venom Spitter",
+                "count": 3
               },
               {
                 "name": "Reed Javelins",
-                "count": 4
+                "count": 2
               },
               {
-                "name": "Camo Ambusher",
-                "count": 3
+                "name": "Fang Slinger",
+                "count": 1
               }
             ]
           },
@@ -3148,20 +3720,20 @@
             "officer": "Brood Watcher",
             "units": [
               {
-                "name": "Camo Ambusher",
+                "name": "Brood Sergeant",
+                "count": 2
+              },
+              {
+                "name": "Shoal Pacekeeper",
+                "count": 2
+              },
+              {
+                "name": "Chameleon Warden",
                 "count": 1
               },
               {
-                "name": "Dart Skink",
-                "count": 4
-              },
-              {
-                "name": "Fang Slinger",
-                "count": 4
-              },
-              {
-                "name": "Marsh Spears",
-                "count": 2
+                "name": "Hatchling Drill",
+                "count": 1
               }
             ]
           },
@@ -3169,16 +3741,20 @@
             "officer": "Marshstone Guide",
             "units": [
               {
-                "name": "Marsh Spears",
+                "name": "Viper Brood",
                 "count": 2
               },
               {
-                "name": "Reed Scout",
-                "count": 4
+                "name": "Riverstone Hydra Brood",
+                "count": 1
               },
               {
-                "name": "Reed Horn Skink",
-                "count": 4
+                "name": "Camo Ambusher",
+                "count": 1
+              },
+              {
+                "name": "Hatchling Drill",
+                "count": 1
               }
             ]
           },
@@ -3186,12 +3762,16 @@
             "officer": "Arena Handler",
             "units": [
               {
-                "name": "Fang Pair Boss",
-                "count": 4
+                "name": "Swamp Matriarch",
+                "count": 1
               },
               {
-                "name": "Arena Croc",
-                "count": 4
+                "name": "Gorgon Acolyte",
+                "count": 2
+              },
+              {
+                "name": "Stonegaze Gorgon",
+                "count": 1
               }
             ]
           },
@@ -3199,12 +3779,12 @@
             "officer": "Brood Liaison",
             "units": [
               {
-                "name": "Coil Serpent",
-                "count": 4
+                "name": "Deathroll",
+                "count": 2
               },
               {
-                "name": "Fang Stalker",
-                "count": 2
+                "name": "Hatchling Drill",
+                "count": 1
               }
             ]
           },
@@ -3212,12 +3792,20 @@
             "officer": "Venom Coil Overseer",
             "units": [
               {
-                "name": "Fang Stalker",
+                "name": "Gorgon Acolyte",
                 "count": 2
               },
               {
-                "name": "Fenbow Hunter",
-                "count": 4
+                "name": "Stonegaze Gorgon",
+                "count": 2
+              },
+              {
+                "name": "Gorgon Eye",
+                "count": 1
+              },
+              {
+                "name": "Reed Javelins",
+                "count": 1
               }
             ]
           }
@@ -3228,7 +3816,7 @@
       "commanderId": "f501dee416574a03a20808551c898d66",
       "commanderName": "Gorgon Basalt Matriarch",
       "race": "Lizardman",
-      "totalUv": 212,
+      "totalUv": 208,
       "companyCount": 6,
       "list": {
         "commander": "Gorgon Basalt Matriarch",
@@ -3237,20 +3825,16 @@
             "officer": "Coil Handler",
             "units": [
               {
-                "name": "Hatchling Drill",
-                "count": 4
-              },
-              {
-                "name": "Scale Link",
-                "count": 4
+                "name": "Venom Spitter",
+                "count": 3
               },
               {
                 "name": "Reed Javelins",
-                "count": 4
+                "count": 2
               },
               {
-                "name": "Camo Ambusher",
-                "count": 3
+                "name": "Fang Slinger",
+                "count": 1
               }
             ]
           },
@@ -3258,20 +3842,20 @@
             "officer": "Brood Watcher",
             "units": [
               {
-                "name": "Camo Ambusher",
+                "name": "Brood Sergeant",
+                "count": 2
+              },
+              {
+                "name": "Shoal Pacekeeper",
+                "count": 2
+              },
+              {
+                "name": "Chameleon Warden",
                 "count": 1
               },
               {
-                "name": "Dart Skink",
-                "count": 4
-              },
-              {
-                "name": "Fang Slinger",
-                "count": 4
-              },
-              {
-                "name": "Marsh Spears",
-                "count": 2
+                "name": "Hatchling Drill",
+                "count": 1
               }
             ]
           },
@@ -3279,16 +3863,20 @@
             "officer": "Marshstone Guide",
             "units": [
               {
-                "name": "Marsh Spears",
+                "name": "Viper Brood",
                 "count": 2
               },
               {
-                "name": "Reed Scout",
-                "count": 4
+                "name": "Riverstone Hydra Brood",
+                "count": 1
               },
               {
-                "name": "Reed Horn Skink",
-                "count": 4
+                "name": "Camo Ambusher",
+                "count": 1
+              },
+              {
+                "name": "Hatchling Drill",
+                "count": 1
               }
             ]
           },
@@ -3296,12 +3884,16 @@
             "officer": "Arena Handler",
             "units": [
               {
-                "name": "Fang Pair Boss",
-                "count": 4
+                "name": "Swamp Matriarch",
+                "count": 1
               },
               {
-                "name": "Arena Croc",
-                "count": 4
+                "name": "Gorgon Acolyte",
+                "count": 2
+              },
+              {
+                "name": "Stonegaze Gorgon",
+                "count": 1
               }
             ]
           },
@@ -3309,12 +3901,12 @@
             "officer": "Brood Liaison",
             "units": [
               {
-                "name": "Coil Serpent",
-                "count": 4
+                "name": "Deathroll",
+                "count": 2
               },
               {
-                "name": "Fang Stalker",
-                "count": 2
+                "name": "Hatchling Drill",
+                "count": 1
               }
             ]
           },
@@ -3322,12 +3914,20 @@
             "officer": "Venom Coil Overseer",
             "units": [
               {
-                "name": "Fang Stalker",
+                "name": "Gorgon Acolyte",
                 "count": 2
               },
               {
-                "name": "Fenbow Hunter",
-                "count": 4
+                "name": "Stonegaze Gorgon",
+                "count": 2
+              },
+              {
+                "name": "Gorgon Eye",
+                "count": 1
+              },
+              {
+                "name": "Reed Javelins",
+                "count": 1
               }
             ]
           }
@@ -3338,7 +3938,7 @@
       "commanderId": "fb5cc122c9274c418738a03154df75ca",
       "commanderName": "Hydra Broodmother",
       "race": "Lizardman",
-      "totalUv": 210,
+      "totalUv": 206,
       "companyCount": 6,
       "list": {
         "commander": "Hydra Broodmother",
@@ -3347,20 +3947,16 @@
             "officer": "Coil Handler",
             "units": [
               {
-                "name": "Hatchling Drill",
-                "count": 4
-              },
-              {
-                "name": "Scale Link",
-                "count": 4
+                "name": "Venom Spitter",
+                "count": 3
               },
               {
                 "name": "Reed Javelins",
-                "count": 4
+                "count": 2
               },
               {
-                "name": "Camo Ambusher",
-                "count": 3
+                "name": "Fang Slinger",
+                "count": 1
               }
             ]
           },
@@ -3368,20 +3964,20 @@
             "officer": "Brood Watcher",
             "units": [
               {
-                "name": "Camo Ambusher",
+                "name": "Brood Sergeant",
+                "count": 2
+              },
+              {
+                "name": "Shoal Pacekeeper",
+                "count": 2
+              },
+              {
+                "name": "Chameleon Warden",
                 "count": 1
               },
               {
-                "name": "Dart Skink",
-                "count": 4
-              },
-              {
-                "name": "Fang Slinger",
-                "count": 4
-              },
-              {
-                "name": "Marsh Spears",
-                "count": 2
+                "name": "Hatchling Drill",
+                "count": 1
               }
             ]
           },
@@ -3389,16 +3985,20 @@
             "officer": "Marshstone Guide",
             "units": [
               {
-                "name": "Marsh Spears",
+                "name": "Viper Brood",
                 "count": 2
               },
               {
-                "name": "Reed Scout",
-                "count": 4
+                "name": "Riverstone Hydra Brood",
+                "count": 1
               },
               {
-                "name": "Reed Horn Skink",
-                "count": 4
+                "name": "Camo Ambusher",
+                "count": 1
+              },
+              {
+                "name": "Hatchling Drill",
+                "count": 1
               }
             ]
           },
@@ -3406,12 +4006,16 @@
             "officer": "Arena Handler",
             "units": [
               {
-                "name": "Fang Pair Boss",
-                "count": 4
+                "name": "Swamp Matriarch",
+                "count": 1
               },
               {
-                "name": "Arena Croc",
-                "count": 4
+                "name": "Gorgon Acolyte",
+                "count": 2
+              },
+              {
+                "name": "Stonegaze Gorgon",
+                "count": 1
               }
             ]
           },
@@ -3419,12 +4023,12 @@
             "officer": "Brood Liaison",
             "units": [
               {
-                "name": "Coil Serpent",
-                "count": 4
+                "name": "Deathroll",
+                "count": 2
               },
               {
-                "name": "Fang Stalker",
-                "count": 2
+                "name": "Hatchling Drill",
+                "count": 1
               }
             ]
           },
@@ -3432,12 +4036,20 @@
             "officer": "Venom Coil Overseer",
             "units": [
               {
-                "name": "Fang Stalker",
+                "name": "Gorgon Acolyte",
                 "count": 2
               },
               {
-                "name": "Fenbow Hunter",
-                "count": 4
+                "name": "Stonegaze Gorgon",
+                "count": 2
+              },
+              {
+                "name": "Gorgon Eye",
+                "count": 1
+              },
+              {
+                "name": "Reed Javelins",
+                "count": 1
               }
             ]
           }
@@ -3448,7 +4060,7 @@
       "commanderId": "65d1a75f19f442d489f5972dfb1c32ff",
       "commanderName": "Scalefen Summit",
       "race": "Lizardman",
-      "totalUv": 208,
+      "totalUv": 204,
       "companyCount": 6,
       "list": {
         "commander": "Scalefen Summit",
@@ -3457,20 +4069,16 @@
             "officer": "Coil Handler",
             "units": [
               {
-                "name": "Hatchling Drill",
-                "count": 4
-              },
-              {
-                "name": "Scale Link",
-                "count": 4
+                "name": "Venom Spitter",
+                "count": 3
               },
               {
                 "name": "Reed Javelins",
-                "count": 4
+                "count": 2
               },
               {
-                "name": "Camo Ambusher",
-                "count": 3
+                "name": "Fang Slinger",
+                "count": 1
               }
             ]
           },
@@ -3478,20 +4086,20 @@
             "officer": "Brood Watcher",
             "units": [
               {
-                "name": "Camo Ambusher",
+                "name": "Brood Sergeant",
+                "count": 2
+              },
+              {
+                "name": "Shoal Pacekeeper",
+                "count": 2
+              },
+              {
+                "name": "Chameleon Warden",
                 "count": 1
               },
               {
-                "name": "Dart Skink",
-                "count": 4
-              },
-              {
-                "name": "Fang Slinger",
-                "count": 4
-              },
-              {
-                "name": "Marsh Spears",
-                "count": 2
+                "name": "Hatchling Drill",
+                "count": 1
               }
             ]
           },
@@ -3499,16 +4107,20 @@
             "officer": "Marshstone Guide",
             "units": [
               {
-                "name": "Marsh Spears",
+                "name": "Viper Brood",
                 "count": 2
               },
               {
-                "name": "Reed Scout",
-                "count": 4
+                "name": "Riverstone Hydra Brood",
+                "count": 1
               },
               {
-                "name": "Reed Horn Skink",
-                "count": 4
+                "name": "Camo Ambusher",
+                "count": 1
+              },
+              {
+                "name": "Hatchling Drill",
+                "count": 1
               }
             ]
           },
@@ -3516,12 +4128,16 @@
             "officer": "Arena Handler",
             "units": [
               {
-                "name": "Fang Pair Boss",
-                "count": 4
+                "name": "Swamp Matriarch",
+                "count": 1
               },
               {
-                "name": "Arena Croc",
-                "count": 4
+                "name": "Gorgon Acolyte",
+                "count": 2
+              },
+              {
+                "name": "Stonegaze Gorgon",
+                "count": 1
               }
             ]
           },
@@ -3529,12 +4145,12 @@
             "officer": "Brood Liaison",
             "units": [
               {
-                "name": "Coil Serpent",
-                "count": 4
+                "name": "Deathroll",
+                "count": 2
               },
               {
-                "name": "Fang Stalker",
-                "count": 2
+                "name": "Hatchling Drill",
+                "count": 1
               }
             ]
           },
@@ -3542,12 +4158,20 @@
             "officer": "Venom Coil Overseer",
             "units": [
               {
-                "name": "Fang Stalker",
+                "name": "Gorgon Acolyte",
                 "count": 2
               },
               {
-                "name": "Fenbow Hunter",
-                "count": 4
+                "name": "Stonegaze Gorgon",
+                "count": 2
+              },
+              {
+                "name": "Gorgon Eye",
+                "count": 1
+              },
+              {
+                "name": "Reed Javelins",
+                "count": 1
               }
             ]
           }
@@ -3567,20 +4191,16 @@
             "officer": "Death Knight Lead",
             "units": [
               {
-                "name": "Bone Drill Thrall",
-                "count": 4
-              },
-              {
-                "name": "Rib Link",
-                "count": 4
-              },
-              {
-                "name": "Ash Thralls",
-                "count": 4
-              },
-              {
-                "name": "Bone Archers",
+                "name": "Death Knights",
                 "count": 2
+              },
+              {
+                "name": "Deathlord Cavalcade",
+                "count": 1
+              },
+              {
+                "name": "Crypt Guard",
+                "count": 1
               }
             ]
           },
@@ -3588,16 +4208,12 @@
             "officer": "Barrow Blade Captain",
             "units": [
               {
-                "name": "Bone Archers",
+                "name": "Tomb Eternal",
                 "count": 2
               },
               {
-                "name": "Bone Dogs",
-                "count": 4
-              },
-              {
-                "name": "Chained Dead",
-                "count": 4
+                "name": "Shroud Guard",
+                "count": 2
               }
             ]
           },
@@ -3605,15 +4221,19 @@
             "officer": "Wight Captain Rasp",
             "units": [
               {
-                "name": "Crypt Rats",
-                "count": 4
+                "name": "Revenant Legion",
+                "count": 2
               },
               {
-                "name": "Grave Diggers",
-                "count": 4
+                "name": "Thrall Brutes",
+                "count": 1
               },
               {
-                "name": "Pale Militia",
+                "name": "Crypt Guard",
+                "count": 1
+              },
+              {
+                "name": "Bone Drill Thrall",
                 "count": 1
               }
             ]
@@ -3622,16 +4242,20 @@
             "officer": "Crypt Engineer Bone",
             "units": [
               {
-                "name": "Pale Militia",
+                "name": "Soulforge Catapult",
+                "count": 1
+              },
+              {
+                "name": "Bone Catapult",
                 "count": 3
               },
               {
-                "name": "Shambling Spears",
-                "count": 4
+                "name": "Bone Archers",
+                "count": 1
               },
               {
-                "name": "Skeleton Levy",
-                "count": 2
+                "name": "Bone Drill Thrall",
+                "count": 1
               }
             ]
           },
@@ -3639,16 +4263,16 @@
             "officer": "Fear Herald Hush",
             "units": [
               {
-                "name": "Skeleton Levy",
-                "count": 2
+                "name": "Lich Cadre",
+                "count": 1
               },
               {
-                "name": "Skull Slingers",
-                "count": 4
+                "name": "Banshee Screams",
+                "count": 3
               },
               {
                 "name": "Whisper Choir",
-                "count": 3
+                "count": 1
               }
             ]
           },
@@ -3656,19 +4280,19 @@
             "officer": "Necromancer Quill",
             "units": [
               {
-                "name": "Whisper Choir",
-                "count": 1
-              },
-              {
-                "name": "Zombie Horde",
-                "count": 4
-              },
-              {
-                "name": "Bone Wolves",
+                "name": "Necrotic Adepts",
                 "count": 3
               },
               {
-                "name": "Crypt Guard",
+                "name": "Lich Cadre",
+                "count": 1
+              },
+              {
+                "name": "Whisper Choir",
+                "count": 2
+              },
+              {
+                "name": "Bone Drill Thrall",
                 "count": 1
               }
             ]
@@ -3689,20 +4313,16 @@
             "officer": "Death Knight Lead",
             "units": [
               {
-                "name": "Bone Drill Thrall",
-                "count": 4
-              },
-              {
-                "name": "Rib Link",
-                "count": 4
-              },
-              {
-                "name": "Ash Thralls",
-                "count": 4
-              },
-              {
-                "name": "Bone Archers",
+                "name": "Death Knights",
                 "count": 2
+              },
+              {
+                "name": "Deathlord Cavalcade",
+                "count": 1
+              },
+              {
+                "name": "Crypt Guard",
+                "count": 1
               }
             ]
           },
@@ -3710,16 +4330,12 @@
             "officer": "Barrow Blade Captain",
             "units": [
               {
-                "name": "Bone Archers",
+                "name": "Tomb Eternal",
                 "count": 2
               },
               {
-                "name": "Bone Dogs",
-                "count": 4
-              },
-              {
-                "name": "Chained Dead",
-                "count": 4
+                "name": "Shroud Guard",
+                "count": 2
               }
             ]
           },
@@ -3727,15 +4343,19 @@
             "officer": "Wight Captain Rasp",
             "units": [
               {
-                "name": "Crypt Rats",
-                "count": 4
+                "name": "Revenant Legion",
+                "count": 2
               },
               {
-                "name": "Grave Diggers",
-                "count": 4
+                "name": "Thrall Brutes",
+                "count": 1
               },
               {
-                "name": "Pale Militia",
+                "name": "Crypt Guard",
+                "count": 1
+              },
+              {
+                "name": "Bone Drill Thrall",
                 "count": 1
               }
             ]
@@ -3744,16 +4364,20 @@
             "officer": "Crypt Engineer Bone",
             "units": [
               {
-                "name": "Pale Militia",
+                "name": "Soulforge Catapult",
+                "count": 1
+              },
+              {
+                "name": "Bone Catapult",
                 "count": 3
               },
               {
-                "name": "Shambling Spears",
-                "count": 4
+                "name": "Bone Archers",
+                "count": 1
               },
               {
-                "name": "Skeleton Levy",
-                "count": 2
+                "name": "Bone Drill Thrall",
+                "count": 1
               }
             ]
           },
@@ -3761,16 +4385,16 @@
             "officer": "Fear Herald Hush",
             "units": [
               {
-                "name": "Skeleton Levy",
-                "count": 2
+                "name": "Lich Cadre",
+                "count": 1
               },
               {
-                "name": "Skull Slingers",
-                "count": 4
+                "name": "Banshee Screams",
+                "count": 3
               },
               {
                 "name": "Whisper Choir",
-                "count": 3
+                "count": 1
               }
             ]
           },
@@ -3778,19 +4402,19 @@
             "officer": "Necromancer Quill",
             "units": [
               {
-                "name": "Whisper Choir",
-                "count": 1
-              },
-              {
-                "name": "Zombie Horde",
-                "count": 4
-              },
-              {
-                "name": "Bone Wolves",
+                "name": "Necrotic Adepts",
                 "count": 3
               },
               {
-                "name": "Crypt Guard",
+                "name": "Lich Cadre",
+                "count": 1
+              },
+              {
+                "name": "Whisper Choir",
+                "count": 2
+              },
+              {
+                "name": "Bone Drill Thrall",
                 "count": 1
               }
             ]
@@ -3811,20 +4435,16 @@
             "officer": "Death Knight Lead",
             "units": [
               {
-                "name": "Bone Drill Thrall",
-                "count": 4
-              },
-              {
-                "name": "Rib Link",
-                "count": 4
-              },
-              {
-                "name": "Ash Thralls",
-                "count": 4
-              },
-              {
-                "name": "Bone Archers",
+                "name": "Death Knights",
                 "count": 2
+              },
+              {
+                "name": "Deathlord Cavalcade",
+                "count": 1
+              },
+              {
+                "name": "Crypt Guard",
+                "count": 1
               }
             ]
           },
@@ -3832,16 +4452,12 @@
             "officer": "Barrow Blade Captain",
             "units": [
               {
-                "name": "Bone Archers",
+                "name": "Tomb Eternal",
                 "count": 2
               },
               {
-                "name": "Bone Dogs",
-                "count": 4
-              },
-              {
-                "name": "Chained Dead",
-                "count": 4
+                "name": "Shroud Guard",
+                "count": 2
               }
             ]
           },
@@ -3849,15 +4465,19 @@
             "officer": "Wight Captain Rasp",
             "units": [
               {
-                "name": "Crypt Rats",
-                "count": 4
+                "name": "Revenant Legion",
+                "count": 2
               },
               {
-                "name": "Grave Diggers",
-                "count": 4
+                "name": "Thrall Brutes",
+                "count": 1
               },
               {
-                "name": "Pale Militia",
+                "name": "Crypt Guard",
+                "count": 1
+              },
+              {
+                "name": "Bone Drill Thrall",
                 "count": 1
               }
             ]
@@ -3866,16 +4486,20 @@
             "officer": "Crypt Engineer Bone",
             "units": [
               {
-                "name": "Pale Militia",
+                "name": "Soulforge Catapult",
+                "count": 1
+              },
+              {
+                "name": "Bone Catapult",
                 "count": 3
               },
               {
-                "name": "Shambling Spears",
-                "count": 4
+                "name": "Bone Archers",
+                "count": 1
               },
               {
-                "name": "Skeleton Levy",
-                "count": 2
+                "name": "Bone Drill Thrall",
+                "count": 1
               }
             ]
           },
@@ -3883,16 +4507,16 @@
             "officer": "Fear Herald Hush",
             "units": [
               {
-                "name": "Skeleton Levy",
-                "count": 2
+                "name": "Lich Cadre",
+                "count": 1
               },
               {
-                "name": "Skull Slingers",
-                "count": 4
+                "name": "Banshee Screams",
+                "count": 3
               },
               {
                 "name": "Whisper Choir",
-                "count": 3
+                "count": 1
               }
             ]
           },
@@ -3900,19 +4524,19 @@
             "officer": "Necromancer Quill",
             "units": [
               {
-                "name": "Whisper Choir",
-                "count": 1
-              },
-              {
-                "name": "Zombie Horde",
-                "count": 4
-              },
-              {
-                "name": "Bone Wolves",
+                "name": "Necrotic Adepts",
                 "count": 3
               },
               {
-                "name": "Crypt Guard",
+                "name": "Lich Cadre",
+                "count": 1
+              },
+              {
+                "name": "Whisper Choir",
+                "count": 2
+              },
+              {
+                "name": "Bone Drill Thrall",
                 "count": 1
               }
             ]
@@ -3933,20 +4557,16 @@
             "officer": "Death Knight Lead",
             "units": [
               {
-                "name": "Bone Drill Thrall",
-                "count": 4
-              },
-              {
-                "name": "Rib Link",
-                "count": 4
-              },
-              {
-                "name": "Ash Thralls",
-                "count": 4
-              },
-              {
-                "name": "Bone Archers",
+                "name": "Death Knights",
                 "count": 2
+              },
+              {
+                "name": "Deathlord Cavalcade",
+                "count": 1
+              },
+              {
+                "name": "Crypt Guard",
+                "count": 1
               }
             ]
           },
@@ -3954,16 +4574,12 @@
             "officer": "Barrow Blade Captain",
             "units": [
               {
-                "name": "Bone Archers",
+                "name": "Tomb Eternal",
                 "count": 2
               },
               {
-                "name": "Bone Dogs",
-                "count": 4
-              },
-              {
-                "name": "Chained Dead",
-                "count": 4
+                "name": "Shroud Guard",
+                "count": 2
               }
             ]
           },
@@ -3971,15 +4587,19 @@
             "officer": "Wight Captain Rasp",
             "units": [
               {
-                "name": "Crypt Rats",
-                "count": 4
+                "name": "Revenant Legion",
+                "count": 2
               },
               {
-                "name": "Grave Diggers",
-                "count": 4
+                "name": "Thrall Brutes",
+                "count": 1
               },
               {
-                "name": "Pale Militia",
+                "name": "Crypt Guard",
+                "count": 1
+              },
+              {
+                "name": "Bone Drill Thrall",
                 "count": 1
               }
             ]
@@ -3988,16 +4608,20 @@
             "officer": "Crypt Engineer Bone",
             "units": [
               {
-                "name": "Pale Militia",
+                "name": "Soulforge Catapult",
+                "count": 1
+              },
+              {
+                "name": "Bone Catapult",
                 "count": 3
               },
               {
-                "name": "Shambling Spears",
-                "count": 4
+                "name": "Bone Archers",
+                "count": 1
               },
               {
-                "name": "Skeleton Levy",
-                "count": 2
+                "name": "Bone Drill Thrall",
+                "count": 1
               }
             ]
           },
@@ -4005,16 +4629,16 @@
             "officer": "Fear Herald Hush",
             "units": [
               {
-                "name": "Skeleton Levy",
-                "count": 2
+                "name": "Lich Cadre",
+                "count": 1
               },
               {
-                "name": "Skull Slingers",
-                "count": 4
+                "name": "Banshee Screams",
+                "count": 3
               },
               {
                 "name": "Whisper Choir",
-                "count": 3
+                "count": 1
               }
             ]
           },
@@ -4022,19 +4646,19 @@
             "officer": "Necromancer Quill",
             "units": [
               {
-                "name": "Whisper Choir",
-                "count": 1
-              },
-              {
-                "name": "Zombie Horde",
-                "count": 4
-              },
-              {
-                "name": "Bone Wolves",
+                "name": "Necrotic Adepts",
                 "count": 3
               },
               {
-                "name": "Crypt Guard",
+                "name": "Lich Cadre",
+                "count": 1
+              },
+              {
+                "name": "Whisper Choir",
+                "count": 2
+              },
+              {
+                "name": "Bone Drill Thrall",
                 "count": 1
               }
             ]

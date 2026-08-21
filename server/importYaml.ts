@@ -157,12 +157,12 @@ export function importFromKingdoms(sourceRoot = DEFAULT_SOURCE): {
     const insertCard = db.prepare(`
       INSERT INTO cards (
         id, name, card_type, rarity, unique_flag, race, primary_type, secondary_type,
-        uv, move, damage, range_value, toughness, company_ap, company_capacity,
+        uv, move, damage, range_value, toughness, company_ap, company_capacity, company_unit_cap,
         command_radius, ap_generation, cc_generation, favored_terrain, abilities_json, keywords_json, ultimate,
         flavor_text, complexity, role, tags_json, support_json, search_blob
       ) VALUES (
         @id, @name, @card_type, @rarity, @unique_flag, @race, @primary_type, @secondary_type,
-        @uv, @move, @damage, @range_value, @toughness, @company_ap, @company_capacity,
+        @uv, @move, @damage, @range_value, @toughness, @company_ap, @company_capacity, @company_unit_cap,
         @command_radius, @ap_generation, @cc_generation, @favored_terrain, @abilities_json, @keywords_json, @ultimate,
         @flavor_text, @complexity, @role, @tags_json, @support_json, @search_blob
       )
@@ -217,6 +217,7 @@ export function importFromKingdoms(sourceRoot = DEFAULT_SOURCE): {
               toughness: (c.toughness as number) ?? null,
               company_ap: (c.company_ap as number) ?? null,
               company_capacity: (c.company_capacity as number) ?? null,
+              company_unit_cap: (c.company_unit_cap as number) ?? null,
               command_radius: (c.command_radius as number) ?? null,
               ap_generation: (c.ap_generation as number) ?? null,
               cc_generation: (c.cc_generation as number) ?? null,

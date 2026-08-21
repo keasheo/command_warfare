@@ -76,10 +76,10 @@ Rootweave Surge:
     - healing
 Anvil Advance:
   type: Active
-  cost: 1 CC
-  description: Units in your army in Command Radius gain Harden 2 and may Move 1 toward an objective.
+  cost: 2 CC
+  description: Units in your army in Command Radius gain Harden 1 and may Move 1 toward an objective.
   affects: self
-  cost_amount: 1
+  cost_amount: 2
   cost_resource: CC
   used_by: Commander
   cooldown: 2
@@ -90,12 +90,12 @@ Holdfast Gate:
   cost: 1 CC
   description: >-
     Fortify an objective hex within Command Radius. If occupied by a friendly unit, that unit gains
-    Harden 2 until end of round.
+    Harden 1 until end of round.
   affects: self
   cost_amount: 1
   cost_resource: CC
   used_by: Commander
-  cooldown: 1
+  cooldown: 2
   tags:
     - fortify
     - dwarf
@@ -646,7 +646,7 @@ Dread Aura:
 Dwarf Compact:
   type: Passive
   cost: Passive
-  description: Dwarf units in your army within Command Radius gain +2 Damage, +1 Hit, and Harden 2.
+  description: Dwarf units in your army within Command Radius gain +1 Damage, +1 Hit, and Harden 1.
   affects: self
   used_by: Commander
   tags:
@@ -1872,7 +1872,7 @@ Stone Highways:
 Stone Line:
   type: Active
   cost: 1 AP
-  description: Adjacent Dwarves of this company gain +1 Toughness until end of round.
+  description: Adjacent Dwarves of this company gain Harden 1 until end of round.
   affects: self
   cost_amount: 1
   cost_resource: AP
@@ -2422,7 +2422,7 @@ Forge Dominion:
 Holdfast Doctrine:
   type: Passive
   cost: Passive
-  description: Dwarf units in your army on Mountains within Command Radius gain Harden 1.
+  description: Heavy Dwarf units in your army on Mountains within Command Radius gain Harden 1.
   affects: self
   used_by: Commander
   tags:
@@ -2444,7 +2444,7 @@ Siege Sync:
 Oath Anvil:
   type: Passive
   cost: Passive
-  description: Heavy Dwarf units in your army within Command Radius gain +1 Toughness.
+  description: Heavy Dwarf units in your army within Command Radius gain Harden 1.
   affects: self
   used_by: Commander
   tags:
@@ -2682,7 +2682,7 @@ Spear Thrust:
 Forge Mend:
   type: Active
   cost: 1 AP
-  description: Restore 2 Toughness to the most damaged Siege or Dwarf ally in Command Radius.
+  description: Restore 1 Toughness to the most damaged Siege or Dwarf ally in Command Radius.
   affects: single
   cost_amount: 1
   cost_resource: AP

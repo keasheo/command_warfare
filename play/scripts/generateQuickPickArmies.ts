@@ -21,8 +21,8 @@ const DB_PATH = path.join(ROOT, 'data/command-warfare.sqlite')
 const OUT_PATH = path.join(ROOT, 'data/quick-pick-armies.json')
 
 const CARD_ROW_SQL = `SELECT id, name, card_type, rarity, unique_flag, race, uv, move, damage, range_value, toughness,
-              company_capacity, command_radius, company_ap, ap_generation, cc_generation, favored_terrain,
-              keywords_json, abilities_json, ultimate`
+              company_capacity, company_unit_cap, command_radius, company_ap, ap_generation, cc_generation, favored_terrain,
+              primary_type, secondary_type, role, keywords_json, abilities_json, ultimate`
 
 function rowToSnap(row: Record<string, unknown>): CardSnapshot {
   let keywords: string[] = []
@@ -50,6 +50,7 @@ function rowToSnap(row: Record<string, unknown>): CardSnapshot {
     range: row.range_value as number | null,
     toughness: row.toughness as number | null,
     companyCapacity: row.company_capacity as number | null,
+    companyUnitCap: row.company_unit_cap as number | null,
     commandRadius: row.command_radius as number | null,
     companyAp: (row.company_ap as number | null) ?? null,
     apGeneration: (row.ap_generation as number | null) ?? null,
@@ -58,7 +59,45 @@ function rowToSnap(row: Record<string, unknown>): CardSnapshot {
     keywords,
     abilities,
     ultimate: (row.ultimate as string | null) ?? null,
+    primaryType: (row.primary_type as string | null) ?? null,
+    secondaryType: (row.secondary_type as string | null) ?? null,
+    role: (row.role as string | null) ?? null,
   }
+}
+
+function uvBand(uv: number): 'small' | 'medium' | 'large' {
+  if (uv <= 2) return 'small'
+  if (uv <= 5) return 'medium'
+  return 'large'
+}
+
+function officerUnitAffinity(officer: CardSnapshot, unit: CardSnapshot): number {
+  let s = 0
+  const op = (officer.primaryType || '').toLowerCase()
+  const os = (officer.secondaryType || '').toLowerCase()
+  const up = (unit.primaryType || '').toLowerCase()
+  const us = (unit.secondaryType || '').toLowerCase()
+  if (op && (op === up || op === us)) s += 4
+  if (os && (os === up || os === us)) s += 2
+  const oKeys = new Set((officer.keywords ?? []).map((k) => k.toLowerCase()))
+  for (const k of unit.keywords ?? []) {
+    if (oKeys.has(k.toLowerCase())) s += 2
+  }
+  const oRole = String(officer.role || '').toLowerCase()
+  const uRole = String(unit.role || '').toLowerCase()
+  if (oRole && oRole === uRole) s += 3
+  if (oRole === 'artillery' && (up === 'ranged' || (unit.range ?? 1) >= 3)) s += 2
+  if (oRole === 'scout' && (up === 'cavalry' || us === 'light' || uRole === 'scout')) s += 2
+  if (oRole === 'healer' && (uRole === 'support' || uRole === 'healer')) s += 2
+  if (oRole === 'control' && (up === 'magic' || uRole === 'control')) s += 2
+  if (oRole === 'frontline' && (up === 'infantry' || us === 'heavy' || uRole === 'frontline')) {
+    s += 2
+  }
+  if (oRole === 'tank' && (us === 'heavy' || uRole === 'tank' || uRole === 'frontline')) s += 2
+  if (oRole === 'damage' && (uRole === 'damage' || up === 'infantry' || up === 'ranged')) s += 1
+  if (oRole === 'support' && (uRole === 'support' || up === 'infantry')) s += 1
+  if ((officer.range ?? 1) >= 2 && (unit.range ?? 1) >= 2) s += 1
+  return s
 }
 
 function copiesLeft(copyCounts: Map<string, number>, card: CardSnapshot): number {
@@ -91,14 +130,51 @@ function fillCompanyUnits(
 
   let used = 0
   const entries: Array<{ cardId: string; count: number }> = []
+  const unitCap = officer.companyUnitCap ?? 10
+  let models = 0
+  const wantLarge = unitCap >= 8 ? 2 : 1
+  const wantMedium = Math.max(2, Math.ceil(unitCap * 0.4))
 
-  while (used < unitBudget) {
+  const countInBand = (band: 'small' | 'medium' | 'large') => {
+    let n = 0
+    for (const e of entries) {
+      const card = units.find((u) => u.id === e.cardId)
+      if (card && uvBand(card.uv ?? 0) === band) n += e.count
+    }
+    return n
+  }
+
+  // Cohesive mix: match the officer, spend UV on large/medium cores, small as leftover.
+  while (used < unitBudget && models < unitCap) {
+    const room = unitBudget - used
+    const slots = unitCap - models
+    const leftover = room <= 3 || slots === 1
+    const needLarge = countInBand('large') < wantLarge && room >= 6 && slots >= 3
+    const needMedium = !needLarge && countInBand('medium') < wantMedium && room >= 3
     let pick: CardSnapshot | null = null
+    let best = -Infinity
     for (const unit of units) {
       const uv = unit.uv ?? 0
-      if (uv <= 0 || uv > unitBudget - used) continue
+      if (uv <= 0 || uv > room) continue
       if (copiesLeft(copyCounts, unit) <= 0) continue
-      if (!pick || uv < (pick.uv ?? 0)) pick = unit
+      const band = uvBand(uv)
+      const copies = entries.find((e) => e.cardId === unit.id)?.count ?? 0
+      let score = officerUnitAffinity(officer, unit) * 3
+      if (leftover) {
+        score += band === 'small' ? 5 : band === 'medium' ? 2 : -4
+      } else if (needLarge) {
+        score += band === 'large' ? 7 : band === 'medium' ? 1 : -5
+      } else if (needMedium) {
+        score += band === 'medium' ? 6 : band === 'large' ? 2 : -3
+      } else {
+        score += band === 'medium' ? 2 : band === 'large' ? 1.5 : 0
+      }
+      score -= copies * 1.8
+      if (officerUnitAffinity(officer, unit) < 2 && !leftover) score -= 5
+      if (score > best) {
+        best = score
+        pick = unit
+      }
     }
     if (!pick) break
     const uv = pick.uv ?? 0
@@ -107,6 +183,7 @@ function fillCompanyUnits(
     else entries.push({ cardId: pick.id, count: 1 })
     takeCopies(copyCounts, pick, 1)
     used += uv
+    models += 1
   }
 
   if (!entries.length) return { units: [], companyUv: 0 }

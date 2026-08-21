@@ -191,7 +191,12 @@ export function resolveNamedArmy(
         if (cap <= 0) {
           issues.push(`${label}: officer “${co.officer.name}” has no company capacity.`)
         }
+        const unitCap = co.officer.companyUnitCap ?? 0
+        if (unitCap <= 0) {
+          issues.push(`${label}: officer “${co.officer.name}” has no unit cap.`)
+        }
         let companyUv = 0
+        let models = 0
         for (const u of co.units) {
           if (
             enforceRace &&
@@ -204,10 +209,16 @@ export function resolveNamedArmy(
             )
           }
           companyUv += (u.card.uv ?? 0) * u.count
+          models += u.count
         }
         if (cap > 0 && companyUv > cap) {
           issues.push(
             `${label}: “${co.officer.name}” company UV ${companyUv} exceeds capacity ${cap}.`,
+          )
+        }
+        if (unitCap > 0 && models > unitCap) {
+          issues.push(
+            `${label}: “${co.officer.name}” has ${models} units (cap ${unitCap}).`,
           )
         }
         if (!co.units.length) {

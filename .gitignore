@@ -60,3 +60,7 @@ unity/CommandWarfare/Assets/Art/Cards/
 unity/CommandWarfare/Assets/Prefabs/Generated/
 
 unity/CommandWarfare/Assets/StreamingAssets/CardArt/
+
+.cursor/
+.vs/
+

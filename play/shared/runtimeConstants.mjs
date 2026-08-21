@@ -19,3 +19,12 @@ export const ARMY_BATTLE_UV_MAX = DEPLOY_UV_MAX + RESERVE_UV_MAX
 export const MAX_ROUNDS = 15
 /** VP awarded at end of round for each controlled objective zone. */
 export const VP_PER_OBJECTIVE = 2
+
+/** 1v1 (N/S) board size — keep in sync with constants.ts. */
+export const BOARD_SIZE_2P = 35
+/** Shared deployment zone depth from the board edge. */
+export const DEPLOY_ZONE_DEPTH = 8
+/** Siege models may only deploy in the rear-most this many hexes of the zone. */
+export const SIEGE_DEPLOY_DEPTH = 4
+/** Max Siege models allowed in the Deploy battle bucket. */
+export const MAX_DEPLOY_SIEGE = 5

@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom'
+import { AppMenu } from '../play/client/src/AppMenu'
 
 const links = [
   ['/', 'Dashboard'],
@@ -28,6 +29,9 @@ export function Layout() {
             {label}
           </NavLink>
         ))}
+        <div className="sidebar-settings">
+          <AppMenu />
+        </div>
       </aside>
       <main className="main">
         <Outlet />

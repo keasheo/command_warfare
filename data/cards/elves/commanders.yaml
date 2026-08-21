@@ -8,13 +8,14 @@ cards:
     primary_type: Ranged
     secondary_type: null
     uv: 9
-    move: 3
+    move: 5
     damage: 2
     range: 3
     toughness: 5
     company_ap: null
     company_capacity: null
-    command_radius: 6
+    company_unit_cap: null
+    command_radius: 8
     ap_generation: 5
     cc_generation: 6
     keywords:
@@ -43,13 +44,14 @@ cards:
     primary_type: Ranged
     secondary_type: null
     uv: 14
-    move: 3
+    move: 5
     damage: 2
     range: 1
     toughness: 6
     company_ap: null
     company_capacity: null
-    command_radius: 7
+    company_unit_cap: null
+    command_radius: 9
     ap_generation: 5
     cc_generation: 5
     keywords: []
@@ -78,13 +80,14 @@ cards:
     primary_type: Nature
     secondary_type: null
     uv: 13
-    move: 3
+    move: 5
     damage: 2
     range: 2
     toughness: 6
     company_ap: null
     company_capacity: null
-    command_radius: 7
+    company_unit_cap: null
+    command_radius: 9
     ap_generation: 5
     cc_generation: 6
     keywords:
@@ -115,13 +118,14 @@ cards:
     primary_type: Flying
     secondary_type: null
     uv: 15
-    move: 3
+    move: 5
     damage: 2
     range: 1
     toughness: 6
     company_ap: null
     company_capacity: null
-    command_radius: 7
+    company_unit_cap: null
+    command_radius: 9
     ap_generation: 5
     cc_generation: 6
     keywords: []

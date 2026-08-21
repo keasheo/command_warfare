@@ -77,6 +77,27 @@ export function neighborsOddR(cell: OddR): OddR[] {
   return AXIAL_DIRS.map((d) => axialToOddR(a.q + d.q, a.r + d.r))
 }
 
+/** Hex on the far side of `target` from `origin` (straight-line continuation). */
+export function hexBehind(origin: OddR, target: OddR): OddR | null {
+  const a = oddRToAxial(origin.col, origin.row)
+  const t = oddRToAxial(target.col, target.row)
+  const vq = t.q - a.q
+  const vr = t.r - a.r
+  if (vq === 0 && vr === 0) return null
+  let best: OddR | null = null
+  let bestDot = -Infinity
+  for (const n of neighborsOddR(target)) {
+    if (hexDistOddR(origin, n) <= hexDistOddR(origin, target)) continue
+    const nn = oddRToAxial(n.col, n.row)
+    const dot = (nn.q - t.q) * vq + (nn.r - t.r) * vr
+    if (dot > bestDot) {
+      bestDot = dot
+      best = n
+    }
+  }
+  return best
+}
+
 export function inBounds(cell: OddR, boardSize: number): boolean {
   return cell.col >= 0 && cell.row >= 0 && cell.col < boardSize && cell.row < boardSize
 }

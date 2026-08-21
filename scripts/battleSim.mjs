@@ -8,8 +8,9 @@
  * - Defensive reactions: Brace / Evade / Retaliate (1 Company AP each)
  * - Balance dials: printable only (see simBalanceDials.mjs) — no naked race combat hacks
  */
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
+import { load as loadYaml } from 'js-yaml'
 import { fileURLToPath } from 'node:url'
 import {
   abilityCostOverrides,
@@ -24,9 +25,15 @@ import {
 import {
   ARMY_UV_MAX,
   ARMY_UNUSED_UV_MAX,
+  BOARD_SIZE_2P,
   DEPLOY_UV_MAX,
+  DEPLOY_ZONE_DEPTH,
+  MAX_DEPLOY_SIEGE,
+  MAX_ROUNDS as PLAY_MAX_ROUNDS,
   RESERVE_UV_MAX,
   SCOUT_CR_EXTENSION,
+  SIEGE_DEPLOY_DEPTH,
+  VP_PER_OBJECTIVE,
 } from '../play/shared/runtimeConstants.mjs'
 
 const API = process.env.CW_API || 'http://127.0.0.1:8787'
@@ -37,11 +44,11 @@ const REINFORCE_UV = RESERVE_UV_MAX
 /** Total army list UV (aligned with play ARMY_UV_MAX). */
 const ARMY_UV = ARMY_UV_MAX
 const WAVE_ROUNDS = [4, 8]
-const MAX_ROUNDS = 12
-/** Match play 1v1 board (odd-r 31×31). */
-const BOARD_SIZE = 31
-const BOARD_MID = Math.floor((BOARD_SIZE - 1) / 2) // 15
-const DEPLOY_DEPTH = 6
+const MAX_ROUNDS = PLAY_MAX_ROUNDS
+/** Match play 1v1 board (odd-r). */
+const BOARD_SIZE = BOARD_SIZE_2P
+const BOARD_MID = Math.floor((BOARD_SIZE - 1) / 2)
+const DEPLOY_DEPTH = DEPLOY_ZONE_DEPTH
 const MIN_OBJECTIVE_DISTANCE = 5
 const RUNS = Number(process.env.SIM_RUNS || 0) // optional floor/multiplier; 0 = commander-coverage mode
 /** Each commander must appear in at least this many games per matchup. */
@@ -243,6 +250,26 @@ function inDeployZone(side, h) {
   const { row } = axialToOddR(h.q, h.r)
   if (side === 'A') return row >= 0 && row < DEPLOY_DEPTH
   return row > BOARD_SIZE - 1 - DEPLOY_DEPTH && row < BOARD_SIZE
+}
+
+function inSiegeDeployBand(side, h) {
+  const { row } = axialToOddR(h.q, h.r)
+  if (side === 'A') return row >= 0 && row < SIEGE_DEPLOY_DEPTH
+  return row > BOARD_SIZE - 1 - SIEGE_DEPLOY_DEPTH && row < BOARD_SIZE
+}
+
+function isSiegeCard(c) {
+  if (!c) return false
+  if (
+    (c.keywords || []).some(
+      (k) => String(k) === 'Siege' || String(k).startsWith('Siege '),
+    )
+  ) {
+    return true
+  }
+  const p = String(c.primaryType || '').toLowerCase()
+  const s = String(c.secondaryType || '').toLowerCase()
+  return p === 'siege' || s === 'siege' || String(c.race || '') === 'Siege'
 }
 
 function tooCloseToObjective(h, objectives) {
@@ -662,6 +689,25 @@ function hexDist(a, b) {
 }
 function neighbors(h) {
   return AXIAL_DIRS.map(([dq, dr]) => ({ q: h.q + dq, r: h.r + dr }))
+}
+
+/** Hex on the far side of `target` from `origin`. */
+function hexBehind(origin, target) {
+  const vq = target.q - origin.q
+  const vr = target.r - origin.r
+  if (vq === 0 && vr === 0) return null
+  const originDist = hexDist(origin, target)
+  let best = null
+  let bestDot = -Infinity
+  for (const n of neighbors(target)) {
+    if (hexDist(origin, n) <= originDist) continue
+    const dot = (n.q - target.q) * vq + (n.r - target.r) * vr
+    if (dot > bestDot) {
+      bestDot = dot
+      best = n
+    }
+  }
+  return best
 }
 function inBounds(h) {
   const { col, row } = axialToOddR(h.q, h.r)
@@ -1171,6 +1217,7 @@ function buildForce(race, allCards, rng = Math.random, opts = {}) {
 
   const officerScore = (o) =>
     (o.companyCapacity || 0) * 1.1 +
+    (o.companyUnitCap || 8) * 0.35 +
     (o.companyAp || 0) * 4 +
     (o.commandRadius || 0) -
     (o.uv || 0) * 0.8
@@ -1182,9 +1229,11 @@ function buildForce(race, allCards, rng = Math.random, opts = {}) {
 
   const fillCompanyRoster = (officer, armyUvRoom = Infinity) => {
     const cap = Math.min(officer.companyCapacity || 18, armyUvRoom)
+    const unitCap = officer.companyUnitCap || 10
     if (cap < 1) return null
     const roster = []
     let usedUv = 0
+    const modelCount = () => roster.reduce((s, r) => s + r.copies, 0)
     // ~30%: lean elite company (few high-UV models) — players min/max officers this way.
     // Beastfolk mono: lean slightly more often so Pack spam is less automatic.
     const leanElite = rng() < (!mixed && race === 'Beastfolk' ? 0.38 : 0.3)
@@ -1193,7 +1242,8 @@ function buildForce(race, allCards, rng = Math.random, opts = {}) {
     const addCopies = (unit, want) => {
       const roomUv = Math.floor((targetUv - usedUv) / (unit.uv || 1))
       const roomArmy = armyRemaining(armyCounts, unit)
-      const n = Math.min(want, roomUv, roomArmy)
+      const roomModels = unitCap - modelCount()
+      const n = Math.min(want, roomUv, roomArmy, roomModels)
       if (n <= 0) return 0
       const existing = roster.find((r) => r.unit.name === unit.name)
       if (existing) existing.copies += n
@@ -1204,7 +1254,7 @@ function buildForce(race, allCards, rng = Math.random, opts = {}) {
     }
 
     let guard = 40
-    while (usedUv + 1 <= targetUv && guard-- > 0) {
+    while (usedUv + 1 <= targetUv && modelCount() < unitCap && guard-- > 0) {
       const options = []
       for (const unit of units) {
         if (!unit.uv) continue
@@ -1233,17 +1283,37 @@ function buildForce(race, allCards, rng = Math.random, opts = {}) {
           // Mixed still gets open allies, but less free cherry-picking.
           if (role) spice += 0.45
         }
+        const leftover = targetUv - usedUv
+        const slotsLeft = unitCap - modelCount()
+        const uv = unit.uv || 0
+        const band = uv <= 2 ? 'small' : uv <= 5 ? 'medium' : 'large'
         let score =
-          support * 2.8 +
+          support * 3.6 +
           spice +
-          combatScore(unit) * 0.22 +
-          (4 - Math.min(4, armyCounts.get(unit.name) || 0)) * 0.35 -
-          unit.uv * 0.1
+          combatScore(unit) * 0.2 +
+          (4 - Math.min(4, armyCounts.get(unit.name) || 0)) * 0.25 +
+          uv * 0.12
         // Mixed: soft penalty for off-race fillers so companies stay more coherent.
         if (mixed && unit.race && unit.race !== officer.race) score -= 1.25
-        // Cheap Formation support: give companies a reason to include 1–2 UV fillers.
+        // Cheap Formation bodies are leftover filler, not the main spend.
         if ((unit.keywords || []).some((k) => String(k).startsWith('Formation'))) {
-          score += leanElite ? 0.35 : 1.4
+          score += leftover <= 3 ? 1.6 : -0.7
+        }
+        if (slotsLeft > 0) {
+          const largeCount = roster.filter((r) => (r.unit.uv || 0) >= 6).reduce((s, r) => s + r.copies, 0)
+          const mediumCount = roster.filter((r) => {
+            const u = r.unit.uv || 0
+            return u >= 3 && u <= 5
+          }).reduce((s, r) => s + r.copies, 0)
+          if (leftover <= 3 || slotsLeft === 1) {
+            score += band === 'small' ? 2.2 : band === 'medium' ? 0.4 : -2
+          } else if (largeCount < (unitCap >= 8 ? 2 : 1) && leftover >= 6) {
+            score += band === 'large' ? 2.4 : band === 'small' ? -1.8 : 0.2
+          } else if (mediumCount < Math.ceil(unitCap * 0.35)) {
+            score += band === 'medium' ? 1.8 : band === 'large' ? 0.6 : -1.2
+          } else if (band === 'small' && leftover > 5) {
+            score -= 1.5
+          }
         }
         // Beastfolk mono: soft-penalize cheap Pack bodies (list-build dial).
         if (
@@ -1268,11 +1338,23 @@ function buildForce(race, allCards, rng = Math.random, opts = {}) {
         Math.max(0.15, o.score),
       )
       if (!pick) break
+      const leftoverUv = targetUv - usedUv
+      const slotsLeft = unitCap - modelCount()
+      const pickUv = pick.unit.uv || 1
+      const small = pickUv <= 2
+      const copyWant = leanElite
+        ? 1
+        : small && leftoverUv > 5
+          ? 1
+          : pick.support >= 3
+            ? 2
+            : 1
       const want = Math.min(
         armyRemaining(armyCounts, pick.unit),
-        Math.floor((targetUv - usedUv) / pick.unit.uv),
+        Math.floor(leftoverUv / pickUv),
         maxCopiesForCard(pick.unit),
-        leanElite ? 1 : pick.support >= 3 ? 2 : 1,
+        slotsLeft,
+        copyWant,
       )
       if (addCopies(pick.unit, Math.max(1, want)) <= 0) break
     }
@@ -1411,11 +1493,20 @@ function buildForce(race, allCards, rng = Math.random, opts = {}) {
   const shuffledPkgs = shuffleInPlace(rng, [...packages])
   const startPkgs = []
   const leftoverPkgs = []
+  let deploySiege = 0
+  const pkgSiegeCount = (pkg) =>
+    pkg.entries.filter((e) => e.role === 'unit' && isSiegeCard(e.card)).length
 
   for (const pkg of shuffledPkgs) {
-    if (startPkgs.length < startOfficerTarget && deployUv + pkg.uv <= DEPLOY_UV) {
+    const extraSiege = pkgSiegeCount(pkg)
+    if (
+      startPkgs.length < startOfficerTarget &&
+      deployUv + pkg.uv <= DEPLOY_UV &&
+      deploySiege + extraSiege <= MAX_DEPLOY_SIEGE
+    ) {
       startPkgs.push(pkg)
       for (const e of pkg.entries) pushDeploy(e)
+      deploySiege += extraSiege
     } else {
       leftoverPkgs.push(pkg)
     }
@@ -1424,9 +1515,14 @@ function buildForce(race, allCards, rng = Math.random, opts = {}) {
   leftoverPkgs.sort((a, b) => a.uv - b.uv)
   for (let i = 0; i < leftoverPkgs.length; ) {
     const pkg = leftoverPkgs[i]
-    if (deployUv + pkg.uv <= DEPLOY_UV) {
+    const extraSiege = pkgSiegeCount(pkg)
+    if (
+      deployUv + pkg.uv <= DEPLOY_UV &&
+      deploySiege + extraSiege <= MAX_DEPLOY_SIEGE
+    ) {
       startPkgs.push(pkg)
       for (const e of pkg.entries) pushDeploy(e)
+      deploySiege += extraSiege
       leftoverPkgs.splice(i, 1)
     } else {
       i++
@@ -2230,6 +2326,7 @@ function gatherKeywords(model, officer, models, map = null) {
     if (
       hasAbility(src, 'Holdfast Doctrine') &&
       String(model.race) === 'Dwarf' &&
+      model.tags?.has?.('heavy') &&
       map &&
       model.hex
     ) {
@@ -2241,7 +2338,7 @@ function gatherKeywords(model, officer, models, map = null) {
       String(model.race) === 'Dwarf' &&
       model.tags?.has?.('heavy')
     ) {
-      model._oathAnvil = true
+      model.harden = (model.harden || 0) + 1
     }
     if (
       hasAbility(src, 'Grove Lattice') &&
@@ -2986,7 +3083,18 @@ function applyIncomingDamage(defender, raw, attacker, models = null, map = null)
     sources.other += Math.max(0, before - dmg)
     before = dmg
   }
-  if (harden && !(attacker && (hasAbility(attacker, 'Piercing') || attacker._flankPierce || attacker._tempPiercing))) {
+  const meleeSiege =
+    attacker && isSiegeLike(attacker) && (attacker.range || 1) <= 1
+  if (
+    harden &&
+    !(
+      attacker &&
+      (hasAbility(attacker, 'Piercing') ||
+        attacker._flankPierce ||
+        attacker._tempPiercing ||
+        meleeSiege)
+    )
+  ) {
     dmg = reduceDamageFloor(dmg, harden)
     const cut = Math.max(0, before - dmg)
     let remaining = cut
@@ -3079,6 +3187,7 @@ function placeInitial(force, side, map, rng, telemetry = null) {
       if (!canOccupyHex(map, h, model)) continue
       if (model.role !== 'commander' && tooCloseToObjective(h, map.objectives)) continue
       if (model.role !== 'commander' && !inDeployZone(side, h)) continue
+      if (model.role === 'unit' && isSiegeLike(model) && !inSiegeDeployBand(side, h)) continue
       const score = preferFn(h)
       if (score == null) continue
       candidates.push({ h: { q: h.q, r: h.r }, score })
@@ -3109,9 +3218,15 @@ function placeInitial(force, side, map, rng, telemetry = null) {
         return Math.abs(col - BOARD_MID) + row * (side === 'A' ? 0.15 : -0.15)
       })
     } else {
+      const siege = isSiegeLike(model)
       place(model, (h) => {
         const { row, col } = axialToOddR(h.q, h.r)
-        return Math.abs(col - BOARD_MID) * 0.25 + (side === 'A' ? -row : row)
+        const rear =
+          side === 'A' ? row : BOARD_SIZE - 1 - row
+        return (
+          Math.abs(col - BOARD_MID) * 0.25 +
+          (siege ? rear * 0.4 : side === 'A' ? -row : row)
+        )
       })
     }
   }
@@ -3609,7 +3724,7 @@ function tryCastAbility({
     }
   } else if (abilityName === 'Anvil Advance') {
     for (const u of radiusFriends) {
-      u.harden = (u.harden || 0) + 2
+      u.harden = (u.harden || 0) + 1
       const obj = map.objectives?.[0]
       if (obj) moveModelToward(map, u, obj, models, 1, { ignoreTerrainCosts: true })
     }
@@ -3626,8 +3741,7 @@ function tryCastAbility({
         hexDist(m.hex, caster.hex) === 1 &&
         String(m.race || '') === 'Dwarf',
     )) {
-      u.toughness = (u.toughness || 1) + 1
-      u.hp = Math.min(u.toughness, u.hp + 1)
+      u.harden = (u.harden || 0) + 1
     }
   } else if (abilityName === 'Refresh Works') {
     const hexes = (map.objectives || []).concat(
@@ -3639,7 +3753,6 @@ function tryCastAbility({
   } else if (abilityName === 'Shield Brotherhood') {
     for (const u of radiusFriends.filter(isInfantryLike)) {
       u._tempShieldwall = true
-      u.harden = (u.harden || 0) + 1
     }
   } else if (abilityName === 'Unbreakable Hold') {
     let n = 0
@@ -4751,7 +4864,7 @@ function tryCastAbility({
       .sort((a, b) => a.hp / a.toughness - b.hp / b.toughness)
     const u = injured[0]
     if (u) {
-      u.hp = Math.min(u.toughness, u.hp + 2)
+      u.hp = Math.min(u.toughness, u.hp + 1)
     }
   } else if (abilityName === 'Kindred Roar') {
     for (const u of radiusFriends.filter(isDragonLike)) {
@@ -5280,6 +5393,79 @@ function resolveStrike(
             sideState.cc += 1
           }
         }
+      }
+    }
+    if (
+      killed &&
+      hasAbility(attacker, 'Overpenetrate') &&
+      !hasAbility(attacker, 'Blast') &&
+      attacker.hex &&
+      defender.hex
+    ) {
+      let leftover = Math.max(0, strikeDmg - hpBefore)
+      let through = { ...defender.hex }
+      const origin = attacker.hex
+      while (leftover > 0) {
+        const behind = hexBehind(origin, through)
+        if (!behind || !inBounds(behind)) break
+        const occ = models.find(
+          (m) => m.alive && m.hex && m.hex.q === behind.q && m.hex.r === behind.r,
+        )
+        if (!occ) {
+          through = behind
+          continue
+        }
+        if (occ.side === attacker.side || occ.role === 'commander') break
+        const pierceDist = Math.max(1, Math.round(hexDist(origin, occ.hex)))
+        const pierceNeed = hitRequirement(attacker, occ, pierceDist, models, map)
+        const pierceRoll = rollHitSum(rng)
+        if (pierceRoll < pierceNeed) {
+          recordStrikeCombat(
+            atkCombat,
+            sides?.[occ.side]?.combat || null,
+            {
+              hit: false,
+              need: pierceNeed,
+              roll: pierceRoll,
+              dmg: 0,
+              killed: false,
+              role: occ.role,
+              isRetaliate: false,
+            },
+            tel,
+            attacker,
+            occ,
+          )
+          break
+        }
+        const pierceHp = occ.hp
+        applyIncomingDamage(occ, leftover, attacker, models, map)
+        const pierceKill = !occ.alive
+        if (pierceKill) {
+          const nPts = vpForKill(occ)
+          vp[sideState.side] += nPts
+          kills[sideState.side].push({ name: occ.name, role: occ.role, vp: nPts })
+          if (atkCombat) atkCombat.killVp += nPts
+        }
+        recordStrikeCombat(
+          atkCombat,
+          sides?.[occ.side]?.combat || null,
+          {
+            hit: true,
+            need: pierceNeed,
+            roll: pierceRoll,
+            dmg: leftover,
+            killed: pierceKill,
+            role: occ.role,
+            isRetaliate: false,
+          },
+          tel,
+          attacker,
+          occ,
+        )
+        if (!pierceKill) break
+        leftover = Math.max(0, leftover - pierceHp)
+        through = { ...occ.hex }
       }
     }
     if ((hasAbility(attacker, 'Trample') || attacker._tempTrample) && dist === 1 && defender.hex) {
@@ -5999,8 +6185,8 @@ function endRound(models, map, vp) {
     const ctrl = objectiveController(map, models, obj)
     obj.controller = ctrl
     if (ctrl) {
-      vp[ctrl] += 2
-      gained[ctrl] += 2
+      vp[ctrl] += VP_PER_OBJECTIVE
+      gained[ctrl] += VP_PER_OBJECTIVE
     }
   }
   return gained
@@ -6074,6 +6260,7 @@ const OFFENSE_KEYWORDS = new Set([
   'Fear',
   'Slow',
   'Reach',
+  'Overpenetrate',
 ])
 
 function normalizeKeywordName(k) {
@@ -6205,7 +6392,13 @@ function noteKeywordKill(tel, attacker) {
     ['Harass', attacker.hasHarass || hasAbility(attacker, 'Harass')],
     ['Poison', attacker.hasPoisonAtk || hasAbility(attacker, 'Poison')],
     ['Pack', hasAbility(attacker, 'Pack')],
-    ['Piercing', hasAbility(attacker, 'Piercing') || attacker._flankPierce || attacker._tempPiercing],
+    [
+      'Piercing',
+      hasAbility(attacker, 'Piercing') ||
+        attacker._flankPierce ||
+        attacker._tempPiercing ||
+        (isSiegeLike(attacker) && (attacker.range || 1) <= 1),
+    ],
     ['Trample', hasAbility(attacker, 'Trample') || attacker._tempTrample],
     ['Blast', hasAbility(attacker, 'Blast') || (attacker._blastRadius || 0) > 0],
     ['Cleave', hasAbility(attacker, 'Cleave')],
@@ -6216,6 +6409,7 @@ function noteKeywordKill(tel, attacker) {
     ['Fear', hasAbility(attacker, 'Fear') || attacker._terrorFear],
     ['Slow', hasAbility(attacker, 'Slow')],
     ['Reach', hasAbility(attacker, 'Reach')],
+    ['Overpenetrate', hasAbility(attacker, 'Overpenetrate')],
   ]
   for (const [name, on] of soft) {
     if (on) seen.add(name)
@@ -6764,6 +6958,109 @@ function simulateMatch(raceA, raceB, allCards, abilityMap, seed, opts = {}) {
   }
 }
 
+function walkYamlFiles(dir) {
+  const out = []
+  let entries = []
+  try {
+    entries = readdirSync(dir, { withFileTypes: true })
+  } catch {
+    return out
+  }
+  for (const ent of entries) {
+    const p = join(dir, ent.name)
+    if (ent.isDirectory()) out.push(...walkYamlFiles(p))
+    else if (/\.ya?ml$/i.test(ent.name)) out.push(p)
+  }
+  return out
+}
+
+function yamlCardToSim(c) {
+  return {
+    id: c.id,
+    name: c.name,
+    cardType: c.card_type,
+    rarity: c.rarity,
+    unique: !!c.unique,
+    race: c.race,
+    primaryType: c.primary_type,
+    secondaryType: c.secondary_type,
+    uv: c.uv,
+    move: c.move,
+    damage: c.damage,
+    range: c.range,
+    toughness: c.toughness,
+    companyAp: c.company_ap,
+    companyCapacity: c.company_capacity,
+    companyUnitCap: c.company_unit_cap ?? null,
+    commandRadius: c.command_radius,
+    apGeneration: c.ap_generation,
+    ccGeneration: c.cc_generation,
+    favoredTerrain: c.favored_terrain,
+    abilities: c.abilities || [],
+    keywords: c.keywords || [],
+    ultimate: c.ultimate,
+    flavorText: c.flavor_text,
+    complexity: c.complexity,
+    role: c.role,
+    tags: c.tags || [],
+    supportedRaces: c.supported_races || [],
+    supportedTypes: c.supported_types || [],
+    supportedKeywords: c.supported_keywords || [],
+  }
+}
+
+function loadCatalogFromYaml() {
+  const root = join(dirname(fileURLToPath(import.meta.url)), '..')
+  const cards = []
+  for (const file of walkYamlFiles(join(root, 'data', 'cards'))) {
+    const raw = loadYaml(readFileSync(file, 'utf8'))
+    const list = raw?.cards
+    if (!Array.isArray(list)) continue
+    for (const c of list) {
+      if (c?.id && c?.name) cards.push(yamlCardToSim(c))
+    }
+  }
+  const abRaw = loadYaml(readFileSync(join(root, 'data', 'abilities.yaml'), 'utf8'))
+  const abilities = Object.entries(abRaw || {}).map(([name, a]) => ({
+    name,
+    type: a?.type,
+    cost: a?.cost,
+    costAmount: a?.cost_amount,
+    costResource: a?.cost_resource,
+    description: a?.description,
+    affects: a?.affects,
+    affectCount: a?.affect_count,
+    radiusFrom: a?.radius_from,
+    radiusSize: a?.radius_size,
+    usedBy: a?.used_by,
+    cooldown: a?.cooldown ?? null,
+    tags: a?.tags || [],
+  }))
+  return { cards, abilities }
+}
+
+async function loadCatalog() {
+  try {
+    const cardsRes = await fetch(`${API}/api/cards`)
+    const abilRes = await fetch(`${API}/api/abilities`)
+    if (cardsRes.ok && abilRes.ok) {
+      const cards = (await cardsRes.json()).cards
+      const abilities = (await abilRes.json()).abilities
+      if (cards?.length && abilities?.length) {
+        console.error(`Sim catalog: API (${cards.length} cards)`)
+        return { cards, abilities }
+      }
+    }
+  } catch {
+    /* YAML fallback */
+  }
+  const fromYaml = loadCatalogFromYaml()
+  console.error(
+    `Sim catalog: YAML (${fromYaml.cards.length} cards) — API ${API} unavailable`,
+  )
+  return fromYaml
+}
+
 async function main() {
   // Enable printable dials via SIM_DIALS=id1,id2 (comma-separated).
   for (const id of String(process.env.SIM_DIALS || '')
@@ -6778,8 +7075,11 @@ async function main() {
     process.exit(1)
   }
 
-  const cards = (await (await fetch(`${API}/api/cards`)).json()).cards
-  const abilities = (await (await fetch(`${API}/api/abilities`)).json()).abilities
+  const { cards, abilities } = await loadCatalog()
+  if (!cards?.length) {
+    console.error('Sim catalog empty — import YAML or start the card API.')
+    process.exit(1)
+  }
   const abilityMap = new Map(abilities.map((a) => [a.name, a]))
   const races = [
     'Human',

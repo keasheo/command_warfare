@@ -443,7 +443,6 @@ function addVariantDetail(
       break
     }
     case 'mountains': {
-      // 2–3 sharp peaks with optional snow; rocky rubble at the base.
       const peakCount = 2 + (variant % 2)
       for (let i = 0; i < peakCount; i++) {
         const { x, z } = randomInHex(rng, radius, 0.12 + rng() * 0.06)

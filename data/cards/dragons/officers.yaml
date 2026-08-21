@@ -8,13 +8,14 @@ cards:
     primary_type: Infantry
     secondary_type: null
     uv: 11
-    move: 3
+    move: 5
     damage: 3
     range: 1
     toughness: 5
     company_ap: 5
     company_capacity: 18
-    command_radius: 4
+    company_unit_cap: 10
+    command_radius: 6
     ap_generation: null
     cc_generation: null
     keywords: []
@@ -41,13 +42,14 @@ cards:
     primary_type: Infantry
     secondary_type: Heavy
     uv: 13
-    move: 3
+    move: 5
     damage: 3
     range: 1
     toughness: 5
     company_ap: 5
     company_capacity: 18
-    command_radius: 4
+    company_unit_cap: 10
+    command_radius: 6
     ap_generation: null
     cc_generation: null
     keywords: []
@@ -75,13 +77,14 @@ cards:
     primary_type: Flying
     secondary_type: null
     uv: 11
-    move: 3
+    move: 5
     damage: 3
     range: 1
     toughness: 4
     company_ap: 5
     company_capacity: 18
-    command_radius: 4
+    company_unit_cap: 6
+    command_radius: 6
     ap_generation: null
     cc_generation: null
     keywords:
@@ -110,13 +113,14 @@ cards:
     primary_type: Flying
     secondary_type: null
     uv: 11
-    move: 4
+    move: 5
     damage: 3
     range: 1
     toughness: 4
     company_ap: 5
     company_capacity: 18
-    command_radius: 4
+    company_unit_cap: 6
+    command_radius: 6
     ap_generation: null
     cc_generation: null
     keywords:
@@ -146,13 +150,14 @@ cards:
     primary_type: Ranged
     secondary_type: null
     uv: 14
-    move: 3
+    move: 5
     damage: 3
     range: 3
     toughness: 4
     company_ap: 5
     company_capacity: 18
-    command_radius: 4
+    company_unit_cap: 6
+    command_radius: 6
     ap_generation: null
     cc_generation: null
     keywords:
@@ -181,13 +186,14 @@ cards:
     primary_type: Infantry
     secondary_type: null
     uv: 12
-    move: 3
+    move: 5
     damage: 3
     range: 1
     toughness: 5
     company_ap: 6
     company_capacity: 18
-    command_radius: 4
+    company_unit_cap: 8
+    command_radius: 6
     ap_generation: null
     cc_generation: null
     keywords: []
@@ -213,13 +219,14 @@ cards:
     primary_type: Magic
     secondary_type: null
     uv: 14
-    move: 3
+    move: 5
     damage: 3
     range: 2
     toughness: 4
     company_ap: 5
     company_capacity: 18
-    command_radius: 4
+    company_unit_cap: 10
+    command_radius: 6
     ap_generation: null
     cc_generation: null
     keywords:
@@ -249,13 +256,14 @@ cards:
     primary_type: Ranged
     secondary_type: null
     uv: 15
-    move: 3
+    move: 5
     damage: 3
     range: 3
     toughness: 4
     company_ap: 5
     company_capacity: 19
-    command_radius: 4
+    company_unit_cap: 6
+    command_radius: 6
     ap_generation: null
     cc_generation: null
     keywords:
@@ -284,13 +292,14 @@ cards:
     primary_type: Flying
     secondary_type: Light
     uv: 15
-    move: 4
+    move: 5
     damage: 3
     range: 1
     toughness: 4
     company_ap: 5
     company_capacity: 19
-    command_radius: 4
+    company_unit_cap: 6
+    command_radius: 6
     ap_generation: null
     cc_generation: null
     keywords:
@@ -321,13 +330,14 @@ cards:
     primary_type: Ranged
     secondary_type: Fire
     uv: 13
-    move: 3
+    move: 5
     damage: 3
     range: 2
     toughness: 4
     company_ap: 5
     company_capacity: 18
-    command_radius: 4
+    company_unit_cap: 8
+    command_radius: 6
     ap_generation: null
     cc_generation: null
     keywords:
@@ -357,13 +367,14 @@ cards:
     primary_type: Infantry
     secondary_type: null
     uv: 12
-    move: 3
+    move: 5
     damage: 3
     range: 1
     toughness: 5
     company_ap: 5
     company_capacity: 18
-    command_radius: 4
+    company_unit_cap: 10
+    command_radius: 6
     ap_generation: null
     cc_generation: null
     keywords: []
@@ -391,13 +402,14 @@ cards:
     primary_type: Infantry
     secondary_type: Heavy
     uv: 13
-    move: 3
+    move: 5
     damage: 3
     range: 1
     toughness: 5
     company_ap: 6
     company_capacity: 20
-    command_radius: 4
+    company_unit_cap: 8
+    command_radius: 6
     ap_generation: null
     cc_generation: null
     keywords: []

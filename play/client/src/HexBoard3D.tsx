@@ -8,6 +8,7 @@ import {
   BOARD_SIZE,
   boardMid,
   commandRadiusKeys,
+  DEFAULT_COMMANDER_COMMAND_RADIUS,
   foreignCommandRadiusKeys,
   hexKey,
   objectiveZoneHexes,
@@ -28,15 +29,16 @@ import {
   TERRAIN_BLOCK_HEIGHT,
 } from './hexTerrainMesh'
 import type { HexBoardProps, TerrainGhost } from './HexBoard'
+import { DEFAULT_HEX_SIZE } from './HexBoard'
+import { COMBAT_FX_MS, combatFloats, combatResultKey } from './combatFx'
+import {
+  companyAccentColor,
+  drawUnitTokenCanvas,
+  SEAT_TOKEN_FILL,
+  unitTokenLabel,
+} from './unitTokenVisuals'
 
 export type { TerrainGhost }
-
-const SEAT_COLOR: Record<SeatId, number> = {
-  N: 0x468cdc,
-  W: 0xc85a46,
-  S: 0x3ca06e,
-  E: 0xb48228,
-}
 
 const SEAT_CR_TINT: Record<SeatId, number> = {
   N: 0x468cdc,
@@ -46,6 +48,10 @@ const SEAT_CR_TINT: Record<SeatId, number> = {
 }
 
 const OBJECTIVE_GOLD = 0xdcb450
+const MOVE_PREVIEW = 0x38be5c
+const ATTACK_PREVIEW = 0xdc4040
+const OFFICER_CR_BLUE = 0x4084e6
+const FLASH_GOLD = 0xffd65a
 const FOREIGN_CR = 0xa03232
 const DEPLOY_HINT = 0x5080c0
 const GHOST_VALID = 0x64b4ff
@@ -54,10 +60,41 @@ const HOVER_FILL = 0xb8f4ff
 const HOVER_RING = 0xffffff
 const DRAG_THRESHOLD_SQ = 36
 
-function unitLabel(unit: UnitToken): string {
-  if (unit.kind === 'commander') return unit.seat
-  if (unit.kind === 'officer') return 'O'
-  return 'U'
+function makeTokenTexture(unit: UnitToken): THREE.CanvasTexture {
+  const size = 128
+  const canvas = document.createElement('canvas')
+  canvas.width = size
+  canvas.height = size
+  const ctx = canvas.getContext('2d')!
+  drawUnitTokenCanvas(ctx, size, {
+    label: unitTokenLabel(unit),
+    seatFill: SEAT_TOKEN_FILL[unit.seat],
+    kind: unit.kind,
+    companyAccent: companyAccentColor(unit),
+  })
+  const tex = new THREE.CanvasTexture(canvas)
+  tex.colorSpace = THREE.SRGBColorSpace
+  return tex
+}
+
+/** Simple disc for non-unit markers (objectives, graves). */
+function makeCombatTextTexture(text: string, fill: string): THREE.CanvasTexture {
+  const canvas = document.createElement('canvas')
+  canvas.width = 256
+  canvas.height = 96
+  const ctx = canvas.getContext('2d')!
+  ctx.clearRect(0, 0, 256, 96)
+  ctx.font = '800 42px Segoe UI, system-ui, sans-serif'
+  ctx.textAlign = 'center'
+  ctx.textBaseline = 'middle'
+  ctx.strokeStyle = '#0c0e12'
+  ctx.lineWidth = 8
+  ctx.strokeText(text, 128, 48)
+  ctx.fillStyle = fill
+  ctx.fillText(text, 128, 48)
+  const tex = new THREE.CanvasTexture(canvas)
+  tex.colorSpace = THREE.SRGBColorSpace
+  return tex
 }
 
 function makeDiscTexture(label: string, fill: string): THREE.CanvasTexture {
@@ -112,75 +149,50 @@ function isPointerDragging(
   return dx * dx + dy * dy > DRAG_THRESHOLD_SQ
 }
 
-function loadCardTexture(url: string): Promise<THREE.Texture> {
-  return new Promise((resolve, reject) => {
-    const loader = new THREE.TextureLoader()
-    loader.load(
-      url,
-      (tex) => {
-        tex.colorSpace = THREE.SRGBColorSpace
-        resolve(tex)
-      },
-      undefined,
-      reject,
-    )
-  })
-}
-
 function addUnitBillboard(
   cell: THREE.Group,
   unit: UnitToken,
   topY: number,
   hexSize: number,
-  artByCardId: Record<string, string>,
-  sceneGen: number,
-  isSceneCurrent: () => boolean,
+  opacity = 1,
 ): void {
   const floatY = topY + hexSize * 0.65
-  const spriteScale = hexSize * (unit.kind === 'commander' ? 1.2 : 1.05)
-  const seatHex = `#${SEAT_COLOR[unit.seat].toString(16).padStart(6, '0')}`
-
-  const mountSprite = (tex: THREE.Texture, aspect = 1) => {
-    if (!isSceneCurrent()) {
-      tex.dispose()
-      return
-    }
-    const sprite = new THREE.Sprite(
-      new THREE.SpriteMaterial({
-        map: tex,
-        transparent: true,
-        depthTest: false,
-        depthWrite: false,
-      }),
-    )
-    sprite.renderOrder = 10
-    sprite.scale.set(spriteScale, spriteScale * aspect, 1)
-    sprite.position.y = floatY
-    cell.add(sprite)
-  }
-
-  const artUrl = artByCardId[unit.cardId]
-  if (artUrl) {
-    const gen = sceneGen
-    loadCardTexture(artUrl)
-      .then((tex) => {
-        if (!isSceneCurrent() || gen !== sceneGen) {
-          tex.dispose()
-          return
-        }
-        mountSprite(tex, 1.35)
-      })
-      .catch(() => {
-        if (!isSceneCurrent() || gen !== sceneGen) return
-        mountSprite(makeDiscTexture(unitLabel(unit), seatHex))
-      })
-  } else {
-    mountSprite(makeDiscTexture(unitLabel(unit), seatHex))
-  }
+  const spriteScale =
+    hexSize *
+    (unit.kind === 'commander' ? 1.25 : unit.kind === 'officer' ? 1.12 : 1.0)
+  const tex = makeTokenTexture(unit)
+  const sprite = new THREE.Sprite(
+    new THREE.SpriteMaterial({
+      map: tex,
+      transparent: true,
+      depthTest: false,
+      depthWrite: false,
+      opacity,
+    }),
+  )
+  sprite.renderOrder = 10
+  sprite.scale.set(spriteScale, spriteScale, 1)
+  sprite.position.y = floatY
+  cell.add(sprite)
 }
 
 function blockTopY(kind: TerrainKind): number {
   return TERRAIN_BLOCK_HEIGHT[kind]
+}
+
+/** Pull the camera back far enough to see the whole map (isometric-ish). */
+function frameBoardOverview(
+  camera: THREE.PerspectiveCamera,
+  controls: OrbitControls,
+  span: number,
+): void {
+  const dist = Math.max(span * 2.0, 200)
+  camera.position.set(dist * 0.25, dist * 0.70, dist * 0.25)
+  controls.target.set(0, 0, 0)
+  controls.maxDistance = Math.max(controls.maxDistance, dist * 1.4)
+  camera.far = Math.max(camera.far, dist * 6)
+  camera.updateProjectionMatrix()
+  controls.update()
 }
 
 type SceneCtx = {
@@ -189,11 +201,29 @@ type SceneCtx = {
   camera: THREE.PerspectiveCamera
   controls: OrbitControls
   boardGroup: THREE.Group
+  fxGroup: THREE.Group
   hexPickables: THREE.Object3D[]
   raycaster: THREE.Raycaster
   pointer: THREE.Vector2
   animId: number
   disposed: boolean
+  combatKey: string | null
+  combatLive: {
+    start: number
+    from: THREE.Vector3
+    to: THREE.Vector3
+    bolt: THREE.Mesh
+    floats: THREE.Sprite[]
+    hexSize: number
+  } | null
+  camTween: {
+    start: number
+    duration: number
+    fromPos: THREE.Vector3
+    fromTarget: THREE.Vector3
+    toPos: THREE.Vector3
+    toTarget: THREE.Vector3
+  } | null
 }
 
 export function HexBoard3D({
@@ -202,21 +232,25 @@ export function HexBoard3D({
   selectedUnitId,
   onHexClick,
   onHexHover,
+  onHoverEnd,
   terrainGhost = null,
   officerCrKeys,
+  movePreviewKeys,
+  attackPreviewKeys,
+  flashHexKeys,
+  activeCompanyIds,
+  cameraFocus = null,
   deployHintKeys,
   companyUnitIds,
   targetUnitId = null,
-  artByCardId = {},
   selectedDeathId = null,
   showGraves = true,
-  hexSize = 6,
+  hexSize = DEFAULT_HEX_SIZE,
 }: HexBoardProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const ctxRef = useRef<SceneCtx | null>(null)
   const hoverHexRef = useRef<string | null>(null)
   const hoverOverlayRef = useRef<{ fill: THREE.Mesh; ring: THREE.Mesh } | null>(null)
-  const sceneGenRef = useRef(0)
   const pointerDragRef = useRef<{ x: number; y: number } | null>(null)
   const cameraInitializedRef = useRef(false)
 
@@ -255,7 +289,7 @@ export function HexBoard3D({
     for (const seat of Object.keys(state.commanders) as SeatId[]) {
       const origin = state.commanders[seat]
       if (!origin) continue
-      const radius = state.commanderRadii?.[seat] ?? 5
+      const radius = state.commanderRadii?.[seat] ?? DEFAULT_COMMANDER_COMMAND_RADIUS
       for (const key of commandRadiusKeys(origin, radius, n)) {
         if (!m.has(key)) m.set(key, seat)
       }
@@ -273,7 +307,7 @@ export function HexBoard3D({
     }
     const origin = state.commanders[mySeat]
     if (!origin) return new Set<string>()
-    const radius = state.commanderRadii?.[mySeat] ?? 5
+    const radius = state.commanderRadii?.[mySeat] ?? DEFAULT_COMMANDER_COMMAND_RADIUS
     return commandRadiusKeys(origin, radius, state.boardSize || BOARD_SIZE)
   }, [state, mySeat])
 
@@ -388,17 +422,20 @@ export function HexBoard3D({
 
     const scene = new THREE.Scene()
 
-    const camera = new THREE.PerspectiveCamera(48, 1, 0.5, 400)
+    const camera = new THREE.PerspectiveCamera(48, 1, 0.5, 2000)
     const controls = new OrbitControls(camera, canvas)
     controls.enableDamping = true
     controls.dampingFactor = 0.08
     controls.maxPolarAngle = Math.PI / 2.15
     controls.minDistance = 20
-    controls.maxDistance = 180
+    controls.maxDistance = 720
     controls.screenSpacePanning = true
+    controls.enableZoom = false
 
     const boardGroup = new THREE.Group()
     scene.add(boardGroup)
+    const fxGroup = new THREE.Group()
+    scene.add(fxGroup)
 
     const hemi = new THREE.HemisphereLight(0xe8f0ff, 0x889880, 1.15)
     const ambient = new THREE.AmbientLight(0xffffff, 1.05)
@@ -421,18 +458,62 @@ export function HexBoard3D({
       camera,
       controls,
       boardGroup,
+      fxGroup,
       hexPickables: [],
       raycaster: new THREE.Raycaster(),
       pointer: new THREE.Vector2(),
       animId: 0,
       disposed: false,
+      combatKey: null,
+      combatLive: null,
+      camTween: null,
     }
     ctxRef.current = ctx
+
+    frameBoardOverview(
+      camera,
+      controls,
+      DEFAULT_HEX_SIZE * Math.sqrt(3) * BOARD_SIZE,
+    )
 
     const tick = () => {
       if (ctx.disposed) return
       ctx.animId = requestAnimationFrame(tick)
+      const cam = ctx.camTween
+      if (cam) {
+        const u = Math.min(1, (performance.now() - cam.start) / cam.duration)
+        const e = u * u * (3 - 2 * u)
+        camera.position.lerpVectors(cam.fromPos, cam.toPos, e)
+        controls.target.lerpVectors(cam.fromTarget, cam.toTarget, e)
+        if (u >= 1) ctx.camTween = null
+      }
       controls.update()
+      ctx.fxGroup.position.copy(ctx.boardGroup.position)
+      const live = ctx.combatLive
+      if (live) {
+        const age = performance.now() - live.start
+        const t = age / COMBAT_FX_MS
+        if (t >= 1) {
+          while (ctx.fxGroup.children.length) {
+            const child = ctx.fxGroup.children[0]!
+            ctx.fxGroup.remove(child)
+            disposeTerrainObject(child)
+          }
+          ctx.combatLive = null
+        } else {
+          const boltT = Math.min(1, age / 380)
+          live.bolt.position.lerpVectors(live.from, live.to, boltT)
+          live.bolt.visible = age < 900
+          const rise = (Math.max(0, age - 360) / COMBAT_FX_MS) * live.hexSize * 1.6
+          const fade = Math.max(0, 1 - Math.max(0, age - 360) / 1400)
+          live.floats.forEach((sprite, i) => {
+            sprite.position.y = live.to.y + live.hexSize * 0.4 + rise + i * live.hexSize * 0.35
+            const mat = sprite.material as THREE.SpriteMaterial
+            mat.opacity = fade
+            sprite.visible = age > 360
+          })
+        }
+      }
       animateTerrainDetails(ctx.boardGroup, performance.now() * 0.001)
       renderer.render(scene, camera)
     }
@@ -451,9 +532,25 @@ export function HexBoard3D({
     if (canvas.parentElement) ro.observe(canvas.parentElement)
     resize()
 
+    const onShiftZoom = (event: WheelEvent) => {
+      if (!event.shiftKey) return
+      event.preventDefault()
+      const offset = camera.position.clone().sub(controls.target)
+      const factor = event.deltaY > 0 ? 1.12 : 0.9
+      const next = THREE.MathUtils.clamp(
+        offset.length() * factor,
+        controls.minDistance,
+        controls.maxDistance,
+      )
+      offset.setLength(next)
+      camera.position.copy(controls.target).add(offset)
+    }
+    canvas.addEventListener('wheel', onShiftZoom, { passive: false })
+
     return () => {
       ctx.disposed = true
       cancelAnimationFrame(ctx.animId)
+      canvas.removeEventListener('wheel', onShiftZoom)
       ro.disconnect()
       controls.dispose()
       renderer.dispose()
@@ -464,10 +561,6 @@ export function HexBoard3D({
   useEffect(() => {
     const ctx = ctxRef.current
     if (!ctx) return
-
-    sceneGenRef.current += 1
-    const sceneGen = sceneGenRef.current
-    const isSceneCurrent = () => ctxRef.current === ctx && sceneGenRef.current === sceneGen
 
     const { boardGroup, camera, controls, hexPickables } = ctx
     while (boardGroup.children.length) {
@@ -574,7 +667,29 @@ export function HexBoard3D({
         }
 
         if (officerCrKeys?.has(key)) {
-          overlays.push(createHexOverlayMesh(hexRadius, 0xf0d060, 0.2, topY + 0.05))
+          overlays.push(
+            createHexOverlayMesh(hexRadius, OFFICER_CR_BLUE, 0.28, topY + 0.05),
+          )
+        }
+        if (movePreviewKeys?.has(key)) {
+          overlays.push(
+            createHexOverlayMesh(hexRadius, MOVE_PREVIEW, 0.38, topY + 0.07),
+          )
+        }
+        if (attackPreviewKeys?.has(key)) {
+          overlays.push(
+            createHexOverlayMesh(
+              hexRadius * (movePreviewKeys?.has(key) ? 0.78 : 1),
+              ATTACK_PREVIEW,
+              movePreviewKeys?.has(key) ? 0.55 : 0.34,
+              topY + 0.09,
+            ),
+          )
+        }
+        if (flashHexKeys?.has(key)) {
+          overlays.push(
+            createHexOverlayMesh(hexRadius, FLASH_GOLD, 0.5, topY + 0.12),
+          )
         }
 
         if (ghostKeys.has(key) && terrainGhost) {
@@ -596,21 +711,29 @@ export function HexBoard3D({
 
         const unit = unitAt.get(key)
         if (unit) {
-          addUnitBillboard(
-            cell,
-            unit,
-            topY,
-            hexSize,
-            artByCardId,
-            sceneGen,
-            isSceneCurrent,
-          )
+          const inActiveCompany = Boolean(activeCompanyIds?.has(unit.id))
+          const activeSeat = (() => {
+            if (!activeCompanyIds?.size) return null
+            const lead = state.units.find((u) => activeCompanyIds.has(u.id))
+            return lead?.seat ?? null
+          })()
+          const dimmed =
+            Boolean(activeSeat) &&
+            unit.seat === activeSeat &&
+            !inActiveCompany
+          addUnitBillboard(cell, unit, topY, hexSize, dimmed ? 0.38 : 1)
 
           const isSelected = selectedUnitId === unit.id
           const isTarget = targetUnitId === unit.id
-          const inCompany = companyUnitIds?.has(unit.id)
+          const inCompany = companyUnitIds?.has(unit.id) || inActiveCompany
           if (isSelected || isTarget || inCompany) {
-            const ringColor = isTarget ? 0xe07070 : isSelected ? 0x7ec8ff : 0xf0d060
+            const ringColor = isTarget
+              ? 0xe07070
+              : isSelected
+                ? 0x7ec8ff
+                : inActiveCompany
+                  ? 0x6ee0a8
+                  : 0xf0d060
             const floatY = topY + hexSize * 0.65
             const ring = createHexOverlayMesh(hexRadius * 0.55, ringColor, 0.75, floatY - 0.05)
             ring.scale.y = 0.15
@@ -652,10 +775,7 @@ export function HexBoard3D({
     boardGroup.position.set(-centerX, 0, -centerZ)
 
     if (!cameraInitializedRef.current) {
-      const dist = span * 0.85
-      camera.position.set(dist * 0.55, dist * 0.65, dist * 0.55)
-      controls.target.set(0, 0, 0)
-      controls.update()
+      frameBoardOverview(camera, controls, span)
       cameraInitializedRef.current = true
     }
   }, [
@@ -670,15 +790,140 @@ export function HexBoard3D({
     foreignCrKeys,
     deployHintKeys,
     officerCrKeys,
+    movePreviewKeys,
+    attackPreviewKeys,
+    flashHexKeys,
+    activeCompanyIds,
     selectedUnitId,
     targetUnitId,
     companyUnitIds,
-    artByCardId,
     gravesByHex,
     showGraves,
     hexSize,
     boardBounds,
   ])
+
+  useEffect(() => {
+    const ctx = ctxRef.current
+    const combat = state.lastCombatResult
+    if (!ctx || !combat) return
+    const key = combatResultKey(combat)
+    if (ctx.combatKey === key) return
+    ctx.combatKey = key
+
+    while (ctx.fxGroup.children.length) {
+      const child = ctx.fxGroup.children[0]!
+      ctx.fxGroup.remove(child)
+      disposeTerrainObject(child)
+    }
+
+    const atkKind =
+      state.terrain?.[hexKey(combat.attackerCol, combat.attackerRow)] ?? 'plains'
+    const defKind =
+      state.terrain?.[hexKey(combat.defenderCol, combat.defenderRow)] ?? 'plains'
+    const fromXZ = oddRToWorld3D(combat.attackerCol, combat.attackerRow, hexSize)
+    const pierceEnd = combat.pierceHits?.length
+      ? combat.pierceHits[combat.pierceHits.length - 1]
+      : null
+    const toXZ = oddRToWorld3D(
+      pierceEnd?.col ?? combat.defenderCol,
+      pierceEnd?.row ?? combat.defenderRow,
+      hexSize,
+    )
+    const from = new THREE.Vector3(
+      fromXZ.x,
+      blockTopY(atkKind) + hexSize * 0.7,
+      fromXZ.z,
+    )
+    const to = new THREE.Vector3(
+      toXZ.x,
+      blockTopY(defKind) + hexSize * 0.7,
+      toXZ.z,
+    )
+
+    const line = new THREE.Line(
+      new THREE.BufferGeometry().setFromPoints([from, to]),
+      new THREE.LineBasicMaterial({
+        color: combat.hit ? 0xffd36a : 0x9aa8c0,
+        transparent: true,
+        opacity: 0.9,
+        depthTest: false,
+      }),
+    )
+    line.renderOrder = 30
+    ctx.fxGroup.add(line)
+
+    const bolt = new THREE.Mesh(
+      new THREE.SphereGeometry(hexSize * 0.12, 10, 10),
+      new THREE.MeshBasicMaterial({
+        color: combat.hit ? 0xffe08a : 0xc8d4e8,
+        depthTest: false,
+      }),
+    )
+    bolt.position.copy(from)
+    bolt.renderOrder = 31
+    ctx.fxGroup.add(bolt)
+
+    const floats: THREE.Sprite[] = []
+    for (const lineText of combatFloats(combat)) {
+      const fill =
+        lineText.tone === 'miss'
+          ? '#9ec8ff'
+          : lineText.tone === 'kill'
+            ? '#ffb347'
+            : lineText.tone === 'hit'
+              ? '#ff6b6b'
+              : '#f4f0e4'
+      const tex = makeCombatTextTexture(lineText.text, fill)
+      const sprite = new THREE.Sprite(
+        new THREE.SpriteMaterial({
+          map: tex,
+          transparent: true,
+          depthTest: false,
+          opacity: 0,
+        }),
+      )
+      sprite.scale.set(hexSize * 2.2, hexSize * 0.85, 1)
+      sprite.position.copy(to)
+      sprite.visible = false
+      sprite.renderOrder = 32
+      ctx.fxGroup.add(sprite)
+      floats.push(sprite)
+    }
+
+    ctx.combatLive = {
+      start: performance.now(),
+      from,
+      to,
+      bolt,
+      floats,
+      hexSize,
+    }
+  }, [state.lastCombatResult, state.terrain, hexSize])
+
+  useEffect(() => {
+    const ctx = ctxRef.current
+    if (!ctx || !cameraFocus) return
+    const { x, z } = oddRToWorld3D(cameraFocus.col, cameraFocus.row, hexSize)
+    const key = hexKey(cameraFocus.col, cameraFocus.row)
+    const kind = state.terrain?.[key] ?? 'plains'
+    const y = blockTopY(kind)
+    const look = new THREE.Vector3(x, y, z).add(ctx.boardGroup.position)
+    const fromTarget = ctx.controls.target.clone()
+    const fromPos = ctx.camera.position.clone()
+    const delta = look.clone().sub(fromTarget)
+    delta.y = 0
+    if (delta.length() < 0.4) return
+    delta.multiplyScalar(0.55)
+    ctx.camTween = {
+      start: performance.now(),
+      duration: 420,
+      fromPos,
+      fromTarget,
+      toPos: fromPos.clone().add(delta),
+      toTarget: fromTarget.clone().add(delta),
+    }
+  }, [cameraFocus?.nonce, cameraFocus?.col, cameraFocus?.row, hexSize, state.terrain])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -704,6 +949,7 @@ export function HexBoard3D({
         if (hoverHexRef.current !== null) {
           hoverHexRef.current = null
           setHoverVisual(null, null)
+          onHoverEnd?.()
         }
         return
       }
@@ -712,6 +958,7 @@ export function HexBoard3D({
       if (key !== hoverHexRef.current) {
         hoverHexRef.current = key
         if (hex) onHexHover?.(hex.col, hex.row)
+        else onHoverEnd?.()
       }
       if (hex) {
         setHoverVisual(hex.col, hex.row)
@@ -727,6 +974,7 @@ export function HexBoard3D({
     const onPointerLeave = () => {
       hoverHexRef.current = null
       setHoverVisual(null, null)
+      onHoverEnd?.()
     }
 
     canvas.addEventListener('pointerdown', onPointerDown)
@@ -739,14 +987,14 @@ export function HexBoard3D({
       canvas.removeEventListener('pointermove', onPointerMove)
       canvas.removeEventListener('pointerleave', onPointerLeave)
     }
-  }, [onHexClick, onHexHover, pickHex, setHoverVisual])
+  }, [onHexClick, onHexHover, onHoverEnd, pickHex, setHoverVisual])
 
   return (
     <div className="board-wrap board-wrap-3d">
       <div className="board-viewport board-viewport-3d">
         <canvas ref={canvasRef} className="board-3d-canvas" />
       </div>
-      <p className="board-3d-hint">Drag to orbit · scroll to zoom · right-drag to pan</p>
+      <p className="board-3d-hint">Drag to orbit · Shift+scroll to zoom · right-drag to pan</p>
     </div>
   )
 }

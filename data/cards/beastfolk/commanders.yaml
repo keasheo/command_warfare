@@ -8,13 +8,14 @@ cards:
     primary_type: Beast
     secondary_type: null
     uv: 16
-    move: 4
+    move: 5
     damage: 3
     range: 1
     toughness: 5
     company_ap: null
     company_capacity: null
-    command_radius: 6
+    company_unit_cap: null
+    command_radius: 8
     ap_generation: 5
     cc_generation: 5
     keywords:
@@ -41,13 +42,14 @@ cards:
     primary_type: Beast
     secondary_type: null
     uv: 20
-    move: 3
+    move: 5
     damage: 2
     range: 1
     toughness: 7
     company_ap: null
     company_capacity: null
-    command_radius: 7
+    company_unit_cap: null
+    command_radius: 9
     ap_generation: 5
     cc_generation: 5
     keywords: []
@@ -74,13 +76,14 @@ cards:
     primary_type: Cavalry
     secondary_type: Beast
     uv: 15
-    move: 4
+    move: 5
     damage: 3
     range: 1
     toughness: 6
     company_ap: null
     company_capacity: null
-    command_radius: 6
+    company_unit_cap: null
+    command_radius: 8
     ap_generation: 5
     cc_generation: 5
     keywords:
@@ -109,13 +112,14 @@ cards:
     primary_type: Beast
     secondary_type: null
     uv: 24
-    move: 3
+    move: 5
     damage: 2
     range: 1
     toughness: 6
     company_ap: null
     company_capacity: null
-    command_radius: 6
+    company_unit_cap: null
+    command_radius: 8
     ap_generation: 5
     cc_generation: 5
     keywords:

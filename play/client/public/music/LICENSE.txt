@@ -1,0 +1,20 @@
+Battle music — CC0 / public domain
+==================================
+
+jungle-battle.ogg
+  Jungle Battle Loop
+  Author: omfgdude
+  License: CC0 1.0
+  Source: https://opengameart.org/content/jungle-battle-loop
+
+rpg-battle.mp3
+  RPG Battle Loop
+  Author: iamoneabe
+  License: CC0 1.0
+  Source: https://opengameart.org/content/rpg-battle-loop
+
+chiptune-battle.ogg
+  Chiptune Battle Music
+  Author: Yubatake
+  License: CC0 1.0 (free to use without attribution)
+  Source: https://opengameart.org/content/chiptune-battle-music

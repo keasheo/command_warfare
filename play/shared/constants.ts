@@ -2,9 +2,9 @@ import type { SeatId } from './types'
 import { commandZoneSlotsTotal } from './terrainPieces'
 
 /** 1v1 (N/S) board. */
-export const BOARD_SIZE_2P = 31
+export const BOARD_SIZE_2P = 35
 /** 4-player board. */
-export const BOARD_SIZE_4P = 35
+export const BOARD_SIZE_4P = 39
 /** Default / legacy alias (4P size). */
 export const BOARD_SIZE = BOARD_SIZE_4P
 
@@ -20,9 +20,21 @@ export function boardMid(boardSize: number = BOARD_SIZE): number {
 export const BOARD_MID = boardMid(BOARD_SIZE)
 export const MIN_OBJECTIVE_DISTANCE = 5
 /** Fallback move if card has no move printed. */
-export const DEFAULT_UNIT_MOVE = 3
-/** How far from the edge a simplified deploy wedge extends (prototype). */
-export const DEPLOY_DEPTH = 6
+export const DEFAULT_UNIT_MOVE = 5
+/** Shared deployment zone depth from the board edge. */
+export const DEPLOY_ZONE_DEPTH = 8
+/** Shared deployment zone width centered on the edge mid-hex. */
+export const DEPLOY_ZONE_WIDTH = 13
+/** Siege models may only deploy in the rear-most this many hexes of the zone. */
+export const SIEGE_DEPLOY_DEPTH = 4
+/** Max Siege models allowed in the Deploy battle bucket. */
+export const MAX_DEPLOY_SIEGE = 5
+/** Fallback Command Radius when an officer card has none printed. */
+export const DEFAULT_OFFICER_COMMAND_RADIUS = 4
+/** Fallback Command Radius when a commander card has none printed. */
+export const DEFAULT_COMMANDER_COMMAND_RADIUS = 7
+/** @deprecated use DEPLOY_ZONE_DEPTH — kept for any stray imports. */
+export const DEPLOY_DEPTH = DEPLOY_ZONE_DEPTH
 
 /** Personal CR piece quotas — see terrainPieces.ts */
 export type { CommandZonePieceQuota } from './terrainPieces'

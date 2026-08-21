@@ -28,7 +28,8 @@ export function loadCardSnapshots(ids: string[]): CardLookup {
       ? database
           .prepare(
             `SELECT id, name, card_type, rarity, unique_flag, race, uv, move, damage, range_value, toughness,
-              company_capacity, command_radius, company_ap, ap_generation, cc_generation, favored_terrain,
+              company_capacity, company_unit_cap, command_radius, company_ap, ap_generation, cc_generation, favored_terrain,
+              primary_type, secondary_type, flavor_text,
               keywords_json, abilities_json, ultimate
        FROM cards WHERE id IN (${[...new Set(ids)].map(() => '?').join(',')})`,
           )
@@ -36,7 +37,8 @@ export function loadCardSnapshots(ids: string[]): CardLookup {
       : database
           .prepare(
             `SELECT id, name, card_type, rarity, unique_flag, race, uv, move, damage, range_value, toughness,
-              company_capacity, command_radius, company_ap, ap_generation, cc_generation, favored_terrain,
+              company_capacity, company_unit_cap, command_radius, company_ap, ap_generation, cc_generation, favored_terrain,
+              primary_type, secondary_type, flavor_text,
               keywords_json, abilities_json, ultimate
        FROM cards`,
           )
@@ -54,11 +56,15 @@ export function loadCardSnapshots(ids: string[]): CardLookup {
     range_value: number | null
     toughness: number | null
     company_capacity: number | null
+    company_unit_cap: number | null
     command_radius: number | null
     company_ap: number | null
     ap_generation: number | null
     cc_generation: number | null
     favored_terrain: string | null
+    primary_type: string | null
+    secondary_type: string | null
+    flavor_text: string | null
     keywords_json: string | null
     abilities_json: string | null
     ultimate: string | null
@@ -89,11 +95,15 @@ export function loadCardSnapshots(ids: string[]): CardLookup {
       range: row.range_value,
       toughness: row.toughness,
       companyCapacity: row.company_capacity,
+      companyUnitCap: row.company_unit_cap ?? null,
       commandRadius: row.command_radius,
       companyAp: row.company_ap,
       apGeneration: row.ap_generation,
       ccGeneration: row.cc_generation,
       favoredTerrain: row.favored_terrain,
+      primaryType: row.primary_type,
+      secondaryType: row.secondary_type,
+      flavorText: row.flavor_text,
       keywords,
       abilities,
       ultimate: row.ultimate,

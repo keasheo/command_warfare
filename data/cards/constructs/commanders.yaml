@@ -8,13 +8,14 @@ cards:
     primary_type: Construct
     secondary_type: null
     uv: 16
-    move: 3
+    move: 5
     damage: 2
     range: 1
     toughness: 5
     company_ap: null
     company_capacity: null
-    command_radius: 6
+    company_unit_cap: null
+    command_radius: 8
     ap_generation: 5
     cc_generation: 5
     keywords:
@@ -46,7 +47,8 @@ cards:
     toughness: 4
     company_ap: null
     company_capacity: null
-    command_radius: 6
+    company_unit_cap: null
+    command_radius: 8
     ap_generation: 5
     cc_generation: 5
     keywords:
@@ -76,13 +78,14 @@ cards:
     primary_type: Infantry
     secondary_type: null
     uv: 17
-    move: 3
+    move: 5
     damage: 2
     range: 1
     toughness: 5
     company_ap: null
     company_capacity: null
-    command_radius: 7
+    company_unit_cap: null
+    command_radius: 9
     ap_generation: 5
     cc_generation: 6
     keywords: []
@@ -111,13 +114,14 @@ cards:
     primary_type: Construct
     secondary_type: null
     uv: 27
-    move: 3
+    move: 5
     damage: 2
     range: 1
     toughness: 5
     company_ap: null
     company_capacity: null
-    command_radius: 6
+    company_unit_cap: null
+    command_radius: 8
     ap_generation: 5
     cc_generation: 5
     keywords:

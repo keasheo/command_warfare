@@ -113,6 +113,9 @@ function migrate(database: Database.Database): void {
   if (!cardCols.some((c) => c.name === 'favored_terrain')) {
     database.exec(`ALTER TABLE cards ADD COLUMN favored_terrain TEXT`)
   }
+  if (!cardCols.some((c) => c.name === 'company_unit_cap')) {
+    database.exec(`ALTER TABLE cards ADD COLUMN company_unit_cap INTEGER`)
+  }
 }
 
 export type CardRow = {
@@ -131,6 +134,7 @@ export type CardRow = {
   toughness: number | null
   company_ap: number | null
   company_capacity: number | null
+  company_unit_cap: number | null
   command_radius: number | null
   ap_generation: number | null
   cc_generation: number | null
@@ -216,6 +220,7 @@ export function cardFromRow(row: CardRow) {
     toughness: row.toughness,
     companyAp: row.company_ap,
     companyCapacity: row.company_capacity,
+    companyUnitCap: row.company_unit_cap ?? null,
     commandRadius: row.command_radius,
     apGeneration: row.ap_generation,
     ccGeneration: row.cc_generation,

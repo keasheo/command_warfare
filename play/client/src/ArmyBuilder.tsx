@@ -35,6 +35,7 @@ function toSnapshot(c: Card): CardSnapshot {
     range: c.range,
     toughness: c.toughness,
     companyCapacity: c.companyCapacity,
+    companyUnitCap: c.companyUnitCap ?? null,
     commandRadius: c.commandRadius,
     companyAp: c.companyAp,
     apGeneration: c.apGeneration,
@@ -124,7 +125,9 @@ function CardThumb({
         <span className="card-thumb-footer">
           <span className="card-thumb-stats">
             UV {card.uv ?? '—'}
-            {card.cardType === 'Officer' ? ` · cap ${card.companyCapacity ?? '—'}` : ''}
+            {card.cardType === 'Officer'
+              ? ` · UV ${card.companyCapacity ?? '—'} · ${card.companyUnitCap ?? '—'} units`
+              : ''}
             {card.cardType === 'Commander' ? ` · CR ${card.commandRadius ?? '—'}` : ''}
           </span>
           {card.cardType === 'Unit' ? (
@@ -354,6 +357,10 @@ export function ArmyBuilder({
     )
   }
 
+  function companyModels(co: ArmyCompany): number {
+    return co.units.reduce((s, u) => s + u.count, 0)
+  }
+
   const company =
     companies.length > 0
       ? companies[Math.min(activeCompany, companies.length - 1)]!
@@ -473,6 +480,8 @@ export function ArmyBuilder({
         addUv: uv,
         companyAfter: used + uv,
         companyCap: officer?.companyCapacity ?? null,
+        companyModelsAfter: company ? companyModels(company) + 1 : 1,
+        companyUnitCap: officer?.companyUnitCap ?? null,
         armyAfter: liveUv + uv,
       }
     }
@@ -482,6 +491,7 @@ export function ArmyBuilder({
         addUv: uv - old,
         companyAfter: company ? companyUv(company) : null,
         companyCap: focusCard.companyCapacity ?? null,
+        companyUnitCap: focusCard.companyUnitCap ?? null,
         armyAfter: liveUv - old + uv,
       }
     }
@@ -764,6 +774,17 @@ export function ArmyBuilder({
           reason: `Company already uses ${used} UV; this officer’s cap is ${cap}.`,
         }
       }
+      const unitCap = card.companyUnitCap ?? 0
+      if (unitCap <= 0) {
+        return { ok: false, reason: 'Officer has no unit cap.' }
+      }
+      const models = company ? companyModels(company) : 0
+      if (models > unitCap) {
+        return {
+          ok: false,
+          reason: `Company already has ${models} units; this officer caps at ${unitCap}.`,
+        }
+      }
       const oldOfficerUv = officer?.uv ?? 0
       const nextArmyUv = liveUv - oldOfficerUv + (card.uv ?? 0)
       if (nextArmyUv > ARMY_UV_MAX) {
@@ -800,6 +821,17 @@ export function ArmyBuilder({
         return {
           ok: false,
           reason: `Company UV ${used}+${unitUv} exceeds capacity ${cap}.`,
+        }
+      }
+      const unitCap = officer.companyUnitCap ?? 0
+      const models = companyModels(company)
+      if (unitCap <= 0) {
+        return { ok: false, reason: 'This officer has no unit cap.' }
+      }
+      if (models + 1 > unitCap) {
+        return {
+          ok: false,
+          reason: `Company already has ${models}/${unitCap} units.`,
         }
       }
       if (liveUv + unitUv > ARMY_UV_MAX) {
@@ -1125,6 +1157,22 @@ export function ArmyBuilder({
           </div>
         ) : null}
 
+        <div className="row army-lock-row">
+          <button
+            type="button"
+            className="primary"
+            disabled={!canLock}
+            onClick={trySubmit}
+          >
+            {submitLabel ?? `Lock army (${liveUv} UV)`}
+          </button>
+        </div>
+        {!canLock && commanderId && companies.length > 0 ? (
+          <p className="muted">
+            Each company needs an officer and ≥1 unit · army list ≤ {ARMY_UV_MAX} UV.
+          </p>
+        ) : null}
+
         <button
           type="button"
           className={`army-slot${commanderId ? ' filled' : ''}${typeFilter === 'Commander' ? ' active' : ''}`}
@@ -1162,7 +1210,8 @@ export function ArmyBuilder({
                 }}
               >
                 <span className="army-slot-label">
-                  Officer {ci + 1} · UV {used}/{cap || '—'}
+                  Officer {ci + 1} · UV {used}/{cap || '—'} ·{' '}
+                  {companyModels(co)}/{off?.companyUnitCap ?? '—'}
                 </span>
                 <span className="army-slot-value">{off?.name ?? 'Not set'}</span>
               </button>
@@ -1242,20 +1291,7 @@ export function ArmyBuilder({
           <button type="button" disabled={disabled} onClick={addCompany}>
             + Officer
           </button>
-          <button
-            type="button"
-            className="primary"
-            disabled={!canLock}
-            onClick={trySubmit}
-          >
-            {submitLabel ?? `Lock army (${liveUv} UV)`}
-          </button>
         </div>
-        {!canLock && commanderId && companies.length > 0 ? (
-          <p className="muted">
-            Each company needs an officer and ≥1 unit · army list ≤ {ARMY_UV_MAX} UV.
-          </p>
-        ) : null}
       </aside>
 
       <div className="army-picker">
@@ -1309,7 +1345,10 @@ export function ArmyBuilder({
                     {addPreview.addUv >= 0 ? '+' : ''}
                     {addPreview.addUv} UV
                     {addPreview.companyAfter != null
-                      ? ` → company ${addPreview.companyAfter}/${addPreview.companyCap ?? '—'}`
+                      ? ` → company UV ${addPreview.companyAfter}/${addPreview.companyCap ?? '—'}`
+                      : ''}
+                    {addPreview.companyModelsAfter != null
+                      ? ` · units ${addPreview.companyModelsAfter}/${addPreview.companyUnitCap ?? '—'}`
                       : ''}
                     {` · army ${addPreview.armyAfter}/${ARMY_UV_MAX}`}
                   </p>

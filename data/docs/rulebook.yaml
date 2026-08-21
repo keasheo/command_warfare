@@ -1251,7 +1251,7 @@ sections:
     Occupying a Fortified Hex
 
 
-    While a unit occupies a Fortified hex, it has Harden 1 (Piercing ignores Harden as usual).
+    While a unit occupies a Fortified hex, it has Harden 1 (Piercing and melee Siege ignore Harden).
 
 
     This Harden 1 stacks with printed Harden and other Harden sources.
@@ -1348,7 +1348,7 @@ sections:
     Wall tokens may not be placed on an objective hex (objectives are placed before terrain).'
 - id: a1bl4st0d01
   title: Blast (Splash Damage)
-  body: 'Blast is primarily a Dragon tool.
+  body: 'Blast is used by Dragons and some Siege artillery (hurled shot / explosive payloads).
 
 
     When a unit has Blast (or an effect grants Blast), choose a primary target and deal Damage to that
@@ -1363,6 +1363,21 @@ sections:
 
 
     Blast is an Attack Method. It cannot be combined with Cleave or Trample in the same attack.'
+- id: a1ovrpnt001
+  title: Overpenetrate (Bolt-Through)
+  body: 'Overpenetrate is used by ballista-type Siege (bolts and greatbows), not hurled Blast shot.
+
+
+    If the primary target is destroyed, leftover Damage (printed Damage minus the target''s Toughness
+    before the hit) continues in a straight line behind them, away from the attacker. Empty hexes are
+    skipped. The next enemy on that line takes a new Hit roll using the leftover Damage. Friendly units
+    and commanders stop the bolt without taking Damage.
+
+
+    If that enemy is also destroyed, leftover Damage may continue along the same line.
+
+
+    Overpenetrate cannot be combined with Blast.'
 - id: 348572a398
   title: Defensive Reactions
   body: 'Each attacked unit may declare one Defensive Reaction.
@@ -1377,7 +1392,7 @@ sections:
     This unit gains Harden 1 until its next activation or the next round, whichever comes first.
 
 
-    Brace Harden stacks with printed Harden and other Harden sources.
+    Brace Harden stacks with printed Harden and other Harden sources. Piercing and melee Siege ignore it.
 
 
     Brace is a Defensive Reaction only. Abilities never grant Brace.
@@ -1727,7 +1742,8 @@ sections:
     Wall token on a hit (instead of damaging an occupying unit, when applicable).
 
 
-    Fortification / Fortified hex: An outline hex token. While occupied, the occupant has Harden 1.
+    Fortification / Fortified hex: An outline hex token. While occupied, the occupant has Harden 1
+    (Piercing and melee Siege ignore Harden).
     Placed by effects that Fortify or by Fortified terrain pieces. Passable — units may occupy it.
 
 
@@ -1756,7 +1772,8 @@ sections:
 
 
     Harden X: Printed keyword. Reduce incoming Damage by the sum of all Harden sources on the unit.
-    Piercing ignores Harden. Always print the number (Harden 1, Harden 2, …). Harden sources stack.
+    Piercing ignores Harden. Melee Siege (Range 1 rams and similar engines) also ignore Harden.
+    Always print the number (Harden 1, Harden 2, …). Harden sources stack.
 
 
     Isolated: A unit outside its Officer''s Command Radius. Isolated units still belong to their Company

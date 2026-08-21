@@ -8,13 +8,14 @@ cards:
     primary_type: Construct
     secondary_type: null
     uv: 9
-    move: 3
+    move: 5
     damage: 3
     range: 1
     toughness: 5
     company_ap: 5
     company_capacity: 18
-    command_radius: 4
+    company_unit_cap: 6
+    command_radius: 6
     ap_generation: null
     cc_generation: null
     keywords:
@@ -42,13 +43,14 @@ cards:
     primary_type: Construct
     secondary_type: null
     uv: 10
-    move: 3
+    move: 5
     damage: 3
     range: 1
     toughness: 5
     company_ap: 5
     company_capacity: 18
-    command_radius: 4
+    company_unit_cap: 10
+    command_radius: 6
     ap_generation: null
     cc_generation: null
     keywords:
@@ -76,13 +78,14 @@ cards:
     primary_type: Construct
     secondary_type: null
     uv: 10
-    move: 3
+    move: 5
     damage: 3
     range: 1
     toughness: 5
     company_ap: 5
     company_capacity: 18
-    command_radius: 4
+    company_unit_cap: 8
+    command_radius: 6
     ap_generation: null
     cc_generation: null
     keywords:
@@ -109,13 +112,14 @@ cards:
     primary_type: Construct
     secondary_type: Heavy
     uv: 11
-    move: 3
+    move: 4
     damage: 3
     range: 1
     toughness: 5
     company_ap: 5
     company_capacity: 18
-    command_radius: 4
+    company_unit_cap: 10
+    command_radius: 6
     ap_generation: null
     cc_generation: null
     keywords:
@@ -150,7 +154,8 @@ cards:
     toughness: 5
     company_ap: 5
     company_capacity: 18
-    command_radius: 4
+    company_unit_cap: 6
+    command_radius: 6
     ap_generation: null
     cc_generation: null
     keywords:
@@ -188,7 +193,8 @@ cards:
     toughness: 5
     company_ap: 5
     company_capacity: 18
-    command_radius: 4
+    company_unit_cap: 6
+    command_radius: 6
     ap_generation: null
     cc_generation: null
     keywords:
@@ -217,13 +223,14 @@ cards:
     primary_type: Construct
     secondary_type: null
     uv: 12
-    move: 3
+    move: 5
     damage: 3
     range: 1
     toughness: 5
     company_ap: 6
     company_capacity: 18
-    command_radius: 4
+    company_unit_cap: 10
+    command_radius: 6
     ap_generation: null
     cc_generation: null
     keywords:
@@ -249,13 +256,14 @@ cards:
     primary_type: Construct
     secondary_type: null
     uv: 12
-    move: 3
+    move: 5
     damage: 3
     range: 1
     toughness: 5
     company_ap: 5
     company_capacity: 20
-    command_radius: 4
+    company_unit_cap: 6
+    command_radius: 6
     ap_generation: null
     cc_generation: null
     keywords:
@@ -282,13 +290,14 @@ cards:
     primary_type: Construct
     secondary_type: null
     uv: 11
-    move: 3
+    move: 5
     damage: 3
     range: 1
     toughness: 4
     company_ap: 5
     company_capacity: 18
-    command_radius: 4
+    company_unit_cap: 8
+    command_radius: 6
     ap_generation: null
     cc_generation: null
     keywords:
@@ -322,7 +331,8 @@ cards:
     toughness: 4
     company_ap: 5
     company_capacity: 18
-    command_radius: 4
+    company_unit_cap: 6
+    command_radius: 6
     ap_generation: null
     cc_generation: null
     keywords:
@@ -353,13 +363,14 @@ cards:
     primary_type: Construct
     secondary_type: null
     uv: 11
-    move: 3
+    move: 5
     damage: 2
     range: 1
     toughness: 3
     company_ap: 6
     company_capacity: 18
-    command_radius: 4
+    company_unit_cap: 6
+    command_radius: 6
     ap_generation: null
     cc_generation: null
     keywords:
@@ -388,13 +399,14 @@ cards:
     primary_type: Construct
     secondary_type: Heavy
     uv: 12
-    move: 3
+    move: 5
     damage: 3
     range: 1
     toughness: 5
     company_ap: 5
     company_capacity: 20
-    command_radius: 4
+    company_unit_cap: 6
+    command_radius: 6
     ap_generation: null
     cc_generation: null
     keywords:

@@ -3,6 +3,16 @@ import type { Ability, Card } from '../../../src/api'
 import { api } from '../../../src/api'
 import { CardFace } from '../../../src/components/cards/CardFace'
 import {
+  mergeAbilityMaps,
+  resolvePreviewCard,
+} from './cardPreview'
+import { unitLiveStats, unitBuffLabels, unitDebuffLabels } from './unitHoverInfo'
+import { combatResultKey } from './combatFx'
+import { useBoardDrama } from './boardDrama'
+import { unlockSfx } from './sfx'
+import { startBattleMusic } from './battleMusic'
+import { AppMenu } from './AppMenu'
+import {
   commandZonePieceQuota,
   commandZoneSizeUsed,
   commandZoneSlotsTotal,
@@ -11,6 +21,7 @@ import {
   TERRAIN_LAND_DROPS_PER_SIZE,
   WATER_HEX_CAP,
   abilitySpendForCaster,
+  abilityRequiresUnitTarget,
   boardStateFileBasename,
   buildBoardStateFile,
   buildTerrainPiece,
@@ -18,6 +29,7 @@ import {
   commandRadiusKeys,
   commanderHasEscapePath,
   countWaterHexes,
+  deployWedgeKeys,
   expandTerrainPiece,
   findDeployedOfficer,
   flattenObjectiveHexes,
@@ -25,10 +37,16 @@ import {
   hexKey,
   isImpassableTerrain,
   isPassiveAbility,
+  isSiegeCard,
   isUltimateAbility,
   kindsForShapeSize,
   normalizeRotation,
+  officerDeployHexesForSiegeCompany,
   officerDeployRadius,
+  onObjectiveHex,
+  unitAttackPreviewKeys,
+  unitDeployHexKeys,
+  unitMovePreviewKeys,
   ownCommandRadiusKeys,
   parseBoardStateFile,
   smallTerrainPieceCatalog,
@@ -41,7 +59,14 @@ import {
   hitNeedBreakdownFromFlags,
   effectiveDamage,
   unitStatusPills,
+  terrainBlocksEvade,
+  unitActiveTerrainEffects,
   SCOUT_CR_EXTENSION,
+  DEPLOY_ZONE_DEPTH,
+  DEPLOY_ZONE_WIDTH,
+  SIEGE_DEPLOY_DEPTH,
+  DEFAULT_OFFICER_COMMAND_RADIUS,
+  DEFAULT_COMMANDER_COMMAND_RADIUS,
   DEPLOY_UV_MAX,
   RESERVE_UV_MAX,
   MAX_ROUNDS,
@@ -69,40 +94,21 @@ type ArmyRosterEntry = {
   count: number
 }
 
-function snapshotToCard(s: CardSnapshot): Card {
-  return {
-    id: s.id,
-    name: s.name,
-    cardType: s.cardType,
-    rarity: s.rarity,
-    unique: s.unique,
-    race: s.race,
-    primaryType: null,
-    secondaryType: null,
-    uv: s.uv,
-    move: s.move,
-    damage: s.damage,
-    range: s.range,
-    toughness: s.toughness,
-    companyAp: s.companyAp,
-    companyCapacity: s.companyCapacity,
-    commandRadius: s.commandRadius,
-    apGeneration: s.apGeneration,
-    ccGeneration: s.ccGeneration,
-    abilities: [...(s.abilities ?? [])],
-    keywords: [...(s.keywords ?? [])],
-    ultimate: s.ultimate ?? null,
-    flavorText: null,
-    complexity: null,
-    role: null,
-    tags: [],
-    supportedRaces: [],
-    supportedTypes: [],
-    supportedKeywords: [],
-    hasArt: false,
-    artUrl: null,
-  }
-}
+/** Board action waiting for a unit target + optional confirm. */
+type PendingAction =
+  | {
+      kind: 'cast'
+      abilityName: string
+      casterId: string
+      phase: 'pick' | 'confirm'
+      targetId?: string
+    }
+  | {
+      kind: 'attack'
+      attackerId: string
+      phase: 'pick' | 'confirm'
+      targetId?: string
+    }
 
 function buildArmyRoster(
   army: ArmyList,
@@ -169,8 +175,12 @@ function findBoardUnitForRosterEntry(
   )
 }
 
-function rosterKindLabel(kind: ArmyRosterEntry['kind']): string {
-  return kind === 'commander' ? 'C' : kind === 'officer' ? 'O' : 'U'
+function rosterKindLabel(
+  kind: ArmyRosterEntry['kind'],
+  seat?: SeatId,
+): string {
+  if (kind === 'commander') return seat ? `C${seat}` : 'C'
+  return kind === 'officer' ? 'O' : 'U'
 }
 import { ArmyBuilder } from './ArmyBuilder'
 import { ForceSelectPanel } from './ForceSelectPanel'
@@ -223,10 +233,6 @@ function DieFace({
       })}
     </div>
   )
-}
-
-function combatResultKey(result: LastCombatResult): string {
-  return `${result.attackerId}:${result.defenderId}:${result.dice[0]}:${result.dice[1]}:${result.roll}`
 }
 
 function CombatRollOverlay({
@@ -453,6 +459,8 @@ export default function App() {
   const { state, seat, token, connected, error, yourIp, playerIps, setError, send, leaveRoom, abandonSavedSession, savedRoom, savedSeat, savedName } =
     usePlaySocket()
   const { overlayResult, dismissOverlay } = useCombatRollOverlay(state?.lastCombatResult ?? null)
+  const { beat, flashKeys, activeCompanyIds, livingCrKeys, cameraFocus } =
+    useBoardDrama(state ?? null)
   const [name, setName] = useState(() => savedName || '')
   const [joinCode, setJoinCode] = useState(savedRoom || '')
   const [createRoomCode, setCreateRoomCode] = useState('')
@@ -461,9 +469,21 @@ export default function App() {
   const [aiDifficulty, setAiDifficulty] = useState<'easy' | 'medium' | 'hard'>(
     'medium',
   )
+  const [aiCommanderId, setAiCommanderId] = useState<string>('random')
+  const [aiCommanderOptions, setAiCommanderOptions] = useState<
+    Array<{
+      commanderId: string
+      commanderName: string
+      race: string
+      totalUv: number
+    }>
+  >([])
   const [enforceCommanderRace, setEnforceCommanderRace] = useState(() => {
     const raw = localStorage.getItem('cw-play-enforce-commander-race')
     return raw !== '0'
+  })
+  const [randomMap, setRandomMap] = useState(() => {
+    return localStorage.getItem('cw-play-random-map') === '1'
   })
   const [createDeployMax, setCreateDeployMax] = useState(DEPLOY_UV_MAX)
   const [createReserveMax, setCreateReserveMax] = useState(RESERVE_UV_MAX)
@@ -473,6 +493,10 @@ export default function App() {
   const setBoardModePersist = (mode: '2d' | '3d') => {
     setBoardMode(mode)
     localStorage.setItem('cw-play-board-mode', mode)
+  }
+  const unlockAudio = () => {
+    unlockSfx()
+    startBattleMusic()
   }
   const [lobbyView, setLobbyView] = useState<'lobby' | 'armyWorkshop'>('lobby')
   const [workshopNotice, setWorkshopNotice] = useState<string | null>(null)
@@ -491,6 +515,11 @@ export default function App() {
   const [hoverHex, setHoverHex] = useState<{ col: number; row: number } | null>(
     null,
   )
+  const [hoverPointer, setHoverPointer] = useState<{
+    x: number
+    y: number
+  } | null>(null)
+  const [hoverCtrlHeld, setHoverCtrlHeld] = useState(false)
   const [selectedUnitId, setSelectedUnitId] = useState<string | null>(null)
   const [selectedArmyCardId, setSelectedArmyCardId] = useState<string | null>(
     null,
@@ -498,7 +527,8 @@ export default function App() {
   const [selectedDeathId, setSelectedDeathId] = useState<string | null>(null)
   const [reviveAtClickMode, setReviveAtClickMode] = useState(false)
   const [targetUnitId, setTargetUnitId] = useState<string | null>(null)
-  const [aimMode, setAimMode] = useState(false)
+  const [pendingAction, setPendingAction] = useState<PendingAction | null>(null)
+  const [manualAim, setManualAim] = useState(false)
   const [diceCount, setDiceCount] = useState(2)
   const [damageAmount, setDamageAmount] = useState(1)
   const [healAmount, setHealAmount] = useState(1)
@@ -531,6 +561,61 @@ export default function App() {
       cancelled = true
     }
   }, [])
+
+  useEffect(() => {
+    let cancelled = false
+    ;(async () => {
+      try {
+        const res = await fetch('/api/quick-pick-armies')
+        if (!res.ok) return
+        const body = (await res.json()) as {
+          presets?: Array<{
+            commanderId: string
+            commanderName: string
+            race: string
+            totalUv: number
+          }>
+        }
+        if (cancelled || !body.presets?.length) return
+        setAiCommanderOptions(body.presets)
+      } catch {
+        /* optional for lobby */
+      }
+    })()
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  const cancelPendingAction = useCallback(() => {
+    setPendingAction(null)
+    setTargetUnitId(null)
+    setManualAim(false)
+  }, [])
+
+  useEffect(() => {
+    if (!pendingAction) return
+    function onKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        e.preventDefault()
+        cancelPendingAction()
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [pendingAction, cancelPendingAction])
+
+  useEffect(() => {
+    if (!pendingAction) return
+    const actorId =
+      pendingAction.kind === 'cast'
+        ? pendingAction.casterId
+        : pendingAction.attackerId
+    if (selectedUnitId !== actorId) {
+      setPendingAction(null)
+      setTargetUnitId(null)
+    }
+  }, [selectedUnitId, pendingAction])
 
   const me = useMemo(
     () => state?.players.find((p) => p.seat === seat) ?? null,
@@ -579,21 +664,133 @@ export default function App() {
     if (!state || !seat || state.phase !== 'Deploy' || !activeDeployItem) {
       return new Set<string>()
     }
-    if (activeDeployItem.kind === 'officer') {
-      return ownCommandRadiusKeys(state, seat)
+    const zone = deployWedgeKeys(seat, state.boardSize)
+
+    if (activeDeployItem.kind === 'commander') {
+      return zone
     }
+
+    if (activeDeployItem.kind === 'officer') {
+      const snap = state.cardCatalog?.[activeDeployItem.cardId]
+      const companyHasSiege = myQueue.some(
+        (q) =>
+          q.kind === 'unit' &&
+          q.officerCardId === activeDeployItem.cardId &&
+          isSiegeCard({
+            primaryType: state.cardCatalog?.[q.cardId]?.primaryType,
+            keywords: state.cardCatalog?.[q.cardId]?.keywords,
+          }),
+      )
+      if (companyHasSiege) {
+        const radius =
+          snap?.commandRadius && snap.commandRadius > 0
+            ? snap.commandRadius
+            : DEFAULT_OFFICER_COMMAND_RADIUS
+        return officerDeployHexesForSiegeCompany(state, seat, radius)
+      }
+      return zone
+    }
+
+    // Units: officer Command Radius (Scout-extended). May leave the edge zone.
+    // Siege is still clipped to the rear band.
     const officer = findDeployedOfficer(
       state,
       seat,
       activeDeployItem.officerCardId,
     )
     if (!officer) return new Set<string>()
-    return commandRadiusKeys(
-      { col: officer.col, row: officer.row },
-      officerDeployRadius(state, officer),
-      state.boardSize,
-    )
-  }, [state, seat, activeDeployItem])
+    const snap = state.cardCatalog?.[activeDeployItem.cardId]
+    const pendingKeywords = snap?.keywords ?? []
+    const pendingUnit: UnitToken = {
+      id: 'pending',
+      seat,
+      kind: 'unit',
+      cardId: activeDeployItem.cardId,
+      cardName: activeDeployItem.cardName,
+      officerCardId: activeDeployItem.officerCardId,
+      col: officer.col,
+      row: officer.row,
+      move: activeDeployItem.move,
+      moveRemaining: 0,
+      activationCol: null,
+      activationRow: null,
+      claimsThisActivation: [],
+      movedBeyondLimit: false,
+      damage: null,
+      range: null,
+      toughness: null,
+      toughnessCurrent: null,
+      commandRadius: null,
+      keywords: [...pendingKeywords],
+      abilities: [],
+      ultimate: null,
+      rooted: false,
+      fear: false,
+      slow: false,
+      tempFearless: false,
+      unyielding: false,
+      bonePrisoned: false,
+      terrorFear: false,
+      slowPendingClear: false,
+      tempDamage: 0,
+      tempMove: 0,
+      harden: 0,
+      abilityReadyRound: {},
+      raiseOnceUsed: false,
+      ultimateUsed: false,
+      evadeActive: false,
+      poisonTokens: 0,
+      trampleLeftoverDamage: 0,
+      assaultMarked: false,
+      nullPulsed: false,
+      counterattack: false,
+      spectralStrike: false,
+      attackedThisTurn: false,
+      attackedThisRound: false,
+      frenzyAttackPending: false,
+    }
+    const siege = isSiegeCard({
+      primaryType: snap?.primaryType,
+      keywords: snap?.keywords,
+    })
+    const out = new Set<string>()
+    for (const key of unitDeployHexKeys(state, seat, officer, pendingUnit, siege)) {
+      const [col, row] = key.split(',').map(Number) as [number, number]
+      if (onObjectiveHex({ col, row }, state)) continue
+      out.add(key)
+    }
+    return out
+  }, [state, seat, activeDeployItem, myQueue])
+
+  const deploySiegeBanner = useMemo(() => {
+    if (!state || !seat || state.phase !== 'Deploy' || !activeDeployItem) {
+      return null
+    }
+    if (activeDeployItem.kind === 'officer') {
+      const companyHasSiege = myQueue.some(
+        (q) =>
+          q.kind === 'unit' &&
+          q.officerCardId === activeDeployItem.cardId &&
+          isSiegeCard({
+            primaryType: state.cardCatalog?.[q.cardId]?.primaryType,
+            keywords: state.cardCatalog?.[q.cardId]?.keywords,
+          }),
+      )
+      if (companyHasSiege) {
+        return `Siege in company — deploy no farther than highlighted hexes (officer CR must reach the rear ${SIEGE_DEPLOY_DEPTH}-hex Siege band).`
+      }
+    }
+    if (
+      activeDeployItem.kind === 'unit' &&
+      isSiegeCard({
+        primaryType: state.cardCatalog?.[activeDeployItem.cardId]?.primaryType,
+        keywords: state.cardCatalog?.[activeDeployItem.cardId]?.keywords,
+      })
+    ) {
+      return `Siege — place in the rear ${SIEGE_DEPLOY_DEPTH} hexes of your ${DEPLOY_ZONE_WIDTH}×${DEPLOY_ZONE_DEPTH} zone, inside officer Command Radius.`
+    }
+    return null
+  }, [state, seat, activeDeployItem, myQueue])
 
   const terrainStage = state?.terrainStage ?? 'commandZone'
   const isLandStage =
@@ -753,6 +950,14 @@ export default function App() {
     }
   }, [state?.phase, state?.activeSeat, state?.terrainStage, isLandStage])
 
+  // Legacy Commanders phase: auto-continue (confirm step removed).
+  useEffect(() => {
+    if (!connected || !seat || !state || state.phase !== 'Commanders') return
+    const self = state.players.find((p) => p.seat === seat)
+    if (!self?.armyReady || self.commanderReady) return
+    send({ type: 'readyCommander' })
+  }, [connected, seat, state?.phase, state?.players])
+
   useEffect(() => {
     if (heldTerrain) {
       setTerrainPickShapeKey(null)
@@ -781,6 +986,16 @@ export default function App() {
     if (!selectedUnit) return []
     return unitStatusPills(selectedUnit)
   }, [selectedUnit])
+
+  const selectedBuffLabels = useMemo(() => {
+    if (!state || !selectedUnit) return []
+    return unitBuffLabels(state, selectedUnit)
+  }, [state, selectedUnit])
+
+  const selectedDebuffLabels = useMemo(() => {
+    if (!state || !selectedUnit) return []
+    return unitDebuffLabels(state, selectedUnit)
+  }, [state, selectedUnit])
 
   const attackPreview = useMemo(() => {
     if (!state || !selectedUnit || !targetUnit) return null
@@ -841,14 +1056,20 @@ export default function App() {
 
   const companyUnitIds = useMemo(() => {
     const ids = new Set<string>()
-    if (!selectedUnit || selectedUnit.kind !== 'officer') return ids
-    ids.add(selectedUnit.id)
-    if (!state) return ids
+    if (!selectedUnit || !state) return ids
+    if (selectedUnit.kind === 'commander') return ids
+
+    const officerCardId =
+      selectedUnit.kind === 'officer'
+        ? selectedUnit.cardId
+        : selectedUnit.officerCardId
+    if (!officerCardId) return ids
+
     for (const u of state.units) {
-      if (
-        u.seat === selectedUnit.seat &&
-        u.officerCardId === selectedUnit.cardId
-      ) {
+      if (u.seat !== selectedUnit.seat) continue
+      if (u.kind === 'officer' && u.cardId === officerCardId) {
+        ids.add(u.id)
+      } else if (u.officerCardId === officerCardId) {
         ids.add(u.id)
       }
     }
@@ -856,18 +1077,56 @@ export default function App() {
   }, [selectedUnit, state])
 
   const officerCrKeys = useMemo(() => {
-    if (!state || !selectedUnit || selectedUnit.kind !== 'officer') {
-      return new Set<string>()
+    if (!state || !selectedUnit) return new Set<string>()
+    if (selectedUnit.kind === 'officer') {
+      const radius = officerDeployRadius(state, selectedUnit)
+      return commandRadiusKeys(
+        { col: selectedUnit.col, row: selectedUnit.row },
+        radius,
+        state.boardSize,
+      )
     }
-    const radius =
-      selectedUnit.commandRadius ??
-      state.cardCatalog?.[selectedUnit.cardId]?.commandRadius ??
-      2
+    if (selectedUnit.kind === 'commander') {
+      const radius =
+        selectedUnit.commandRadius ??
+        state.commanderRadii?.[selectedUnit.seat] ??
+        state.cardCatalog?.[selectedUnit.cardId]?.commandRadius ??
+        DEFAULT_COMMANDER_COMMAND_RADIUS
+      return commandRadiusKeys(
+        { col: selectedUnit.col, row: selectedUnit.row },
+        radius && radius > 0 ? radius : DEFAULT_COMMANDER_COMMAND_RADIUS,
+        state.boardSize,
+      )
+    }
+    if (!selectedUnit.officerCardId) return new Set<string>()
+    const officer = findDeployedOfficer(
+      state,
+      selectedUnit.seat,
+      selectedUnit.officerCardId,
+    )
+    if (!officer) return new Set<string>()
     return commandRadiusKeys(
-      { col: selectedUnit.col, row: selectedUnit.row },
-      radius && radius > 0 ? radius : 2,
+      { col: officer.col, row: officer.row },
+      officerDeployRadius(state, officer),
       state.boardSize,
     )
+  }, [state, selectedUnit])
+
+  const displayCrKeys = useMemo(() => {
+    if (!livingCrKeys.size) return officerCrKeys
+    const merged = new Set(officerCrKeys)
+    for (const k of livingCrKeys) merged.add(k)
+    return merged
+  }, [officerCrKeys, livingCrKeys])
+
+  const movePreviewKeys = useMemo(() => {
+    if (!state || !selectedUnit) return new Set<string>()
+    return unitMovePreviewKeys(state, selectedUnit)
+  }, [state, selectedUnit])
+
+  const attackPreviewKeys = useMemo(() => {
+    if (!state || !selectedUnit) return new Set<string>()
+    return unitAttackPreviewKeys(state, selectedUnit)
   }, [state, selectedUnit])
 
   const focusCard = useMemo(() => {
@@ -876,11 +1135,7 @@ export default function App() {
       selectedArmyCardId ??
       selectedDeath?.cardId ??
       null
-    if (!cardId) return null
-    const fromApi = cardsById.get(cardId)
-    if (fromApi) return fromApi
-    const snap = state?.cardCatalog[cardId]
-    return snap ? snapshotToCard(snap) : null
+    return resolvePreviewCard(cardId, cardsById, state?.cardCatalog)
   }, [
     selectedUnit?.cardId,
     selectedArmyCardId,
@@ -888,6 +1143,87 @@ export default function App() {
     cardsById,
     state?.cardCatalog,
   ])
+
+  const previewAbilities = useMemo(
+    () => mergeAbilityMaps(abilityByName, state?.abilityCatalog),
+    [abilityByName, state?.abilityCatalog],
+  )
+
+  const hoveredBoardUnit = useMemo(() => {
+    if (!state || !hoverHex) return null
+    return (
+      state.units.find(
+        (u) => u.col === hoverHex.col && u.row === hoverHex.row,
+      ) ?? null
+    )
+  }, [state, hoverHex])
+
+  const hoverBoardCard = useMemo(
+    () =>
+      resolvePreviewCard(
+        hoveredBoardUnit?.cardId,
+        cardsById,
+        state?.cardCatalog,
+      ),
+    [hoveredBoardUnit?.cardId, cardsById, state?.cardCatalog],
+  )
+
+  const hoverLiveStats = useMemo(() => {
+    if (!state || !hoveredBoardUnit) return null
+    return unitLiveStats(state, hoveredBoardUnit)
+  }, [state, hoveredBoardUnit])
+
+  useEffect(() => {
+    function syncCtrl(e: KeyboardEvent | MouseEvent) {
+      setHoverCtrlHeld(!!e.ctrlKey)
+    }
+    function onKeyUp(e: KeyboardEvent) {
+      if (e.key === 'Control') setHoverCtrlHeld(false)
+      else setHoverCtrlHeld(!!e.ctrlKey)
+    }
+    function onBlur() {
+      setHoverCtrlHeld(false)
+    }
+    window.addEventListener('keydown', syncCtrl)
+    window.addEventListener('keyup', onKeyUp)
+    window.addEventListener('blur', onBlur)
+    return () => {
+      window.removeEventListener('keydown', syncCtrl)
+      window.removeEventListener('keyup', onKeyUp)
+      window.removeEventListener('blur', onBlur)
+    }
+  }, [])
+
+  const showUnitHoverPopup =
+    hoverCtrlHeld && !!hoverBoardCard && !!hoveredBoardUnit && !!hoverLiveStats
+
+  const unitHoverPopupStyle = useMemo(() => {
+    if (!hoverPointer || !showUnitHoverPopup) return null
+    const scale = 0.85
+    const cardW = 420 * scale
+    const cardH = ((420 * 7) / 5) * scale
+    const liveH = 140
+    const pad = 16
+    let left = hoverPointer.x + pad
+    let top = hoverPointer.y + pad
+    if (left + cardW > window.innerWidth - 8) {
+      left = hoverPointer.x - cardW - pad
+    }
+    if (top + cardH + liveH > window.innerHeight - 8) {
+      top = hoverPointer.y - cardH - liveH - pad
+    }
+    left = Math.max(8, left)
+    top = Math.max(8, top)
+    return { left, top }
+  }, [hoverPointer, showUnitHoverPopup])
+
+  const handleHexHover = useCallback((col: number, row: number) => {
+    setHoverHex({ col, row })
+  }, [])
+
+  const handleHoverEnd = useCallback(() => {
+    setHoverHex(null)
+  }, [])
 
   const myArmyRoster = useMemo(() => {
     if (!me?.army || !state) return []
@@ -961,6 +1297,13 @@ export default function App() {
   const myPlayTurn =
     state?.phase === 'Play' && !!seat && state.activeSeat === seat
 
+  useEffect(() => {
+    if (!myPlayTurn && pendingAction) {
+      setPendingAction(null)
+      setTargetUnitId(null)
+    }
+  }, [myPlayTurn, pendingAction])
+
   const castableAbilities = useMemo(() => {
     if (!selectedUnit) return []
     const names = [
@@ -976,7 +1319,7 @@ export default function App() {
     }> = []
     for (const name of names) {
       const fromCatalog = state?.abilityCatalog?.[name]
-      const fromApi = abilityByName.get(name)
+      const fromApi = previewAbilities.get(name)
       const def: AbilityDef | null = fromCatalog
         ? fromCatalog
         : fromApi
@@ -1089,7 +1432,7 @@ export default function App() {
   }, [
     selectedUnit,
     state,
-    abilityByName,
+    previewAbilities,
     myPlayTurn,
     seat,
     myCommanderPool,
@@ -1333,7 +1676,7 @@ export default function App() {
               }
               onClick={() => selectArmyEntry(entry)}
             >
-              {rosterKindLabel(entry.kind)} {entry.label}
+              {rosterKindLabel(entry.kind, entry.seat)} {entry.label}
               {entry.count > 1 ? ` ×${entry.count}` : ''}
             </button>
           </li>
@@ -1546,21 +1889,19 @@ export default function App() {
     ) : null
 
     if (state.phase === 'Commanders') {
+      // Legacy rooms only — seating is automatic after armies lock.
       return (
         <>
           {forceStartBtn}
-          <h2>Commanders</h2>
+          <h2>Preparing force selection…</h2>
+          <p className="muted">Commanders are placed automatically. Continuing…</p>
           <button
             className="primary"
             disabled={me?.commanderReady || !me?.armyReady}
             onClick={() => send({ type: 'readyCommander' })}
           >
-            {me?.commanderReady ? 'Commander ready' : 'Confirm commander'}
+            Continue
           </button>
-          <p className="muted">
-            Places you on the edge mid-hex. When everyone is ready, objectives
-            draw and force selection begins.
-          </p>
         </>
       )
     }
@@ -2123,7 +2464,12 @@ export default function App() {
                   >
                     <span className="deploy-item-name">
                       {item.placed ? '✓' : i === activeIndex ? '→' : '·'}{' '}
-                      {item.kind === 'officer' ? 'O' : 'U'} {item.cardName}
+                      {item.kind === 'commander'
+                        ? `C${seat ?? ''}`
+                        : item.kind === 'officer'
+                          ? 'O'
+                          : 'U'}{' '}
+                      {item.cardName}
                     </span>
                     {card && isActive && (
                       <span className="deploy-item-stats">
@@ -2139,6 +2485,17 @@ export default function App() {
           {activeDeployItem && cardsById.get(activeDeployItem.cardId) && (
             <div className="deploy-selected-stats">
               <h3>Deploying: {activeDeployItem.cardName}</h3>
+              {deploySiegeBanner ? (
+                <p className="muted" style={{ marginTop: 0 }}>
+                  {deploySiegeBanner}
+                </p>
+              ) : (
+                <p className="muted" style={{ marginTop: 0 }}>
+                  {activeDeployItem.kind === 'unit'
+                    ? 'Place in this officer’s Command Radius (may be outside the edge zone).'
+                    : `Place in your ${DEPLOY_ZONE_WIDTH}×${DEPLOY_ZONE_DEPTH} deployment zone.`}
+                </p>
+              )}
               {(() => {
                 const card = cardsById.get(activeDeployItem.cardId)
                 if (!card) return null
@@ -2148,10 +2505,13 @@ export default function App() {
                     <div className="stat-row"><span>Damage</span><strong>{card.damage ?? '—'}</strong></div>
                     <div className="stat-row"><span>Range</span><strong>{card.range ?? '—'}</strong></div>
                     <div className="stat-row"><span>Toughness</span><strong>{card.toughness ?? '—'}</strong></div>
-                    {activeDeployItem.kind === 'officer' && (
+                    {(activeDeployItem.kind === 'officer' ||
+                      activeDeployItem.kind === 'commander') && (
                       <>
                         <div className="stat-row"><span>Cmd Radius</span><strong>{card.commandRadius ?? '—'}</strong></div>
-                        <div className="stat-row"><span>Company AP</span><strong>{card.companyAp ?? '—'}</strong></div>
+                        {activeDeployItem.kind === 'officer' ? (
+                          <div className="stat-row"><span>Company AP</span><strong>{card.companyAp ?? '—'}</strong></div>
+                        ) : null}
                       </>
                     )}
                     {card.keywords?.length ? (
@@ -2245,8 +2605,8 @@ export default function App() {
           <p className="muted">
             Activate one company per turn to move its units (each officer once
             per round), or activate your commander (once per round). Spend AP/CC
-            to move them. Spend AP/CC, then <strong>Resolve attack</strong>{' '}
-            (auto) or use manual roll/damage below. Scout units count as in CR up to
+            to move them. Spend AP/CC, then <strong>Attack</strong>{' '}
+            (pick target → confirm) or use manual roll/damage below. Scout units count as in CR up to
             +{SCOUT_CR_EXTENSION} hexes beyond their officer. You may move past printed
             Move for Harass/Trample — a warning appears when you do.
           </p>
@@ -2410,6 +2770,7 @@ export default function App() {
               Export JSON or save here — no room required
             </span>
           )}
+          <AppMenu />
         </header>
         <ArmyBuilder
           workshopMode
@@ -2425,7 +2786,7 @@ export default function App() {
 
   if (!state || !seat) {
     return (
-      <div className="lobby-page">
+      <div className="lobby-page" onPointerDown={() => unlockAudio()}>
         <aside className="lobby-info-panel">
           <h2>Play on same Wi‑Fi</h2>
           <ol className="muted lobby-info-steps">
@@ -2467,7 +2828,10 @@ export default function App() {
         </aside>
 
         <main className="lobby-card">
-          <h1>Command Warfare — Play</h1>
+          <div className="lobby-card-head">
+            <h1>Command Warfare — Play</h1>
+            <AppMenu />
+          </div>
           <p className="muted lobby-tagline">
             Build an army · create or join a room
           </p>
@@ -2534,6 +2898,7 @@ export default function App() {
               </select>
             </div>
             {opponentMode === 'ai' ? (
+              <>
               <div className="field">
                 <label>AI difficulty</label>
                 <select
@@ -2548,10 +2913,28 @@ export default function App() {
                   <option value="medium">Medium</option>
                   <option value="hard">Hard</option>
                 </select>
+              </div>
+              <div className="field">
+                <label>AI commander</label>
+                <select
+                  value={aiCommanderId}
+                  onChange={(e) => setAiCommanderId(e.target.value)}
+                >
+                  <option value="random">Random</option>
+                  {aiCommanderOptions.map((p) => (
+                    <option key={p.commanderId} value={p.commanderId}>
+                      {p.race} — {p.commanderName} ({p.totalUv} UV)
+                    </option>
+                  ))}
+                </select>
                 <p className="muted lobby-mode-hint">
                   Creates a 2-player room and fills the second seat with a CPU.
+                  {aiCommanderOptions.length === 0
+                    ? ' Start the card API to load commander presets.'
+                    : ''}
                 </p>
               </div>
+              </>
             ) : (
               <div className="field">
                 <label>Max players</label>
@@ -2579,6 +2962,21 @@ export default function App() {
               <span>
                 Enforce mono-race armies (officers &amp; units must match the
                 commander&apos;s race)
+              </span>
+            </label>
+            <label className="check-field">
+              <input
+                type="checkbox"
+                checked={randomMap}
+                onChange={(e) => {
+                  const on = e.target.checked
+                  setRandomMap(on)
+                  localStorage.setItem('cw-play-random-map', on ? '1' : '0')
+                }}
+              />
+              <span>
+                Random biome map (Minecraft-style continents; skips terrain
+                placement; little water in command radii)
               </span>
             </label>
             <div className="lobby-pool-fields">
@@ -2644,13 +3042,20 @@ export default function App() {
                         name: name || 'Host',
                         maxPlayers: opponentMode === 'ai' ? 2 : maxPlayers,
                         enforceCommanderRace,
+                        randomMap,
                         opponent: opponentMode,
                         loadoutPools: {
                           deployMax: createDeployMax,
                           reserveMax: createReserveMax,
                         },
                         ...(opponentMode === 'ai'
-                          ? { aiDifficulty }
+                          ? {
+                              aiDifficulty,
+                              ...(aiCommanderId &&
+                              aiCommanderId !== 'random'
+                                ? { aiCommanderId }
+                                : { aiCommanderId: null }),
+                            }
                           : {}),
                         ...(custom ? { roomCode: custom } : {}),
                       })
@@ -2753,10 +3158,21 @@ export default function App() {
       const deathsHere = (state.deaths ?? []).filter(
         (d) => d.col === col && d.row === row,
       )
-      if (aimMode) {
+      if (pendingAction?.phase === 'pick') {
         if (here) {
           setTargetUnitId(here.id)
-          setAimMode(false)
+          setPendingAction({
+            ...pendingAction,
+            phase: 'confirm',
+            targetId: here.id,
+          })
+        }
+        return
+      }
+      if (manualAim) {
+        if (here) {
+          setTargetUnitId(here.id)
+          setManualAim(false)
         }
         return
       }
@@ -2781,6 +3197,15 @@ export default function App() {
       if (here) {
         setSelectedDeathId(null)
         setReviveAtClickMode(false)
+        if (pendingAction?.phase === 'confirm') {
+          // Clicking another unit retargets while confirming
+          setTargetUnitId(here.id)
+          setPendingAction({
+            ...pendingAction,
+            targetId: here.id,
+          })
+          return
+        }
         setSelectedUnitId((prev) => {
           const next = prev === here.id ? null : here.id
           if (next) setSelectedArmyCardId(here.cardId)
@@ -2789,6 +3214,7 @@ export default function App() {
         return
       }
       // Graves do not block movement — if a unit is selected, move onto the hex.
+      if (pendingAction) return
       if (selectedUnitId && myPlayTurn) {
         setSelectedDeathId(null)
         setReviveAtClickMode(false)
@@ -2831,6 +3257,15 @@ export default function App() {
               {state.aiDifficulty
                 ? ` · ${state.aiDifficulty[0]!.toUpperCase()}${state.aiDifficulty.slice(1)}`
                 : ''}
+              {state.aiCommanderId
+                ? ` · ${
+                    aiCommanderOptions.find(
+                      (p) => p.commanderId === state.aiCommanderId,
+                    )?.commanderName ??
+                    state.cardCatalog?.[state.aiCommanderId]?.name ??
+                    'Fixed commander'
+                  }`
+                : ' · Random commander'}
             </span>
           ) : null}
           <button
@@ -2851,6 +3286,11 @@ export default function App() {
           <span className="pill">
             {state.enforceCommanderRace !== false ? 'Mono-race' : 'Mixed race OK'}
           </span>
+          {state.randomMap ? (
+            <span className="pill" title="Random biome map — terrain placement skipped">
+              Random map
+            </span>
+          ) : null}
           <span className="pill">
             Deploy ≤{roomPools.deployMax} · Reserve ≤{roomPools.reserveMax}
           </span>
@@ -2924,6 +3364,7 @@ export default function App() {
           >
             Log
           </button>
+          <AppMenu />
         </div>
       </div>
 
@@ -2987,6 +3428,8 @@ export default function App() {
           disabled={!connected}
           waiting={me.forceSelectReady}
           loadoutPools={roomPools}
+          cardsById={cardsById}
+          abilityByName={previewAbilities}
         />
       ) : (
         <>
@@ -2995,7 +3438,20 @@ export default function App() {
               {renderPhaseSidebarContent()}
             </aside>
           ) : null}
-          <div className="board-stage">
+          <div
+            className="board-stage"
+            onPointerDown={() => unlockAudio()}
+            onPointerMove={(e) => {
+              setHoverPointer({ x: e.clientX, y: e.clientY })
+              setHoverCtrlHeld(!!e.ctrlKey)
+            }}
+          >
+          {beat ? (
+            <div className={`board-beat board-beat-${beat.tone}`} role="status">
+              <strong>{beat.title}</strong>
+              {beat.detail ? <span>{beat.detail}</span> : null}
+            </div>
+          ) : null}
           {turnBannerText ? (
             <div
               className={`turn-banner${
@@ -3005,6 +3461,26 @@ export default function App() {
               }`}
             >
               {turnBannerText}
+            </div>
+          ) : null}
+          {pendingAction ? (
+            <div
+              className={`pending-action-banner${
+                pendingAction.phase === 'confirm' ? ' confirming' : ''
+              }`}
+            >
+              {pendingAction.kind === 'cast'
+                ? pendingAction.phase === 'pick'
+                  ? `Choose a target for ${pendingAction.abilityName}`
+                  : `Confirm: cast ${pendingAction.abilityName} on ${
+                      targetUnit?.cardName ?? 'target'
+                    }`
+                : pendingAction.phase === 'pick'
+                  ? 'Choose a unit to attack'
+                  : `Confirm: attack ${targetUnit?.cardName ?? 'target'}`}
+              <button type="button" className="ghost" onClick={cancelPendingAction}>
+                Cancel
+              </button>
             </div>
           ) : null}
           <div className="board-mode-controls">
@@ -3033,9 +3509,15 @@ export default function App() {
               selectedDeathId={selectedDeathId}
               showGraves={state.phase === 'Play'}
               onHexClick={onHexClick}
-              onHexHover={(col, row) => setHoverHex({ col, row })}
+              onHexHover={handleHexHover}
+              onHoverEnd={handleHoverEnd}
               terrainGhost={terrainGhost}
-              officerCrKeys={officerCrKeys}
+              officerCrKeys={displayCrKeys}
+              movePreviewKeys={movePreviewKeys}
+              attackPreviewKeys={attackPreviewKeys}
+              flashHexKeys={flashKeys}
+              activeCompanyIds={activeCompanyIds}
+              cameraFocus={cameraFocus}
               deployHintKeys={deployHintKeys}
               companyUnitIds={companyUnitIds}
               targetUnitId={targetUnitId}
@@ -3049,15 +3531,147 @@ export default function App() {
               selectedDeathId={selectedDeathId}
               showGraves={state.phase === 'Play'}
               onHexClick={onHexClick}
-              onHexHover={(col, row) => setHoverHex({ col, row })}
+              onHexHover={handleHexHover}
+              onHoverEnd={handleHoverEnd}
               terrainGhost={terrainGhost}
-              officerCrKeys={officerCrKeys}
+              officerCrKeys={displayCrKeys}
+              movePreviewKeys={movePreviewKeys}
+              attackPreviewKeys={attackPreviewKeys}
+              flashHexKeys={flashKeys}
+              activeCompanyIds={activeCompanyIds}
               deployHintKeys={deployHintKeys}
               companyUnitIds={companyUnitIds}
               targetUnitId={targetUnitId}
               artByCardId={artByCardId}
             />
           )}
+          {showUnitHoverPopup &&
+          unitHoverPopupStyle &&
+          hoverBoardCard &&
+          hoveredBoardUnit &&
+          hoverLiveStats ? (
+            <div
+              className="unit-card-hover-popup"
+              style={unitHoverPopupStyle}
+              aria-hidden
+            >
+              <div className="unit-hover-live">
+                <div className="unit-hover-live-head">
+                  <span className="unit-hover-live-name">
+                    {hoveredBoardUnit.cardName}
+                  </span>
+                  <span className="unit-hover-live-kind">
+                    {hoveredBoardUnit.kind}
+                  </span>
+                </div>
+                {hoverLiveStats.officerName &&
+                hoveredBoardUnit.kind === 'unit' ? (
+                  <div className="unit-hover-officer">
+                    Officer:{' '}
+                    <strong>{hoverLiveStats.officerName}</strong>
+                  </div>
+                ) : null}
+                <div
+                  className={`unit-hover-activation tone-${hoverLiveStats.activation.tone}`}
+                >
+                  {hoverLiveStats.activation.label}
+                </div>
+                <div className="unit-hover-live-grid">
+                  <span>Move</span>
+                  <strong>
+                    {hoverLiveStats.moveRemaining}/{hoverLiveStats.move}
+                  </strong>
+                  <span>Toughness</span>
+                  <strong>
+                    {hoverLiveStats.toughnessCurrent ?? '—'}/
+                    {hoverLiveStats.toughness ?? '—'}
+                  </strong>
+                  <span>Damage</span>
+                  <strong>
+                    {hoverLiveStats.damage}
+                    {hoverLiveStats.printedDamage != null &&
+                    hoverLiveStats.damage !== hoverLiveStats.printedDamage
+                      ? ` (${hoverLiveStats.printedDamage}+)`
+                      : ''}
+                  </strong>
+                  <span>Range</span>
+                  <strong>
+                    {hoverLiveStats.range == null
+                      ? '—'
+                      : hoverLiveStats.range <= 1
+                        ? 'Melee'
+                        : hoverLiveStats.range}
+                  </strong>
+                </div>
+                {hoveredBoardUnit.kind !== 'commander' ||
+                hoverLiveStats.attackedThisTurn ? (
+                  <div className="unit-hover-live-flags">
+                    {hoverLiveStats.attackedThisTurn ? (
+                      <span className="unit-hover-flag">Attacked this turn</span>
+                    ) : hoveredBoardUnit.kind !== 'commander' ? (
+                      <span className="unit-hover-flag muted">
+                        Has not attacked this turn
+                      </span>
+                    ) : null}
+                  </div>
+                ) : null}
+                {hoverLiveStats.terrainLabel ? (
+                  <div className="unit-hover-section">
+                    <div className="unit-hover-section-label">Terrain</div>
+                    <div className="unit-hover-live-pills">
+                      <span className="unit-hover-pill terrain">
+                        {hoverLiveStats.terrainLabel}
+                      </span>
+                    </div>
+                  </div>
+                ) : null}
+                {hoverLiveStats.buffLabels.length ? (
+                  <div className="unit-hover-section">
+                    <div className="unit-hover-section-label">Buffs</div>
+                    <div className="unit-hover-live-pills">
+                      {hoverLiveStats.buffLabels.map((label) => (
+                        <span key={label} className="unit-hover-pill buff">
+                          {label}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+                {hoverLiveStats.debuffLabels.length ? (
+                  <div className="unit-hover-section">
+                    <div className="unit-hover-section-label">Debuffs</div>
+                    <div className="unit-hover-live-pills">
+                      {hoverLiveStats.debuffLabels.map((label) => (
+                        <span key={label} className="unit-hover-pill debuff">
+                          {label}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+                {hoverLiveStats.statusLabels.length ? (
+                  <div className="unit-hover-section">
+                    <div className="unit-hover-section-label">Statuses</div>
+                    <div className="unit-hover-live-pills">
+                      {hoverLiveStats.statusLabels.map((label) => (
+                        <span key={label} className="unit-hover-pill">
+                          {label}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+              </div>
+              <div className="unit-card-hover-popup-inner inspect-card">
+                <CardFace
+                  card={hoverBoardCard}
+                  abilityByName={previewAbilities}
+                  occupyingTerrain={hoverLiveStats.terrainKind}
+                  activeTerrainBuffs={hoverLiveStats.terrainBuffLabels}
+                />
+              </div>
+            </div>
+          ) : null}
         </div>
         </>
       )}
@@ -3066,6 +3680,81 @@ export default function App() {
         <aside className="panel panel-right">
           {state.phase === 'Play' && selectedUnit ? (
             <>
+              {pendingAction ? (
+                <div className="pending-action-panel">
+                  <h2>
+                    {pendingAction.phase === 'pick'
+                      ? 'Choose target'
+                      : 'Confirm'}
+                  </h2>
+                  <p>
+                    {pendingAction.kind === 'cast'
+                      ? pendingAction.phase === 'pick'
+                        ? `Choose a target for ${pendingAction.abilityName}.`
+                        : `Cast ${pendingAction.abilityName} on ${
+                            targetUnit?.cardName ?? 'target'
+                          }?`
+                      : pendingAction.phase === 'pick'
+                        ? 'Choose a unit to attack.'
+                        : `Attack ${targetUnit?.cardName ?? 'target'}?`}
+                  </p>
+                  {pendingAction.phase === 'confirm' && targetUnit ? (
+                    <div className="pending-action-target">
+                      <strong>{targetUnit.cardName}</strong>
+                      <span>
+                        {targetUnit.seat} · T
+                        {targetUnit.toughnessCurrent ?? '—'}/
+                        {targetUnit.toughness ?? '—'}
+                      </span>
+                    </div>
+                  ) : null}
+                  {pendingAction.kind === 'attack' &&
+                  pendingAction.phase === 'confirm' &&
+                  attackPreview &&
+                  !attackPreview.legal ? (
+                    <p className="error">{attackPreview.reason}</p>
+                  ) : null}
+                  <div className="row wrap">
+                    {pendingAction.phase === 'confirm' ? (
+                      <button
+                        type="button"
+                        className="primary"
+                        disabled={
+                          pendingAction.kind === 'attack' &&
+                          !attackPreview?.legal
+                        }
+                        onClick={() => {
+                          if (pendingAction.kind === 'cast') {
+                            send({
+                              type: 'castAbility',
+                              casterUnitId: pendingAction.casterId,
+                              abilityName: pendingAction.abilityName,
+                              targetUnitId: pendingAction.targetId,
+                            })
+                          } else if (
+                            pendingAction.targetId &&
+                            pendingAction.attackerId
+                          ) {
+                            send({
+                              type: 'resolveAttack',
+                              attackerUnitId: pendingAction.attackerId,
+                              defenderUnitId: pendingAction.targetId,
+                            })
+                          }
+                          setPendingAction(null)
+                          setTargetUnitId(null)
+                        }}
+                      >
+                        Confirm
+                      </button>
+                    ) : null}
+                    <button type="button" onClick={cancelPendingAction}>
+                      Cancel
+                    </button>
+                  </div>
+                  <p className="muted">Esc cancels.</p>
+                </div>
+              ) : null}
               <h2>Selected</h2>
               <div className="stat-tracker">
                 <div className="stat-tracker-name">{selectedUnit.cardName}</div>
@@ -3102,6 +3791,28 @@ export default function App() {
                     <strong>{selectedUnit.commandRadius ?? '—'}</strong>
                   </div>
                 ) : null}
+                <p className="muted range-legend">
+                  <span className="range-swatch range-swatch-move" /> Move
+                  <span className="range-swatch range-swatch-attack" /> Attack
+                  <span className="range-swatch range-swatch-cr" /> Officer CR
+                </p>
+                {(() => {
+                  const terrainFx = unitActiveTerrainEffects(state, selectedUnit)
+                  if (!terrainFx.buffs.length && !terrainFx.debuffs.length) {
+                    return null
+                  }
+                  return (
+                    <p className="terrain-home-chip">
+                      On {terrainFx.terrainLabel}
+                      {terrainFx.buffs.length
+                        ? ` · ${terrainFx.buffs.join(', ')}`
+                        : ''}
+                      {terrainFx.debuffs.length
+                        ? ` · ${terrainFx.debuffs.join(', ')}`
+                        : ''}
+                    </p>
+                  )
+                })()}
                 {/* Company AP display for officer or unit in a company */}
                 {(() => {
                   const officerId = selectedUnit.kind === 'officer'
@@ -3118,6 +3829,27 @@ export default function App() {
                     </div>
                   )
                 })()}
+                {selectedBuffLabels.length ? (
+                  <div className="status-pills selected-buff-pills">
+                    {selectedBuffLabels.map((label) => (
+                      <span key={label} className="pill status-pill status-buff">
+                        {label}
+                      </span>
+                    ))}
+                  </div>
+                ) : null}
+                {selectedDebuffLabels.length ? (
+                  <div className="status-pills selected-debuff-pills">
+                    {selectedDebuffLabels.map((label) => (
+                      <span
+                        key={label}
+                        className="pill status-pill status-debuff"
+                      >
+                        {label}
+                      </span>
+                    ))}
+                  </div>
+                ) : null}
                 {selectedStatusPills.length ? (
                   <div className="status-pills">
                     {selectedStatusPills.map((pill) => (
@@ -3191,8 +3923,8 @@ export default function App() {
                 <div className="cast-panel">
                   <h2>Cast</h2>
                   <p className="muted">
-                    Spends the printed cost. Aim a target first when the ability
-                    needs one.
+                    Click an ability. If it needs a target, click a unit on the
+                    board, then confirm.
                   </p>
                   <div className="cast-list">
                     {castableAbilities.map((a) => (
@@ -3200,22 +3932,38 @@ export default function App() {
                         key={a.name}
                         type="button"
                         className={
-                          isUltimateAbility(a.def) ? 'cast-ult' : undefined
+                          pendingAction?.kind === 'cast' &&
+                          pendingAction.abilityName === a.name
+                            ? 'cast-pending'
+                            : isUltimateAbility(a.def)
+                              ? 'cast-ult'
+                              : undefined
                         }
-                        disabled={a.disabled}
+                        disabled={a.disabled || !!pendingAction}
                         title={
                           a.reason ||
                           a.def.description ||
                           `${a.name} (${a.spendLabel})`
                         }
-                        onClick={() =>
+                        onClick={() => {
+                          if (!selectedUnit) return
+                          if (abilityRequiresUnitTarget(a.name)) {
+                            setManualAim(false)
+                            setPendingAction({
+                              kind: 'cast',
+                              abilityName: a.name,
+                              casterId: selectedUnit.id,
+                              phase: 'pick',
+                            })
+                            setTargetUnitId(null)
+                            return
+                          }
                           send({
                             type: 'castAbility',
                             casterUnitId: selectedUnit.id,
                             abilityName: a.name,
-                            targetUnitId: targetUnitId ?? undefined,
                           })
-                        }
+                        }}
                       >
                         <span className="cast-name">{a.name}</span>
                         <span className="cast-cost">{a.spendLabel}</span>
@@ -3241,7 +3989,7 @@ export default function App() {
                         ? ` with ${pendingTrample.leftoverDamage} leftover dmg`
                         : ''}
                       . No Move cost — select {trampleAttacker.cardName}, Continue
-                      Trample, then pick an adjacent enemy and Resolve attack.
+                      Trample, then Attack an adjacent enemy.
                     </p>
                     <div className="row wrap">
                       <button
@@ -3261,6 +4009,33 @@ export default function App() {
                     </div>
                   </div>
                 ) : null}
+                <div className="row wrap">
+                  <button
+                    type="button"
+                    className="primary"
+                    disabled={
+                      !selectedUnitId ||
+                      !myPlayTurn ||
+                      selectedUnit?.seat !== seat ||
+                      (!!pendingAction && pendingAction.kind !== 'attack')
+                    }
+                    onClick={() => {
+                      if (!selectedUnit) return
+                      setManualAim(false)
+                      setPendingAction({
+                        kind: 'attack',
+                        attackerId: selectedUnit.id,
+                        phase: 'pick',
+                      })
+                      setTargetUnitId(null)
+                    }}
+                  >
+                    {pendingAction?.kind === 'attack' &&
+                    pendingAction.phase === 'pick'
+                      ? 'Click a target…'
+                      : 'Attack'}
+                  </button>
+                </div>
                 {attackPreview ? (
                   attackPreview.legal ? (
                     <HitNeedPreview
@@ -3277,7 +4052,9 @@ export default function App() {
                     <p className="muted">{attackPreview.reason}</p>
                   )
                 ) : (
-                  <p className="muted">Select attacker + aim target for preview.</p>
+                  <p className="muted">
+                    Select your unit, click Attack, then click an enemy.
+                  </p>
                 )}
                 {state.lastCombatResult ? (
                   <div className="combat-result-recent">
@@ -3285,28 +4062,6 @@ export default function App() {
                     <CombatResultBanner result={state.lastCombatResult} />
                   </div>
                 ) : null}
-                <div className="row wrap">
-                  <button
-                    type="button"
-                    className="primary"
-                    disabled={
-                      !selectedUnitId ||
-                      !targetUnitId ||
-                      !attackPreview?.legal
-                    }
-                    onClick={() =>
-                      selectedUnitId &&
-                      targetUnitId &&
-                      send({
-                        type: 'resolveAttack',
-                        attackerUnitId: selectedUnitId,
-                        defenderUnitId: targetUnitId,
-                      })
-                    }
-                  >
-                    Resolve attack
-                  </button>
-                </div>
                 <p className="muted resolve-manual-label">Manual override</p>
                 <div className="row wrap">
                   <button
@@ -3315,9 +4070,18 @@ export default function App() {
                       !evadeCandidate ||
                       evadeCandidate.evadeActive ||
                       !evadeCompanyPool ||
-                      evadeCompanyPool.ap < 1
+                      evadeCompanyPool.ap < 1 ||
+                      (!!state &&
+                        !!evadeCandidate &&
+                        terrainBlocksEvade(state, evadeCandidate))
                     }
-                    title="Spend 1 Company AP — defender gains +1 to hit need until next activation"
+                    title={
+                      state &&
+                      evadeCandidate &&
+                      terrainBlocksEvade(state, evadeCandidate)
+                        ? 'Cannot Evade while in Desert'
+                        : 'Spend 1 Company AP — defender gains +1 to hit need until next activation'
+                    }
                     onClick={() =>
                       evadeCandidate &&
                       send({ type: 'activateEvade', unitId: evadeCandidate.id })
@@ -3393,10 +4157,15 @@ export default function App() {
                 <div className="row wrap">
                   <button
                     type="button"
-                    className={aimMode ? 'primary' : undefined}
-                    onClick={() => setAimMode((v) => !v)}
+                    className={manualAim ? 'primary' : undefined}
+                    onClick={() => {
+                      if (pendingAction) return
+                      setManualAim((v) => !v)
+                    }}
+                    title="Mark a unit for manual dice / damage / heal tools"
+                    disabled={!!pendingAction}
                   >
-                    {aimMode ? 'Click a unit…' : 'Aim target'}
+                    {manualAim ? 'Click a unit…' : 'Mark manual target'}
                   </button>
                   {targetUnit ? (
                     <span className="pill">
@@ -3408,7 +4177,19 @@ export default function App() {
                     <span className="muted">No target</span>
                   )}
                   {targetUnitId ? (
-                    <button type="button" onClick={() => setTargetUnitId(null)}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setTargetUnitId(null)
+                        if (pendingAction?.phase === 'confirm') {
+                          setPendingAction({
+                            ...pendingAction,
+                            phase: 'pick',
+                            targetId: undefined,
+                          })
+                        }
+                      }}
+                    >
                       Clear
                     </button>
                   ) : null}
@@ -3546,7 +4327,7 @@ export default function App() {
 
               {focusCard ? (
                 <div className="inspect-card">
-                  <CardFace card={focusCard} abilityByName={abilityByName} />
+                  <CardFace card={focusCard} abilityByName={previewAbilities} />
                 </div>
               ) : (
                 <p className="muted">Card art loading…</p>
@@ -3575,7 +4356,7 @@ export default function App() {
                 <p className="muted">{focusCard.name}</p>
               )}
               <div className="inspect-card">
-                <CardFace card={focusCard} abilityByName={abilityByName} />
+                <CardFace card={focusCard} abilityByName={previewAbilities} />
               </div>
             </>
           ) : (

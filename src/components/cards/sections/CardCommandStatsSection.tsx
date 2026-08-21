@@ -21,10 +21,17 @@ export function CardCommandStatsSection({
         min={0}
       />
       <NumberField
-        label="Company Cap."
+        label="Company UV"
         value={draft.companyCapacity}
         onChange={(v) => onPatch('companyCapacity', v)}
         min={0}
+      />
+      <NumberField
+        label="Unit cap"
+        value={draft.companyUnitCap}
+        onChange={(v) => onPatch('companyUnitCap', v)}
+        min={0}
+        max={10}
       />
       <NumberField
         label="Cmd Radius"

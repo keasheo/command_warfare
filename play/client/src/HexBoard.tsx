@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 /**
  * SVG hex board — terrain, overlays, and unit tokens share one coordinate space.
  * See terrainVisuals.tsx for terrain art scope notes.
@@ -13,6 +13,7 @@ import {
   neighborsOddR,
   objectiveZoneHexes,
   oddRToPixel,
+  DEFAULT_COMMANDER_COMMAND_RADIUS,
   type GameState,
   type DeathRecord,
   type OddR,
@@ -53,26 +54,22 @@ const SEAT_UNIT: Record<SeatId, string> = {
   E: 'rgba(180, 130, 50, 0.85)',
 }
 
-const SEAT_TOKEN_FILL: Record<SeatId, string> = {
-  N: '#468cdc',
-  W: '#c85a46',
-  S: '#3ca06e',
-  E: '#b48228',
-}
+import {
+  SEAT_OUTLINE,
+  SEAT_TOKEN_FILL,
+  companyAccentColor,
+  diamondTokenPoints,
+  hexTokenPoints,
+  tokenRadiusForKind,
+  unitTokenLabel,
+} from './unitTokenVisuals'
+import { COMBAT_FX_MS, combatFloats, combatResultKey } from './combatFx'
 
 /** Primary ring — unit kind. */
 const KIND_OUTLINE: Record<'commander' | 'officer' | 'unit', string> = {
   commander: '#ffe066',
   officer: '#ffffff',
   unit: '#f0ece0',
-}
-
-/** Secondary (outer) ring — player seat. */
-const SEAT_OUTLINE: Record<SeatId, string> = {
-  N: '#5aa0f0',
-  W: '#e07055',
-  S: '#45c888',
-  E: '#e0b020',
 }
 
 const MIN_ZOOM = 0.5
@@ -83,6 +80,13 @@ const ZOOM_STEP = 0.25
 const HOVER_FILL = 'rgba(255, 255, 255, 0.34)'
 const HOVER_STROKE = '#c8f8ff'
 const HOVER_STROKE_W = 2.5
+const MOVE_PREVIEW_FILL = 'rgba(56, 190, 92, 0.42)'
+const ATTACK_PREVIEW_FILL = 'rgba(220, 64, 64, 0.38)'
+const ATTACK_PREVIEW_STROKE = '#e05050'
+const OFFICER_CR_FILL = 'rgba(64, 132, 230, 0.32)'
+const OFFICER_CR_STROKE = '#5aa0f0'
+const FLASH_FILL = 'rgba(255, 214, 90, 0.42)'
+const FLASH_STROKE = '#ffe08a'
 
 function clampZoom(zoom: number) {
   return Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, zoom))
@@ -108,12 +112,6 @@ function isPanButton(button: number) {
   return button === 1 || button === 2
 }
 
-function unitLabel(unit: UnitToken): string {
-  if (unit.kind === 'commander') return unit.seat
-  if (unit.kind === 'officer') return 'O'
-  return 'U'
-}
-
 function hpRatio(unit: UnitToken): number | null {
   if (unit.toughness == null || unit.toughness <= 0) return null
   const cur = unit.toughnessCurrent ?? unit.toughness
@@ -132,9 +130,21 @@ export type HexBoardProps = {
   selectedUnitId: string | null
   onHexClick: (col: number, row: number) => void
   onHexHover?: (col: number, row: number) => void
+  /** Fired when the pointer leaves the board (or no hex is under the cursor). */
+  onHoverEnd?: () => void
   terrainGhost?: TerrainGhost | null
-  /** Officer command radius to tint while inspecting an officer. */
+  /** Officer command radius to tint while inspecting an officer/unit. */
   officerCrKeys?: Set<string>
+  /** Reachable move hexes for the selected unit. */
+  movePreviewKeys?: Set<string>
+  /** Attack range hexes for the selected unit. */
+  attackPreviewKeys?: Set<string>
+  /** Hexes to pulse (combat, objective flip, activation). */
+  flashHexKeys?: Set<string>
+  /** Units in the currently activated company (Play). */
+  activeCompanyIds?: Set<string>
+  /** 3D camera nudge toward a hex (combat / claim / activation). */
+  cameraFocus?: { col: number; row: number; nonce: number } | null
   /** Deploy-phase legal hexes (officer wedge or unit officer-CR). */
   deployHintKeys?: Set<string>
   /** Company unit ids to highlight with the selected officer. */
@@ -150,26 +160,36 @@ export type HexBoardProps = {
   hexSize?: number
 }
 
+export const DEFAULT_HEX_SIZE = 10
+
 export function HexBoard({
   state,
   mySeat,
   selectedUnitId,
   onHexClick,
   onHexHover,
+  onHoverEnd,
   terrainGhost = null,
   officerCrKeys,
+  movePreviewKeys,
+  attackPreviewKeys,
+  flashHexKeys,
+  activeCompanyIds,
   deployHintKeys,
   companyUnitIds,
   targetUnitId = null,
   artByCardId: _artByCardId = {},
   selectedDeathId = null,
   showGraves = true,
-  hexSize = 6,
+  hexSize = DEFAULT_HEX_SIZE,
 }: HexBoardProps) {
   const [hover, setHover] = useState<string | null>(null)
   const [zoom, setZoom] = useState(1)
   const [pan, setPan] = useState({ x: 0, y: 0 })
   const [isPanning, setIsPanning] = useState(false)
+  const [combatNow, setCombatNow] = useState(0)
+  const combatStartedAt = useRef(0)
+  const combatKeyRef = useRef<string | null>(null)
   const svgRef = useRef<SVGSVGElement>(null)
   const panSession = useRef<{
     startX: number
@@ -179,6 +199,24 @@ export function HexBoard({
     viewWidth: number
     viewHeight: number
   } | null>(null)
+
+  const combat = state.lastCombatResult
+  const combatKey = combat ? combatResultKey(combat) : null
+  useEffect(() => {
+    if (!combatKey) return
+    combatKeyRef.current = combatKey
+    combatStartedAt.current = performance.now()
+    setCombatNow(performance.now())
+    let frame = 0
+    const tick = (t: number) => {
+      setCombatNow(t)
+      if (t - combatStartedAt.current < COMBAT_FX_MS) {
+        frame = requestAnimationFrame(tick)
+      }
+    }
+    frame = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(frame)
+  }, [combatKey])
 
   const unitAt = useMemo(() => {
     const m = new Map<string, (typeof state.units)[0]>()
@@ -251,7 +289,7 @@ export function HexBoard({
     for (const seat of Object.keys(state.commanders) as SeatId[]) {
       const origin = state.commanders[seat]
       if (!origin) continue
-      const radius = state.commanderRadii?.[seat] ?? 5
+      const radius = state.commanderRadii?.[seat] ?? DEFAULT_COMMANDER_COMMAND_RADIUS
       for (const key of commandRadiusKeys(origin, radius, n)) {
         if (!m.has(key)) m.set(key, seat)
       }
@@ -269,7 +307,7 @@ export function HexBoard({
     }
     const origin = state.commanders[mySeat]
     if (!origin) return new Set<string>()
-    const radius = state.commanderRadii?.[mySeat] ?? 5
+    const radius = state.commanderRadii?.[mySeat] ?? DEFAULT_COMMANDER_COMMAND_RADIUS
     return commandRadiusKeys(origin, radius, state.boardSize || BOARD_SIZE)
   }, [state, mySeat])
 
@@ -294,6 +332,8 @@ export function HexBoard({
       cy: number
       baseTerrain: TerrainKind
       overlayFill?: string
+      overlayRing?: string
+      flash?: boolean
       label?: string
       strokeW: number
       stroke: string
@@ -316,6 +356,7 @@ export function HexBoard({
         const key = hexKey(col, row)
         const kind = terrain[key] ?? 'plains'
         let overlayFill: string | undefined
+        let overlayRing: string | undefined
         let strokeW = 0.35
         let stroke = terrainStroke(kind)
         let label: string | undefined
@@ -423,11 +464,29 @@ export function HexBoard({
           }
         }
 
-        if (officerCrKeys?.has(key) && !terrain[key] && !unit) {
-          overlayFill = 'rgba(240, 208, 96, 0.2)'
-        } else if (officerCrKeys?.has(key) && terrain[key] && !unit) {
-          stroke = '#c4a83a'
-          strokeW = Math.max(strokeW, 0.9)
+        if (officerCrKeys?.has(key)) {
+          overlayFill = OFFICER_CR_FILL
+          stroke = OFFICER_CR_STROKE
+          strokeW = Math.max(strokeW, 0.7)
+        }
+        const inMove = Boolean(movePreviewKeys?.has(key))
+        const inAttack = Boolean(attackPreviewKeys?.has(key))
+        if (inMove) {
+          overlayFill = MOVE_PREVIEW_FILL
+        }
+        if (inAttack && !inMove) {
+          overlayFill = ATTACK_PREVIEW_FILL
+        }
+        if (inAttack) {
+          overlayRing = ATTACK_PREVIEW_STROKE
+          stroke = ATTACK_PREVIEW_STROKE
+          strokeW = Math.max(strokeW, inMove ? 1.15 : 0.9)
+        }
+        const flash = Boolean(flashHexKeys?.has(key))
+        if (flash) {
+          overlayFill = FLASH_FILL
+          stroke = FLASH_STROKE
+          strokeW = Math.max(strokeW, 1.4)
         }
 
         if (ghostKeys.has(key) && terrainGhost) {
@@ -449,6 +508,8 @@ export function HexBoard({
           cy: y,
           baseTerrain: kind,
           overlayFill,
+          overlayRing,
+          flash,
           label,
           strokeW,
           stroke,
@@ -473,6 +534,9 @@ export function HexBoard({
     ownCrKeys,
     foreignCrKeys,
     officerCrKeys,
+    movePreviewKeys,
+    attackPreviewKeys,
+    flashHexKeys,
     deployHintKeys,
     companyUnitIds,
     targetUnitId,
@@ -567,6 +631,7 @@ export function HexBoard({
 
   const handleWheel = useCallback(
     (event: React.WheelEvent<SVGSVGElement>) => {
+      if (!event.shiftKey) return
       event.preventDefault()
       const svg = svgRef.current
       if (!svg) return
@@ -634,6 +699,48 @@ export function HexBoard({
     [baseHeight, baseWidth, zoom],
   )
 
+  const combatAge = combatNow - combatStartedAt.current
+  const combatActive =
+    !!combat &&
+    combatKeyRef.current === combatKey &&
+    combatAge >= 0 &&
+    combatAge < COMBAT_FX_MS
+  const combatAtkPx =
+    combat &&
+    oddRToPixel(combat.attackerCol, combat.attackerRow, hexSize)
+  const combatDefPx =
+    combat &&
+    oddRToPixel(combat.defenderCol, combat.defenderRow, hexSize)
+  const pierceEnd = combat?.pierceHits?.length
+    ? combat.pierceHits[combat.pierceHits.length - 1]
+    : null
+  const combatEndPx =
+    combat && pierceEnd
+      ? oddRToPixel(pierceEnd.col, pierceEnd.row, hexSize)
+      : combatDefPx
+  const combatLunge = (() => {
+    if (!combatActive || !combatAtkPx || !combatDefPx) return { x: 0, y: 0 }
+    const dx = combatDefPx.x - combatAtkPx.x
+    const dy = combatDefPx.y - combatAtkPx.y
+    const len = Math.hypot(dx, dy) || 1
+    const pulse = Math.sin(Math.min(1, combatAge / 420) * Math.PI)
+    const dist = hexSize * 0.55 * pulse
+    return { x: (dx / len) * dist, y: (dy / len) * dist }
+  })()
+  const combatBolt =
+    combatActive && combatAtkPx && combatEndPx
+      ? {
+          x:
+            combatAtkPx.x +
+            (combatEndPx.x - combatAtkPx.x) *
+              Math.min(1, combatAge / 380),
+          y:
+            combatAtkPx.y +
+            (combatEndPx.y - combatAtkPx.y) *
+              Math.min(1, combatAge / 380),
+        }
+      : null
+
   return (
     <div
       className={`board-wrap${isPanning ? ' board-panning' : ''}`}
@@ -644,7 +751,7 @@ export function HexBoard({
           type="button"
           onClick={() => zoomBy(ZOOM_STEP)}
           disabled={zoom >= MAX_ZOOM}
-          title="Zoom in"
+          title="Zoom in (Shift+scroll)"
           aria-label="Zoom in"
         >
           +
@@ -654,7 +761,7 @@ export function HexBoard({
           type="button"
           onClick={() => zoomBy(-ZOOM_STEP)}
           disabled={zoom <= MIN_ZOOM}
-          title="Zoom out"
+          title="Zoom out (Shift+scroll)"
           aria-label="Zoom out"
         >
           −
@@ -679,7 +786,10 @@ export function HexBoard({
         onPointerMove={handlePointerMove}
         onPointerUp={endPan}
         onPointerCancel={endPan}
-        onMouseLeave={() => setHover(null)}
+        onMouseLeave={() => {
+          setHover(null)
+          onHoverEnd?.()
+        }}
       >
         <defs>
           <TerrainPatternDefs />
@@ -717,9 +827,19 @@ export function HexBoard({
               />
               {c.overlayFill ? (
                 <polygon
+                  className={c.flash ? 'hex-flash' : undefined}
                   points={hexPolygonPoints(c.cx, cy, r - 0.05)}
                   fill={c.overlayFill}
                   stroke="none"
+                />
+              ) : null}
+              {c.overlayRing ? (
+                <polygon
+                  points={hexPolygonPoints(c.cx, cy, r - 0.12)}
+                  fill="none"
+                  stroke={c.overlayRing}
+                  strokeWidth={Math.max(0.7, hexSize * 0.12)}
+                  opacity={0.95}
                 />
               ) : null}
               {c.label && !c.hasUnit ? (
@@ -775,13 +895,9 @@ export function HexBoard({
           const r = hexSize - 0.25 + elev
           const cy = c.cy - elev * 0.35
           const tooltip =
-            c.graveTitle && unit
-              ? `${unit.cardName} · ${c.graveTitle}`
-              : c.graveTitle
-                ? c.graveTitle
-                : unit
-                  ? unit.cardName
-                  : null
+            !unit && c.graveTitle
+              ? c.graveTitle
+              : null
           return (
             <polygon
               key={`hit-${key}`}
@@ -805,19 +921,34 @@ export function HexBoard({
         })}
         <g className="board-units" pointerEvents="none">
           {state.units.map((unit) => {
-            const { x, y } = oddRToPixel(unit.col, unit.row, hexSize)
+            const { x: hx, y } = oddRToPixel(unit.col, unit.row, hexSize)
+            const isAttacker = combatActive && combat?.attackerId === unit.id
+            const isDefender = combatActive && combat?.defenderId === unit.id
+            const x = hx + (isAttacker ? combatLunge.x : 0)
             const kind =
               state.terrain?.[hexKey(unit.col, unit.row)] ?? 'plains'
             const elev = terrainElevation(kind)
             const cy = y - elev * 0.35
-            const tokenR = hexSize * 0.38
+            const baseR = hexSize * 0.38
+            const tokenR = tokenRadiusForKind(baseR, unit.kind)
             const isSelected = selectedUnitId === unit.id
             const isTarget = targetUnitId === unit.id
             const inCompany = companyUnitIds?.has(unit.id)
+            const inActiveCompany = Boolean(activeCompanyIds?.has(unit.id))
+            const activeSeat = (() => {
+              if (!activeCompanyIds?.size) return null
+              const lead = state.units.find((u) => activeCompanyIds.has(u.id))
+              return lead?.seat ?? null
+            })()
+            const dimmed =
+              Boolean(activeSeat) &&
+              unit.seat === activeSeat &&
+              !inActiveCompany
+            const companyAccent = companyAccentColor(unit)
             const hp = hpRatio(unit)
             const barW = hexSize * 0.72
             const barH = Math.max(0.35, hexSize * 0.1)
-            const barY = cy + tokenR + hexSize * 0.12
+            const barY = cy + baseR + hexSize * 0.12
             let ringStroke = SEAT_OUTLINE[unit.seat]
             let ringW = Math.max(0.5, hexSize * 0.1)
             if (isTarget) {
@@ -830,19 +961,45 @@ export function HexBoard({
               ringStroke = '#f0d060'
               ringW = Math.max(0.6, hexSize * 0.12)
             }
-            const kindR =
-              unit.kind === 'commander'
-                ? tokenR * 0.92
-                : unit.kind === 'officer'
-                  ? tokenR * 0.82
-                  : tokenR * 0.72
+            const strokeW = Math.max(0.45, hexSize * 0.08)
+            const kindStrokeW = Math.max(0.35, hexSize * 0.06)
+            const labelY = companyAccent ? cy - hexSize * 0.06 : cy + hexSize * 0.04
+            const pipR =
+              unit.kind === 'officer' ? hexSize * 0.15 : hexSize * 0.12
+            const pipY = cy + tokenR * 0.58
+            const shapeProps = {
+              fill: SEAT_TOKEN_FILL[unit.seat],
+              stroke: SEAT_OUTLINE[unit.seat],
+              strokeWidth: strokeW,
+              pointerEvents: 'none' as const,
+            }
+            const kindRingProps = {
+              fill: 'none' as const,
+              stroke: KIND_OUTLINE[unit.kind],
+              strokeWidth: kindStrokeW,
+              opacity: 0.9,
+              pointerEvents: 'none' as const,
+            }
             return (
-              <g key={`unit-${unit.id}`}>
+              <g
+                key={`unit-${unit.id}`}
+                opacity={dimmed ? 0.38 : 1}
+                className={[
+                  isDefender && combat && combatAge > 380
+                    ? combat.hit
+                      ? 'unit-combat-impact'
+                      : 'unit-combat-whiff'
+                    : '',
+                  inActiveCompany ? 'unit-company-active' : '',
+                ]
+                  .filter(Boolean)
+                  .join(' ') || undefined}
+              >
                 {(isSelected || isTarget || inCompany) && (
                   <circle
                     cx={x}
                     cy={cy}
-                    r={tokenR + hexSize * 0.14}
+                    r={baseR + hexSize * 0.14}
                     fill="none"
                     stroke={ringStroke}
                     strokeWidth={ringW}
@@ -850,37 +1007,76 @@ export function HexBoard({
                     pointerEvents="none"
                   />
                 )}
-                <circle
-                  cx={x}
-                  cy={cy}
-                  r={tokenR}
-                  fill={SEAT_TOKEN_FILL[unit.seat]}
-                  stroke={SEAT_OUTLINE[unit.seat]}
-                  strokeWidth={Math.max(0.45, hexSize * 0.08)}
-                  pointerEvents="none"
-                />
-                <circle
-                  cx={x}
-                  cy={cy}
-                  r={kindR}
-                  fill="none"
-                  stroke={KIND_OUTLINE[unit.kind]}
-                  strokeWidth={Math.max(0.35, hexSize * 0.06)}
-                  opacity={0.9}
-                  pointerEvents="none"
-                />
+                {unit.kind === 'commander' ? (
+                  <>
+                    <polygon
+                      points={hexTokenPoints(x, cy, tokenR)}
+                      {...shapeProps}
+                    />
+                    <polygon
+                      points={hexTokenPoints(x, cy, tokenR * 0.88)}
+                      {...kindRingProps}
+                    />
+                  </>
+                ) : unit.kind === 'officer' ? (
+                  <>
+                    <polygon
+                      points={diamondTokenPoints(x, cy, tokenR)}
+                      {...shapeProps}
+                    />
+                    <polygon
+                      points={diamondTokenPoints(x, cy, tokenR * 0.86)}
+                      {...kindRingProps}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <circle cx={x} cy={cy} r={tokenR} {...shapeProps} />
+                    <circle
+                      cx={x}
+                      cy={cy}
+                      r={tokenR * 0.86}
+                      {...kindRingProps}
+                    />
+                  </>
+                )}
                 <text
                   x={x}
-                  y={cy + hexSize * 0.04}
+                  y={labelY}
                   textAnchor="middle"
                   dominantBaseline="middle"
                   fill="#0c0e12"
-                  fontSize={Math.max(6, hexSize * 0.55)}
+                  fontSize={Math.max(
+                    5,
+                    hexSize * (unitTokenLabel(unit).length > 1 ? 0.38 : 0.5),
+                  )}
                   fontWeight={800}
                   pointerEvents="none"
                 >
-                  {unitLabel(unit)}
+                  {unitTokenLabel(unit)}
                 </text>
+                {companyAccent && (
+                  <g pointerEvents="none">
+                    <circle
+                      cx={x}
+                      cy={pipY}
+                      r={pipR}
+                      fill={companyAccent}
+                      stroke="rgba(0,0,0,0.55)"
+                      strokeWidth={Math.max(0.3, hexSize * 0.035)}
+                    />
+                    {unit.kind === 'officer' && (
+                      <circle
+                        cx={x}
+                        cy={pipY}
+                        r={pipR + hexSize * 0.05}
+                        fill="none"
+                        stroke={companyAccent}
+                        strokeWidth={Math.max(0.35, hexSize * 0.045)}
+                      />
+                    )}
+                  </g>
+                )}
                 {hp != null && (
                   <g pointerEvents="none">
                     <rect
@@ -906,6 +1102,69 @@ export function HexBoard({
             )
           })}
         </g>
+        {combatActive && combat && combatAtkPx && combatDefPx ? (
+          <g className="combat-fx" pointerEvents="none">
+            <line
+              x1={combatAtkPx.x}
+              y1={combatAtkPx.y}
+              x2={combatEndPx?.x ?? combatDefPx.x}
+              y2={combatEndPx?.y ?? combatDefPx.y}
+              stroke={combat.hit ? '#ffd36a' : '#9aa8c0'}
+              strokeWidth={Math.max(0.7, hexSize * 0.12)}
+              strokeLinecap="round"
+              opacity={0.85 - combatAge / COMBAT_FX_MS * 0.5}
+            />
+            {combatBolt ? (
+              <circle
+                cx={combatBolt.x}
+                cy={combatBolt.y}
+                r={Math.max(1.2, hexSize * 0.18)}
+                fill={combat.hit ? '#ffe08a' : '#c8d4e8'}
+                opacity={0.95}
+              />
+            ) : null}
+            <circle
+              cx={combatAtkPx.x}
+              cy={combatAtkPx.y}
+              r={hexSize * (0.55 + 0.25 * Math.sin(Math.min(1, combatAge / 400) * Math.PI))}
+              fill="none"
+              stroke="#ffe08a"
+              strokeWidth={Math.max(0.5, hexSize * 0.08)}
+              opacity={0.7}
+            />
+            {combatAge > 360
+              ? combatFloats(combat).map((line, i) => {
+                  const fade = Math.max(0, 1 - (combatAge - 360) / 1400)
+                  const rise = ((combatAge - 360) / COMBAT_FX_MS) * hexSize * 1.8
+                  const fill =
+                    line.tone === 'miss'
+                      ? '#9ec8ff'
+                      : line.tone === 'kill'
+                        ? '#ffb347'
+                        : line.tone === 'hit'
+                          ? '#ff6b6b'
+                          : '#f4f0e4'
+                  return (
+                    <text
+                      key={`cfloat-${i}`}
+                      x={combatDefPx.x}
+                      y={combatDefPx.y - hexSize * 0.4 - rise - i * hexSize * 0.55}
+                      textAnchor="middle"
+                      fill={fill}
+                      stroke="#0c0e12"
+                      strokeWidth={Math.max(0.35, hexSize * 0.04)}
+                      paintOrder="stroke"
+                      fontSize={Math.max(5.5, hexSize * (i === 0 ? 0.42 : 0.5))}
+                      fontWeight={800}
+                      opacity={fade}
+                    >
+                      {line.text}
+                    </text>
+                  )
+                })
+              : null}
+          </g>
+        ) : null}
         <g className="objective-zones" pointerEvents="none">
           {objectiveZoneEdges.map((edge, i) => (
             <polygon

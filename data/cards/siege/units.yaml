@@ -14,6 +14,7 @@ cards:
     toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -37,17 +38,19 @@ cards:
     primary_type: Siege
     secondary_type: Ranged
     uv: 5
-    move: 2
+    move: 3
     damage: 3
     range: 3
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
     keywords:
       - Piercing
+      - Overpenetrate
       - Reach
     abilities: []
     ultimate: null
@@ -67,12 +70,13 @@ cards:
     primary_type: Siege
     secondary_type: Heavy
     uv: 5
-    move: 2
+    move: 3
     damage: 2
     range: 1
     toughness: 5
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -95,16 +99,18 @@ cards:
     primary_type: Siege
     secondary_type: null
     uv: 5
-    move: 2
-    damage: 2
+    move: 3
+    damage: 3
     range: 3
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
     keywords:
+      - Blast
       - Siege
       - Slow
       - Reach
@@ -125,16 +131,18 @@ cards:
     primary_type: Siege
     secondary_type: null
     uv: 8
-    move: 2
-    damage: 3
+    move: 3
+    damage: 4
     range: 3
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
     keywords:
+      - Blast
       - Siege
       - Slow
       - Reach
@@ -155,12 +163,13 @@ cards:
     primary_type: Siege
     secondary_type: Heavy
     uv: 7
-    move: 2
+    move: 3
     damage: 1
     range: 1
     toughness: 6
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null

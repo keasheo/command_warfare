@@ -11,7 +11,7 @@ function loadDemoArmy() {
   const commanders = db
     .prepare(
       `SELECT id, name, card_type, rarity, unique_flag, race, uv, move, damage, range_value, toughness,
-              company_capacity, command_radius
+              company_capacity, company_unit_cap, command_radius
        FROM cards WHERE card_type = 'Commander' AND race IS NOT NULL AND uv IS NOT NULL
        ORDER BY uv ASC`,
     )
@@ -21,7 +21,7 @@ function loadDemoArmy() {
     const officer = db
       .prepare(
         `SELECT id, name, card_type, rarity, unique_flag, race, uv, move, damage, range_value, toughness,
-                company_capacity, command_radius
+                company_capacity, company_unit_cap, command_radius
          FROM cards WHERE card_type = 'Officer' AND race = ? AND company_capacity > 0
          ORDER BY company_capacity DESC LIMIT 1`,
       )
@@ -29,13 +29,20 @@ function loadDemoArmy() {
     const unit = db
       .prepare(
         `SELECT id, name, card_type, rarity, unique_flag, race, uv, move, damage, range_value, toughness,
-                company_capacity, command_radius
+                company_capacity, company_unit_cap, command_radius
          FROM cards WHERE card_type = 'Unit' AND race = ? AND uv > 0
          ORDER BY uv ASC LIMIT 1`,
       )
       .get(cmd.race)
     if (!officer || !unit) continue
-    const count = Math.max(1, Math.min(3, Math.floor(officer.company_capacity / unit.uv)))
+    const count = Math.max(
+      1,
+      Math.min(
+        3,
+        officer.company_unit_cap || 10,
+        Math.floor(officer.company_capacity / unit.uv),
+      ),
+    )
     const snap = (row) => ({
       id: row.id,
       name: row.name,
@@ -49,6 +56,7 @@ function loadDemoArmy() {
       range: row.range_value,
       toughness: row.toughness,
       companyCapacity: row.company_capacity,
+      companyUnitCap: row.company_unit_cap ?? null,
       commandRadius: row.command_radius,
     })
     db.close()
@@ -116,13 +124,14 @@ function client() {
   return { open, send, next, close }
 }
 
-async function deploySeat(player, other, placeCount, preferredRow) {
+async function deploySeat(player, other, placeCount, preferredRow, boardSize) {
   let lastOfficer = null
+  const mid = Math.floor((boardSize - 1) / 2)
   for (let qi = 0; qi < placeCount; qi++) {
     let placed = false
     const tryAround = (originCol, originRow) => {
       const spots = []
-      for (let d = 0; d < 8; d++) {
+      for (let d = 0; d < 10; d++) {
         for (let dc = -d; dc <= d; dc++) {
           for (let dr = -d; dr <= d; dr++) {
             if (Math.max(Math.abs(dc), Math.abs(dr)) !== d) continue
@@ -134,10 +143,10 @@ async function deploySeat(player, other, placeCount, preferredRow) {
     }
     const origins = lastOfficer
       ? tryAround(lastOfficer.col, lastOfficer.row)
-      : tryAround(6, preferredRow)
+      : tryAround(mid, preferredRow)
     for (const [col, row] of origins) {
       if (placed) break
-      if (col < 0 || row < 0) continue
+      if (col < 0 || row < 0 || col >= boardSize || row >= boardSize) continue
       player.send({ type: 'deploy', queueIndex: qi, col, row })
       const m = await player.next((x) => x.type === 'state' || x.type === 'error')
       if (m.type === 'error') continue
@@ -176,18 +185,9 @@ await a.next((m) => m.type === 'state' && m.state.players.find((p) => p.seat ===
 await b.next((m) => m.type === 'state')
 
 b.send({ type: 'submitArmy', army: demo.army, cards: demo.cards })
-await a.next((m) => m.type === 'state' && m.state.phase === 'Commanders')
-await b.next((m) => m.type === 'state' && m.state.phase === 'Commanders')
-console.log('Armies locked → Commanders')
-
-a.send({ type: 'readyCommander' })
-await a.next((m) => m.type === 'state')
-await b.next((m) => m.type === 'state')
-
-b.send({ type: 'readyCommander' })
 const forceA = await a.next((m) => m.type === 'state' && m.state.phase === 'ForceSelect')
 await b.next((m) => m.type === 'state' && m.state.phase === 'ForceSelect')
-console.log('Force selection phase')
+console.log('Armies locked → ForceSelect (commanders auto-placed)')
 
 const drawnObjectives = forceA.state.objectives ?? []
 if (!drawnObjectives.length) {
@@ -285,14 +285,16 @@ async function seatPlaceTerrain(player, other, seat, pieces, skipIndices = []) {
     }
 
     let placed = false
-    for (let row = 0; row < 20 && !placed; row++) {
-      for (let col = 4; col < 28 && !placed; col++) {
+    const boardSize = st.boardSize || 35
+    const deployDepth = 8
+    for (let row = 0; row < deployDepth + 2 && !placed; row++) {
+      for (let col = 0; col < boardSize && !placed; col++) {
         const tryRows =
           seat === 'N'
             ? [row, row + 1, row + 2]
-            : [30 - row, 29 - row, 28 - row]
+            : [boardSize - 1 - row, boardSize - 2 - row, boardSize - 3 - row]
         for (const r of tryRows) {
-          if (r < 0 || r >= 31) continue
+          if (r < 0 || r >= boardSize) continue
           if (placed) break
           for (let rot = 0; rot < 6 && !placed; rot++) {
             player.send({
@@ -443,11 +445,11 @@ console.log(
   Object.keys(deployState.terrain || {}).length,
 )
 
-await deploySeat(a, b, demo.placeCount, 1)
-await deploySeat(b, a, demo.placeCount, deployState.boardSize - 2)
+await deploySeat(a, b, deployState.deployQueues[w1.seat]?.length ?? demo.placeCount, 1, deployState.boardSize)
+await deploySeat(b, a, deployState.deployQueues[w2.seat]?.length ?? demo.placeCount, deployState.boardSize - 2, deployState.boardSize)
 
-if (deployState.boardSize !== 31) {
-  throw new Error(`Expected 2P board 31×31, got ${deployState.boardSize}`)
+if (deployState.boardSize !== 35) {
+  throw new Error(`Expected 2P board 35×35, got ${deployState.boardSize}`)
 }
 
 a.send({ type: 'confirmDeploy' })

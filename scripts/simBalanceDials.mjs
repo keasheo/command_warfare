@@ -10,7 +10,7 @@ export const PRINTED_COMPACT = {
   Elf: { damage: 1, harden: 0, hit: 1 },
   Demon: { damage: 1, harden: 1, hit: 1 },
   Lizardman: { damage: 2, harden: 2, hit: 1 },
-  Dwarf: { damage: 2, harden: 2, hit: 1 },
+  Dwarf: { damage: 1, harden: 1, hit: 1 },
   Dragon: { damage: 1, harden: 0, hit: 0 },
   Beastfolk: { damage: 1, harden: 0, hit: 0 },
   Undead: { damage: 2, harden: 2, hit: 1 },
@@ -649,18 +649,18 @@ export const BALANCE_DIALS = [
     id: 'dwarf-compact-hit',
     race: 'Dwarf',
     active: true,
-    note: 'Printed Dwarf Compact: +2 Damage, +1 Hit, Harden 2.',
-    sim: { compactHit: 1, compactDamage: 2, compactHarden: 2 },
+    note: 'Printed Dwarf Compact: +1 Damage, +1 Hit, Harden 1.',
+    sim: { compactHit: 1, compactDamage: 1, compactHarden: 1 },
     propose: {
       target: 'ability',
       name: 'Dwarf Compact',
       field: 'description',
       before:
-        'Dwarf units in your army within Command Radius gain +1 Damage and Harden 1.',
-      after:
         'Dwarf units in your army within Command Radius gain +2 Damage, +1 Hit, and Harden 2.',
+      after:
+        'Dwarf units in your army within Command Radius gain +1 Damage, +1 Hit, and Harden 1.',
       printable:
-        'Dwarf Compact → “…gain +2 Damage, +1 Hit, and Harden 2.” (printed)',
+        'Dwarf Compact → “…gain +1 Damage, +1 Hit, and Harden 1.” (printed)',
     },
   },
   {

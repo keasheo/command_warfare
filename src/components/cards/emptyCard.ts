@@ -17,6 +17,7 @@ export function emptyCard(): Card {
     toughness: null,
     companyAp: null,
     companyCapacity: null,
+    companyUnitCap: null,
     commandRadius: null,
     apGeneration: null,
     ccGeneration: null,

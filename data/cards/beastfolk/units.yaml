@@ -8,12 +8,13 @@ cards:
     primary_type: Beast
     secondary_type: null
     uv: 2
-    move: 4
+    move: 5
     damage: 2
     range: 1
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -37,12 +38,13 @@ cards:
     primary_type: Beast
     secondary_type: Light
     uv: 3
-    move: 4
+    move: 5
     damage: 3
     range: 1
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -67,12 +69,13 @@ cards:
     primary_type: Ranged
     secondary_type: null
     uv: 2
-    move: 4
+    move: 5
     damage: 2
     range: 3
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -96,12 +99,13 @@ cards:
     primary_type: Cavalry
     secondary_type: Beast
     uv: 3
-    move: 5
+    move: 7
     damage: 3
     range: 1
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -126,12 +130,13 @@ cards:
     primary_type: Beast
     secondary_type: null
     uv: 3
-    move: 4
+    move: 5
     damage: 3
     range: 1
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -155,12 +160,13 @@ cards:
     primary_type: Beast
     secondary_type: null
     uv: 4
-    move: 4
+    move: 5
     damage: 2
     range: 1
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -184,12 +190,13 @@ cards:
     primary_type: Beast
     secondary_type: Light
     uv: 3
-    move: 3
+    move: 5
     damage: 3
     range: 1
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -214,12 +221,13 @@ cards:
     primary_type: Beast
     secondary_type: Light
     uv: 4
-    move: 4
+    move: 5
     damage: 2
     range: 1
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -244,12 +252,13 @@ cards:
     primary_type: Ranged
     secondary_type: Beast
     uv: 2
-    move: 4
+    move: 5
     damage: 2
     range: 2
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -273,12 +282,13 @@ cards:
     primary_type: Infantry
     secondary_type: Beast
     uv: 3
-    move: 3
+    move: 5
     damage: 3
     range: 1
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -302,12 +312,13 @@ cards:
     primary_type: Infantry
     secondary_type: Light
     uv: 2
-    move: 4
+    move: 5
     damage: 2
     range: 1
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -331,12 +342,13 @@ cards:
     primary_type: Beast
     secondary_type: Light
     uv: 4
-    move: 4
+    move: 5
     damage: 2
     range: 1
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -360,12 +372,13 @@ cards:
     primary_type: Beast
     secondary_type: null
     uv: 4
-    move: 4
+    move: 5
     damage: 3
     range: 1
     toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -390,12 +403,13 @@ cards:
     primary_type: Beast
     secondary_type: Light
     uv: 5
-    move: 4
+    move: 5
     damage: 3
     range: 1
     toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -421,12 +435,13 @@ cards:
     primary_type: Cavalry
     secondary_type: Beast
     uv: 5
-    move: 5
+    move: 7
     damage: 3
     range: 1
     toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -453,12 +468,13 @@ cards:
     primary_type: Magic
     secondary_type: Beast
     uv: 4
-    move: 4
+    move: 5
     damage: 3
     range: 2
     toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -483,12 +499,13 @@ cards:
     primary_type: Beast
     secondary_type: null
     uv: 5
-    move: 4
+    move: 5
     damage: 3
     range: 2
     toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -514,12 +531,13 @@ cards:
     primary_type: Ranged
     secondary_type: Beast
     uv: 5
-    move: 4
+    move: 5
     damage: 3
     range: 3
     toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -544,12 +562,13 @@ cards:
     primary_type: Beast
     secondary_type: Heavy
     uv: 6
-    move: 4
+    move: 5
     damage: 4
     range: 1
     toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -574,12 +593,13 @@ cards:
     primary_type: Beast
     secondary_type: Light
     uv: 5
-    move: 4
+    move: 5
     damage: 3
     range: 1
     toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -611,6 +631,7 @@ cards:
     toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -636,12 +657,13 @@ cards:
     primary_type: Cavalry
     secondary_type: Beast
     uv: 5
-    move: 5
+    move: 7
     damage: 3
     range: 1
     toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -668,12 +690,13 @@ cards:
     primary_type: Beast
     secondary_type: null
     uv: 5
-    move: 4
+    move: 5
     damage: 3
     range: 1
     toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -699,12 +722,13 @@ cards:
     primary_type: Beast
     secondary_type: null
     uv: 4
-    move: 4
+    move: 5
     damage: 3
     range: 1
     toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -727,16 +751,18 @@ cards:
     primary_type: Siege
     secondary_type: Beast
     uv: 5
-    move: 2
-    damage: 3
+    move: 3
+    damage: 4
     range: 3
     toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
     keywords:
+      - Blast
       - Siege
       - Reach
     abilities: []
@@ -758,12 +784,13 @@ cards:
     primary_type: Beast
     secondary_type: Heavy
     uv: 5
-    move: 4
+    move: 5
     damage: 3
     range: 1
     toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -789,12 +816,13 @@ cards:
     primary_type: Beast
     secondary_type: Heavy
     uv: 6
-    move: 4
+    move: 3
     damage: 4
     range: 1
     toughness: 5
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -820,12 +848,13 @@ cards:
     primary_type: Beast
     secondary_type: null
     uv: 6
-    move: 4
+    move: 5
     damage: 4
     range: 1
     toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -851,12 +880,13 @@ cards:
     primary_type: Beast
     secondary_type: Elite
     uv: 8
-    move: 4
+    move: 5
     damage: 4
     range: 1
     toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -882,12 +912,13 @@ cards:
     primary_type: Cavalry
     secondary_type: Elite
     uv: 8
-    move: 5
+    move: 7
     damage: 4
     range: 1
     toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -913,12 +944,13 @@ cards:
     primary_type: Beast
     secondary_type: null
     uv: 5
-    move: 4
+    move: 5
     damage: 4
     range: 1
     toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -943,12 +975,13 @@ cards:
     primary_type: Beast
     secondary_type: Heavy
     uv: 7
-    move: 4
+    move: 5
     damage: 4
     range: 1
     toughness: 5
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -972,12 +1005,13 @@ cards:
     primary_type: Beast
     secondary_type: Heavy
     uv: 8
-    move: 4
+    move: 5
     damage: 4
     range: 1
     toughness: 5
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -1002,12 +1036,13 @@ cards:
     primary_type: Beast
     secondary_type: Elite
     uv: 8
-    move: 4
+    move: 5
     damage: 4
     range: 1
     toughness: 5
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -1032,12 +1067,13 @@ cards:
     primary_type: Beast
     secondary_type: Elite
     uv: 7
-    move: 4
+    move: 5
     damage: 4
     range: 1
     toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -1063,12 +1099,13 @@ cards:
     primary_type: Beast
     secondary_type: Elite
     uv: 7
-    move: 4
+    move: 5
     damage: 4
     range: 1
     toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -1094,12 +1131,13 @@ cards:
     primary_type: Ranged
     secondary_type: Beast
     uv: 5
-    move: 4
+    move: 5
     damage: 4
     range: 3
     toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -1123,12 +1161,13 @@ cards:
     primary_type: Magic
     secondary_type: Elite
     uv: 7
-    move: 4
+    move: 5
     damage: 4
     range: 2
     toughness: 4
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -1153,12 +1192,13 @@ cards:
     primary_type: Beast
     secondary_type: Elite
     uv: 9
-    move: 4
+    move: 5
     damage: 4
     range: 1
     toughness: 5
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -1183,12 +1223,13 @@ cards:
     primary_type: Beast
     secondary_type: Elite
     uv: 9
-    move: 4
+    move: 3
     damage: 4
     range: 1
     toughness: 6
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -1213,12 +1254,13 @@ cards:
     primary_type: Beast
     secondary_type: Light
     uv: 1
-    move: 3
+    move: 5
     damage: 1
     range: 1
     toughness: 2
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -1243,12 +1285,13 @@ cards:
     primary_type: Beast
     secondary_type: Light
     uv: 1
-    move: 3
+    move: 5
     damage: 1
     range: 1
     toughness: 2
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -1273,12 +1316,13 @@ cards:
     primary_type: Beast
     secondary_type: null
     uv: 2
-    move: 3
+    move: 5
     damage: 1
     range: 1
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -1303,12 +1347,13 @@ cards:
     primary_type: Beast
     secondary_type: Light
     uv: 2
-    move: 3
+    move: 5
     damage: 2
     range: 1
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -1333,12 +1378,13 @@ cards:
     primary_type: Beast
     secondary_type: null
     uv: 2
-    move: 3
+    move: 5
     damage: 2
     range: 1
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null
@@ -1363,12 +1409,13 @@ cards:
     primary_type: Beast
     secondary_type: Light
     uv: 3
-    move: 3
+    move: 5
     damage: 1
     range: 1
     toughness: 3
     company_ap: null
     company_capacity: null
+    company_unit_cap: null
     command_radius: null
     ap_generation: null
     cc_generation: null

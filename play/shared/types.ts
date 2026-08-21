@@ -123,9 +123,10 @@ export type ObjectiveMarker = {
 }
 
 export type DeployItem = {
-  kind: 'officer' | 'unit'
+  kind: 'commander' | 'officer' | 'unit'
   cardId: string
   cardName: string
+  /** Officer card id for company pieces; commander uses ''. */
   officerCardId: string
   move: number
   placed: boolean
@@ -176,10 +177,19 @@ export type GameState = {
   maxPlayers: 2 | 4
   /** When true, officers and units must match the commander's race. */
   enforceCommanderRace: boolean
+  /**
+   * When true, skip interactive terrain placement and generate a full-board
+   * biome map (Minecraft-style) after force selection.
+   */
+  randomMap: boolean
   /** Human opponent (default) or server CPU. */
   opponent: OpponentMode
   /** Set when opponent is AI; null for human matches. */
   aiDifficulty: AiDifficulty | null
+  /**
+   * When opponent is AI: fixed quick-pick commander id, or null for random.
+   */
+  aiCommanderId: string | null
   /**
    * Force-select UV caps for this room (host-configurable).
    * Unused has no hard cap; under-filling deploy/reserve is allowed.
@@ -257,11 +267,16 @@ export type GameState = {
   } | null
   /** Last auto-resolved attack (Resolve attack). */
   lastCombatResult: {
+    seq: number
     seat: SeatId
     attackerId: string
     attackerName: string
+    attackerCol: number
+    attackerRow: number
     defenderId: string
     defenderName: string
+    defenderCol: number
+    defenderRow: number
     distance: number
     hitNeed: number
     dice: [number, number]
@@ -272,6 +287,7 @@ export type GameState = {
     mitigated: number
     favoredTerrainHit: boolean
     flanking: boolean
+    formationDrill: boolean
     killed: boolean
     evadeActive: boolean
     fearPenalty: boolean
@@ -283,6 +299,24 @@ export type GameState = {
     unyieldingBlocked: boolean
     trampleOffer: boolean
     trampleLeftover: number
+    splashHits?: Array<{
+      defenderId: string
+      defenderName: string
+      col: number
+      row: number
+      hit: boolean
+      dealt: number
+      killed: boolean
+    }>
+    pierceHits?: Array<{
+      defenderId: string
+      defenderName: string
+      col: number
+      row: number
+      hit: boolean
+      dealt: number
+      killed: boolean
+    }>
   } | null
   /** Victory points scored by holding objectives (awarded end of each round). */
   scores: Partial<Record<SeatId, number>>
@@ -305,10 +339,19 @@ export type ClientAction =
       name: string
       maxPlayers?: 2 | 4
       enforceCommanderRace?: boolean
+      /**
+       * Generate a random biome map and skip the Terrain placement phase.
+       * Defaults to false.
+       */
+      randomMap?: boolean
       /** vs Human (default) or server CPU. AI rooms are always 2P. */
       opponent?: OpponentMode
       /** Required when opponent is AI; defaults to medium on the server. */
       aiDifficulty?: AiDifficulty
+      /**
+       * Optional AI quick-pick commander id. Omit / blank / "random" → random preset.
+       */
+      aiCommanderId?: string | null
       /** Optional custom code; random if omitted or blank. */
       roomCode?: string
       /** Optional force-select pool caps (defaults: deploy 110, reserve 60). */

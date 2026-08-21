@@ -8,13 +8,14 @@ cards:
     primary_type: Infantry
     secondary_type: Light
     uv: 9
-    move: 3
+    move: 5
     damage: 2
     range: 1
     toughness: 3
     company_ap: 5
     company_capacity: 16
-    command_radius: 3
+    company_unit_cap: 10
+    command_radius: 5
     ap_generation: null
     cc_generation: null
     keywords: []
@@ -38,13 +39,14 @@ cards:
     primary_type: Nature
     secondary_type: Ranged
     uv: 12
-    move: 3
+    move: 5
     damage: 2
     range: 2
     toughness: 3
     company_ap: 5
     company_capacity: 19
-    command_radius: 4
+    company_unit_cap: 8
+    command_radius: 6
     ap_generation: null
     cc_generation: null
     keywords:
@@ -71,13 +73,14 @@ cards:
     primary_type: Ranged
     secondary_type: Heavy
     uv: 13
-    move: 3
+    move: 5
     damage: 3
     range: 2
     toughness: 4
     company_ap: 5
     company_capacity: 17
-    command_radius: 4
+    company_unit_cap: 10
+    command_radius: 6
     ap_generation: null
     cc_generation: null
     keywords:
@@ -103,13 +106,14 @@ cards:
     primary_type: Cavalry
     secondary_type: null
     uv: 13
-    move: 3
+    move: 5
     damage: 4
     range: 1
     toughness: 5
     company_ap: 5
     company_capacity: 18
-    command_radius: 4
+    company_unit_cap: 8
+    command_radius: 6
     ap_generation: null
     cc_generation: null
     keywords: []
@@ -134,13 +138,14 @@ cards:
     primary_type: Magic
     secondary_type: Light
     uv: 14
-    move: 3
+    move: 5
     damage: 3
     range: 1
     toughness: 4
     company_ap: 6
     company_capacity: 20
-    command_radius: 5
+    company_unit_cap: 6
+    command_radius: 7
     ap_generation: null
     cc_generation: null
     keywords: []
@@ -166,13 +171,14 @@ cards:
     primary_type: Beast
     secondary_type: Heavy
     uv: 15
-    move: 3
+    move: 5
     damage: 4
     range: 1
     toughness: 5
     company_ap: 6
     company_capacity: 21
-    command_radius: 5
+    company_unit_cap: 6
+    command_radius: 7
     ap_generation: null
     cc_generation: null
     keywords: []
@@ -206,13 +212,14 @@ cards:
     primary_type: Infantry
     secondary_type: null
     uv: 15
-    move: 3
+    move: 5
     damage: 2
     range: 1
     toughness: 3
     company_ap: 6
     company_capacity: 22
-    command_radius: 5
+    company_unit_cap: 6
+    command_radius: 7
     ap_generation: null
     cc_generation: null
     keywords: []
@@ -243,13 +250,14 @@ cards:
     primary_type: Ranged
     secondary_type: Ranged
     uv: 16
-    move: 3
+    move: 5
     damage: 3
     range: 2
     toughness: 4
     company_ap: 6
     company_capacity: 23
-    command_radius: 5
+    company_unit_cap: 6
+    command_radius: 7
     ap_generation: null
     cc_generation: null
     keywords:
@@ -287,7 +295,8 @@ cards:
     toughness: 4
     company_ap: 5
     company_capacity: 18
-    command_radius: 4
+    company_unit_cap: 6
+    command_radius: 6
     ap_generation: null
     cc_generation: null
     keywords: []
@@ -318,13 +327,14 @@ cards:
     primary_type: Infantry
     secondary_type: Heavy
     uv: 14
-    move: 3
+    move: 4
     damage: 3
     range: 1
     toughness: 5
     company_ap: 5
     company_capacity: 19
-    command_radius: 4
+    company_unit_cap: 8
+    command_radius: 6
     ap_generation: null
     cc_generation: null
     keywords:
@@ -356,13 +366,14 @@ cards:
     primary_type: Cavalry
     secondary_type: Light
     uv: 14
-    move: 4
+    move: 5
     damage: 3
     range: 1
     toughness: 3
     company_ap: 5
     company_capacity: 18
-    command_radius: 4
+    company_unit_cap: 6
+    command_radius: 6
     ap_generation: null
     cc_generation: null
     keywords: []
@@ -396,13 +407,14 @@ cards:
     primary_type: Infantry
     secondary_type: Light
     uv: 14
-    move: 3
+    move: 5
     damage: 2
     range: 1
     toughness: 3
     company_ap: 6
     company_capacity: 20
-    command_radius: 5
+    company_unit_cap: 6
+    command_radius: 7
     ap_generation: null
     cc_generation: null
     keywords: []

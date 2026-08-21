@@ -12,10 +12,11 @@ Blast:
     1 hex of it (the six adjacent hexes around the target). Roll Hit separately against each enemy.
     Missed enemies take no Damage. Does not hit friendly units unless a card says so. Blast is an
     Attack Method — it cannot be combined with Cleave or Trample. Blast does not scale; printed Blast
-    and effects that grant Blast always use this 1-hex radius.
+    and effects that grant Blast always use this 1-hex radius. Some Siege artillery also have Blast.
   tags:
   - passive
   - dragon
+  - siege
 
 Charge:
   description: If this unit moved at least 2 spaces before attacking, increase its damage by 1.
@@ -107,10 +108,22 @@ Petrified:
   tags:
   - passive
 
-Piercing:
-  description: Ignore Harden.
+Overpenetrate:
+  description: >-
+    When this unit's attack destroys the primary target, leftover Damage continues in a straight line
+    behind them. Empty hexes are skipped. The next enemy on that line takes a new Hit roll using the
+    leftover Damage. Friendly units and commanders block the bolt. If that enemy is also destroyed,
+    leftover Damage may continue. Does not hit friendlies. Overpenetrate cannot be combined with Blast.
   tags:
   - passive
+  - siege
+Piercing:
+  description: >-
+    Ignore Harden (printed Harden, Fortified hexes, Brace, and other Harden sources).
+    Melee Siege (Range 1) also ignores Harden, even without this keyword.
+  tags:
+  - passive
+  - siege
 Poison:
   description: >-
     Successful attacks by a unit with Poison apply Poison to the defender. At the beginning of the
