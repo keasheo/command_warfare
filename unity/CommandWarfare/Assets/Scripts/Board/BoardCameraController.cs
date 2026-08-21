@@ -8,13 +8,16 @@ namespace CommandWarfare.Board
         [SerializeField] Transform _target;
         [SerializeField] float _distance = 48f;
         [SerializeField] float _minDistance = 18f;
-        [SerializeField] float _maxDistance = 90f;
+        [SerializeField] float _maxDistance = 68f;
         [SerializeField] float _orbitSpeed = 4f;
         [SerializeField] float _panSpeed = 0.08f;
         [SerializeField] float _keyPanSpeed = 18f;
-        [SerializeField] float _zoomSpeed = 6f;
+        [SerializeField] float _zoomSpeed = 4.5f;
         [SerializeField] float _pitch = 52f;
         [SerializeField] float _yaw = 35f;
+        // High enough that hex tops stay readable and the room walls stay in frame.
+        [SerializeField] float _minPitch = 40f;
+        [SerializeField] float _maxPitch = 72f;
 
         Vector3 _focus;
         bool _hasFocus;
@@ -38,7 +41,8 @@ namespace CommandWarfare.Board
             {
                 _yaw += BoardInput.MouseDelta().x * _orbitSpeed;
                 _pitch -= BoardInput.MouseDelta().y * _orbitSpeed;
-                _pitch = Mathf.Clamp(_pitch, 18f, 78f);
+                // Keep the tabletop above the horizon — never allow looking under the board.
+                _pitch = Mathf.Clamp(_pitch, _minPitch, _maxPitch);
             }
 
             // Pan — middle mouse, or Shift+RMB, or WASD
@@ -69,14 +73,21 @@ namespace CommandWarfare.Board
                 focus += (right * key.x + forward * key.y) * (_keyPanSpeed * Time.unscaledDeltaTime * (_distance / 40f));
             }
 
-            _distance -= BoardInput.ScrollY() * 0.01f * _zoomSpeed;
+            // Scroll zoom — scale with distance so far/near both feel responsive.
+            var scroll = BoardInput.ScrollY();
+            if (Mathf.Abs(scroll) > 0.001f)
+                _distance -= scroll * _zoomSpeed * Mathf.Max(0.35f, _distance / 40f);
             _distance = Mathf.Clamp(_distance, _minDistance, _maxDistance);
 
             _focus = focus;
+            ApplyTransform();
+        }
 
+        void ApplyTransform()
+        {
             var rot = Quaternion.Euler(_pitch, _yaw, 0f);
             var offset = rot * new Vector3(0f, 0f, -_distance);
-            transform.position = _focus + offset;
+            transform.position = _focus + offset + BoardDrama.CurrentOffset();
             transform.rotation = rot;
         }
 
@@ -98,5 +109,19 @@ namespace CommandWarfare.Board
 
         /// <summary>After CenterBoard, map center is at world origin.</summary>
         public void FocusBoardCenter() => FocusWorld(Vector3.zero);
+
+        /// <summary>
+        /// Snap to a readable overhead tabletop angle so hexes and room walls are visible.
+        /// Call when entering a match — avoids a near-horizon view that flattens the board into a blank plane.
+        /// </summary>
+        public void ResetToBoardOverview()
+        {
+            _focus = Vector3.zero;
+            _hasFocus = true;
+            _pitch = 52f;
+            _yaw = 35f;
+            _distance = 48f;
+            ApplyTransform();
+        }
     }
 }

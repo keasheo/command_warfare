@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CommandWarfare.Core;
+using CommandWarfare.Core.Combat;
 using CommandWarfare.Core.Hex;
 using CommandWarfare.Core.State;
 using CommandWarfare.Core.Terrain;
@@ -81,63 +82,130 @@ namespace CommandWarfare.Board
                     $"Units on board: {state.Units?.Count ?? 0}\n" +
                     (state.LastActionLog ?? "Place Deploy companies on the north wedge."),
                     CommandWarfare.UI.MenuStyle.MutedLabel);
+
+                UnitToken deploySel = null;
+                if (state.SelectedUnitId != null)
+                {
+                    foreach (var u in state.Units)
+                        if (u.Id == state.SelectedUnitId) { deploySel = u; break; }
+                }
+                if (deploySel != null)
+                    CommandWarfare.UI.UnitInspectGui.Draw(
+                        state, deploySel, _game.Cards, _game.Abilities);
                 return;
             }
 
             if (state.Phase == Phase.Ended && state.WinnerSeat.HasValue)
             {
+                var winnerName = SeatPlayerName(state, state.WinnerSeat.Value);
                 GUI.color = SeatColors.Fill(state.WinnerSeat.Value);
-                GUI.Label(new Rect(12, 12, 420, 28), $"{state.WinnerSeat} wins!");
+                GUI.Label(new Rect(12, 12, 420, 28), $"{winnerName} wins!");
                 GUI.color = Color.white;
                 return;
             }
 
-            var seat = state.ActiveSeat?.ToString() ?? "?";
-            var color = state.ActiveSeat.HasValue ? SeatColors.Fill(state.ActiveSeat.Value) : Color.gray;
-            CommandWarfare.UI.MenuStyle.Ensure();
-            var playPanel = new Rect(12, 12, Mathf.Min(520f, Screen.width * 0.45f), 160f);
-            CommandWarfare.UI.MenuStyle.DrawPanel(playPanel, $"Round {state.Round} — {seat}");
+            DrawPlayHud(state);
+        }
 
-            var y = playPanel.y + 40f;
-            var px = playPanel.x + 16f;
-            var playInnerW = playPanel.width - 32f;
+        void DrawPlayHud(GameState state)
+        {
+            CommandWarfare.UI.MenuStyle.Ensure();
+            var panelW = Mathf.Min(300f, Screen.width * 0.3f);
+            var panelH = Mathf.Min(Screen.height - 24f, Screen.height * 0.92f);
+            var playPanel = new Rect(12, 12, panelW, panelH);
+
+            var activeName = state.ActiveSeat.HasValue
+                ? SeatPlayerName(state, state.ActiveSeat.Value)
+                : "—";
+            var title = $"Round {state.Round}/{GameConstants.MaxRounds}";
+            CommandWarfare.UI.MenuStyle.DrawPanel(playPanel, title);
+
+            var pad = 14f;
+            var inner = new Rect(
+                playPanel.x + pad,
+                playPanel.y + 36f,
+                playPanel.width - pad * 2f,
+                playPanel.height - 48f);
+
+            GUI.BeginGroup(inner);
+            var y = 0f;
+            var iw = inner.width;
+            var color = state.ActiveSeat.HasValue
+                ? SeatColors.Fill(state.ActiveSeat.Value)
+                : Color.gray;
+
             GUI.color = color;
-            GUI.Label(new Rect(px, y, playInnerW, 20), $"{state.Phase} · click unit → green move / red attack");
+            GUI.Label(new Rect(0, y, iw, 22), $"{activeName}'s turn",
+                CommandWarfare.UI.MenuStyle.Body);
             GUI.color = Color.white;
-            y += 20f;
+            y += 22f;
+
+            GUI.Label(new Rect(0, y, iw, 32),
+                "Green = move · Red = attack · Blue/purple = CR",
+                CommandWarfare.UI.MenuStyle.MutedLabel);
+            y += 28f;
 
             if (state.Scores != null && state.Scores.Count > 0)
             {
-                var n = state.Scores.TryGetValue(SeatId.N, out var ns) ? ns : 0;
-                var s = state.Scores.TryGetValue(SeatId.S, out var ss) ? ss : 0;
-                GUI.Label(new Rect(px, y, playInnerW, 18), $"VP  N {n}  ·  S {s}  ·  R{state.Round}/{GameConstants.MaxRounds}");
-                y += 18;
+                var nVp = state.Scores.TryGetValue(SeatId.N, out var ns) ? ns : 0;
+                var sVp = state.Scores.TryGetValue(SeatId.S, out var ss) ? ss : 0;
+                var nName = ShortName(SeatPlayerName(state, SeatId.N));
+                var sName = ShortName(SeatPlayerName(state, SeatId.S));
+                GUI.Label(new Rect(0, y, iw, 34),
+                    $"VP  {nName} {nVp}  ·  {sName} {sVp}",
+                    CommandWarfare.UI.MenuStyle.Body);
+                y += 30f;
             }
+
             if (state.ActiveSeat.HasValue &&
                 state.CommanderPools.TryGetValue(state.ActiveSeat.Value, out var cmdPool))
             {
-                GUI.Label(new Rect(px, y, playInnerW, 18),
-                    $"Commander AP {cmdPool.Ap}/{cmdPool.ApMax} · CC {cmdPool.Cc}/{cmdPool.CcMax}");
-                y += 18;
+                GUI.Label(new Rect(0, y, iw, 18),
+                    $"Cmd AP {cmdPool.Ap}/{cmdPool.ApMax} · CC {cmdPool.Cc}/{cmdPool.CcMax}",
+                    CommandWarfare.UI.MenuStyle.Body);
+                y += 18f;
             }
 
             if (state.ActiveSeat.HasValue &&
                 !string.IsNullOrEmpty(state.ActiveCompanyOfficerId) &&
                 state.CompanyPools.TryGetValue(state.ActiveCompanyOfficerId, out var coPool))
             {
-                GUI.Label(new Rect(px, y, playInnerW, 18), $"Company AP {coPool.Ap}/{coPool.ApMax}");
-                y += 18;
+                var activeOfficerName = "?";
+                if (state.Units != null)
+                {
+                    foreach (var u in state.Units)
+                    {
+                        if (u.Id != state.ActiveCompanyOfficerId) continue;
+                        activeOfficerName = u.CardName;
+                        break;
+                    }
+                }
+                GUI.Label(new Rect(0, y, iw, 36),
+                    $"Company: {activeOfficerName}\nAP {coPool.Ap}/{coPool.ApMax}",
+                    CommandWarfare.UI.MenuStyle.Body);
+                y += 36f;
+            }
+            else
+            {
+                GUI.Label(new Rect(0, y, iw, 44),
+                    "Activate one company per turn (officer once/round), or commander (once/round).",
+                    CommandWarfare.UI.MenuStyle.MutedLabel);
+                y += 44f;
             }
 
-            if (GUI.Button(new Rect(px, y, 120, 26), "End Turn [E]"))
+            if (GUI.Button(new Rect(0, y, iw, 28), "End Turn [E]"))
                 _game.EndTurn();
+            y += 32f;
+            var muteLabel = CommandWarfare.Units.BattleAudio.Muted ? "SFX: Off" : "SFX: On";
+            if (GUI.Button(new Rect(0, y, iw * 0.55f, 24), muteLabel))
+                CommandWarfare.Units.BattleAudio.Muted = !CommandWarfare.Units.BattleAudio.Muted;
             y += 30f;
 
-            // Continue actions below the panel
-            y = Mathf.Max(y, playPanel.yMax + 8f);
+            DrawHRule(0, y, iw);
+            y += 10f;
 
             UnitToken selected = null;
-            if (state.SelectedUnitId != null)
+            if (state.SelectedUnitId != null && state.Units != null)
             {
                 foreach (var u in state.Units)
                 {
@@ -151,98 +219,499 @@ namespace CommandWarfare.Board
 
             if (selected != null)
             {
-                GUI.Label(new Rect(12, y, 600, 20), $"Selected: {selected.CardName} ({selected.Race})");
-                y += 20;
-                if (selected.Abilities != null && selected.Abilities.Count > 0)
+                // Full card + compact stats on the right.
+                CommandWarfare.UI.UnitInspectGui.Draw(
+                    state, selected, _game.Cards, _game.Abilities);
+
+                GUI.Label(new Rect(0, y, iw, 36),
+                    $"Selected\n{selected.CardName} ({selected.Race})",
+                    CommandWarfare.UI.MenuStyle.Body);
+                y += 36f;
+
+                y = DrawActivationButtons(state, selected, y, iw);
+                y = DrawAttackButton(state, selected, y, iw);
+                y = DrawCastPanel(state, selected, y, iw);
+
+                var isOwn = state.ActiveSeat.HasValue && selected.Seat == state.ActiveSeat.Value;
+                if (isOwn)
                 {
-                    GUI.Label(new Rect(12, y, 800, 20),
-                        $"Abilities: {string.Join(", ", selected.Abilities)}");
-                    y += 20;
+                    var fortKey = HexMath.Key(selected.Col, selected.Row);
+                    var fortified = state.FortifiedHexes != null &&
+                                    state.FortifiedHexes.TryGetValue(fortKey, out var f) && f;
+                    if (GUI.Button(new Rect(0, y, iw * 0.48f, 22), fortified ? "Unfortify" : "Fortify"))
+                        _game.TryToggleFortifyAtSelected();
+                    if (CanUndoMove(selected) &&
+                        GUI.Button(new Rect(iw * 0.52f, y, iw * 0.48f, 22), "Undo Move"))
+                        _game.TryUndoMoveSelected();
+                    y += 26f;
+                    var bw = (iw - 12f) / 4f;
+                    if (GUI.Button(new Rect(0, y, bw, 22), "Dmg 1"))
+                        _game.TryApplyDamageSelected(1);
+                    if (GUI.Button(new Rect(bw + 4f, y, bw, 22), "Heal 1"))
+                        _game.TryApplyHealSelected(1);
+                    if (GUI.Button(new Rect((bw + 4f) * 2f, y, bw, 22), "1d6"))
+                        _game.TryRollDice(1, 6);
+                    if (GUI.Button(new Rect((bw + 4f) * 3f, y, bw, 22), "Evade"))
+                        _game.TryActivateEvade(selected);
+                    y += 26f;
                 }
-                var fortKey = HexMath.Key(selected.Col, selected.Row);
-                var fortified = state.FortifiedHexes != null &&
-                                state.FortifiedHexes.TryGetValue(fortKey, out var f) && f;
-                if (GUI.Button(new Rect(12, y, 120, 22), fortified ? "Unfortify" : "Fortify"))
-                    _game.TryToggleFortifyAtSelected();
-                if (GUI.Button(new Rect(140, y, 120, 22), "Undo Move"))
-                    _game.TryUndoMoveSelected();
-                y += 24;
-                if (GUI.Button(new Rect(12, y, 70, 22), "Dmg 1"))
-                    _game.TryApplyDamageSelected(1);
-                if (GUI.Button(new Rect(88, y, 70, 22), "Heal 1"))
-                    _game.TryApplyHealSelected(1);
-                if (GUI.Button(new Rect(164, y, 70, 22), "1d6"))
-                    _game.TryRollDice(1, 6);
-                y += 24;
+                else
+                {
+                    GUI.Label(new Rect(0, y, iw, 18), "Inspecting opponent",
+                        CommandWarfare.UI.MenuStyle.MutedLabel);
+                    y += 22f;
+                }
             }
+
+            DrawHRule(0, y, iw);
+            y += 10f;
 
             if (state.PendingCleave != null)
             {
                 GUI.color = Color.yellow;
-                GUI.Label(new Rect(12, y, 800, 20),
-                    $"Cleave assign {CleavePlanner.AssignedTotal(state.PendingCleave)}/{state.PendingCleave.TotalDamage} · leftover {CleavePlanner.Leftover(state.PendingCleave)}");
+                GUI.Label(new Rect(0, y, iw, 40),
+                    $"Cleave {CleavePlanner.AssignedTotal(state.PendingCleave)}/{state.PendingCleave.TotalDamage} · leftover {CleavePlanner.Leftover(state.PendingCleave)}",
+                    CommandWarfare.UI.MenuStyle.Body);
                 GUI.color = Color.white;
-                y += 22;
-                if (GUI.Button(new Rect(12, y, 140, 24), "Confirm Cleave"))
+                y += 40f;
+                if (GUI.Button(new Rect(0, y, iw * 0.48f, 24), "Confirm"))
                     _game.ConfirmCleave();
-                if (GUI.Button(new Rect(160, y, 140, 24), "Cancel"))
+                if (GUI.Button(new Rect(iw * 0.52f, y, iw * 0.48f, 24), "Cancel"))
                     _game.CancelCleave();
-                y += 28;
+                y += 28f;
             }
             else if (state.PendingTrample != null)
             {
                 GUI.color = Color.yellow;
-                GUI.Label(new Rect(12, y, 800, 20), "Trample available — enter the destroyed hex?");
+                GUI.Label(new Rect(0, y, iw, 36), "Trample — enter destroyed hex?",
+                    CommandWarfare.UI.MenuStyle.Body);
                 GUI.color = Color.white;
-                y += 22;
-                if (GUI.Button(new Rect(12, y, 140, 24), "Continue Trample"))
+                y += 36f;
+                if (GUI.Button(new Rect(0, y, iw * 0.48f, 24), "Continue"))
                     _game.TryContinueTrample();
-                if (GUI.Button(new Rect(160, y, 140, 24), "Decline"))
+                if (GUI.Button(new Rect(iw * 0.52f, y, iw * 0.48f, 24), "Decline"))
                     _game.TryDeclineTrample();
-                y += 28;
+                y += 28f;
             }
             else if (HasFollowup(state, out var followNote))
             {
                 GUI.color = Color.yellow;
-                GUI.Label(new Rect(12, y, 800, 20), followNote);
+                GUI.Label(new Rect(0, y, iw, 40), followNote, CommandWarfare.UI.MenuStyle.Body);
                 GUI.color = Color.white;
-                y += 22;
-                if (GUI.Button(new Rect(12, y, 140, 24), "Skip follow-up / End turn"))
+                y += 40f;
+                if (GUI.Button(new Rect(0, y, iw, 24), "Skip / End turn"))
                     _game.EndTurn();
-                y += 28;
+                y += 28f;
+            }
+            else if (!string.IsNullOrEmpty(_game.PendingAttackTargetId) || _game.PendingAttackPick)
+            {
+                y = DrawPendingAttackConfirm(state, selected, y, iw);
             }
             else if (!string.IsNullOrEmpty(_game.PendingAbilityName))
             {
-                GUI.color = Color.yellow;
-                GUI.Label(new Rect(12, y, 800, 20),
-                    $"Targeting {_game.PendingAbilityName} — click friendly unit (RMB cancel)");
-                GUI.color = Color.white;
-                y += 20;
+                y = DrawPendingCastConfirm(state, selected, y, iw);
             }
             else
             {
-                GUI.Label(new Rect(12, y, 800, 20),
-                    "[H] Heal · [V] Evade · [R] Rally · [E] end turn · Undo Move · RMB cancel");
-                y += 20;
+                GUI.Label(new Rect(0, y, iw, 36),
+                    "Select → Activate → Move / Attack / Cast",
+                    CommandWarfare.UI.MenuStyle.MutedLabel);
+                y += 36f;
             }
 
-            if (!string.IsNullOrEmpty(state.LastActionLog))
+            if (!string.IsNullOrEmpty(state.LastCombatLog))
             {
-                GUI.Label(new Rect(12, y, 800, 20), state.LastActionLog);
-                y += 20;
+                GUI.color = new Color(1f, 0.92f, 0.55f);
+                var combatH = CommandWarfare.UI.MenuStyle.Body.CalcHeight(
+                    new GUIContent(state.LastCombatLog), iw);
+                GUI.Label(new Rect(0, y, iw, combatH), state.LastCombatLog,
+                    CommandWarfare.UI.MenuStyle.Body);
+                GUI.color = Color.white;
+                y += combatH + 6f;
             }
-            else if (!string.IsNullOrEmpty(state.LastCombatLog))
+            if (!string.IsNullOrEmpty(state.LastActionLog) &&
+                state.LastActionLog != state.LastCombatLog)
             {
-                GUI.Label(new Rect(12, y, 800, 20), state.LastCombatLog);
-                y += 20;
+                var actionH = CommandWarfare.UI.MenuStyle.MutedLabel.CalcHeight(
+                    new GUIContent(state.LastActionLog), iw);
+                GUI.Label(new Rect(0, y, iw, actionH), state.LastActionLog,
+                    CommandWarfare.UI.MenuStyle.MutedLabel);
+                y += actionH + 6f;
             }
 
-            GUI.Label(new Rect(12, y, 200, 20), $"Units: {state.Units.Count}");
-            y += 22;
-            DrawGraveyard(state, ref y);
+            GUI.Label(new Rect(0, y, iw, 18), $"Units on board: {state.Units?.Count ?? 0}",
+                CommandWarfare.UI.MenuStyle.MutedLabel);
+            y += 22f;
+            DrawGraveyard(state, ref y, iw);
+
+            GUI.EndGroup();
+        }
+
+        static void DrawHRule(float x, float y, float w)
+        {
+            var prev = GUI.color;
+            GUI.color = new Color(1f, 1f, 1f, 0.12f);
+            GUI.DrawTexture(new Rect(x, y, w, 1f), Texture2D.whiteTexture);
+            GUI.color = prev;
+        }
+
+        static string SeatPlayerName(GameState state, SeatId seat)
+        {
+            if (state?.Units != null)
+            {
+                foreach (var u in state.Units)
+                {
+                    if (u.Seat == seat && u.Kind == UnitKind.Commander &&
+                        !string.IsNullOrEmpty(u.CardName))
+                        return u.CardName;
+                }
+            }
+            if (state?.OfflineArmies != null &&
+                state.OfflineArmies.TryGetValue(seat, out var army) &&
+                army?.Commander != null)
+            {
+                if (!string.IsNullOrEmpty(army.Commander.displayName))
+                    return army.Commander.displayName;
+                if (!string.IsNullOrEmpty(army.Commander.cardId))
+                    return army.Commander.cardId;
+            }
+            if (seat == SeatId.N && !string.IsNullOrEmpty(state?.NorthRace))
+                return state.NorthRace;
+            if (seat == SeatId.S && !string.IsNullOrEmpty(state?.SouthRace))
+                return state.SouthRace;
+            return seat.ToString();
+        }
+
+        static string ShortName(string name)
+        {
+            if (string.IsNullOrEmpty(name)) return "?";
+            return name.Length <= 12 ? name : name[..11] + "…";
+        }
+
+        float DrawActivationButtons(GameState state, UnitToken selected, float y)
+            => DrawActivationButtons(state, selected, y, 220f);
+
+        float DrawActivationButtons(GameState state, UnitToken selected, float y, float iw)
+        {
+            if (state.Phase != Phase.Play || !state.ActiveSeat.HasValue) return y;
+            if (selected == null || selected.Seat != state.ActiveSeat.Value) return y;
+
+            if (selected.Kind == UnitKind.Officer || selected.Kind == UnitKind.Unit)
+            {
+                var officer = selected.Kind == UnitKind.Officer
+                    ? selected
+                    : CompanyActivation.FindOfficerForUnit(state, selected);
+                if (officer != null && officer.Kind == UnitKind.Officer)
+                {
+                    string label;
+                    var disabled = false;
+                    if (state.ActiveCompanyOfficerId == officer.Id)
+                    {
+                        label = "Company active";
+                        disabled = true;
+                    }
+                    else if (state.CompaniesActivatedThisRound != null &&
+                             state.CompaniesActivatedThisRound.TryGetValue(officer.Id, out var done) &&
+                             done)
+                    {
+                        label = "Already activated this round";
+                        disabled = true;
+                    }
+                    else if (state.CompanyActivatedThisTurn != null &&
+                             state.CompanyActivatedThisTurn.TryGetValue(selected.Seat, out var other) &&
+                             !string.IsNullOrEmpty(other) && other != officer.Id)
+                    {
+                        label = "One company per turn";
+                        disabled = true;
+                    }
+                    else
+                        label = "Activate company";
+
+                    GUI.enabled = !disabled;
+                    if (GUI.Button(new Rect(0, y, iw, 26), label))
+                        _game.TryActivateSelectedCompany();
+                    GUI.enabled = true;
+                    y += 30;
+                }
+            }
+
+            if (selected.Kind == UnitKind.Commander)
+            {
+                var already = CommanderActivation.IsCommanderActivatedThisRound(state, selected.Seat);
+                var label = already ? "Commander activated" : "Activate commander";
+                GUI.enabled = !already;
+                if (GUI.Button(new Rect(0, y, iw, 26), label))
+                    _game.TryActivateSelectedCommander();
+                GUI.enabled = true;
+                y += 30;
+            }
+
+            return y;
+        }
+
+        float DrawAttackButton(GameState state, UnitToken selected, float y)
+            => DrawAttackButton(state, selected, y, 180f);
+
+        float DrawAttackButton(GameState state, UnitToken selected, float y, float iw)
+        {
+            if (state.Phase != Phase.Play || !state.ActiveSeat.HasValue) return y;
+            if (selected == null || selected.Seat != state.ActiveSeat.Value) return y;
+
+            var already = BoardGameController.UnitAlreadyAttacked(selected);
+            var companyOk = selected.Kind == UnitKind.Commander ||
+                            CompanyActivation.IsUnitInActiveCompany(state, selected);
+            var busy = !string.IsNullOrEmpty(_game.PendingAbilityName) ||
+                       (!string.IsNullOrEmpty(_game.PendingAttackTargetId) && !_game.PendingAttackPick);
+
+            string label;
+            if (already)
+                label = "Already attacked";
+            else if (!companyOk)
+                label = "Activate company first";
+            else if (_game.PendingAttackPick)
+                label = "Click a target…";
+            else
+                label = "Attack";
+
+            var canStart = !already && companyOk && (!busy || _game.PendingAttackPick);
+            GUI.enabled = canStart;
+            if (GUI.Button(new Rect(0, y, iw, 26), label) && canStart && !_game.PendingAttackPick)
+                _game.BeginAttackPick();
+            GUI.enabled = true;
+            y += 30;
+            return y;
+        }
+
+        float DrawCastPanel(GameState state, UnitToken selected, float y)
+            => DrawCastPanel(state, selected, y, 600f);
+
+        float DrawCastPanel(GameState state, UnitToken selected, float y, float iw)
+        {
+            if (state.Phase != Phase.Play || selected == null) return y;
+            var names = new List<string>();
+            if (selected.Abilities != null)
+                names.AddRange(selected.Abilities);
+            if (!string.IsNullOrEmpty(selected.Ultimate) && !names.Contains(selected.Ultimate))
+                names.Add(selected.Ultimate);
+            if (names.Count == 0) return y;
+
+            var abilities = _game.Abilities;
+            GUI.Label(new Rect(0, y, iw, 18), "Cast", CommandWarfare.UI.MenuStyle.Body);
+            y += 18;
+            GUI.Label(new Rect(0, y, iw, 32),
+                "Click ability → target if needed → confirm.",
+                CommandWarfare.UI.MenuStyle.MutedLabel);
+            y += 30;
+
+            var pendingBusy = !string.IsNullOrEmpty(_game.PendingAbilityName) ||
+                              !string.IsNullOrEmpty(_game.PendingAttackTargetId);
+            foreach (var name in names)
+            {
+                var def = abilities?.FindByName(name);
+                var abilityDef = def != null
+                    ? new AbilityCast.AbilityDef(
+                        def.displayName, def.type, def.cost, def.costAmount, def.costResource, def.usedBy)
+                    : default;
+
+                if (def != null && AbilityCast.IsPassive(abilityDef)) continue;
+                if (def != null && !AbilityCast.CasterMayUse(abilityDef, selected.Kind)) continue;
+
+                var spendLabel = "?";
+                var disabled = pendingBusy ||
+                               !state.ActiveSeat.HasValue ||
+                               selected.Seat != state.ActiveSeat.Value;
+                var reason = "";
+                if (def == null)
+                {
+                    disabled = true;
+                    reason = "Unknown ability";
+                    spendLabel = "—";
+                }
+                else
+                {
+                    var spend = AbilityCast.SpendForCaster(abilityDef, selected.Kind);
+                    if (spend.HasError)
+                    {
+                        disabled = true;
+                        reason = spend.Error;
+                        spendLabel = "—";
+                    }
+                    else if (spend.Pool == AbilityCast.AbilityPool.None)
+                    {
+                        spendLabel = "Ultimate";
+                        if (selected.UltimateUsed)
+                        {
+                            disabled = true;
+                            reason = "Ultimate already used";
+                        }
+                    }
+                    else if (spend.Pool == AbilityCast.AbilityPool.CommanderAp)
+                    {
+                        spendLabel = $"{spend.Amount} AP";
+                        if (!state.CommanderPools.TryGetValue(selected.Seat, out var cp) ||
+                            cp.Ap < spend.Amount)
+                        {
+                            disabled = true;
+                            reason = "Not enough AP";
+                        }
+                    }
+                    else if (spend.Pool == AbilityCast.AbilityPool.CommanderCc)
+                    {
+                        spendLabel = $"{spend.Amount} CC";
+                        if (!state.CommanderPools.TryGetValue(selected.Seat, out var cp) ||
+                            cp.Cc < spend.Amount)
+                        {
+                            disabled = true;
+                            reason = "Not enough CC";
+                        }
+                    }
+                    else if (spend.Pool == AbilityCast.AbilityPool.CompanyAp)
+                    {
+                        spendLabel = $"{spend.Amount} Co.AP";
+                        var officer = CompanyActivation.FindOfficerForUnit(state, selected) ??
+                                      (selected.Kind == UnitKind.Officer ? selected : null);
+                        if (officer == null ||
+                            !state.CompanyPools.TryGetValue(officer.Id, out var co) ||
+                            co.Ap < spend.Amount)
+                        {
+                            disabled = true;
+                            reason = "Not enough Company AP";
+                        }
+                    }
+                }
+
+                var label = $"{name} ({spendLabel})";
+                var tip = !string.IsNullOrEmpty(reason) ? reason : (def?.description ?? name);
+                GUI.enabled = !disabled;
+                if (GUI.Button(new Rect(0, y, iw, 24), new GUIContent(label, tip)))
+                {
+                    if (AbilityAliasMap.RequiresUnitTarget(name))
+                        _game.BeginAbilityTarget(name);
+                    else
+                        _game.TryCastAbility(selected, name, null);
+                }
+                GUI.enabled = true;
+                y += 26f;
+            }
+            y += 4f;
+            return y;
+        }
+
+        float DrawPendingCastConfirm(GameState state, UnitToken selected, float y)
+            => DrawPendingCastConfirm(state, selected, y, 800f);
+
+        float DrawPendingCastConfirm(GameState state, UnitToken selected, float y, float iw)
+        {
+            UnitToken target = null;
+            if (!string.IsNullOrEmpty(_game.PendingAbilityTargetId) && state.Units != null)
+            {
+                foreach (var u in state.Units)
+                {
+                    if (u.Id != _game.PendingAbilityTargetId) continue;
+                    target = u;
+                    break;
+                }
+            }
+
+            GUI.color = Color.yellow;
+            if (target == null)
+            {
+                GUI.Label(new Rect(0, y, iw, 36),
+                    $"Choose target for {_game.PendingAbilityName}",
+                    CommandWarfare.UI.MenuStyle.Body);
+                GUI.color = Color.white;
+                y += 36;
+                if (GUI.Button(new Rect(0, y, iw, 24), "Cancel"))
+                    _game.CancelPendingPlayAction();
+                y += 28;
+                return y;
+            }
+
+            GUI.Label(new Rect(0, y, iw, 40),
+                $"Cast {_game.PendingAbilityName}\non {target.CardName}?",
+                CommandWarfare.UI.MenuStyle.Body);
+            GUI.color = Color.white;
+            y += 40;
+            if (GUI.Button(new Rect(0, y, iw * 0.48f, 24), "Confirm"))
+                _game.TryConfirmPendingAbility();
+            if (GUI.Button(new Rect(iw * 0.52f, y, iw * 0.48f, 24), "Cancel"))
+                _game.CancelPendingPlayAction();
+            y += 28;
+            return y;
+        }
+
+        float DrawPendingAttackConfirm(GameState state, UnitToken selected, float y)
+            => DrawPendingAttackConfirm(state, selected, y, 800f);
+
+        float DrawPendingAttackConfirm(GameState state, UnitToken selected, float y, float iw)
+        {
+            if (_game.PendingAttackPick && string.IsNullOrEmpty(_game.PendingAttackTargetId))
+            {
+                GUI.color = Color.yellow;
+                GUI.Label(new Rect(0, y, iw, 36),
+                    "Attack: click an enemy (RMB cancel)",
+                    CommandWarfare.UI.MenuStyle.Body);
+                GUI.color = Color.white;
+                y += 36;
+                if (GUI.Button(new Rect(0, y, iw, 24), "Cancel"))
+                    _game.CancelPendingPlayAction();
+                y += 28;
+                return y;
+            }
+
+            UnitToken target = null;
+            if (state.Units != null)
+            {
+                foreach (var u in state.Units)
+                {
+                    if (u.Id == _game.PendingAttackTargetId)
+                    {
+                        target = u;
+                        break;
+                    }
+                }
+            }
+
+            GUI.color = Color.yellow;
+            GUI.Label(new Rect(0, y, iw, 40),
+                target != null
+                    ? $"Attack {target.CardName}?"
+                    : "Confirm attack (target missing)",
+                CommandWarfare.UI.MenuStyle.Body);
+            GUI.color = Color.white;
+            y += 40;
+
+            string summary = null;
+            if (selected != null && target != null)
+                _game.TryGetAttackPreview(selected, target, out summary);
+            if (!string.IsNullOrEmpty(summary))
+            {
+                var sh = CommandWarfare.UI.MenuStyle.MutedLabel.CalcHeight(new GUIContent(summary), iw);
+                GUI.Label(new Rect(0, y, iw, sh), summary, CommandWarfare.UI.MenuStyle.MutedLabel);
+                y += sh + 4f;
+            }
+
+            if (GUI.Button(new Rect(0, y, iw * 0.55f, 26), "Confirm Attack"))
+                _game.TryConfirmPendingAttack();
+            if (GUI.Button(new Rect(iw * 0.58f, y, iw * 0.42f, 26), "Cancel"))
+                _game.CancelPendingPlayAction();
+            y += 30;
+            return y;
+        }
+
+        static bool CanUndoMove(UnitToken unit)
+        {
+            if (unit == null || !unit.ActivationCol.HasValue || !unit.ActivationRow.HasValue)
+                return false;
+            return unit.Col != unit.ActivationCol.Value ||
+                   unit.Row != unit.ActivationRow.Value ||
+                   unit.MoveRemaining != unit.Move;
         }
 
         void DrawGraveyard(GameState state, ref float y)
+            => DrawGraveyard(state, ref y, 600f);
+
+        void DrawGraveyard(GameState state, ref float y, float iw)
         {
             if (state.Deaths == null || state.Deaths.Count == 0) return;
             var seat = state.ActiveSeat;

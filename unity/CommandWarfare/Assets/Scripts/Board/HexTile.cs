@@ -17,7 +17,7 @@ namespace CommandWarfare.Board
         MeshFilter _filter;
         Color _baseColor;
         Material _mat;
-        float _hexSize = 1.25f;
+        float _hexSize = 1.85f;
         float _blockHeight = 0.72f;
         HighlightKind _highlightKind = HighlightKind.None;
         Transform _highlight;
@@ -56,13 +56,49 @@ namespace CommandWarfare.Board
             EnsureComponents();
 
             _filter.sharedMesh = GetPrism(hexSize, _blockHeight);
-            _mat = TerrainMaterialFactory.CreateForTerrain(terrain, variant, catalog);
+            TerrainMaterialFactory.UvJitterForHex(coord.Col, coord.Row, out var uvOffset, out var uvRot);
+            _mat = TerrainMaterialFactory.CreateForTerrain(terrain, variant, catalog, uvOffset, uvRot);
             _renderer.sharedMaterial = _mat;
             TerrainMaterialFactory.SetMaterialColor(_mat, _baseColor);
+
+            if (terrain == TerrainKind.Wall)
+                WallMeshBuilder.DressWallHex(transform, hexSize, _blockHeight, _baseColor);
+
+            EnsureHexOutline();
 
             // Keep any prior overlay in sync after rebuild.
             if (_highlight != null)
                 PositionHighlight();
+        }
+
+        /// <summary>Tilemap-style edge transitions from the six neighbor biomes (edge order = HexMath.Neighbors).</summary>
+        public void ApplyNeighborTransitions(
+            TerrainKind[] edgeNeighborKinds,
+            TerrainAssetCatalog catalog)
+        {
+            HexTerrainAutotile.Apply(this, edgeNeighborKinds, _hexSize, catalog);
+        }
+
+        void EnsureHexOutline()
+        {
+            var existing = transform.Find("HexOutline");
+            if (existing != null)
+            {
+                if (Application.isPlaying) Destroy(existing.gameObject);
+                else DestroyImmediate(existing.gameObject);
+            }
+
+            var go = new GameObject("HexOutline");
+            go.transform.SetParent(transform, false);
+            go.transform.localPosition = Vector3.zero;
+            var filter = go.AddComponent<MeshFilter>();
+            var renderer = go.AddComponent<MeshRenderer>();
+            filter.sharedMesh = HexMeshBuilder.CreateOutlineRing(_hexSize * 0.985f, _blockHeight + 0.028f, 0.028f);
+            renderer.sharedMaterial = TerrainMaterialFactory.CreateTileInstance(
+                new Color(0.07f, 0.08f, 0.09f, 0.55f), null, 1f, 0.05f, 0f, Color.black);
+            renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            var col = go.GetComponent<Collider>();
+            if (col != null) DestroyImmediate(col);
         }
 
         void EnsureComponents()
@@ -141,6 +177,8 @@ namespace CommandWarfare.Board
                 HighlightKind.Selected => (new Color(1f, 0.92f, 0.25f, 1f), new Color(1.4f, 1.1f, 0.2f)),
                 HighlightKind.Move => (new Color(0.15f, 1f, 0.55f, 1f), new Color(0.1f, 1.6f, 0.5f)),
                 HighlightKind.Attack => (new Color(1f, 0.22f, 0.18f, 1f), new Color(1.6f, 0.2f, 0.1f)),
+                HighlightKind.CommandRadius => (new Color(0.45f, 0.55f, 1f, 1f), new Color(0.35f, 0.45f, 1.4f)),
+                HighlightKind.CommanderRadius => (new Color(0.85f, 0.45f, 1f, 1f), new Color(1.1f, 0.35f, 1.4f)),
                 _ => (Color.white, Color.black),
             };
             TerrainMaterialFactory.SetMaterialColor(_highlightMat, fill);
@@ -165,5 +203,5 @@ namespace CommandWarfare.Board
         }
     }
 
-    public enum HighlightKind { None, Selected, Move, Attack }
+    public enum HighlightKind { None, Selected, Move, Attack, CommandRadius, CommanderRadius }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CommandWarfare.Core;
 using CommandWarfare.Core.Combat;

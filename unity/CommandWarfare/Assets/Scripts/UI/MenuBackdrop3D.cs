@@ -54,6 +54,8 @@ namespace CommandWarfare.UI
         public static void ForceCleanupScene()
         {
             DestroyOrphanTableaus();
+            // Do not destroy BattleTabletopRoom — match ApplyMatchVisuals cleans menus
+            // after HexBoardBuilder.Rebuild, which just spawned the tabletop stage.
         }
 
         static bool IsMenuPropName(string name)

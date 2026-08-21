@@ -1,0 +1,17 @@
+Room environment props (CC0 — Kenney.nl)
+
+- Kenney Furniture Kit — bookcases, desks, chairs, plants, lamps, rugs, sofas
+  https://kenney.nl/assets/furniture-kit
+  Local: Assets/Art/Environment/KenneyFurnitureKit
+
+- Kenney Castle Kit — banners / flags / pillars
+  https://kenney.nl/assets/castle-kit
+  Local: Assets/Art/Environment/KenneyCastleKit
+
+Wire prefabs: Unity menu → CommandWarfare → Room → Wire Kenney Room Decor
+
+Unity Asset Store alternatives (if you want richer interiors later):
+- Free Medieval Kitchen Props – Starter Kit
+  https://assetstore.unity.com/packages/3d/props/interior/free-medieval-kitchen-props-starter-kit-373744
+- Medieval Furniture Props (paid)
+  https://assetstore.unity.com/packages/3d/props/furniture/medieval-furniture-props-gothic-props-victorian-props-medieval-f-333978

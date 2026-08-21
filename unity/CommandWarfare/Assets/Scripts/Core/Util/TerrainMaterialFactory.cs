@@ -11,6 +11,7 @@ namespace CommandWarfare.Core.Util
         static Material _cached;
         static Shader _resolved;
         static readonly Dictionary<string, Material> _terrainCache = new();
+        static readonly Dictionary<string, Material> _blendCache = new();
 
         public static Material CreateDefault()
         {
@@ -43,36 +44,103 @@ namespace CommandWarfare.Core.Util
         public static Material CreateForTerrain(
             TerrainKind kind,
             int variant,
-            TerrainAssetCatalog catalog)
+            TerrainAssetCatalog catalog) =>
+            CreateForTerrain(kind, variant, catalog, Vector2.zero, 0f);
+
+        /// <summary>
+        /// Per-hex terrain look with UV phase jitter so adjacent same-biome tiles do not stamp-repeat.
+        /// </summary>
+        public static Material CreateForTerrain(
+            TerrainKind kind,
+            int variant,
+            TerrainAssetCatalog catalog,
+            Vector2 uvOffset,
+            float uvRotationDegrees)
         {
             var color = TerrainVisuals.BaseColor(kind, variant);
             var look = SurfaceLook(kind);
+            var hasJitter = uvOffset.sqrMagnitude > 0.0001f || Mathf.Abs(uvRotationDegrees) > 0.01f;
 
             var overrideMat = catalog?.MaterialFor(kind);
             if (overrideMat != null)
             {
                 var inst = new Material(overrideMat);
-                // Keep variant tint mild so assigned art still reads as that biome.
                 if (inst.HasProperty("_BaseColor"))
                 {
                     var baseCol = inst.GetColor("_BaseColor");
                     inst.SetColor("_BaseColor", Color.Lerp(baseCol, color, 0.2f));
                 }
+                if (hasJitter) ApplyUvTransform(inst, uvOffset, uvRotationDegrees);
                 return inst;
             }
 
             var albedo = catalog?.AlbedoFor(kind);
             var tiling = catalog != null ? Mathf.Max(0.25f, catalog.albedoTiling) : 1.35f;
-            var cacheKey = $"{kind}:{variant}:{(albedo != null ? albedo.GetInstanceID() : 0)}:{tiling:F2}";
-            if (_terrainCache.TryGetValue(cacheKey, out var cached) && cached != null)
-                return cached;
+
+            if (!hasJitter)
+            {
+                var cacheKey = $"{kind}:{variant}:{(albedo != null ? albedo.GetInstanceID() : 0)}:{tiling:F2}";
+                if (_terrainCache.TryGetValue(cacheKey, out var cached) && cached != null)
+                    return cached;
+
+                var shared = CreateTileInstance(color, albedo, tiling, look.Smoothness, look.Metallic, look.Emission);
+                _terrainCache[cacheKey] = shared;
+                return shared;
+            }
 
             var mat = CreateTileInstance(color, albedo, tiling, look.Smoothness, look.Metallic, look.Emission);
-            _terrainCache[cacheKey] = mat;
+            ApplyUvTransform(mat, uvOffset, uvRotationDegrees);
             return mat;
         }
 
-        public static void ClearTerrainCache() => _terrainCache.Clear();
+        /// <summary>
+        /// Soft Wang/blob feather: opaque color lerp from self → neighbor (strength 0..1).
+        /// Avoids URP transparent sorting issues while still reading as a smooth edge blend.
+        /// </summary>
+        public static Material CreateBlendOverlay(
+            TerrainKind neighbor,
+            TerrainKind self,
+            int variant,
+            TerrainAssetCatalog catalog,
+            float strength)
+        {
+            var s = Mathf.Clamp01(strength);
+            var quant = Mathf.RoundToInt(s * 20f);
+            var cacheKey = $"blend:{neighbor}:{self}:{variant}:{quant}";
+            if (_blendCache.TryGetValue(cacheKey, out var cached) && cached != null)
+                return cached;
+
+            var neighborCol = TerrainVisuals.BaseColor(neighbor, variant);
+            var selfCol = TerrainVisuals.BaseColor(self, variant);
+            var blended = Color.Lerp(selfCol, neighborCol, quant / 20f);
+            blended.a = 1f;
+
+            // Prefer neighbor albedo at high strength so textured biomes still read.
+            var useNeighborTex = quant >= 10;
+            var kindForTex = useNeighborTex ? neighbor : self;
+            var albedo = catalog?.AlbedoFor(kindForTex);
+            var look = SurfaceLook(neighbor);
+            var tiling = catalog != null ? Mathf.Max(0.25f, catalog.albedoTiling) : 1.35f;
+            var mat = CreateTileInstance(blended, albedo, tiling, look.Smoothness, look.Metallic, look.Emission * (quant / 20f));
+            _blendCache[cacheKey] = mat;
+            return mat;
+        }
+
+        /// <summary>Deterministic UV phase from hex coordinates (non-repeating tiles).</summary>
+        public static void UvJitterForHex(int col, int row, out Vector2 offset, out float rotationDegrees)
+        {
+            var h = unchecked(col * 73856093) ^ unchecked(row * 19349663);
+            var u = ((h & 0xFFFF) / 65535f);
+            var v = (((h >> 16) & 0xFFFF) / 65535f);
+            offset = new Vector2(u * 0.85f, v * 0.85f);
+            rotationDegrees = (((h >> 8) & 0xFF) / 255f) * 60f - 30f;
+        }
+
+        public static void ClearTerrainCache()
+        {
+            _terrainCache.Clear();
+            _blendCache.Clear();
+        }
 
         /// <summary>Force-replace renderers so Asset Store / placeholder mats never stay magenta.</summary>
         public static void RecolorRenderers(GameObject root, Color color)
@@ -182,6 +250,50 @@ namespace CommandWarfare.Core.Util
                 mat.SetTexture("_MainTex", albedo);
                 mat.SetTextureScale("_MainTex", Vector2.one * tiling);
             }
+        }
+
+        static void ApplyUvTransform(Material mat, Vector2 offset, float rotationDegrees)
+        {
+            if (mat.HasProperty("_BaseMap"))
+            {
+                var scale = mat.GetTextureScale("_BaseMap");
+                if (scale.sqrMagnitude < 0.0001f) scale = Vector2.one;
+                mat.SetTextureOffset("_BaseMap", offset);
+                mat.SetTextureScale("_BaseMap", scale);
+            }
+            if (mat.HasProperty("_MainTex"))
+            {
+                var scale = mat.GetTextureScale("_MainTex");
+                if (scale.sqrMagnitude < 0.0001f) scale = Vector2.one;
+                mat.SetTextureOffset("_MainTex", offset);
+                mat.SetTextureScale("_MainTex", scale);
+            }
+
+            // URP Lit has no built-in UV rotation; bake a mild offset axis skew via second channel when available.
+            if (mat.HasProperty("_DetailAlbedoMapScale"))
+                mat.SetFloat("_DetailAlbedoMapScale", 1f + rotationDegrees * 0.001f);
+        }
+
+        static void ApplyTransparentSurface(Material mat)
+        {
+            if (mat.HasProperty("_Surface"))
+                mat.SetFloat("_Surface", 1f); // Transparent
+            if (mat.HasProperty("_Blend"))
+                mat.SetFloat("_Blend", 0f); // Alpha
+            if (mat.HasProperty("_SrcBlend"))
+                mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+            if (mat.HasProperty("_DstBlend"))
+                mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+            if (mat.HasProperty("_ZWrite"))
+                mat.SetInt("_ZWrite", 0);
+            if (mat.HasProperty("_AlphaClip"))
+                mat.SetFloat("_AlphaClip", 0f);
+
+            mat.SetOverrideTag("RenderType", "Transparent");
+            mat.renderQueue = (int)RenderQueue.Transparent;
+            mat.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
+            mat.DisableKeyword("_ALPHATEST_ON");
+            mat.DisableKeyword("_ALPHAPREMULTIPLY_ON");
         }
 
         static void ApplyEmission(Material mat, Color emission)

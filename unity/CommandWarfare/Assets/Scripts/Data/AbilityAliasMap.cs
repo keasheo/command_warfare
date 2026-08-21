@@ -49,7 +49,11 @@ namespace CommandWarfare.Data
             var resolved = ResolveEffectName(abilityName).ToLowerInvariant();
             return resolved is "harden order" or "overdrive" or "withering gaze" or "heal" or "medic"
                 or "repair" or "rebuild protocol" or "counterattack" or "spectral strike"
-                or "forge mend" or "repair rites";
+                or "tactical withdrawal" or "focused assault" or "null pulse" or "arc discharge"
+                or "hellspark" or "marshal's shot" or "wyrm lash" or "anvil strike"
+                or "alpha rush" or "spear thrust" or "basilisk glare" or "grave bind"
+                or "moonbind" or "snare" or "bone prison" or "entangling roots"
+                or "serpent coil" or "shadow orb" or "forge mend" or "repair rites";
         }
     }
 }

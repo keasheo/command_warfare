@@ -33,6 +33,11 @@ namespace CommandWarfare.Data
         [Header("UV tiling on hex tops")]
         public float albedoTiling = 1.35f;
 
+        [Header("Plains / grass scatter")]
+        public GameObject[] grassPrefabs;
+        public float grassScaleMin = 0.55f;
+        public float grassScaleMax = 1.05f;
+
         [Header("Forest scatter")]
         public GameObject[] treePrefabs;
         public float treeScaleMin = 0.8f;
@@ -58,17 +63,26 @@ namespace CommandWarfare.Data
         public float volcanicScaleMin = 0.6f;
         public float volcanicScaleMax = 1.1f;
 
+        [Header("Wall props (optional Asset Store / generated)")]
+        public GameObject[] wallPrefabs;
+        public float wallScaleMin = 0.85f;
+        public float wallScaleMax = 1.15f;
+
+        public bool HasGrass => grassPrefabs != null && grassPrefabs.Length > 0;
         public bool HasForest => treePrefabs != null && treePrefabs.Length > 0;
         public bool HasPeaks => peakPrefabs != null && peakPrefabs.Length > 0;
         public bool HasRocks => rockPrefabs != null && rockPrefabs.Length > 0;
         public bool HasReeds => reedPrefabs != null && reedPrefabs.Length > 0;
         public bool HasVolcanic => volcanicPrefabs != null && volcanicPrefabs.Length > 0;
+        public bool HasWalls => wallPrefabs != null && wallPrefabs.Length > 0;
 
+        public GameObject PickGrass(int seed) => Pick(grassPrefabs, seed);
         public GameObject PickTree(int seed) => Pick(treePrefabs, seed);
         public GameObject PickPeak(int seed) => Pick(peakPrefabs, seed);
         public GameObject PickRock(int seed) => Pick(rockPrefabs, seed);
         public GameObject PickReed(int seed) => Pick(reedPrefabs, seed);
         public GameObject PickVolcanic(int seed) => Pick(volcanicPrefabs, seed);
+        public GameObject PickWall(int seed) => Pick(wallPrefabs, seed);
 
         public Material MaterialFor(TerrainKind kind) => kind switch
         {

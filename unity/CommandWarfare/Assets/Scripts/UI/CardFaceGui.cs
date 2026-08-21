@@ -33,6 +33,11 @@ namespace CommandWarfare.UI
         static Texture2D _iconPassive;
         static Texture2D _iconActive;
         static Texture2D _iconUltimate;
+        static Texture2D _roundParchment;
+        static Texture2D _roundFrameTex;
+        static GUIStyle _roundCard;
+        static GUIStyle _roundFrame;
+        static int _roundBorderPx = -1;
         static bool _textureTried;
         static string _textureFail;
 
@@ -55,24 +60,26 @@ namespace CommandWarfare.UI
         {
             EnsureTextures();
             var rect = FitCardRect(bounds);
+            var s = Scale(rect.width);
+            var radius = Mathf.Max(14f, 18f * s);
             if (card == null)
             {
-                GUI.DrawTexture(rect, _parchment);
-                DrawPaperOverlay(rect, Scale(rect.width));
-                Label(rect, "Select a card", Style(Rem(0.85f) * Scale(rect.width), FontStyle.Normal,
+                DrawRoundedParchment(rect, radius);
+                DrawOrnateBorder(rect, Mathf.Max(2f, 3f * s), s, radius);
+                DrawPaperOverlay(Inset(rect, radius * 0.5f), s);
+                Label(rect, "Select a card", Style(Rem(0.85f) * s, FontStyle.Normal,
                     new Color(0.4f, 0.35f, 0.3f), TextAnchor.MiddleCenter, true));
                 return;
             }
 
-            var s = Scale(rect.width);
             var ink = new Color(0.11f, 0.09f, 0.08f);
             var muted = new Color(0.29f, 0.26f, 0.22f);
             var cream = new Color(0.973f, 0.945f, 0.89f);
             var abilityInk = new Color(0.165f, 0.141f, 0.11f);
             var ultimateInk = new Color(0.486f, 0.227f, 0.176f);
 
-            GUI.DrawTexture(rect, _parchment);
-            DrawFrame(rect, Mathf.Max(2f, 3f * s), _gold);
+            DrawRoundedParchment(rect, radius);
+            DrawOrnateBorder(rect, Mathf.Max(2f, 3f * s), s, radius);
 
             // Single content inset (css .kb-content-wrapper inset: 12px) + thin inner gold.
             var content = Inset(rect, 12f * s);
@@ -197,7 +204,7 @@ namespace CommandWarfare.UI
 
             // Paper grit is baked into parchment fills (see TryLoadPaperTexture).
             // A light top overlay remains so banner/art edges also pick up grain like css ::before.
-            DrawPaperOverlay(rect, s);
+            DrawPaperOverlay(Inset(rect, radius * 0.5f), s);
         }
 
         static void DrawAbilityRow(Rect row, AbilityRow data, float s, float abilityFont, float costFont,
@@ -336,16 +343,6 @@ namespace CommandWarfare.UI
                 });
             }
 
-            if (list.Count == 0)
-            {
-                list.Add(new AbilityRow
-                {
-                    name = "No abilities",
-                    description = "",
-                    costLabel = "",
-                    kind = AbilityKind.Active,
-                });
-            }
             return list;
         }
 
@@ -466,6 +463,141 @@ namespace CommandWarfare.UI
             GUI.DrawTexture(new Rect(r.x, r.yMax - t, r.width, t), tex);
             GUI.DrawTexture(new Rect(r.x, r.y, t, r.height), tex);
             GUI.DrawTexture(new Rect(r.xMax - t, r.y, t, r.height), tex);
+        }
+
+        static void DrawRoundedParchment(Rect r, float radius)
+        {
+            EnsureRoundStyles(radius);
+            GUI.Box(r, GUIContent.none, _roundCard);
+        }
+
+        static void EnsureRoundStyles(float radiusPx)
+        {
+            var border = Mathf.Clamp(Mathf.CeilToInt(radiusPx) + 2, 16, 40);
+            if (_roundCard != null && _roundFrame != null && _roundBorderPx == border) return;
+            _roundBorderPx = border;
+
+            var sliceR = Mathf.Clamp(border - 2, 14, 36);
+            const int slice = 96;
+            _roundParchment = MakeRoundedParchmentSlice(slice, sliceR);
+            _roundFrameTex = MakeRoundedFrameSlice(slice, sliceR,
+                stroke: Mathf.Max(3, sliceR / 5),
+                gap: Mathf.Max(2, sliceR / 8),
+                innerStroke: Mathf.Max(2, sliceR / 7),
+                color: new Color(0.776f, 0.655f, 0.369f));
+
+            _roundCard = new GUIStyle(GUI.skin.box)
+            {
+                border = new RectOffset(border, border, border, border),
+                normal = { background = _roundParchment },
+                padding = new RectOffset(0, 0, 0, 0),
+                margin = new RectOffset(0, 0, 0, 0),
+            };
+            _roundFrame = new GUIStyle(GUI.skin.box)
+            {
+                border = new RectOffset(border, border, border, border),
+                normal = { background = _roundFrameTex },
+                padding = new RectOffset(0, 0, 0, 0),
+                margin = new RectOffset(0, 0, 0, 0),
+            };
+        }
+
+        /// <summary>Continuous rounded gold frame via 9-slice (no separate arc joins).</summary>
+        static void DrawOrnateBorder(Rect r, float t, float s, float radius)
+        {
+            EnsureRoundStyles(radius);
+            GUI.Box(r, GUIContent.none, _roundFrame);
+        }
+
+        static Texture2D MakeRoundedFrameSlice(int size, int radius, int stroke, int gap, int innerStroke, Color color)
+        {
+            var t = new Texture2D(size, size, TextureFormat.RGBA32, false)
+            {
+                wrapMode = TextureWrapMode.Clamp,
+                filterMode = FilterMode.Bilinear,
+                hideFlags = HideFlags.HideAndDontSave,
+                name = "RoundCardFrame",
+            };
+            var pixels = new Color[size * size];
+            var rad = (float)radius;
+            var band0 = (float)stroke;
+            var band1 = stroke + gap;
+            var band2 = stroke + gap + innerStroke;
+
+            for (var y = 0; y < size; y++)
+            for (var x = 0; x < size; x++)
+            {
+                var py = size - 1 - y;
+                var dist = RoundedRectSignedDist(x + 0.5f, py + 0.5f, size, size, rad);
+                Color c = Color.clear;
+                if (dist <= 0.75f)
+                {
+                    var depth = -dist;
+                    var onOuter = depth <= band0;
+                    var onInner = depth >= band1 && depth <= band2;
+                    if (onOuter || onInner)
+                    {
+                        var a = 1f;
+                        if (dist > -0.5f) a = Mathf.Clamp01(0.75f - dist);
+                        if (onOuter && depth > band0 - 1.25f)
+                            a = Mathf.Min(a, Mathf.Clamp01(band0 - depth + 1.25f));
+                        if (onInner)
+                        {
+                            if (depth < band1 + 1.25f)
+                                a = Mathf.Min(a, Mathf.Clamp01(depth - band1 + 1.25f));
+                            if (depth > band2 - 1.25f)
+                                a = Mathf.Min(a, Mathf.Clamp01(band2 - depth + 1.25f));
+                        }
+                        c = color;
+                        c.a = Mathf.Clamp01(a);
+                    }
+                }
+                pixels[y * size + x] = c;
+            }
+            t.SetPixels(pixels);
+            t.Apply(false, true);
+            return t;
+        }
+
+        static Texture2D MakeRoundedParchmentSlice(int size, int radius)
+        {
+            var t = new Texture2D(size, size, TextureFormat.RGBA32, false)
+            {
+                wrapMode = TextureWrapMode.Clamp,
+                filterMode = FilterMode.Bilinear,
+                hideFlags = HideFlags.HideAndDontSave,
+            };
+            var top = new Color(0.953f, 0.902f, 0.788f, 1f);
+            var bot = new Color(0.910f, 0.843f, 0.690f, 1f);
+            var pixels = new Color[size * size];
+            var rad = (float)radius;
+            for (var y = 0; y < size; y++)
+            for (var x = 0; x < size; x++)
+            {
+                var py = size - 1 - y;
+                var fill = RoundedRectCoverage(x + 0.5f, py + 0.5f, size, size, rad);
+                var c = Color.Lerp(bot, top, py / (float)(size - 1));
+                c.a = fill;
+                pixels[y * size + x] = c;
+            }
+            t.SetPixels(pixels);
+            t.Apply(false, true);
+            return t;
+        }
+
+        static float RoundedRectCoverage(float px, float py, int w, int h, float radius)
+        {
+            var dist = RoundedRectSignedDist(px, py, w, h, radius);
+            return Mathf.Clamp01(0.75f - dist);
+        }
+
+        static float RoundedRectSignedDist(float px, float py, int w, int h, float radius)
+        {
+            var half = new Vector2(w * 0.5f, h * 0.5f);
+            var p = new Vector2(px, py) - half;
+            var b = half - new Vector2(radius, radius);
+            var q = new Vector2(Mathf.Abs(p.x), Mathf.Abs(p.y)) - b;
+            return Vector2.Max(q, Vector2.zero).magnitude + Mathf.Min(Mathf.Max(q.x, q.y), 0f) - radius;
         }
 
         static void DrawTiled(Rect rect, Texture2D tex, float tilePx, float alpha)

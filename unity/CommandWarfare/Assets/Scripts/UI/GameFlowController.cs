@@ -169,6 +169,7 @@ namespace CommandWarfare.UI
             if (_netHud != null) _netHud.enabled = false;
             if (_ai != null) _ai.enabled = false;
             _game?.SetBattlefieldVisible(false);
+            BattleTabletopEnvironment.DestroyExisting();
             _backdrop?.Show();
         }
 
@@ -189,8 +190,11 @@ namespace CommandWarfare.UI
             _game?.RebuildTokenViews();
             _game?.RefreshBattlefieldOverlays();
             _game?.FrameCameraOnBoard();
-            // Second cleanup after rebuild — Catch orphans recreated by editor leftovers.
+            // Second cleanup after rebuild — catch orphans recreated by editor leftovers.
             MenuBackdrop3D.ForceCleanupScene();
+            // Room again after cleanup: menu orphan pass matches names like "Banner".
+            if (_board != null)
+                BattleTabletopEnvironment.Ensure(_board.BoardSize, _board.HexSize);
         }
 
         void EnsureRefs()
@@ -515,14 +519,20 @@ namespace CommandWarfare.UI
                 CardFaceGui.RefW + previewChromeX,
                 360f,
                 Mathf.Min(448f, UnityEngine.Screen.width * 0.36f));
-            var left = new Rect(margin, 40, Mathf.Min(320f, UnityEngine.Screen.width * 0.24f),
-                UnityEngine.Screen.height - 52);
-            var mid = new Rect(left.xMax + 10, 40, Mathf.Min(260f, UnityEngine.Screen.width * 0.20f),
-                UnityEngine.Screen.height - 52);
-            var preview = new Rect(mid.xMax + 10, 40, previewW, UnityEngine.Screen.height - 52);
-            var right = new Rect(preview.xMax + 10, 40,
-                Mathf.Max(150f, UnityEngine.Screen.width - preview.xMax - margin - 10),
-                UnityEngine.Screen.height - 52);
+            var h = UnityEngine.Screen.height - 52;
+            var leftW = Mathf.Min(320f, UnityEngine.Screen.width * 0.24f);
+            var midW = Mathf.Min(260f, UnityEngine.Screen.width * 0.20f);
+            // Provisional Actions width (remaining after pool/army/preview), then move 10% to Card pool.
+            var afterPreviewX = margin + leftW + 10f + midW + 10f + previewW + 10f;
+            var rightW = Mathf.Max(150f, UnityEngine.Screen.width - afterPreviewX - margin);
+            var transfer = rightW * 0.10f;
+            leftW += transfer;
+            rightW -= transfer;
+
+            var left = new Rect(margin, 40, leftW, h);
+            var mid = new Rect(left.xMax + 10, 40, midW, h);
+            var preview = new Rect(mid.xMax + 10, 40, previewW, h);
+            var right = new Rect(preview.xMax + 10, 40, rightW, h);
 
             MenuStyle.DrawPanel(left, "Card pool");
             MenuStyle.DrawPanel(mid, "Your army");
@@ -575,25 +585,32 @@ namespace CommandWarfare.UI
 
             GUI.Label(new Rect(x, y, fieldW, 16), "Race", MenuStyle.MutedLabel);
             y += 18;
-            var raceRect = new Rect(x, y, fieldW, 28);
+            var raceRect = new Rect(x, y, fieldW, 30);
             var raceIx = System.Array.FindIndex(RaceFilters,
                 r => string.Equals(r, _raceFilter, System.StringComparison.OrdinalIgnoreCase));
             if (raceIx < 0) raceIx = 0;
             const int raceId = 101;
             const int typeId = 102;
+
+            var freezeUnder = _raceDropOpen || _typeDropOpen;
+            var prevEnabled = GUI.enabled;
+
+            GUI.enabled = prevEnabled && !_typeDropOpen;
             MenuStyle.Dropdown(raceRect, RaceFilters, ref raceIx, ref _raceDropOpen, raceId, drawPopup: false);
             if (_raceDropOpen) _typeDropOpen = false;
             y += 34;
 
+            GUI.enabled = prevEnabled && !_raceDropOpen;
             GUI.Label(new Rect(x, y, fieldW, 16), "Type", MenuStyle.MutedLabel);
             y += 18;
-            var typeRect = new Rect(x, y, fieldW, 28);
+            var typeRect = new Rect(x, y, fieldW, 30);
             var typeIx = System.Array.FindIndex(TypeFilters, t => t == _typeFilter);
             if (typeIx < 0) typeIx = 0;
             MenuStyle.Dropdown(typeRect, TypeFilters, ref typeIx, ref _typeDropOpen, typeId, drawPopup: false);
             if (_typeDropOpen) _raceDropOpen = false;
             y += 34;
 
+            GUI.enabled = prevEnabled && !freezeUnder;
             GUI.Label(new Rect(x, y, fieldW, 16), "Search", MenuStyle.MutedLabel);
             y += 18;
             _cardFilter = GUI.TextField(new Rect(x, y, fieldW, 22), _cardFilter);
@@ -607,22 +624,30 @@ namespace CommandWarfare.UI
             _armyPickerScroll = GUI.BeginScrollView(
                 new Rect(x, y, fieldW, viewH),
                 _armyPickerScroll,
-                new Rect(0, 0, fieldW - 24, Mathf.Max(viewH, matches.Count * 26)));
+                new Rect(0, 0, fieldW - 24, Mathf.Max(viewH, matches.Count * 30)));
             for (var i = 0; i < matches.Count; i++)
             {
                 var c = matches[i];
                 var have = ArmyListUtil.CountCopies(_draft, c.cardId);
                 var max = ArmyListUtil.MaxCopiesForRarity(c.rarity);
-                var label = $"{c.displayName}  ·{c.uv}  {c.rarity}  ({have}/{max})";
-                if (GUI.Button(new Rect(0, i * 26, fieldW - 24, 24), label))
+                var label = $"    {c.displayName}  ·{c.uv}  ({have}/{max})";
+                var selected = _previewCard != null && _previewCard.cardId == c.cardId;
+                var style = selected ? MenuStyle.CompactPrimary : MenuStyle.CompactButton;
+                var row = new Rect(0, i * 30, fieldW - 24, 28);
+                if (GUI.Button(row, label, style))
                 {
                     _previewCard = c;
                     MenuStyle.CloseDropdowns(ref _raceDropOpen, ref _typeDropOpen);
                 }
+                var dot = 8f;
+                MenuStyle.DrawRarityDot(
+                    new Rect(row.x + 6f, row.y + (row.height - dot) * 0.5f, dot, dot),
+                    c.rarity);
             }
             GUI.EndScrollView();
+            GUI.enabled = prevEnabled;
 
-            // Popups last so they paint above Type/Search/list (race no longer hides under type).
+            // Popups last so they paint above Type/Search/list.
             if (MenuStyle.Dropdown(raceRect, RaceFilters, ref raceIx, ref _raceDropOpen, raceId, drawPopup: true))
             {
                 _raceFilter = RaceFilters[raceIx];
@@ -730,7 +755,7 @@ namespace CommandWarfare.UI
                     $"{(selected ? "▶ " : "   ")}Co {i + 1}: {offName}  · {models}/{(unitCap > 0 ? unitCap.ToString() : "—")}u  · {usedUv}/{(capUv > 0 ? capUv.ToString() : "—")}UV";
 
                 // Compact row style — large menu buttons clip text in ~22–28px rows.
-                if (GUI.Button(new Rect(0, ry, innerW - 24, 30), header,
+                if (GUI.Button(new Rect(0, ry, innerW - 24, 32), header,
                         selected ? MenuStyle.CompactPrimary : MenuStyle.CompactButton))
                 {
                     _selectedCompany = i;
@@ -740,7 +765,7 @@ namespace CommandWarfare.UI
                         ? $"Company {i + 1} — pick an Officer"
                         : $"Company {i + 1} selected — add Units from the pool";
                 }
-                ry += 34;
+                ry += 36;
 
                 if (co.Units != null)
                 {
@@ -748,22 +773,22 @@ namespace CommandWarfare.UI
                     {
                         var unit = co.Units[u];
                         if (unit == null) continue;
-                        if (GUI.Button(new Rect(16, ry, innerW - 100, 24), $"· {unit.displayName} ({unit.uv})",
+                        if (GUI.Button(new Rect(16, ry, innerW - 100, 28), $"· {unit.displayName} ({unit.uv})",
                                 MenuStyle.CompactButton))
                         {
                             _selectedCompany = i;
                             _previewCard = unit;
                         }
-                        if (GUI.Button(new Rect(innerW - 74, ry, 50, 24), "−", MenuStyle.CompactButton))
+                        if (GUI.Button(new Rect(innerW - 74, ry, 50, 28), "−", MenuStyle.CompactButton))
                         {
                             co.Units.RemoveAt(u);
                             break;
                         }
-                        ry += 26;
+                        ry += 30;
                     }
                 }
 
-                if (GUI.Button(new Rect(16, ry, 110, 24), "Remove co.", MenuStyle.CompactButton))
+                if (GUI.Button(new Rect(16, ry, 110, 28), "Remove co.", MenuStyle.CompactButton))
                 {
                     companies.RemoveAt(i);
                     _selectedCompany = Mathf.Clamp(_selectedCompany, 0, Mathf.Max(0, companies.Count - 1));

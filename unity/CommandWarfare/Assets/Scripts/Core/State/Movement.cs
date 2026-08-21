@@ -203,6 +203,42 @@ namespace CommandWarfare.Core.State
             return true;
         }
 
+        /// <summary>
+        /// Shortest passable path distances from origin (port of passablePathDistances).
+        /// Used by AI to score moves around water/terrain instead of crow-flies only.
+        /// </summary>
+        public static Dictionary<string, int> PassablePathDistances(
+            GameState state,
+            HexCoord origin,
+            HashSet<string> blocked,
+            MoveTraveler traveler)
+        {
+            var dist = new Dictionary<string, int>();
+            var originKey = HexMath.Key(origin.Col, origin.Row);
+            dist[originKey] = 0;
+            var queue = new Queue<HexCoord>();
+            queue.Enqueue(origin);
+            while (queue.Count > 0)
+            {
+                var cur = queue.Dequeue();
+                var curKey = HexMath.Key(cur.Col, cur.Row);
+                var curDist = dist[curKey];
+                foreach (var n in HexMath.Neighbors(cur))
+                {
+                    if (!HexMath.InBounds(n, state.BoardSize)) continue;
+                    var nk = HexMath.Key(n.Col, n.Row);
+                    if (blocked != null && blocked.Contains(nk) && nk != originKey) continue;
+                    var kind = TerrainAt(state, n);
+                    var cost = TerrainEnterCost(kind, traveler);
+                    if (cost == int.MaxValue) continue;
+                    if (dist.ContainsKey(nk)) continue;
+                    dist[nk] = curDist + 1;
+                    queue.Enqueue(n);
+                }
+            }
+            return dist;
+        }
+
         static HashSet<string> OccupiedKeys(GameState state, string movingUnitId)
         {
             var set = new HashSet<string>();

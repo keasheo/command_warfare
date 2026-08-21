@@ -5,13 +5,17 @@ using UnityEngine;
 
 namespace CommandWarfare.UI
 {
-    /// <summary>Loads card art from StreamingAssets/CardArt/{cardId}.{png|jpg|jpeg|webp}.</summary>
+    /// <summary>
+    /// Loads card art by cardId. Prefers Assets/Art/Cards (local, git-ignored),
+    /// then StreamingAssets/CardArt for builds.
+    /// </summary>
     public static class CardArtLoader
     {
         static readonly Dictionary<string, Texture2D> Cache = new();
         static readonly string[] Exts = { ".png", ".jpg", ".jpeg", ".webp" };
+        static string[] _roots;
 
-        public static string ArtRoot => Path.Combine(Application.streamingAssetsPath, "CardArt");
+        public static string ArtRoot => Path.Combine(Application.dataPath, "Art", "Cards");
 
         public static Texture2D Get(string cardId)
         {
@@ -19,7 +23,7 @@ namespace CommandWarfare.UI
             if (Cache.TryGetValue(cardId, out var cached) && cached != null) return cached;
 
             var tex = LoadFromDisk(cardId);
-            if (tex != null) Cache[cardId] = tex;
+            Cache[cardId] = tex;
             return tex;
         }
 
@@ -27,12 +31,22 @@ namespace CommandWarfare.UI
 
         public static int CountOnDisk()
         {
-            var root = ArtRoot;
-            if (!Directory.Exists(root)) return 0;
             var n = 0;
-            foreach (var ext in Exts)
-                n += Directory.GetFiles(root, "*" + ext).Length;
+            foreach (var root in GetRoots())
+            {
+                if (!Directory.Exists(root)) continue;
+                foreach (var ext in Exts)
+                    n += Directory.GetFiles(root, "*" + ext).Length;
+            }
             return n;
+        }
+
+        public static void ClearCache()
+        {
+            foreach (var kv in Cache)
+                if (kv.Value != null) UnityEngine.Object.Destroy(kv.Value);
+            Cache.Clear();
+            _roots = null;
         }
 
         static Texture2D LoadFromDisk(string cardId)
@@ -61,14 +75,36 @@ namespace CommandWarfare.UI
 
         static string FindPath(string cardId)
         {
-            var root = ArtRoot;
-            if (!Directory.Exists(root)) return null;
-            foreach (var ext in Exts)
+            foreach (var root in GetRoots())
             {
-                var path = Path.Combine(root, cardId + ext);
-                if (File.Exists(path)) return path;
+                if (!Directory.Exists(root)) continue;
+                foreach (var ext in Exts)
+                {
+                    var path = Path.Combine(root, cardId + ext);
+                    if (File.Exists(path)) return path;
+                }
             }
             return null;
+        }
+
+        static string[] GetRoots()
+        {
+            if (_roots != null) return _roots;
+            var list = new List<string>
+            {
+                // Primary local art (Plastic / git-ignored).
+                Path.Combine(Application.dataPath, "Art", "Cards"),
+                // Build / StreamingAssets copy when present.
+                Path.Combine(Application.streamingAssetsPath, "CardArt"),
+            };
+#if UNITY_EDITOR
+            var fromMirror = Path.GetFullPath(Path.Combine(Application.dataPath, "..", "..", "..", "data", "art"));
+            if (Directory.Exists(fromMirror)) list.Add(fromMirror);
+            var keash = @"C:\Users\keash\Projects\CommandWarfare\data\art";
+            if (Directory.Exists(keash)) list.Add(keash);
+#endif
+            _roots = list.ToArray();
+            return _roots;
         }
     }
 }

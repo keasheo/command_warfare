@@ -15,17 +15,17 @@ namespace CommandWarfare.Board
     {
         [Header("Board")]
         [SerializeField] int _boardSize = GameConstants.BoardSize2P;
-        [SerializeField] float _hexSize = 1.25f;
+        [SerializeField] float _hexSize = 1.85f;
         [SerializeField] string _roomSeed = "dev";
 
         [Header("Prefabs")]
         [SerializeField] Material _terrainMaterial;
         [SerializeField] TerrainAssetCatalog _terrainCatalog;
 
-        Transform _tilesRoot;
-
-        public float HexSize => _hexSize;
         public int BoardSize => _boardSize;
+        public float HexSize => _hexSize;
+
+        Transform _tilesRoot;
 
         public event Action<HexTile> TileClicked;
 
@@ -104,7 +104,35 @@ namespace CommandWarfare.Board
                 }
             }
 
+            ApplyNeighborTransitions();
             CenterBoard();
+            BattleTabletopEnvironment.Ensure(_boardSize, _hexSize);
+        }
+
+        void ApplyNeighborTransitions()
+        {
+            if (_tilesRoot == null) return;
+            // Neighbors() yields axial dirs in fixed order — map each edge wedge to that neighbor.
+            for (var i = 0; i < _tilesRoot.childCount; i++)
+            {
+                var tile = _tilesRoot.GetChild(i).GetComponent<HexTile>();
+                if (tile == null) continue;
+                var edges = new TerrainKind[6];
+                var ei = 0;
+                foreach (var n in HexMath.Neighbors(tile.Coord))
+                {
+                    if (ei >= 6) break;
+                    if (!HexMath.InBounds(n, _boardSize))
+                    {
+                        edges[ei++] = tile.Terrain;
+                        continue;
+                    }
+                    var nt = _tilesRoot.Find($"Hex_{n.Col}_{n.Row}")?.GetComponent<HexTile>();
+                    edges[ei++] = nt != null ? nt.Terrain : tile.Terrain;
+                }
+                while (ei < 6) edges[ei++] = tile.Terrain;
+                tile.ApplyNeighborTransitions(edges, _terrainCatalog);
+            }
         }
 
         void ClearChildrenNamed(string childName)
@@ -156,6 +184,13 @@ namespace CommandWarfare.Board
             if (dist > 14) return TerrainKind.Mountains;
             if ((col * row) % 7 == 0) return TerrainKind.Desert;
             return TerrainKind.Plains;
+        }
+
+        public HexTile FindTile(int col, int row)
+        {
+            if (_tilesRoot == null) return null;
+            var t = _tilesRoot.Find($"Hex_{col}_{row}");
+            return t != null ? t.GetComponent<HexTile>() : null;
         }
 
         public void NotifyTileClicked(HexTile tile) => TileClicked?.Invoke(tile);

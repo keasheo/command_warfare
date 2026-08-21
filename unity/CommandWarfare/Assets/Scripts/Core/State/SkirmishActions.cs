@@ -10,7 +10,17 @@ using CommandWarfare.Data;
 
 namespace CommandWarfare.Core.State
 {
-    public enum SkirmishActionKind { EndTurn, Move, Attack, ActivateCommander }
+    public enum SkirmishActionKind
+    {
+        EndTurn,
+        Move,
+        Attack,
+        ActivateCommander,
+        ActivateCompany,
+        CastAbility,
+        ContinueTrample,
+        DeclineTrample,
+    }
 
     public readonly struct SkirmishAction
     {
@@ -18,24 +28,40 @@ namespace CommandWarfare.Core.State
         public string UnitId { get; }
         public HexCoord Dest { get; }
         public string TargetUnitId { get; }
+        public string AbilityName { get; }
 
-        public static SkirmishAction End() => new(SkirmishActionKind.EndTurn, null, default, null);
+        public static SkirmishAction End() =>
+            new(SkirmishActionKind.EndTurn, null, default, null, null);
 
         public static SkirmishAction Move(string unitId, HexCoord dest) =>
-            new(SkirmishActionKind.Move, unitId, dest, null);
+            new(SkirmishActionKind.Move, unitId, dest, null, null);
 
         public static SkirmishAction Attack(string unitId, string targetId) =>
-            new(SkirmishActionKind.Attack, unitId, default, targetId);
+            new(SkirmishActionKind.Attack, unitId, default, targetId, null);
 
         public static SkirmishAction ActivateCommander() =>
-            new(SkirmishActionKind.ActivateCommander, null, default, null);
+            new(SkirmishActionKind.ActivateCommander, null, default, null, null);
 
-        SkirmishAction(SkirmishActionKind kind, string unitId, HexCoord dest, string targetId)
+        public static SkirmishAction ActivateCompany(string officerUnitId) =>
+            new(SkirmishActionKind.ActivateCompany, officerUnitId, default, null, null);
+
+        public static SkirmishAction CastAbility(string casterId, string abilityName, string targetId) =>
+            new(SkirmishActionKind.CastAbility, casterId, default, targetId, abilityName);
+
+        public static SkirmishAction ContinueTrample() =>
+            new(SkirmishActionKind.ContinueTrample, null, default, null, null);
+
+        public static SkirmishAction DeclineTrample() =>
+            new(SkirmishActionKind.DeclineTrample, null, default, null, null);
+
+        SkirmishAction(
+            SkirmishActionKind kind, string unitId, HexCoord dest, string targetUnitId, string abilityName)
         {
             Kind = kind;
             UnitId = unitId;
             Dest = dest;
-            TargetUnitId = targetId;
+            TargetUnitId = targetUnitId;
+            AbilityName = abilityName;
         }
     }
 
@@ -75,16 +101,48 @@ namespace CommandWarfare.Core.State
             out string log)
         {
             log = null;
+            if (attacker == null || defender == null)
+            {
+                log = "Missing attacker or target.";
+                return false;
+            }
             if (attacker.Kind != UnitKind.Commander &&
                 !CompanyActivation.IsUnitInActiveCompany(state, attacker))
+            {
+                log = "Activate this company first.";
                 return false;
+            }
 
             var targetKey = HexMath.Key(defender.Col, defender.Row);
             if (!MoveReachability.AttackTargetKeys(state, attacker).Contains(targetKey))
+            {
+                log = "Target out of range / not attackable.";
                 return false;
+            }
 
             if (attacker.BonePrisoned)
+            {
+                log = "Bone Prison — cannot attack.";
                 return false;
+            }
+
+            if (attacker.Kind == UnitKind.Commander)
+            {
+                if (attacker.AttackedThisRound &&
+                    attacker.TrampleLeftoverDamage <= 0 &&
+                    !attacker.FrenzyAttackPending)
+                {
+                    log = "Commander already attacked this round.";
+                    return false;
+                }
+            }
+            else if (attacker.AttackedThisTurn &&
+                     attacker.TrampleLeftoverDamage <= 0 &&
+                     !attacker.FrenzyAttackPending)
+            {
+                log = "Already attacked this turn.";
+                return false;
+            }
 
             var parts = new List<string>();
             var dist = HexMath.Distance(
@@ -104,7 +162,11 @@ namespace CommandWarfare.Core.State
                     if (!ResolveSingleStrike(state, attacker, target, rng, cards, out var part,
                             strikeDamageOverride: dmg, skipKillFollowups: plan.Count > 1))
                     {
-                        if (parts.Count == 0) return false;
+                        if (parts.Count == 0)
+                        {
+                            log = part ?? "Attack failed.";
+                            return false;
+                        }
                         break;
                     }
                     parts.Add(part);
@@ -119,7 +181,11 @@ namespace CommandWarfare.Core.State
                         break;
                     if (!ResolveSingleStrike(state, attacker, defender, rng, cards, out var part))
                     {
-                        if (i == 0) return false;
+                        if (i == 0)
+                        {
+                            log = part ?? "Attack failed.";
+                            return false;
+                        }
                         break;
                     }
                     parts.Add(part);
@@ -269,6 +335,94 @@ namespace CommandWarfare.Core.State
             return note;
         }
 
+        public static bool TryPreviewAttack(
+            GameState state,
+            UnitToken attacker,
+            UnitToken defender,
+            CardDatabase cards,
+            out AttackPreview preview,
+            out string error)
+        {
+            preview = default;
+            error = null;
+            if (attacker == null || defender == null)
+            {
+                error = "Missing units.";
+                return false;
+            }
+            if (attacker.Kind != UnitKind.Commander &&
+                !CompanyActivation.IsUnitInActiveCompany(state, attacker))
+            {
+                error = "Activate this company first.";
+                return false;
+            }
+            var targetKey = HexMath.Key(defender.Col, defender.Row);
+            if (!MoveReachability.AttackTargetKeys(state, attacker).Contains(targetKey))
+            {
+                error = "Target out of range / not attackable.";
+                return false;
+            }
+            if (attacker.BonePrisoned)
+            {
+                error = "Bone Prison — cannot attack.";
+                return false;
+            }
+
+            var atkTerrain = TerrainAt(state, attacker);
+            var defTerrain = TerrainAt(state, defender);
+            var dist = HexMath.Distance(
+                new HexCoord(attacker.Col, attacker.Row),
+                new HexCoord(defender.Col, defender.Row));
+            var atkCard = cards?.FindById(attacker.CardId);
+            var defCard = cards?.FindById(defender.CardId);
+            var favoredHit = FavoredTerrain.GrantsHitBonus(attacker, atkCard, atkTerrain);
+            var favoredDmg = FavoredTerrain.GrantsDamageBonus(attacker, atkCard, atkTerrain);
+            var flanking = IsFlanking(state, attacker, defender);
+            var formationDrill = Formation.DrillHitBonus(state, attacker, cards) > 0;
+            var packBonus = dist == 1 && Formation.PackMeleeHitBonus(state, attacker);
+            var formationGuard = Formation.GuardMitigation(state, defender, cards);
+            var defKey = HexMath.Key(defender.Col, defender.Row);
+            var fortified = state.FortifiedHexes.TryGetValue(defKey, out var fort) && fort;
+
+            var hitCtx = new HitNeedContext(
+                dist, atkTerrain, defTerrain,
+                attackerFear: StatusEffects.UnitHasFearPenalty(attacker),
+                defenderEvadeActive: defender.EvadeActive,
+                attackerForestFavored: FavoredTerrain.HasForestFavored(attacker, atkCard),
+                favoredTerrainHit: favoredHit,
+                flanking: flanking,
+                formationDrill: formationDrill,
+                packBonus: packBonus);
+
+            var strikeCtx = new StrikeContext(
+                attacker, defender,
+                favoredTerrainDamage: favoredDmg,
+                strikeDamageOverride: attacker.TrampleLeftoverDamage > 0
+                    ? attacker.TrampleLeftoverDamage
+                    : null,
+                attackerTags: DamageTypes.TagsFrom(atkCard),
+                defenderTags: DamageTypes.TagsFrom(defCard),
+                fortifiedTarget: fortified);
+
+            var damageCtx = new DamageContext(
+                defender, attacker,
+                fortifiedHex: fortified,
+                mountainsFavoredHarden: FavoredTerrain.GrantsHardenBonus(defender, defCard, defTerrain),
+                formationGuard: formationGuard,
+                shieldwallAdjacent: HasShieldwallAdjacent(state, defender));
+
+            var ctx = new AttackContext(
+                attacker, defender, atkTerrain, defTerrain,
+                hitCtx, strikeCtx, damageCtx);
+            preview = CombatResolve.PreviewAttack(ctx);
+            if (!preview.Legal)
+            {
+                error = preview.Reason ?? "Illegal attack";
+                return false;
+            }
+            return true;
+        }
+
         static bool ResolveSingleStrike(
             GameState state,
             UnitToken attacker,
@@ -330,9 +484,19 @@ namespace CommandWarfare.Core.State
             try
             {
                 var result = CombatResolve.ResolveAttack(ctx, rng);
-                log = result.Hit
-                    ? $"{attacker.CardName} hit {defender.CardName} for {result.Dealt} (roll {result.Roll} vs {result.Preview.HitNeed})"
-                    : $"{attacker.CardName} missed {defender.CardName} (roll {result.Roll} vs {result.Preview.HitNeed})";
+                var (d1, d2) = result.Dice;
+                var diceBit = $"2d6 [{d1}+{d2}]={result.Roll} need {result.Preview.HitNeed}+";
+                if (result.Hit)
+                {
+                    log = result.UnyieldingBlocked
+                        ? $"{attacker.CardName} hit {defender.CardName} — Unyielding blocked ({diceBit})"
+                        : $"{attacker.CardName} HIT {defender.CardName} for {result.Dealt} dmg ({diceBit}" +
+                          (result.Mitigated > 0 ? $", mit {result.Mitigated}" : "") + ")";
+                }
+                else
+                {
+                    log = $"{attacker.CardName} MISS {defender.CardName} ({diceBit})";
+                }
 
                 if (attacker.FrenzyAttackPending)
                     attacker.FrenzyAttackPending = false;
@@ -436,73 +600,21 @@ namespace CommandWarfare.Core.State
         }
     }
 
-    /// <summary>Simple greedy AI for dev skirmish — attack if possible, else advance.</summary>
+    /// <summary>AI turn planner — delegates to prototype-parity scored bot.</summary>
     public static class SkirmishAiPlanner
     {
-        public static SkirmishAction PlanTurn(GameState state, SeatId seat)
+        public static SkirmishAction PlanTurn(GameState state, SeatId seat) =>
+            PlanTurn(state, seat, AiDifficulty.Medium, null, null);
+
+        public static SkirmishAction PlanTurn(
+            GameState state,
+            SeatId seat,
+            AiDifficulty difficulty,
+            CardDatabase cards,
+            SeededRng rng)
         {
-            var units = state.Units.Where(u => u.Seat == seat && u.Kind != UnitKind.Commander).ToList();
-            if (units.Count == 0) return SkirmishAction.End();
-
-            // Prefer Frenzy follow-up attackers first.
-            var ordered = units
-                .OrderByDescending(u => u.FrenzyAttackPending)
-                .ThenByDescending(u => u.Damage ?? 0)
-                .ToList();
-
-            foreach (var attacker in ordered)
-            {
-                if (attacker.AttackedThisTurn && !attacker.FrenzyAttackPending) continue;
-                var targets = AttackTargets(state, attacker);
-                var kill = targets
-                    .Where(t => (t.ToughnessCurrent ?? 0) <= (attacker.Damage ?? 0))
-                    .OrderBy(t => t.ToughnessCurrent ?? 0)
-                    .FirstOrDefault();
-                if (kill != null)
-                    return SkirmishAction.Attack(attacker.Id, kill.Id);
-
-                if (targets.Count > 0)
-                    return SkirmishAction.Attack(attacker.Id, targets[0].Id);
-            }
-
-            var enemies = state.Units.Where(u =>
-                u.Seat != seat &&
-                (u.Kind != UnitKind.Commander || (u.ToughnessCurrent ?? 0) > 0)).ToList();
-            if (enemies.Count == 0) return SkirmishAction.End();
-
-            UnitToken bestUnit = null;
-            HexCoord bestDest = default;
-            var bestScore = int.MaxValue;
-
-            foreach (var unit in units.Where(u => u.MoveRemaining > 0 || u.HarassMovePending))
-            {
-                var reachable = MoveReachability.ReachableHexes(state, unit);
-                foreach (var key in reachable)
-                {
-                    var dest = HexMath.ParseKey(key);
-                    var score = enemies.Min(e =>
-                        HexMath.Distance(dest, new HexCoord(e.Col, e.Row)));
-                    if (score < bestScore)
-                    {
-                        bestScore = score;
-                        bestUnit = unit;
-                        bestDest = dest;
-                    }
-                }
-            }
-
-            if (bestUnit != null)
-                return SkirmishAction.Move(bestUnit.Id, bestDest);
-
-            return SkirmishAction.End();
-        }
-
-        static List<UnitToken> AttackTargets(GameState state, UnitToken attacker)
-        {
-            var keys = MoveReachability.AttackTargetKeys(state, attacker);
-            return state.Units
-                .Where(u => keys.Contains(HexMath.Key(u.Col, u.Row)))
-                .ToList();
+            rng ??= new SeededRng(SeededRng.SeedFromRoomCode(state?.RoomCode ?? "ai", "think"));
+            return SkirmishAiBot.ChoosePlayAction(state, seat, difficulty, cards, rng);
         }
     }
 }

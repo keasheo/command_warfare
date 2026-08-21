@@ -53,5 +53,7 @@ namespace CommandWarfare.Core.Types
         public bool RevenantUsed;
         public bool UltimateUsed;
         public Dictionary<string, int> AbilityReadyRound = new();
+        /// <summary>Promoted officer/commander — badge shows PO / PC.</summary>
+        public bool Promoted;
     }
 }

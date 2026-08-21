@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CommandWarfare.Core;
 using CommandWarfare.Core.Combat;
+using CommandWarfare.Core.Deploy;
 using CommandWarfare.Core.Hex;
 using CommandWarfare.Core.State;
 using CommandWarfare.Core.Terrain;
@@ -34,8 +36,15 @@ namespace CommandWarfare.Board
         Transform _tokensRoot;
         readonly Dictionary<string, UnitTokenView> _views = new();
         string _pendingAbilityName;
+        string _pendingAbilityTargetId;
+        string _pendingAttackTargetId;
+        bool _pendingAttackPick;
 
         public GameState State => _state;
+        public string PendingAbilityName => _pendingAbilityName;
+        public string PendingAbilityTargetId => _pendingAbilityTargetId;
+        public string PendingAttackTargetId => _pendingAttackTargetId;
+        public bool PendingAttackPick => _pendingAttackPick;
         public CardDatabase Cards
         {
             get
@@ -53,7 +62,6 @@ namespace CommandWarfare.Board
                 return _abilityDatabase;
             }
         }
-        public string PendingAbilityName => _pendingAbilityName;
         public bool IsNetworkMode => _network != null && _network.NetworkMode;
         public event Action TurnChanged;
         public event Action SelectionChanged;
@@ -118,6 +126,7 @@ namespace CommandWarfare.Board
 
         void Update()
         {
+            BattleAudio.Tick();
             if (_state.Phase == Phase.Ended) return;
             if (BoardInput.RightMouseDown())
             {
@@ -125,15 +134,18 @@ namespace CommandWarfare.Board
                 {
                     CancelCleave();
                 }
-                else
+                else if (!string.IsNullOrEmpty(_pendingAbilityName) ||
+                         !string.IsNullOrEmpty(_pendingAttackTargetId) ||
+                         !string.IsNullOrEmpty(_pendingAbilityTargetId) ||
+                         _pendingAttackPick)
                 {
-                    _pendingAbilityName = null;
-                    if (_state.SelectedUnitId != null)
-                    {
-                        _state.SelectedUnitId = null;
-                        RefreshHighlights();
-                        SelectionChanged?.Invoke();
-                    }
+                    CancelPendingPlayAction();
+                }
+                else if (_state.SelectedUnitId != null)
+                {
+                    _state.SelectedUnitId = null;
+                    RefreshHighlights();
+                    SelectionChanged?.Invoke();
                 }
             }
             if (BoardInput.EndTurnKeyDown())
@@ -178,18 +190,129 @@ namespace CommandWarfare.Board
                 TryCastAbility(selected, "Rally", null);
         }
 
-        void BeginAbilityTarget(string abilityName)
+        public void BeginAbilityTarget(string abilityName)
         {
             var selected = SelectedUnit();
             if (selected == null) return;
             if (!HasAbility(selected, abilityName))
             {
-                Debug.LogWarning($"[CommandWarfare] {selected.CardName} does not have {abilityName}.");
+                _state.LastActionLog = $"{selected.CardName} does not have {abilityName}.";
+                Debug.LogWarning($"[CommandWarfare] {_state.LastActionLog}");
                 return;
             }
+            _pendingAttackTargetId = null;
+            _pendingAttackPick = false;
+            _pendingAbilityTargetId = null;
             _pendingAbilityName = abilityName;
             SelectionChanged?.Invoke();
-            Debug.Log($"[CommandWarfare] Select target for {abilityName} (RMB cancel).");
+            _state.LastActionLog = $"Select target for {abilityName} (RMB cancel).";
+            Debug.Log($"[CommandWarfare] {_state.LastActionLog}");
+        }
+
+        public void CancelPendingPlayAction()
+        {
+            _pendingAbilityName = null;
+            _pendingAbilityTargetId = null;
+            _pendingAttackTargetId = null;
+            _pendingAttackPick = false;
+            SelectionChanged?.Invoke();
+        }
+
+        /// <summary>Prototype: Attack button → click enemy → confirm.</summary>
+        public void BeginAttackPick()
+        {
+            if (_state?.Phase != Phase.Play || !_state.ActiveSeat.HasValue) return;
+            var selected = SelectedUnit();
+            if (selected == null || selected.Seat != _state.ActiveSeat.Value) return;
+
+            if (UnitAlreadyAttacked(selected))
+            {
+                _state.LastActionLog = selected.Kind == UnitKind.Commander
+                    ? "Commander already attacked this round."
+                    : "Already attacked this turn.";
+                SelectionChanged?.Invoke();
+                return;
+            }
+            if (selected.Kind != UnitKind.Commander &&
+                !CompanyActivation.IsUnitInActiveCompany(_state, selected))
+            {
+                _state.LastActionLog = "Activate this company first.";
+                SelectionChanged?.Invoke();
+                return;
+            }
+
+            _pendingAbilityName = null;
+            _pendingAbilityTargetId = null;
+            _pendingAttackTargetId = null;
+            _pendingAttackPick = true;
+            _state.LastActionLog = "Click an enemy to attack (RMB cancel).";
+            RefreshHighlights();
+            SelectionChanged?.Invoke();
+        }
+
+        public static bool UnitAlreadyAttacked(UnitToken unit)
+        {
+            if (unit == null) return true;
+            if (unit.TrampleLeftoverDamage > 0 || unit.FrenzyAttackPending) return false;
+            return unit.Kind == UnitKind.Commander
+                ? unit.AttackedThisRound
+                : unit.AttackedThisTurn;
+        }
+
+        public bool TryConfirmPendingAbility()
+        {
+            if (string.IsNullOrEmpty(_pendingAbilityName)) return false;
+            var caster = SelectedUnit();
+            UnitToken target = null;
+            if (!string.IsNullOrEmpty(_pendingAbilityTargetId))
+                target = _state.Units.FirstOrDefault(u => u.Id == _pendingAbilityTargetId);
+            var ability = _pendingAbilityName;
+            _pendingAbilityName = null;
+            _pendingAbilityTargetId = null;
+            if (caster == null) return false;
+            return TryCastAbility(caster, ability, target);
+        }
+
+        public bool TryConfirmPendingAttack()
+        {
+            if (string.IsNullOrEmpty(_pendingAttackTargetId)) return false;
+            var attacker = SelectedUnit();
+            var defender = _state.Units.FirstOrDefault(u => u.Id == _pendingAttackTargetId);
+            if (attacker == null || defender == null)
+            {
+                _pendingAttackTargetId = null;
+                _pendingAttackPick = false;
+                _state.LastActionLog = "Attack target missing.";
+                SelectionChanged?.Invoke();
+                return false;
+            }
+            if (!TryAttack(attacker, defender))
+            {
+                _pendingAttackTargetId = null;
+                _pendingAttackPick = false;
+                SelectionChanged?.Invoke();
+                return false;
+            }
+            _pendingAttackTargetId = null;
+            _pendingAttackPick = false;
+            RefreshHighlights();
+            SelectionChanged?.Invoke();
+            return true;
+        }
+
+        public bool TryGetAttackPreview(UnitToken attacker, UnitToken defender, out string summary)
+        {
+            summary = null;
+            if (attacker == null || defender == null) return false;
+            if (!SkirmishActions.TryPreviewAttack(_state, attacker, defender, _cardDatabase, out var preview, out var err))
+            {
+                summary = err ?? "Illegal attack";
+                return false;
+            }
+            summary =
+                $"Need {preview.HitNeed}+ · dmg {preview.RawDamage}" +
+                (preview.Legal ? "" : $" · {preview.Reason}");
+            return preview.Legal;
         }
 
         public bool TryCastAbility(UnitToken caster, string abilityName, UnitToken target)
@@ -198,6 +321,7 @@ namespace CommandWarfare.Board
             {
                 if (!_network.TrySendCastAbility(caster.Id, abilityName, target?.Id)) return false;
                 _pendingAbilityName = null;
+                _pendingAbilityTargetId = null;
                 Debug.Log($"[CommandWarfare] Sent cast {abilityName}");
                 SelectionChanged?.Invoke();
                 return true;
@@ -213,7 +337,9 @@ namespace CommandWarfare.Board
             }
             _state.LastActionLog = result.Log;
             _pendingAbilityName = null;
+            _pendingAbilityTargetId = null;
             Debug.Log($"[CommandWarfare] {result.Log}");
+            BattleAudio.PlayAbility();
             SyncTokensToState();
             RefreshHighlights();
             SelectionChanged?.Invoke();
@@ -412,7 +538,8 @@ namespace CommandWarfare.Board
             var ctrl = cam.GetComponent<BoardCameraController>();
             if (ctrl == null) return;
             // HexBoardBuilder.CenterBoard puts the map midpoint at world origin.
-            ctrl.FocusBoardCenter();
+            // Reset pitch/distance so the hex grid is readable (not a flat horizon slab).
+            ctrl.ResetToBoardOverview();
         }
 
         public void BeginForceSelectFromArmyBuild(bool preserveArmies = false)
@@ -684,10 +811,10 @@ namespace CommandWarfare.Board
             if (!SkirmishActions.ExecuteCleavePlan(_state, _state.PendingCleave, _rng, _cardDatabase, out var log))
                 return;
             _state.LastCombatLog = log;
+            _state.LastActionLog = log;
             Debug.Log($"[CommandWarfare] Cleave: {log}");
             SyncTokensToState();
             CheckVictory();
-            EndTurnAfterAction();
             RefreshHighlights();
             SelectionChanged?.Invoke();
         }
@@ -765,13 +892,17 @@ namespace CommandWarfare.Board
 
             switch (action.Kind)
             {
+                case SkirmishActionKind.EndTurn:
+                    EndTurn();
+                    return;
+
                 case SkirmishActionKind.Move:
                 {
                     var unit = _state.Units.FirstOrDefault(u => u.Id == action.UnitId);
                     if (unit != null && SkirmishActions.ExecuteMove(_state, unit, action.Dest))
                     {
                         SyncTokensToState();
-                        Debug.Log($"[CommandWarfare] {unit.CardName} → ({action.Dest.Col},{action.Dest.Row})");
+                        Debug.Log($"[CommandWarfare] AI move {unit.CardName} → ({action.Dest.Col},{action.Dest.Row})");
                     }
                     break;
                 }
@@ -779,26 +910,45 @@ namespace CommandWarfare.Board
                 {
                     var attacker = _state.Units.FirstOrDefault(u => u.Id == action.UnitId);
                     var defender = _state.Units.FirstOrDefault(u => u.Id == action.TargetUnitId);
-                    EnsureRng();
-                    if (attacker != null && defender != null &&
-                        SkirmishActions.ExecuteAttack(_state, attacker, defender, _rng, _cardDatabase, out var log))
+                    if (attacker != null && defender != null && TryAttack(attacker, defender))
                     {
-                        _state.LastCombatLog = log;
-                        Debug.Log($"[CommandWarfare] {log}");
-                        SpawnCombatFx(defender, log);
-                        if (_state.PendingTrample != null)
-                            TryContinueTrample();
-                        SyncTokensToState();
-                        CheckVictory();
+                        // TryAttack already syncs / FX; do not auto-end turn (multi-action AI).
                     }
                     break;
                 }
+                case SkirmishActionKind.ActivateCommander:
+                    TryActivateCommander(_state.ActiveSeat ?? SeatId.S);
+                    SyncTokensToState();
+                    break;
+                case SkirmishActionKind.ActivateCompany:
+                {
+                    var officer = _state.Units.FirstOrDefault(u => u.Id == action.UnitId);
+                    if (officer != null)
+                        TryActivateCompanyFor(officer);
+                    SyncTokensToState();
+                    break;
+                }
+                case SkirmishActionKind.CastAbility:
+                {
+                    var caster = _state.Units.FirstOrDefault(u => u.Id == action.UnitId);
+                    UnitToken target = null;
+                    if (!string.IsNullOrEmpty(action.TargetUnitId))
+                        target = _state.Units.FirstOrDefault(u => u.Id == action.TargetUnitId);
+                    if (caster != null && !string.IsNullOrEmpty(action.AbilityName))
+                        TryCastAbility(caster, action.AbilityName, target);
+                    break;
+                }
+                case SkirmishActionKind.ContinueTrample:
+                    TryContinueTrample();
+                    break;
+                case SkirmishActionKind.DeclineTrample:
+                    TryDeclineTrample();
+                    break;
             }
 
-            if (_state.Phase != Phase.Ended)
-                EndTurnAfterAction();
-            else
-                RefreshHighlights();
+            RefreshHighlights();
+            SelectionChanged?.Invoke();
+            CheckVictory();
         }
 
         void CheckVictory()
@@ -813,7 +963,50 @@ namespace CommandWarfare.Board
 
         void SyncTokensToState()
         {
-            RebuildTokenViews();
+            if (_state?.Units == null)
+            {
+                RebuildTokenViews();
+                return;
+            }
+
+            // Incremental: animate moves for surviving tokens; rebuild only when roster changes.
+            var liveIds = new HashSet<string>();
+            foreach (var unit in _state.Units)
+                liveIds.Add(unit.Id);
+
+            var rosterChanged = _views.Count != liveIds.Count;
+            if (!rosterChanged)
+            {
+                foreach (var id in liveIds)
+                {
+                    if (!_views.ContainsKey(id))
+                    {
+                        rosterChanged = true;
+                        break;
+                    }
+                }
+            }
+
+            if (rosterChanged || _tokensRoot == null)
+            {
+                RebuildTokenViews();
+                return;
+            }
+
+            foreach (var unit in _state.Units)
+            {
+                if (!_views.TryGetValue(unit.Id, out var view) || view == null) continue;
+                var dest = TokenWorldPos(unit);
+                var mover = view.GetComponent<UnitTokenMover>();
+                if (mover == null) mover = view.gameObject.AddComponent<UnitTokenMover>();
+                var delta = dest - view.transform.position;
+                if (delta.sqrMagnitude > 0.01f)
+                    mover.MoveTo(dest);
+                else
+                    mover.SnapTo(dest);
+                view.SetHp(unit.ToughnessCurrent, unit.Toughness);
+                view.SetBoardIdentity(unit.Id, unit.Col, unit.Row);
+            }
         }
 
         /// <summary>Rebuild unit token GameObjects from current state (edit-mode smoke / tools).</summary>
@@ -832,9 +1025,32 @@ namespace CommandWarfare.Board
                 go.transform.SetParent(_tokensRoot, false);
                 go.transform.position = TokenWorldPos(unit);
 
-                // Strong seat color + role silhouette (skip catalog meshes — they all look alike).
+                var race = !string.IsNullOrEmpty(unit.Race) ? unit.Race : RaceFor(unit.Seat);
+                GameObject prefab = null;
+                var tint = SeatColors.Fill(unit.Seat);
+                if (_unitCatalog != null)
+                {
+                    prefab = _unitCatalog.Resolve(unit.Kind, race, unit.CardId);
+                    // Prefer seat color for miniatures; catalog tint only for real meshes.
+                    if (prefab != null && !UnitTokenView.IsPlaceholderPrefab(prefab))
+                        tint = _unitCatalog.TintFor(unit.Kind, race, unit.CardId, unit.Seat);
+                }
+
                 var view = go.AddComponent<UnitTokenView>();
-                view.Bind(LabelFor(unit), SeatColors.Fill(unit.Seat), unit.Kind);
+                view.SetBoardIdentity(unit.Id, unit.Col, unit.Row);
+                view.Bind(
+                    LabelFor(unit),
+                    SeatColors.Fill(unit.Seat),
+                    unit.Kind,
+                    prefab,
+                    tint,
+                    unit.CardId,
+                    race,
+                    unit.Keywords,
+                    unit.Range ?? 1,
+                    unit.ToughnessCurrent,
+                    unit.Toughness);
+                go.AddComponent<UnitTokenMover>();
                 _views[unit.Id] = view;
             }
         }
@@ -911,6 +1127,7 @@ namespace CommandWarfare.Board
             {
                 if (selected != null)
                 {
+                    PaintCommandRadii(selected);
                     foreach (var key in OfflineDeploy.DeployHexesForUnit(_state, selected))
                         TileAtKey(key)?.SetHighlight(HighlightKind.Move);
                     TileAt(selected.Col, selected.Row)?.SetHighlight(HighlightKind.Selected);
@@ -929,13 +1146,72 @@ namespace CommandWarfare.Board
 
             if (selected == null) return;
 
+            // Inspect-only for enemy / other-seat units — no move/attack rings.
+            if (!_state.ActiveSeat.HasValue || selected.Seat != _state.ActiveSeat.Value)
+            {
+                TileAt(selected.Col, selected.Row)?.SetHighlight(HighlightKind.Selected);
+                return;
+            }
+
+            // CR under move/attack so legal actions stay readable.
+            PaintCommandRadii(selected);
+
             TileAt(selected.Col, selected.Row)?.SetHighlight(HighlightKind.Selected);
+
+            if (_pendingAttackPick || !string.IsNullOrEmpty(_pendingAttackTargetId))
+            {
+                foreach (var key in MoveReachability.AttackTargetKeys(_state, selected))
+                    TileAtKey(key)?.SetHighlight(HighlightKind.Attack);
+                if (!string.IsNullOrEmpty(_pendingAttackTargetId))
+                {
+                    var foe = _state.Units.Find(u => u.Id == _pendingAttackTargetId);
+                    if (foe != null)
+                        TileAt(foe.Col, foe.Row)?.SetHighlight(HighlightKind.Attack);
+                }
+                return;
+            }
 
             foreach (var key in MoveReachability.ReachableHexes(_state, selected))
                 TileAtKey(key)?.SetHighlight(HighlightKind.Move);
 
             foreach (var key in MoveReachability.AttackTargetKeys(_state, selected))
                 TileAtKey(key)?.SetHighlight(HighlightKind.Attack);
+        }
+
+        void PaintCommandRadii(UnitToken selected)
+        {
+            if (selected == null || _state == null) return;
+
+            if (selected.Kind == UnitKind.Commander)
+            {
+                var rad = selected.CommandRadius ?? GameConstants.DefaultCommanderCommandRadius;
+                foreach (var key in DeployPlacement.CommandRadiusKeys(
+                             new HexCoord(selected.Col, selected.Row), rad, _state.BoardSize))
+                    TileAtKey(key)?.SetHighlight(HighlightKind.CommanderRadius);
+                return;
+            }
+
+            var officer = FindCompanyOfficer(selected);
+            if (officer == null) return;
+            var officerRad = officer.CommandRadius ?? GameConstants.DefaultOfficerCommandRadius;
+            officerRad = DeployPlacement.EffectiveRadiusForUnit(officerRad, selected.Keywords);
+            foreach (var key in DeployPlacement.CommandRadiusKeys(
+                         new HexCoord(officer.Col, officer.Row), officerRad, _state.BoardSize))
+                TileAtKey(key)?.SetHighlight(HighlightKind.CommandRadius);
+        }
+
+        UnitToken FindCompanyOfficer(UnitToken unit)
+        {
+            if (unit == null || _state?.Units == null) return null;
+            if (unit.Kind == UnitKind.Officer) return unit;
+            if (unit.Kind == UnitKind.Commander) return null;
+            if (string.IsNullOrEmpty(unit.OfficerCardId)) return null;
+            foreach (var u in _state.Units)
+            {
+                if (u.Seat != unit.Seat || u.Kind != UnitKind.Officer) continue;
+                if (u.CardId == unit.OfficerCardId) return u;
+            }
+            return null;
         }
 
         void ClearAllTileHighlights()
@@ -974,9 +1250,26 @@ namespace CommandWarfare.Board
 
         static string LabelFor(UnitToken unit)
         {
-            if (unit.Kind == UnitKind.Commander) return $"C{unit.Seat.ToString()[0]}";
-            if (unit.Kind == UnitKind.Officer) return "O";
-            return "U";
+            if (unit == null) return "U";
+            var promoted = unit.Promoted || HasPromotedKeyword(unit);
+            return unit.Kind switch
+            {
+                UnitKind.Commander => promoted ? "PC" : "C",
+                UnitKind.Officer => promoted ? "PO" : "O",
+                _ => "U",
+            };
+        }
+
+        static bool HasPromotedKeyword(UnitToken unit)
+        {
+            if (unit?.Keywords == null) return false;
+            foreach (var k in unit.Keywords)
+            {
+                if (!string.IsNullOrEmpty(k) &&
+                    k.Equals("Promoted", System.StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
+            return false;
         }
 
         UnitToken SelectedUnit() =>
@@ -1014,71 +1307,79 @@ namespace CommandWarfare.Board
                 HandleDeployClick(tile);
                 return;
             }
-            if (_state.ActiveSeat == null) return;
-            if (IsNetworkMode && _state.ActiveSeat.HasValue &&
-                (_network == null || !_network.IsLocalSeat(_state.ActiveSeat.Value)))
-                return;
+            if (_state.Phase != Phase.Play) return;
+
             var unit = UnitAt(tile.Coord);
+            var myTurn = _state.ActiveSeat.HasValue &&
+                         (!IsNetworkMode ||
+                          (_network != null && _network.IsLocalSeat(_state.ActiveSeat.Value)));
 
             if (!string.IsNullOrEmpty(_pendingAbilityName))
             {
-                var caster = SelectedUnit();
-                if (caster != null && unit != null && unit.Seat == caster.Seat)
-                    TryCastAbility(caster, _pendingAbilityName, unit);
-                else
-                    _pendingAbilityName = null;
-                RefreshHighlights();
-                SelectionChanged?.Invoke();
-                return;
-            }
-
-            if (_state.SelectedUnitId == null)
-            {
-                if (unit != null && unit.Seat == _state.ActiveSeat)
+                if (!myTurn) return;
+                // Prototype: pick target first, confirm in HUD.
+                if (unit != null)
                 {
-                    if (unit.Kind == UnitKind.Commander)
-                        TryActivateCommander(unit.Seat);
-                    else
-                        TryActivateCompanyFor(unit);
-                    _state.SelectedUnitId = unit.Id;
+                    _pendingAbilityTargetId = unit.Id;
+                    _state.LastActionLog =
+                        $"Confirm cast {_pendingAbilityName} on {unit.CardName}?";
+                }
+                else
+                {
+                    _pendingAbilityName = null;
+                    _pendingAbilityTargetId = null;
                 }
                 RefreshHighlights();
                 SelectionChanged?.Invoke();
                 return;
             }
 
-            var selected = SelectedUnit();
-            if (selected == null)
+            // Attack mode: pick / retarget enemy (do not steal inspect selection).
+            if (_pendingAttackPick || !string.IsNullOrEmpty(_pendingAttackTargetId))
             {
-                _state.SelectedUnitId = null;
-                RefreshHighlights();
-                return;
-            }
-
-            if (unit != null && unit.Seat == selected.Seat)
-            {
-                TryActivateCompanyFor(unit);
-                _state.SelectedUnitId = unit.Id == selected.Id ? null : unit.Id;
-                RefreshHighlights();
-                return;
-            }
-
-            if (unit != null && unit.Seat != selected.Seat)
-            {
-                if (TryAttack(selected, unit))
-                    EndTurnAfterAction();
-                // If Cleave pending started, keep selection on attacker
-                else if (_state.PendingCleave == null)
-                    _state.SelectedUnitId = null;
+                if (!myTurn) return;
+                var attacker = SelectedUnit();
+                if (unit != null && attacker != null && unit.Seat != attacker.Seat)
+                {
+                    _pendingAttackPick = false;
+                    _pendingAttackTargetId = unit.Id;
+                    _state.LastActionLog = $"Attack {unit.CardName}? Confirm in HUD (RMB cancel).";
+                }
+                else if (unit == null)
+                {
+                    CancelPendingPlayAction();
+                }
                 RefreshHighlights();
                 SelectionChanged?.Invoke();
                 return;
             }
 
-            if (TryMove(selected, tile.Coord))
-                EndTurnAfterAction();
+            // Click any unit to inspect (friend or foe). Attack is via Attack button.
+            if (unit != null)
+            {
+                _state.SelectedUnitId = unit.Id == _state.SelectedUnitId ? null : unit.Id;
+                RefreshHighlights();
+                SelectionChanged?.Invoke();
+                return;
+            }
 
-            _state.SelectedUnitId = null;
+            if (!myTurn) return;
+
+            var selected = SelectedUnit();
+            if (selected == null)
+            {
+                RefreshHighlights();
+                return;
+            }
+
+            // Empty hex: only your own units can move.
+            if (selected.Seat == _state.ActiveSeat && TryMove(selected, tile.Coord))
+            {
+                RefreshHighlights();
+                SelectionChanged?.Invoke();
+                return;
+            }
+
             RefreshHighlights();
         }
 
@@ -1241,8 +1542,13 @@ namespace CommandWarfare.Board
 
             EnsureRng();
             if (!SkirmishActions.ExecuteAttack(_state, attacker, defender, _rng, _cardDatabase, out var log))
+            {
+                _state.LastActionLog = string.IsNullOrEmpty(log) ? "Attack failed." : log;
+                Debug.LogWarning($"[CommandWarfare] {_state.LastActionLog}");
                 return false;
+            }
             _state.LastCombatLog = log;
+            _state.LastActionLog = log;
             Debug.Log($"[CommandWarfare] {log}");
             SpawnCombatFx(defender, log);
             SyncTokensToState();
@@ -1258,9 +1564,15 @@ namespace CommandWarfare.Board
             }
             var result = CommanderActivation.TryActivateCommander(_state, seat);
             if (result.Ok && result.Log != null)
+            {
+                _state.LastActionLog = result.Log;
                 Debug.Log($"[CommandWarfare] {result.Log}");
+            }
             else if (!result.Ok && result.Error != null)
+            {
+                _state.LastActionLog = result.Error;
                 Debug.LogWarning($"[CommandWarfare] {result.Error}");
+            }
         }
 
         void TryActivateCompanyFor(UnitToken unit)
@@ -1277,7 +1589,65 @@ namespace CommandWarfare.Board
 
             var result = CompanyActivation.TryActivateCompany(_state, officer, _cardDatabase);
             if (result.Ok && result.Log != null)
+            {
+                _state.LastActionLog = result.Log;
                 Debug.Log($"[CommandWarfare] {result.Log}");
+            }
+            else if (!result.Ok && result.Error != null)
+            {
+                _state.LastActionLog = result.Error;
+                Debug.LogWarning($"[CommandWarfare] {result.Error}");
+            }
+        }
+
+        /// <summary>HUD: activate the selected officer's company (once per round, one company per turn).</summary>
+        public bool TryActivateSelectedCompany()
+        {
+            if (_state?.Phase != Phase.Play || !_state.ActiveSeat.HasValue) return false;
+            if (IsNetworkMode && (_network == null || !_network.IsLocalSeat(_state.ActiveSeat.Value)))
+                return false;
+
+            var selected = SelectedUnit();
+            if (selected == null || selected.Seat != _state.ActiveSeat) return false;
+
+            var officer = selected.Kind == UnitKind.Officer
+                ? selected
+                : CompanyActivation.FindOfficerForUnit(_state, selected);
+            if (officer == null || officer.Kind != UnitKind.Officer) return false;
+
+            TryActivateCompanyFor(officer);
+            var ok = _state.ActiveCompanyOfficerId == officer.Id;
+            if (ok)
+            {
+                _state.SelectedUnitId = officer.Id;
+                SyncTokensToState();
+                RefreshHighlights();
+                SelectionChanged?.Invoke();
+            }
+            return ok;
+        }
+
+        /// <summary>HUD: activate the local-seat commander (once per round; does not end company).</summary>
+        public bool TryActivateSelectedCommander()
+        {
+            if (_state?.Phase != Phase.Play || !_state.ActiveSeat.HasValue) return false;
+            if (IsNetworkMode && (_network == null || !_network.IsLocalSeat(_state.ActiveSeat.Value)))
+                return false;
+
+            var seat = _state.ActiveSeat.Value;
+            var selected = SelectedUnit();
+            if (selected == null || selected.Seat != seat || selected.Kind != UnitKind.Commander)
+                return false;
+
+            TryActivateCommander(seat);
+            var ok = CommanderActivation.IsCommanderActivatedThisRound(_state, seat);
+            if (ok)
+            {
+                SyncTokensToState();
+                RefreshHighlights();
+                SelectionChanged?.Invoke();
+            }
+            return ok;
         }
 
         public void EnsureCompanyActivatedForSeat(SeatId seat)
@@ -1299,9 +1669,22 @@ namespace CommandWarfare.Board
         void SpawnCombatFx(UnitToken defender, string log)
         {
             var pos = TokenWorldPos(defender);
-            var color = log.Contains("hit") ? new Color(1f, 0.35f, 0.3f) : new Color(0.75f, 0.75f, 0.75f);
-            var shortText = log.Contains("hit") ? log.Split(" for ")[1].Split(' ')[0] : "Miss";
-            CombatFx.SpawnFloatingText(pos, shortText, color);
+            CombatFx.SpawnFromCombatLog(pos, log);
+
+            var lower = (log ?? "").ToLowerInvariant();
+            var miss = lower.Contains("miss") && !lower.Contains("hit");
+            if (miss) BattleAudio.PlayMiss();
+            else
+            {
+                BattleAudio.PlayAttack();
+                BattleAudio.PlayHit();
+            }
+
+            if (_views.TryGetValue(defender.Id, out var defView) && defView != null)
+                defView.PlayHit();
+            var attacker = SelectedUnit();
+            if (attacker != null && _views.TryGetValue(attacker.Id, out var atkView) && atkView != null)
+                atkView.PlayAttack();
         }
 
         public bool TryContinueTrample()
@@ -1328,7 +1711,10 @@ namespace CommandWarfare.Board
             }
             if (!CombatFollowup.DeclineTrample(_state, out var log)) return false;
             _state.LastCombatLog = log;
-            EndTurnAfterAction();
+            _state.LastActionLog = log;
+            SyncTokensToState();
+            RefreshHighlights();
+            SelectionChanged?.Invoke();
             return true;
         }
 

@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4826b338b0e200e4ba6d168aa2dbb586, type: 3}
+  m_Name: RoomDecorCatalog
+  m_EditorClassIdentifier: Assembly-CSharp::CommandWarfare.Data.RoomDecorCatalog
+  Bookcases:
+  - {fileID: 1736692190383486614, guid: a98f28296fde045459a55c388c032382, type: 3}
+  - {fileID: 9079391497562913428, guid: 3d93ba4d259bc4d4b9d6a7d864397b48, type: 3}
+  - {fileID: 841665224430981100, guid: 7e70863b5b769614cbbd81eb889798f5, type: 3}
+  Desks:
+  - {fileID: 7432282650604822052, guid: 0fb024a1e5cfee64dae2b573c451a453, type: 3}
+  - {fileID: 218630080930100901, guid: 3bd270bafd4f5cc498a48ebcab109714, type: 3}
+  - {fileID: 6423296494197102089, guid: 4dae058c36015104aa90168352302647, type: 3}
+  - {fileID: 3951690368281074579, guid: 48f83207366af46448a22022cf9ebfcb, type: 3}
+  Chairs:
+  - {fileID: 3153948677973768454, guid: ab41e6e13e67a514ba43c5d398336f99, type: 3}
+  - {fileID: 3196095238362078258, guid: ce6e0efd262b5e4439cb67c7e6d108cd, type: 3}
+  Benches:
+  - {fileID: 3572063574810828229, guid: ea44ea8fb79043642a31074f93b2cf6b, type: 3}
+  Plants:
+  - {fileID: 3456454265104214829, guid: cddc951d5ccded54bbf90a218fd2d8de, type: 3}
+  - {fileID: 4093926651351726853, guid: 14c005c3be1a4f941971475cd9d3086c, type: 3}
+  - {fileID: 2451004960862066453, guid: 2ae23722d15b16344b7a5a699f72b3b5, type: 3}
+  Lamps:
+  - {fileID: 1832185372867266814, guid: f7d43ab651ea7724e9307de4565df874, type: 3}
+  - {fileID: 5777865235696311935, guid: 2cdab08c62e289f4dac1b6c52caf8572, type: 3}
+  Rugs:
+  - {fileID: 7045859077438217638, guid: 6ae953fa67c34264a9a3556f5dd1dad0, type: 3}
+  - {fileID: 325700136834188607, guid: 494b9d79a8ac88344856d095e6addf1a, type: 3}
+  SoftSeating:
+  - {fileID: 4597292632227042303, guid: 710c9f0520b48c149b455859fbc06b80, type: 3}
+  - {fileID: 340662795702639792, guid: 85f1467ae0dd13649bb1ed41d7e9603d, type: 3}
+  Banners:
+  - {fileID: 174243564295800203, guid: c9f7661e13c31b24fa990179237f352a, type: 3}
+  - {fileID: 3344668396004446782, guid: 9395e1180e69f204891540eb0640d6ea, type: 3}
+  - {fileID: 4444502552304931422, guid: f8a5fc882e0ba6a4ba36dc28de3919c2, type: 3}
+  - {fileID: 4058076044079999346, guid: f245f28e0bdd031479045d9016741df6, type: 3}
+  - {fileID: 4847362342994545963, guid: 6917e3cd7cf8ba5469a9331c08240b49, type: 3}
+  Accents:
+  - {fileID: 8773988133262002704, guid: 64f472bfd15a9d64f98d75025e1a08b2, type: 3}
+  - {fileID: 194133238744149077, guid: a9849f60d8eee3641b0429ba7b68a497, type: 3}
+  - {fileID: 4044237326692409085, guid: cc75641ccdfb94b4c86c260f9fe9632e, type: 3}
+  - {fileID: 6202620579552325706, guid: 28242424da17bb84ba7362a8003068d7, type: 3}
+  - {fileID: 6529654532180801682, guid: 23f42c0e37490f54e956b71bcd35fb9f, type: 3}

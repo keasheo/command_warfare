@@ -29,23 +29,96 @@ MonoBehaviour:
   mountainsMaterial: {fileID: 0}
   wallMaterial: {fileID: 0}
   albedoTiling: 1.4
+  grassPrefabs:
+  - {fileID: 6994118650655559688, guid: e69eb2849bb4a0248bd038938bb401c8, type: 3}
+  - {fileID: 4823776300355783793, guid: 63f7fc2e0b3ae9f4589db13fa94b33fe, type: 3}
+  - {fileID: 5508240775470784715, guid: a9fd79126fc15264888b91afc3ce6c85, type: 3}
+  - {fileID: 7545457112464497269, guid: 0a7b0a2d864d41d48bee809b2ef62505, type: 3}
+  - {fileID: 4399954908595129436, guid: 87873af6f4edcfe4b9a87a06e241e705, type: 3}
+  - {fileID: 781141066935654826, guid: 6a58fa1e40953d84e9b492f35b7c89ab, type: 3}
+  - {fileID: 7181632351292175739, guid: 161234f2053b72843b66d2b388dd6ae9, type: 3}
+  - {fileID: 6536610151301293626, guid: 71073a8a4175485469ed415106149dc3, type: 3}
+  - {fileID: 4637100986195925186, guid: aa8e08e08d629b44a92ac7eb35d77b09, type: 3}
+  grassScaleMin: 0.7
+  grassScaleMax: 1.15
   treePrefabs:
-  - {fileID: 6859641072619082299, guid: e7117ad7d143bbb48b1f597067f2e44f, type: 3}
-  treeScaleMin: 0.8
-  treeScaleMax: 1.2
+  - {fileID: 8642841783325752692, guid: 72a7ebf894c64b74e9b1459b852cd088, type: 3}
+  - {fileID: 1033267616029301094, guid: 8dd7503ed40b4b6428330a92de86520d, type: 3}
+  - {fileID: 7986342984936990028, guid: 9988ab976fbc12042971eb0385009cbb, type: 3}
+  - {fileID: 4613732614130529911, guid: 3cdff649be04f434eb0f4b9a477fc0a5, type: 3}
+  - {fileID: 805553954267181056, guid: 4e28d4cd7a99edb4c84aea6882e9da04, type: 3}
+  - {fileID: 1090852663306908016, guid: 393492a60d68ff04b8c9da53e497dacf, type: 3}
+  - {fileID: 4392288067188453757, guid: 648e34d037b7d6b4b9d993f47be39daf, type: 3}
+  - {fileID: 2397998114311209892, guid: 4095bbcc26be5d244b9a0117c692734c, type: 3}
+  - {fileID: 4400677008904686065, guid: 86c4fce54534a304096152b739998264, type: 3}
+  - {fileID: 3233356003343363092, guid: 432146f0c936fcb46b03e9b86da09c44, type: 3}
+  - {fileID: 3017140884885118801, guid: 484f313dd64b68149a5edd45e93be40c, type: 3}
+  - {fileID: 8604260522602924523, guid: 2883316427636ab4a96fc47dfcb6b1d7, type: 3}
+  - {fileID: 4848695294974979995, guid: 9fd676fdfe42a684b9811364327a18ea, type: 3}
+  - {fileID: 1649307890430000140, guid: c4c5c581e3de80a46a418ac102c9d41f, type: 3}
+  - {fileID: 1320274605012047060, guid: aa710b4c3581c824a9d254e846763a95, type: 3}
+  - {fileID: 6469590824185334218, guid: ef76b67818e6952489383376d8498614, type: 3}
+  - {fileID: 3978606654740296257, guid: 6f80cb79099e5cd4c84947865614b29b, type: 3}
+  - {fileID: 4461110872788342986, guid: e7677c8e252e5034ea1f0586fcaada38, type: 3}
+  - {fileID: 1694895059933830596, guid: d3c97a1ea8689b44c96a9a2eafd811a7, type: 3}
+  - {fileID: 64190608377576676, guid: 2c76359be361ead49814ae41deb4beed, type: 3}
+  - {fileID: 8062633177834627088, guid: dd20bc01dd7a76b41802125c3bb58120, type: 3}
+  treeScaleMin: 0.95
+  treeScaleMax: 1.3
   peakPrefabs:
-  - {fileID: 1065870388577893043, guid: 72fe4a8d5829f104a87076ef33b83387, type: 3}
-  peakScaleMin: 0.9
-  peakScaleMax: 1.3
+  - {fileID: 6534578109508612802, guid: 6bc9fdd4f55f79c46817aa08aeed19a6, type: 3}
+  - {fileID: 7449969378955604617, guid: 0dc8a67df8e434e4694f61d5c32565ff, type: 3}
+  - {fileID: 6534019118955066003, guid: 08312d7d3d0d2a242969e410e77fc521, type: 3}
+  - {fileID: 7428170581876945074, guid: f4a001e24da54cd47b840d79f06b6893, type: 3}
+  - {fileID: 3934191027630677752, guid: e50de29211441164a8405313c7494dd1, type: 3}
+  - {fileID: 6193440886506871531, guid: 9dd1e3b0d216389478deee9e0ba00f52, type: 3}
+  - {fileID: 6444568501045144690, guid: 490395f31e2ce164ba477ac063f1cc8f, type: 3}
+  - {fileID: 8784128888906509435, guid: 0196a01d4c71f0e4baadd033e0d78074, type: 3}
+  - {fileID: 1495368775018765146, guid: 2a257422a73f3c1458097e3ea1318ed4, type: 3}
+  - {fileID: 6170940335492095382, guid: 00a48ba3e50814f4ab5c88a13eb8ba93, type: 3}
+  peakScaleMin: 0.7
+  peakScaleMax: 1.15
   rockPrefabs:
-  - {fileID: 5421840999838206566, guid: 47b28fd12e3bf7d40b8ad46be3431aeb, type: 3}
-  rockScaleMin: 0.5
+  - {fileID: 4756579559207339637, guid: 52c0c4d1b2870ee4889b7e50eba6a0b8, type: 3}
+  - {fileID: 8048096251029283615, guid: 038248fe693eca043bd75bce832e4f58, type: 3}
+  - {fileID: 6522133323195957055, guid: 71b876ac120c5ad4199384f515e9cdf8, type: 3}
+  - {fileID: 183764940689545609, guid: 96cb0f909fc842f49886bbef320fdd46, type: 3}
+  - {fileID: 6823422964026273086, guid: 7d1ca7b1cebedbf469f7c9f2e8c7977e, type: 3}
+  - {fileID: 8493030554491799984, guid: 7a0460e13490a624ab9c6f8e709080be, type: 3}
+  - {fileID: 8511237790044526472, guid: b78284eaee75e6a419f8066e343e23fd, type: 3}
+  - {fileID: 3295924115464532877, guid: 13fbc787da0c9de43b3b712f3dc28e7f, type: 3}
+  - {fileID: 4571703935561376977, guid: 1c01401c975f1c34f811f73895b90367, type: 3}
+  - {fileID: 7701022923078564723, guid: a417d67fa84128944a58c2760ca1247e, type: 3}
+  - {fileID: 2288426054209436897, guid: aa848ec930855ef4885c6394058d5fb6, type: 3}
+  - {fileID: 4430137753011495860, guid: d17faef91eaea914bb59d0844c78ee05, type: 3}
+  - {fileID: 1073753254811823968, guid: 90a6eac9e27061c47b0f32f5f1d291ff, type: 3}
+  rockScaleMin: 0.55
   rockScaleMax: 1
   reedPrefabs:
-  - {fileID: 4463462210605724532, guid: 244b81f7453065a4f966a5d2b9de5e56, type: 3}
-  reedScaleMin: 0.7
-  reedScaleMax: 1.1
+  - {fileID: 4792903985925569015, guid: cb172dfd6ea0b7c4fbce4dbb1a6c839d, type: 3}
+  - {fileID: 2362269127421251071, guid: 3c45521a7e1f4f94eaa8db8051666c0c, type: 3}
+  - {fileID: 393035380925353984, guid: 4ee881e8619953c42b6dc5e90cb68f70, type: 3}
+  - {fileID: 990100719099974755, guid: 6c1f0845431d8a44ba6ba8ffc1dd6003, type: 3}
+  - {fileID: 6199658210096131110, guid: 03f7fccec46007d4e8e25cf2c8327a7a, type: 3}
+  - {fileID: 2115189874855316501, guid: b682e4acb7d88d34290d7ae74c900174, type: 3}
+  - {fileID: 6038396413162763018, guid: 7b5fc9c2ad3b20d4e81ffeb7f528e6ad, type: 3}
+  - {fileID: 2887491221606319834, guid: a1cd50dec9f849743a689c7ae87266f3, type: 3}
+  - {fileID: 3282129887495148850, guid: 6b32907a37068df40be448ce6a1b6f9f, type: 3}
+  - {fileID: 4934536716845914212, guid: 2a909cf2154c25046b5dfdd63d5aeb9a, type: 3}
+  reedScaleMin: 0.75
+  reedScaleMax: 1.2
   volcanicPrefabs:
-  - {fileID: 6937404251549883050, guid: 32cd32e92369165469554d5cbc0975b8, type: 3}
-  volcanicScaleMin: 0.6
-  volcanicScaleMax: 1.1
+  - {fileID: 6596473450639138934, guid: ebed975a926899649b2b12b3c50ff0aa, type: 3}
+  - {fileID: 5674765258200889419, guid: 93bc66e18f286bc4895ef9f8ddf2bb11, type: 3}
+  - {fileID: 8405560366884616253, guid: 4dfbd2734671261409845d2f1a4c2500, type: 3}
+  - {fileID: 4510137106391789150, guid: c93aff3807621dc4c8bf420db0827451, type: 3}
+  - {fileID: 997548304386732918, guid: d9528bdd645f0844d98a04dbb6b74226, type: 3}
+  - {fileID: 6926007424829753018, guid: 67122998ee4af58418a0e0e82cfa03d9, type: 3}
+  - {fileID: 7424493190258113292, guid: f9df0ae54ca224c4ca8f96795773d70a, type: 3}
+  - {fileID: 7170057077412810231, guid: 07764936d5c32634da3f89280279927b, type: 3}
+  - {fileID: 2728769677062186990, guid: 1560ec2cb141caa45b496d277d678c68, type: 3}
+  volcanicScaleMin: 0.65
+  volcanicScaleMax: 1.15
+  wallPrefabs: []
+  wallScaleMin: 0.85
+  wallScaleMax: 1.15
