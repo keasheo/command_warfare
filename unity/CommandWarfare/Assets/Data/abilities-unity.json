@@ -1,0 +1,3471 @@
+{
+  "abilities": [
+    {
+      "name": "Abyssal Onslaught",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "All units in your army within Command Radius gain Charge, Frenzy, and immediately attack once.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "offense"
+      ]
+    },
+    {
+      "name": "Alpha Howl",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Enemies in Command Radius gain Fear and suffer −1 Damage until the start of the next round.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "beastfolk"
+      ]
+    },
+    {
+      "name": "Alpha Howl Call",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Enemies adjacent to this Commander gain Fear.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "fear",
+        "beastfolk"
+      ]
+    },
+    {
+      "name": "Alpha Mark",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Choose an enemy. This company's Pack melee attacks gain +1 Hit against it until end of round.",
+      "affects": "single",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "beastfolk"
+      ]
+    },
+    {
+      "name": "Alpha Rush",
+      "type": "Active",
+      "cost": "2 AP",
+      "costAmount": 2,
+      "costResource": "AP",
+      "description": "Choose an enemy within 3 hexes. Deal 2 damage to it. If a Beast ally is adjacent to that enemy, it gains Fear.",
+      "affects": "single",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "beastfolk",
+        "damage",
+        "fear"
+      ]
+    },
+    {
+      "name": "Ancient Canopy Stand",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Until end of round, Nature and Ranged units in your army in Command Radius gain Stealth and Harass.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "nature"
+      ]
+    },
+    {
+      "name": "Anvil Advance",
+      "type": "Active",
+      "cost": "2 CC",
+      "costAmount": 2,
+      "costResource": "CC",
+      "description": "Units in your army in Command Radius gain Harden 1 and may Move 1 toward an objective.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "dwarf"
+      ]
+    },
+    {
+      "name": "Anvil Decree",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "All units in your army in Command Radius gain Harden 2 and +1 Damage until next round.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "dwarf"
+      ]
+    },
+    {
+      "name": "Anvil Strike",
+      "type": "Active",
+      "cost": "2 AP",
+      "costAmount": 2,
+      "costResource": "AP",
+      "description": "Deal 2 damage to an enemy in Command Radius.",
+      "affects": "single",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "dwarf",
+        "damage"
+      ]
+    },
+    {
+      "name": "Apocalypse Cry",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "All enemies in Command Radius take 4 damage and gain Fear.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "fear"
+      ]
+    },
+    {
+      "name": "Arc Discharge",
+      "type": "Active",
+      "cost": "2 AP",
+      "costAmount": 2,
+      "costResource": "AP",
+      "description": "Deal 2 damage to an enemy within 6 hexes in Command Radius.",
+      "affects": "single",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "construct",
+        "damage"
+      ]
+    },
+    {
+      "name": "Arrowstorm Command",
+      "type": "Active",
+      "cost": "2 CC",
+      "costAmount": 2,
+      "costResource": "CC",
+      "description": "Two Ranged units in your army within Command Radius immediately attack with +1 range this round.",
+      "affects": "count",
+      "usedBy": "Commander",
+      "cooldown": 3,
+      "tags": [
+        "offense",
+        "ranged"
+      ]
+    },
+    {
+      "name": "Ashwind",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Once per activation, a Demon unit in your army that destroys an enemy inside Command Radius may Move 1.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "demon",
+        "movement"
+      ]
+    },
+    {
+      "name": "Barrow Ward",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Units of this company in Command Radius gain Harden 3 until the end of this round.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 3,
+      "tags": [
+        "defense",
+        "undead"
+      ]
+    },
+    {
+      "name": "Basilisk Glare",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Choose an enemy within 3 hexes in Command Radius. It is Rooted until round refresh.",
+      "affects": "single",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "lizardman",
+        "control"
+      ]
+    },
+    {
+      "name": "Basilisk Ward",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Enemies adjacent to two or more Lizardman units in your army within Command Radius suffer −1 Hit on attacks.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "lizardman",
+        "control"
+      ]
+    },
+    {
+      "name": "Battery Link",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Each Siege or Construct unit of this company in Command Radius may make one free attack.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "siege",
+        "construct"
+      ]
+    },
+    {
+      "name": "Battle Cry",
+      "type": "Active",
+      "cost": "2 CC",
+      "costAmount": 2,
+      "costResource": "CC",
+      "description": "Units in your army within Command Radius gain +1 damage and Charge until end of round.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 3,
+      "tags": [
+        "offense"
+      ]
+    },
+    {
+      "name": "Battle Orders",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "One unit of this company gains +1 movement this activation.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 1,
+      "tags": [
+        "movement",
+        "support"
+      ]
+    },
+    {
+      "name": "Beast Banner",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Choose a company. Beast units of that company in Command Radius gain +1 Move this round.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "beastfolk",
+        "movement"
+      ]
+    },
+    {
+      "name": "Beast Haul",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Siege units in Command Radius adjacent to a Beast of your army gain +1 Move this activation.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "beastfolk",
+        "movement",
+        "siege"
+      ]
+    },
+    {
+      "name": "Beastfolk Compact",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Beastfolk units in your army within Command Radius gain +1 Damage.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "beastfolk",
+        "kinship"
+      ]
+    },
+    {
+      "name": "Beastmaster's Call",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "This company's Beast units in Command Radius gain +1 Move this round.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "beastfolk",
+        "movement"
+      ]
+    },
+    {
+      "name": "Blood Frenzy",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "This company's Beast units in Command Radius gain Frenzy until end of round.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "beastfolk"
+      ]
+    },
+    {
+      "name": "Blood Lottery",
+      "type": "Active",
+      "cost": "2 CC",
+      "costAmount": 2,
+      "costResource": "CC",
+      "description": "Destroy one damaged unit in your army in Command Radius. All other units in your army in Command Radius gain Frenzy and Charge until end of round.",
+      "affects": "single",
+      "usedBy": "Commander",
+      "cooldown": 3,
+      "tags": [
+        "offense",
+        "sacrifice"
+      ]
+    },
+    {
+      "name": "Blood Moon",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Beast units in your army in Command Radius gain Frenzy until next round.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "beastfolk"
+      ]
+    },
+    {
+      "name": "Blood Offering",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Destroy one unit of this company in Command Radius. Restore 2 Toughness to up to three other units of this company in Command Radius.",
+      "affects": "count",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "healing",
+        "sacrifice",
+        "demon"
+      ]
+    },
+    {
+      "name": "Bone Harvest",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Once per game. Demolish all Fortifications in Command Radius. Return destroyed units as 1-Toughness thralls equal to Fortifications removed (minimum 3 thralls).",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "undead"
+      ]
+    },
+    {
+      "name": "Bone Prison",
+      "type": "Active",
+      "cost": "2 AP",
+      "costAmount": 2,
+      "costResource": "AP",
+      "description": "Choose an enemy within 3 hexes. It is Rooted and cannot attack until the start of the next round.",
+      "affects": "single",
+      "usedBy": "Officer",
+      "cooldown": 3,
+      "tags": [
+        "control",
+        "undead",
+        "root"
+      ]
+    },
+    {
+      "name": "Brood Banner",
+      "type": "Active",
+      "cost": "1 CC",
+      "costAmount": 1,
+      "costResource": "CC",
+      "description": "Dragon units in Command Radius gain +1 Move and +1 Damage this round.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "dragon",
+        "movement",
+        "command"
+      ]
+    },
+    {
+      "name": "Brood Call",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "This company's Dragon units in Command Radius gain +1 Move and +1 Damage this round.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "dragon",
+        "movement"
+      ]
+    },
+    {
+      "name": "Call Reinforcements",
+      "type": "Active",
+      "cost": "2 CC",
+      "costAmount": 2,
+      "costResource": "CC",
+      "description": "Deploy one destroyed Common unit back onto the battlefield adjacent to an Officer.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 4,
+      "tags": [
+        "summon",
+        "support"
+      ]
+    },
+    {
+      "name": "Cannon Drill",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "This company's Siege or Dwarf units in Command Radius gain +1 Damage this activation.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "siege",
+        "dwarf"
+      ]
+    },
+    {
+      "name": "Cannon Order",
+      "type": "Active",
+      "cost": "1 CC",
+      "costAmount": 1,
+      "costResource": "CC",
+      "description": "Siege or Dwarf units in your army in Command Radius gain +1 Damage this activation.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "siege",
+        "dwarf"
+      ]
+    },
+    {
+      "name": "Canopy Lanes",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Scout and Stealth units in your army beginning activation inside Command Radius gain +1 Move.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "elf",
+        "movement"
+      ]
+    },
+    {
+      "name": "Canopy Veil",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Scout and Stealth units in your army within Command Radius may deploy one additional space beyond deployment.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "scout"
+      ]
+    },
+    {
+      "name": "Cataclysm Breath",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Choose an enemy in this Commander's range (or a nominated Dragon in your army). Deal this unit's Damage as Blast centered on that enemy (1-hex radius around the target).",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "dragon",
+        "blast"
+      ]
+    },
+    {
+      "name": "Cinder March",
+      "type": "Active",
+      "cost": "1 CC",
+      "costAmount": 1,
+      "costResource": "CC",
+      "description": "Fire units in your army in Command Radius gain +1 movement and ignore the first enemy attack of opportunity this round.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "movement",
+        "fire"
+      ]
+    },
+    {
+      "name": "Construct Compact",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Construct units in your army within Command Radius gain +1 Damage and Harden 1.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "construct",
+        "kinship"
+      ]
+    },
+    {
+      "name": "Coordinated Volley",
+      "type": "Active",
+      "cost": "2 AP",
+      "costAmount": 2,
+      "costResource": "AP",
+      "description": "One of this company's ranged units immediately attacks.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "offense",
+        "ranged"
+      ]
+    },
+    {
+      "name": "Counterattack",
+      "type": "Active",
+      "cost": "2 AP",
+      "costAmount": 2,
+      "costResource": "AP",
+      "description": "Choose one unit in your army. After it is attacked this round, it immediately attacks back.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "offense",
+        "defense"
+      ]
+    },
+    {
+      "name": "Court Paths",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Elf units in your army beginning activation inside Command Radius gain +1 Move while in Forest. Additionally, they gain Woodwalker (ignore Forest Base ranged Hit Requirement penalty when attacking from Forest).",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "elf",
+        "movement",
+        "terrain"
+      ]
+    },
+    {
+      "name": "Covenant Drill",
+      "type": "Active",
+      "cost": "2 CC",
+      "costAmount": 2,
+      "costResource": "CC",
+      "description": "Each Officer in Command Radius generates 1 additional Company AP this round.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "economy",
+        "support"
+      ]
+    },
+    {
+      "name": "Crypt Commander",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Infantry and Heavy units in your army within Command Radius gain +1 Damage.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "infantry",
+        "undead"
+      ]
+    },
+    {
+      "name": "Crypt Demolish",
+      "type": "Active",
+      "cost": "2 AP",
+      "costAmount": 2,
+      "costResource": "AP",
+      "description": "Demolish an enemy Fortification in Command Radius. If removed, return a destroyed unit of this company as a 1-Toughness thrall adjacent if space allows.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "undead",
+        "fortify"
+      ]
+    },
+    {
+      "name": "Crypt Discipline",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "This company's elite Undead in Command Radius gain Fearless until end of round.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "undead"
+      ]
+    },
+    {
+      "name": "Death March",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "This company's Undead in Command Radius ignore Slow and gain +1 Move this round.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "undead",
+        "movement"
+      ]
+    },
+    {
+      "name": "Decay",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Choose an enemy within Command Radius. It suffers -1 Toughness and -1 Damage until end of round.",
+      "affects": "single",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "debuff",
+        "undead",
+        "attrition"
+      ]
+    },
+    {
+      "name": "Defensive Formation",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Units of this company within Command Radius gain Harden until end of round.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 1,
+      "tags": [
+        "defense",
+        "support"
+      ]
+    },
+    {
+      "name": "Demon Compact",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Demon units in your army within Command Radius gain +1 Damage, +1 Hit, and Harden 1.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "demon",
+        "kinship"
+      ]
+    },
+    {
+      "name": "Depth Charge",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Demolish all enemy Fortifications in Command Radius and deal 2 Damage to occupants. If fewer than 2 demolished: your units gain +1 Damage and enemies take 1 Damage.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "dwarf"
+      ]
+    },
+    {
+      "name": "Directive Tempo",
+      "type": "Active",
+      "cost": "1 CC",
+      "costAmount": 1,
+      "costResource": "CC",
+      "description": "Construct units in your army in Command Radius gain +1 Move this activation.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "construct",
+        "movement"
+      ]
+    },
+    {
+      "name": "Disciplined Advance",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Units in your army beginning inside this Command Radius gain +1 Move. Additionally, they gain the Open Ground bonus (+1 Hit on Plains) regardless of race.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "movement",
+        "terrain"
+      ]
+    },
+    {
+      "name": "Draft Beasts",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "This company's Siege adjacent to a Beast of this company gain +1 Move this activation.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "beastfolk",
+        "siege"
+      ]
+    },
+    {
+      "name": "Dragon Compact",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Dragon units in your army within Command Radius gain +1 Damage.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "dragon",
+        "kinship"
+      ]
+    },
+    {
+      "name": "Dread Aura",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Enemies adjacent to any unit in your army in Command Radius gain Fear (ends at the start of the next round).",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "fear"
+      ]
+    },
+    {
+      "name": "Dread Wave",
+      "type": "Active",
+      "cost": "2 CC",
+      "costAmount": 2,
+      "costResource": "CC",
+      "description": "All enemies adjacent to units in your army in Command Radius gain Fear (ends at the start of the next round).",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "fear",
+        "undead"
+      ]
+    },
+    {
+      "name": "Dwarf Compact",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Dwarf units in your army within Command Radius gain +1 Damage, +1 Hit, and Harden 1.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "dwarf",
+        "kinship"
+      ]
+    },
+    {
+      "name": "Eclipse of Fear",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "All enemies in Command Radius gain Fear and suffer −1 Damage until the start of the next round.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "fear",
+        "undead"
+      ]
+    },
+    {
+      "name": "Elf Compact",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Elf units in your army within Command Radius gain +1 Damage and +1 Hit.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "elf",
+        "kinship"
+      ]
+    },
+    {
+      "name": "Ember Burst",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Choose a Dragon of this company in Command Radius. Its next attack this activation is Blast (1-hex radius) and gains +1 Damage.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "offense",
+        "dragon",
+        "blast"
+      ]
+    },
+    {
+      "name": "Ember Mandate",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Choose a Dragon in Command Radius. Its next attack this activation is Blast 1 and gains +1 Damage.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "offense",
+        "dragon",
+        "blast",
+        "command"
+      ]
+    },
+    {
+      "name": "Entangling Roots",
+      "type": "Active",
+      "cost": "3 AP",
+      "costAmount": 3,
+      "costResource": "AP",
+      "description": "Choose one enemy within 4 spaces. Until the start of the next round it cannot Fly and its Move is reduced by 1.",
+      "affects": "single",
+      "usedBy": "Commander",
+      "cooldown": 3,
+      "tags": [
+        "control",
+        "nature"
+      ]
+    },
+    {
+      "name": "Entrench",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Fortify occupied hex. Occupant gains Harden 1 until end of round.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 1,
+      "tags": [
+        "fortify",
+        "dwarf"
+      ]
+    },
+    {
+      "name": "Fen Drift",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Lizardman units in your army beginning activation inside Command Radius gain +1 Move while in Water or Swamp. Additionally, they gain Bogstrider (Guard while in Swamp).",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "lizardman",
+        "movement",
+        "terrain"
+      ]
+    },
+    {
+      "name": "Fen Unity",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Until end of round, Lizardman, Amphibious, and Nature units in your army in Command Radius gain Regenerate 2, +1 Damage, and Poison on attacks.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "lizardman",
+        "poison"
+      ]
+    },
+    {
+      "name": "Fenbrood Drum",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Lizardman units in your army in Command Radius gain +1 Move and Regenerate 1 until end of round. Each may immediately make one free attack.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "lizardman",
+        "kinship"
+      ]
+    },
+    {
+      "name": "Flank Sweep",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Flanking attacks by this company's units in Command Radius ignore Harden this activation.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "beastfolk"
+      ]
+    },
+    {
+      "name": "Flesh Tithe",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Destroy one unit in your army within this unit's Range. Restore 3 Toughness to another unit in your army within Range.",
+      "affects": "count",
+      "usedBy": "Unit",
+      "cooldown": 1,
+      "tags": [
+        "healing",
+        "sacrifice",
+        "undead"
+      ]
+    },
+    {
+      "name": "Focused Assault",
+      "type": "Active",
+      "cost": "2 AP",
+      "costAmount": 2,
+      "costResource": "AP",
+      "description": "Choose one enemy. Attacks from your army against that enemy gain +1 damage this round.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "offense",
+        "support"
+      ]
+    },
+    {
+      "name": "Forced March",
+      "type": "Active",
+      "cost": "2 AP",
+      "costAmount": 2,
+      "costResource": "AP",
+      "description": "One unit of this company may move twice this activation but cannot attack.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "movement"
+      ]
+    },
+    {
+      "name": "Forest Unbound",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "All units in your army with Scout or Stealth immediately move up to 3 spaces and gain Frenzy until end of round.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "scout"
+      ]
+    },
+    {
+      "name": "Forge Dominion",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Fire units in your army within Command Radius gain +1 Damage.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "demon",
+        "fire"
+      ]
+    },
+    {
+      "name": "Forge Mend",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Restore 1 Toughness to the most damaged Siege or Dwarf ally in Command Radius.",
+      "affects": "single",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "dwarf",
+        "support"
+      ]
+    },
+    {
+      "name": "Fortify Works",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Fortify occupied or adjacent hex. If occupied by a unit of this company, that unit gains Harden 2 until end of round.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 1,
+      "tags": [
+        "fortify",
+        "dwarf"
+      ]
+    },
+    {
+      "name": "Full Rebuild",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Repair 3 Toughness to all Construct and Siege units in your army in Command Radius.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "construct"
+      ]
+    },
+    {
+      "name": "Gale Reposition",
+      "type": "Active",
+      "cost": "2 CC",
+      "costAmount": 2,
+      "costResource": "CC",
+      "description": "Move up to three units in your army within Command Radius up to 2 spaces without provoking attacks.",
+      "affects": "count",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "movement",
+        "support"
+      ]
+    },
+    {
+      "name": "Gear Grease",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Construct units in your army beginning activation inside Command Radius gain +1 Move.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "construct",
+        "movement"
+      ]
+    },
+    {
+      "name": "Grave Bind",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Choose an enemy within 3 hexes in Command Radius. It is Rooted until round refresh.",
+      "affects": "single",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "undead",
+        "control"
+      ]
+    },
+    {
+      "name": "Grave Fortify",
+      "type": "Active",
+      "cost": "1 CC",
+      "costAmount": 1,
+      "costResource": "CC",
+      "description": "Fortify an unoccupied hex within Command Radius. If a friendly unit moves onto it this round, that unit gains +1 Toughness until end of round.",
+      "affects": "single",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "fortify",
+        "undead"
+      ]
+    },
+    {
+      "name": "Gravemind",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Once per game. Raise up to 18 UV of destroyed units from your army as 2-Toughness Revenants at the board edge. They cannot Revenant again this battle.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "undead"
+      ]
+    },
+    {
+      "name": "Gravespan Call",
+      "type": "Active",
+      "cost": "1 CC",
+      "costAmount": 1,
+      "costResource": "CC",
+      "description": "Once per battle. Return a destroyed unit of your army in Command Radius at 2 Toughness (your army's edge or adjacent). It cannot use Revenant this battle.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "undead",
+        "recursion"
+      ]
+    },
+    {
+      "name": "Grove Lattice",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Nature units in your army within Command Radius in Forest gain +1 Toughness.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "elf",
+        "nature"
+      ]
+    },
+    {
+      "name": "Harden Order",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Choose a unit of this company. It gains Harden 2 until next round.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "defense"
+      ]
+    },
+    {
+      "name": "Haul Lines",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Choose a Siege unit of this company adjacent to a non-Siege unit of this company. That Siege unit gains +1 Move this activation (it may still attack).",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "movement",
+        "siege"
+      ]
+    },
+    {
+      "name": "Heal",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Restore 2 Toughness to a unit in your army within this unit's Range.",
+      "affects": "single",
+      "usedBy": "Unit",
+      "cooldown": 1,
+      "tags": [
+        "healing",
+        "support",
+        "magic"
+      ]
+    },
+    {
+      "name": "Hearth Roads",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Infantry in your army beginning activation inside Command Radius gain +1 Move if they end that move closer to an objective.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "human",
+        "movement"
+      ]
+    },
+    {
+      "name": "Hearthbound Stand",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Until end of round, units in your army in any Command Radius from your army cannot be moved by enemy effects and gain Harden 2, Shieldwall, Inspire, and Regenerate 1.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "defense"
+      ]
+    },
+    {
+      "name": "Hearthfort Aegis",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Infantry in your army within Command Radius gain +2 Toughness while defending.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "defense"
+      ]
+    },
+    {
+      "name": "Hellfire Press",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Fire units in your army within Command Radius gain +1 Damage and +1 Hit when attacking damaged enemies.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "fire"
+      ]
+    },
+    {
+      "name": "Hellspark",
+      "type": "Active",
+      "cost": "2 AP",
+      "costAmount": 2,
+      "costResource": "AP",
+      "description": "Deal 2 damage to an enemy in Command Radius. If it survives, it gains Fear.",
+      "affects": "single",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "demon",
+        "damage",
+        "fear"
+      ]
+    },
+    {
+      "name": "Hoard Claim",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Dragon units in Command Radius gain +2 Damage and one free attack this round. For each objective you control (max 3), those Dragons also gain Harden 1.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "dragon"
+      ]
+    },
+    {
+      "name": "Hoard Routes",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Dragon units in your army beginning activation inside Command Radius gain Ashborn (+1 Damage on Volcanic).",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "dragon",
+        "movement"
+      ]
+    },
+    {
+      "name": "Hold the Gate",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Fortify an objective hex within Command Radius. If occupied by a unit of this company, that unit gains Harden 2 until end of round.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 1,
+      "tags": [
+        "fortify",
+        "dwarf"
+      ]
+    },
+    {
+      "name": "Hold the Line",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "This company's Infantry within Command Radius gain Harden 2 until end of round.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "defense",
+        "support"
+      ]
+    },
+    {
+      "name": "Holdfast",
+      "type": "Active",
+      "cost": "2 AP",
+      "costAmount": 2,
+      "costResource": "AP",
+      "description": "Choose a unit of this company. It gains Unyielding until end of round.",
+      "affects": "single",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "defense"
+      ]
+    },
+    {
+      "name": "Holdfast Doctrine",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Heavy Dwarf units in your army on Mountains within Command Radius gain Harden 1.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "dwarf",
+        "defense"
+      ]
+    },
+    {
+      "name": "Holdfast Gate",
+      "type": "Active",
+      "cost": "1 CC",
+      "costAmount": 1,
+      "costResource": "CC",
+      "description": "Fortify an objective hex within Command Radius. If occupied by a friendly unit, that unit gains Harden 1 until end of round.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "fortify",
+        "dwarf"
+      ]
+    },
+    {
+      "name": "Horn of Advance",
+      "type": "Active",
+      "cost": "3 CC",
+      "costAmount": 3,
+      "costResource": "CC",
+      "description": "Choose up to three Cavalry or Beast units in your army. They gain +1 movement this round.",
+      "affects": "count",
+      "usedBy": "Commander",
+      "cooldown": 3,
+      "tags": [
+        "offense",
+        "movement"
+      ]
+    },
+    {
+      "name": "Host Tithe",
+      "type": "Active",
+      "cost": "1 CC",
+      "costAmount": 1,
+      "costResource": "CC",
+      "description": "When a friendly unit is destroyed in Command Radius this round, gain 1 Company AP or give +1 Damage to one unit in your army until end of round.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "undead"
+      ]
+    },
+    {
+      "name": "Howl",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Adjacent enemies gain Fear.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "fear",
+        "beastfolk"
+      ]
+    },
+    {
+      "name": "Human Compact",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Human units in your army within Command Radius gain +1 Damage, +1 Hit, and Harden 1.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "human",
+        "kinship"
+      ]
+    },
+    {
+      "name": "Hydra Wrath",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Choose up to 3 Beasts in Command Radius. They gain +1 Damage, Regenerate 1, and attack. One also gains MultiStrike 3 and Regenerate 2 until end of round.",
+      "affects": "count",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "beast"
+      ]
+    },
+    {
+      "name": "Infernal Heat",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Demon units in your army gain +1 Damage while adjacent to a damaged unit (friendly or enemy).",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "demon",
+        "offense"
+      ]
+    },
+    {
+      "name": "Infernal Rush",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "All units in your army with Frenzy or Charge immediately move 1 space and attack.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "offense"
+      ]
+    },
+    {
+      "name": "Inferno Cone",
+      "type": "Active",
+      "cost": "3 AP",
+      "costAmount": 3,
+      "costResource": "AP",
+      "description": "Choose a Dragon of this company in Command Radius. Its next attack this activation is Blast (1-hex radius) and gains +1 Damage. Once per round per company.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 1,
+      "tags": [
+        "offense",
+        "dragon",
+        "blast"
+      ]
+    },
+    {
+      "name": "Inferno Mandate",
+      "type": "Active",
+      "cost": "3 AP",
+      "costAmount": 3,
+      "costResource": "AP",
+      "description": "Choose a Dragon in Command Radius. Its next attack this activation is Blast 2. Once per round.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 1,
+      "tags": [
+        "offense",
+        "dragon",
+        "blast",
+        "command"
+      ]
+    },
+    {
+      "name": "Inspire",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Units of this company within 2 spaces gain +1 damage during attacks.",
+      "affects": "radius",
+      "usedBy": "Officer",
+      "cooldown": 0,
+      "tags": [
+        "passive"
+      ]
+    },
+    {
+      "name": "Inspiring Presence",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Units in your army beginning their activation inside this Command Radius gain +1 movement.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "movement"
+      ]
+    },
+    {
+      "name": "Iron Covenant",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Once each round, the first time a unit in your army in Command Radius would take damage, reduce it by 1.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "defense"
+      ]
+    },
+    {
+      "name": "Iron Covenant Charge",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Infantry units in your army in Command Radius gain Charge, +2 Damage, and immediately move 1 and attack.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "human",
+        "infantry"
+      ]
+    },
+    {
+      "name": "Kindred Flightpaths",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Dragon and Flying units in your army beginning activation inside Command Radius gain +1 Move.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "dragon",
+        "movement"
+      ]
+    },
+    {
+      "name": "Kindred Roar",
+      "type": "Active",
+      "cost": "1 CC",
+      "costAmount": 1,
+      "costResource": "CC",
+      "description": "Dragon allies in Command Radius gain +1 Damage and Harden 1 this round.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "dragon",
+        "command"
+      ]
+    },
+    {
+      "name": "Korrik's Stand",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Units in your army in Command Radius gain Unyielding, Harden 2, and +1 Damage until next round.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "dwarf",
+        "defense"
+      ]
+    },
+    {
+      "name": "Last Stand",
+      "type": "Active",
+      "cost": "2 CC",
+      "costAmount": 2,
+      "costResource": "CC",
+      "description": "Units in your army cannot be reduced below 1 Toughness until end of round.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 3,
+      "tags": [
+        "defense"
+      ]
+    },
+    {
+      "name": "Limber Up",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Choose a Siege unit of this company in Command Radius. It gains +1 Move this activation but cannot attack this activation.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "movement",
+        "siege"
+      ]
+    },
+    {
+      "name": "Line Cadence",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Human units of this company beginning activation in Command Radius gain +1 Hit on attacks this activation.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "human",
+        "formation"
+      ]
+    },
+    {
+      "name": "Line Decree",
+      "type": "Active",
+      "cost": "1 CC",
+      "costAmount": 1,
+      "costResource": "CC",
+      "description": "Infantry in your army within Command Radius gain Harden 2 until end of round.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "defense",
+        "formation",
+        "human"
+      ]
+    },
+    {
+      "name": "Living Grove",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Nature units in your army within Command Radius gain Regenerate 1 at end of round.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "nature"
+      ]
+    },
+    {
+      "name": "Lizardman Compact",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Lizardman units in your army within Command Radius gain +2 Damage, +1 Hit, and Harden 2.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "lizardman",
+        "kinship"
+      ]
+    },
+    {
+      "name": "Lockstep",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "This company's Siege and Construct actions in Command Radius cost 1 less Company AP this round (minimum 1).",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "siege",
+        "construct"
+      ]
+    },
+    {
+      "name": "Lockstep Barrage",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Each Siege unit in your army in Command Radius makes one free attack.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "siege"
+      ]
+    },
+    {
+      "name": "Magnetic Line",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Move this Commander or a Construct in your army 1 hex toward the nearest objective.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "movement"
+      ]
+    },
+    {
+      "name": "Mammoth Thunder",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Beast and Cavalry units in your army beginning activation inside Command Radius gain Trample and +1 Damage.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "beast"
+      ]
+    },
+    {
+      "name": "Many-Headed Resilience",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "When a Beast in your army in Command Radius would be destroyed, once per round restore it to 1 Toughness instead.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "beast"
+      ]
+    },
+    {
+      "name": "Marshal's Shot",
+      "type": "Active",
+      "cost": "2 AP",
+      "costAmount": 2,
+      "costResource": "AP",
+      "description": "Deal 2 damage to an enemy within 6 hexes in Command Radius.",
+      "affects": "single",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "human",
+        "damage"
+      ]
+    },
+    {
+      "name": "Mass Fear",
+      "type": "Active",
+      "cost": "2 AP",
+      "costAmount": 2,
+      "costResource": "AP",
+      "description": "All enemies adjacent to this company's units in Command Radius gain Fear (ends at the start of the next round).",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "fear",
+        "undead"
+      ]
+    },
+    {
+      "name": "Master Strategist",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Once each round, reduce the CC cost of an ability by 1.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "economy"
+      ]
+    },
+    {
+      "name": "Matriarch's Pace",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Pack units in your army beginning activation inside Command Radius gain +1 Move.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "movement",
+        "beastfolk"
+      ]
+    },
+    {
+      "name": "Matriarch's Protection",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Choose a friendly company. Beast units of that company in Command Radius gain Harden 1 until end of round.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "beastfolk",
+        "defense"
+      ]
+    },
+    {
+      "name": "Medic",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Restore 2 Toughness to a unit of this company in Command Radius.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "healing",
+        "support"
+      ]
+    },
+    {
+      "name": "Moonbind",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Choose an enemy within 4 hexes. It gains Slow and −1 Damage until round refresh.",
+      "affects": "single",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "elf",
+        "control"
+      ]
+    },
+    {
+      "name": "Moonlit Volley",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "All Ranged units in your army within Command Radius immediately perform two attacks each.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "ranged"
+      ]
+    },
+    {
+      "name": "Motive Overdrive",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Choose a Siege or Construct of this company. It gains +2 Move this activation.",
+      "affects": "single",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "movement",
+        "siege",
+        "construct"
+      ]
+    },
+    {
+      "name": "Necrotic Bolt",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Deal this Officer's Damage to an enemy within range. If that enemy has Fear, deal +1 Damage.",
+      "affects": "single",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "offense",
+        "undead",
+        "magic"
+      ]
+    },
+    {
+      "name": "Null Field",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Enemy Actives and Ultimates cannot be used in Command Radius until next round.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "construct"
+      ]
+    },
+    {
+      "name": "Null Pulse",
+      "type": "Active",
+      "cost": "2 AP",
+      "costAmount": 2,
+      "costResource": "AP",
+      "description": "Choose an enemy in Command Radius. It cannot use Actives until end of round.",
+      "affects": "single",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "control",
+        "construct"
+      ]
+    },
+    {
+      "name": "Oath Anvil",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Heavy Dwarf units in your army within Command Radius gain Harden 1.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "dwarf",
+        "defense"
+      ]
+    },
+    {
+      "name": "Open Ground",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Cavalry and Beast units in your army beginning activation inside Command Radius gain +1 Move and Open Ground (+1 Hit on Plains).",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "human",
+        "movement"
+      ]
+    },
+    {
+      "name": "Overdrive",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Choose a Construct in your army in Command Radius. It gains +1 Damage until end of round.",
+      "affects": "single",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "construct"
+      ]
+    },
+    {
+      "name": "Overwhelming Inferno",
+      "type": "Active",
+      "cost": "2 CC",
+      "costAmount": 2,
+      "costResource": "CC",
+      "description": "Fire units in your army within Command Radius gain Piercing and Siege until end of round.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 3,
+      "tags": [
+        "offense",
+        "fire"
+      ]
+    },
+    {
+      "name": "Overwhelming Offensive",
+      "type": "Active",
+      "cost": "2 CC",
+      "costAmount": 2,
+      "costResource": "CC",
+      "description": "Units in your army within Command Radius immediately perform one attack.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 3,
+      "tags": [
+        "offense"
+      ]
+    },
+    {
+      "name": "Pack Hunt",
+      "type": "Active",
+      "cost": "2 AP",
+      "costAmount": 2,
+      "costResource": "AP",
+      "description": "This company's Beast or Pack units in Command Radius gain +1 Damage this activation.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "beastfolk",
+        "deprecated"
+      ]
+    },
+    {
+      "name": "Pack Mark",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Choose an enemy in Command Radius. Pack melee attacks from your army gain +1 Hit against it until end of round.",
+      "affects": "single",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "beastfolk"
+      ]
+    },
+    {
+      "name": "Pack Reform",
+      "type": "Active",
+      "cost": "2 CC",
+      "costAmount": 2,
+      "costResource": "CC",
+      "description": "Move up to two of this company's Pack units one space each (use this to form or keep Pack adjacency with other Pack units).",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "beastfolk",
+        "movement",
+        "pack"
+      ]
+    },
+    {
+      "name": "Petrifying Gaze Field",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Enemies entering Command Radius must pass a Morale Test or gain Fear. Fear ends at the start of the next round.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "control"
+      ]
+    },
+    {
+      "name": "Phantom Rally",
+      "type": "Active",
+      "cost": "1 CC",
+      "costAmount": 1,
+      "costResource": "CC",
+      "description": "Undead units in your army in Command Radius gain +2 Move this round and ignore enemy zones of control.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 3,
+      "tags": [
+        "undead",
+        "movement"
+      ]
+    },
+    {
+      "name": "Poison Tide",
+      "type": "Active",
+      "cost": "2 AP",
+      "costAmount": 2,
+      "costResource": "AP",
+      "description": "Choose up to three enemies within Command Radius. They gain Poison 2 (lose 1 Toughness at the start of their next two activations).",
+      "affects": "count",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "control",
+        "poison"
+      ]
+    },
+    {
+      "name": "Press Forward",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Move up to two of this company's units one space.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 1,
+      "tags": [
+        "movement",
+        "support"
+      ]
+    },
+    {
+      "name": "Prime Protocol",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Construct units in your army in Command Radius gain +2 Damage until end of round. Each may immediately make one free attack.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "construct",
+        "kinship"
+      ]
+    },
+    {
+      "name": "Raise Mantlets",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Fortify this unit's hex (place a Fortification). Mantlet Crew signature.",
+      "affects": "self",
+      "usedBy": "Unit",
+      "cooldown": 2,
+      "tags": [
+        "fortify",
+        "siege"
+      ]
+    },
+    {
+      "name": "Raise Thrall",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Once per battle. Return a destroyed unit of this company in Command Radius at 2 Toughness (your army's edge or adjacent). It cannot use Revenant this battle.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 0,
+      "tags": [
+        "undead",
+        "recursion"
+      ]
+    },
+    {
+      "name": "Rally",
+      "type": "Active",
+      "cost": "1 CC",
+      "costAmount": 1,
+      "costResource": "CC",
+      "description": "Generate 1 additional Company AP for one Officer.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "support",
+        "economy"
+      ]
+    },
+    {
+      "name": "Rapid Redeployment",
+      "type": "Active",
+      "cost": "2 AP",
+      "costAmount": 2,
+      "costResource": "AP",
+      "description": "Swap positions of two of this company's units within Command Radius.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "movement",
+        "support"
+      ]
+    },
+    {
+      "name": "Realmward March",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Human units in your army beginning activation inside Command Radius gain +2 Move.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "human",
+        "movement"
+      ]
+    },
+    {
+      "name": "Realmward Unity",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Until end of round, units in your army in Command Radius gain +1 Move, Harden 1, and +1 Damage while on objectives.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "human",
+        "kinship"
+      ]
+    },
+    {
+      "name": "Reaper's Touch",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "This Officer attacks an adjacent enemy. If that enemy is destroyed, restore 1 Toughness to one unit of this company.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "offense",
+        "undead",
+        "healing"
+      ]
+    },
+    {
+      "name": "Rebuild Protocol",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Repair 3 Toughness to a Construct or Siege unit of this company in Command Radius.",
+      "affects": "single",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "construct",
+        "healing"
+      ]
+    },
+    {
+      "name": "Refresh Works",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Once per round. Re-Fortify a hex in Command Radius that lost its Fortification this round.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 1,
+      "tags": [
+        "fortify"
+      ]
+    },
+    {
+      "name": "Regen Paths",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Beast units in your army beginning activation inside Command Radius gain +1 Move and Woodwalker (ignore Forest Base ranged Hit Requirement penalty when attacking from Forest).",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "lizardman",
+        "movement"
+      ]
+    },
+    {
+      "name": "Regenerative Surge",
+      "type": "Active",
+      "cost": "2 AP",
+      "costAmount": 2,
+      "costResource": "AP",
+      "description": "Restore 3 Toughness split among up to three units in your army in Command Radius.",
+      "affects": "count",
+      "usedBy": "Commander",
+      "cooldown": 3,
+      "tags": [
+        "healing",
+        "support"
+      ]
+    },
+    {
+      "name": "Repair",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Restore 2 Toughness to a Siege unit of this company in Command Radius.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "healing",
+        "siege"
+      ]
+    },
+    {
+      "name": "Repair Rites",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Restore 3 Toughness to the most damaged Construct or Siege in your army in Command Radius.",
+      "affects": "single",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "construct",
+        "support"
+      ]
+    },
+    {
+      "name": "Reposition",
+      "type": "Active",
+      "cost": "1 CC",
+      "costAmount": 1,
+      "costResource": "CC",
+      "description": "Move one Officer up to 2 spaces.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "movement"
+      ]
+    },
+    {
+      "name": "Rootways",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Nature units in your army beginning activation inside Command Radius gain Amphibious (treat Water as normal terrain) and Woodwalker (ignore Forest Base ranged Hit Requirement penalty when attacking from Forest).",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "nature",
+        "movement"
+      ]
+    },
+    {
+      "name": "Rootweave Surge",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Nature units in your army in Command Radius restore 2 Toughness, gain +1 Move, and may immediately reposition.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "elf",
+        "nature",
+        "healing"
+      ]
+    },
+    {
+      "name": "Sappers",
+      "type": "Active",
+      "cost": "2 AP",
+      "costAmount": 2,
+      "costResource": "AP",
+      "description": "Fortify a hex in radius, then Demolish one enemy Fortification within 2 hexes.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "fortify",
+        "siege"
+      ]
+    },
+    {
+      "name": "Scale Aegis",
+      "type": "Active",
+      "cost": "1 CC",
+      "costAmount": 1,
+      "costResource": "CC",
+      "description": "Dragon units in Command Radius gain Harden 2 until end of round.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "dragon",
+        "defense",
+        "command"
+      ]
+    },
+    {
+      "name": "Scale Ward",
+      "type": "Active",
+      "cost": "1 CC",
+      "costAmount": 1,
+      "costResource": "CC",
+      "description": "This company's Dragon units in Command Radius gain Harden 2 until end of round.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "dragon",
+        "defense"
+      ]
+    },
+    {
+      "name": "Scorch Decree",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Choose a Dragon in Command Radius. Its Breath/Blast attack gains Siege (+1 vs Fortified) this activation.",
+      "affects": "single",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "dragon",
+        "command"
+      ]
+    },
+    {
+      "name": "Scorch Mark",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Choose a Dragon of this company. Its Breath/Blast attack gains Siege (+1 vs Fortified) this activation.",
+      "affects": "single",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "dragon"
+      ]
+    },
+    {
+      "name": "Sealant Coat",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "This company's Construct units in Command Radius gain Fearless, Harden 1, and ignore Poison until end of round.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "construct"
+      ]
+    },
+    {
+      "name": "Serpent Coil",
+      "type": "Active",
+      "cost": "2 AP",
+      "costAmount": 2,
+      "costResource": "AP",
+      "description": "Choose one enemy within 3 spaces. It cannot move and suffers -1 damage until end of round.",
+      "affects": "single",
+      "usedBy": "Commander",
+      "cooldown": 3,
+      "tags": [
+        "control"
+      ]
+    },
+    {
+      "name": "Shadow Orb",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Deal 2 damage to an enemy within 6 hexes. That enemy gains Slow until end of round.",
+      "affects": "single",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "damage",
+        "undead",
+        "magic"
+      ]
+    },
+    {
+      "name": "Shield Brotherhood",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "This company's Infantry in Command Radius gain Shieldwall until end of round.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "defense"
+      ]
+    },
+    {
+      "name": "Shield Column",
+      "type": "Active",
+      "cost": "1 CC",
+      "costAmount": 1,
+      "costResource": "CC",
+      "description": "Infantry in your army within Command Radius gain Shieldwall and Harden 2 until end of round.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "defense",
+        "formation"
+      ]
+    },
+    {
+      "name": "Siege Barrage",
+      "type": "Active",
+      "cost": "2 AP",
+      "costAmount": 2,
+      "costResource": "AP",
+      "description": "Deal 1 damage to up to two enemies in Command Radius.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "construct",
+        "damage"
+      ]
+    },
+    {
+      "name": "Siege Cadence",
+      "type": "Active",
+      "cost": "1 CC",
+      "costAmount": 1,
+      "costResource": "CC",
+      "description": "Each Siege or Construct unit in your army in Command Radius may make one free attack.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "siege",
+        "construct"
+      ]
+    },
+    {
+      "name": "Siege Elevation",
+      "type": "Active",
+      "cost": "2 AP",
+      "costAmount": 2,
+      "costResource": "AP",
+      "description": "Choose a Siege of this company in Command Radius. It gains +1 Range this activation (may exceed printed max 3) and cannot move this activation.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "ranged",
+        "siege",
+        "support"
+      ]
+    },
+    {
+      "name": "Siege Roll",
+      "type": "Active",
+      "cost": "2 AP",
+      "costAmount": 2,
+      "costResource": "AP",
+      "description": "This company's Siege units within Command Radius gain +1 Move this round.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "movement",
+        "siege"
+      ]
+    },
+    {
+      "name": "Siege Sync",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Siege units in your army within Command Radius adjacent to a friendly non-Siege unit gain +1 Hit.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "dwarf",
+        "siege"
+      ]
+    },
+    {
+      "name": "Sky Tyrant",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Flying Dragon units in your army gain +1 Move and apply Fear on hit until the start of the next round (Fear on enemies ends at the start of the next round).",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "dragon"
+      ]
+    },
+    {
+      "name": "Snare",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Choose one enemy within 3 hexes. It is Rooted — it cannot move until the start of the next round.",
+      "affects": "single",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "control",
+        "root"
+      ]
+    },
+    {
+      "name": "Soul Harvest",
+      "type": "Active",
+      "cost": "1 CC",
+      "costAmount": 1,
+      "costResource": "CC",
+      "description": "When a unit (any army) is destroyed in Command Radius this round, gain 1 CC or restore 1 Toughness to a friendly unit in Command Radius.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "undead",
+        "economy",
+        "healing"
+      ]
+    },
+    {
+      "name": "Soul Offering",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Destroy one unit in your army within this unit's Range. Restore 3 Toughness to another unit in your army within Range.",
+      "affects": "count",
+      "usedBy": "Unit",
+      "cooldown": 1,
+      "tags": [
+        "healing",
+        "sacrifice",
+        "demon"
+      ]
+    },
+    {
+      "name": "Soul Tithe",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "When a friendly unit is destroyed in Command Radius this round, gain 1 Company AP or give +1 Damage to one unit of this company until end of round. If cast by an Officer, only units of this company count.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "undead"
+      ]
+    },
+    {
+      "name": "Spanned Shot",
+      "type": "Active",
+      "cost": "2 AP",
+      "costAmount": 2,
+      "costResource": "AP",
+      "description": "Choose a unit of this company in Command Radius (prefer Ranged). It gains +1 Range this activation (may exceed printed max 3) and cannot move this activation.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "ranged",
+        "support",
+        "elf"
+      ]
+    },
+    {
+      "name": "Spear Thrust",
+      "type": "Active",
+      "cost": "2 AP",
+      "costAmount": 2,
+      "costResource": "AP",
+      "description": "Choose an enemy within 3 hexes. Deal 2 damage to it.",
+      "affects": "single",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "human",
+        "damage"
+      ]
+    },
+    {
+      "name": "Spearpoint Advance",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Infantry in your army that moved toward the nearest enemy during activation inside Command Radius gain +1 Hit on their first attack.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "human",
+        "offense"
+      ]
+    },
+    {
+      "name": "Spectral Strike",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Choose one Undead unit in your army in Command Radius. It immediately attacks with +1 Damage and ignores Guard.",
+      "affects": "single",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "offense",
+        "undead"
+      ]
+    },
+    {
+      "name": "Spur Order",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Mounted units of this company in Command Radius gain Charge and +1 Move until end of round.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "mounted",
+        "offense",
+        "movement"
+      ]
+    },
+    {
+      "name": "Stand United",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Until end of round, all units in your army beginning their activation inside any Command Radius from your army gain Harden 2 and +1 Damage.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "defense",
+        "offense"
+      ]
+    },
+    {
+      "name": "Starfall Pact",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Flying units in your army within Command Radius gain +1 damage on the first attack each round.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "flying"
+      ]
+    },
+    {
+      "name": "Starlit Stride",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Flying and Scout units in your army beginning activation inside Command Radius gain +1 Move.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "elf",
+        "movement"
+      ]
+    },
+    {
+      "name": "Still Host Rise",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Undead units in your army in Command Radius gain Fearless and +1 Damage until end of round. Each may immediately make one free attack; attack-locked units cannot strike.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "undead",
+        "kinship"
+      ]
+    },
+    {
+      "name": "Still March",
+      "type": "Active",
+      "cost": "1 CC",
+      "costAmount": 1,
+      "costResource": "CC",
+      "description": "Undead units in your army in Command Radius ignore Slow and gain +1 Move this round.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "undead",
+        "movement"
+      ]
+    },
+    {
+      "name": "Still Paths",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Undead units in your army beginning activation inside Command Radius gain +1 Move and Bogstrider (Guard while in Swamp).",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "undead",
+        "movement",
+        "terrain"
+      ]
+    },
+    {
+      "name": "Stone Highways",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Dwarf units in your army beginning activation inside Command Radius gain +1 Move and Mountainborn (+1 Harden in Mountains).",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "dwarf",
+        "movement"
+      ]
+    },
+    {
+      "name": "Stone Line",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Adjacent Dwarves of this company gain Harden 1 until end of round.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "dwarf",
+        "defense"
+      ]
+    },
+    {
+      "name": "Stone Serpent Stand",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Until end of round, units in your army in Command Radius gain Harden 2, Reach, and Poison on successful attacks.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "control"
+      ]
+    },
+    {
+      "name": "Stoneworks",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Fortify an adjacent hex. If occupied by a unit of this company, that unit gains Harden 1 until end of round.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 1,
+      "tags": [
+        "fortify"
+      ]
+    },
+    {
+      "name": "Sturdy Bones",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Undead units in your army within Command Radius gain +1 Toughness.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "undead",
+        "defense"
+      ]
+    },
+    {
+      "name": "Summit Currents",
+      "type": "Active",
+      "cost": "1 CC",
+      "costAmount": 1,
+      "costResource": "CC",
+      "description": "Amphibious units in your army in Command Radius gain +1 Move this activation.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "lizardman",
+        "movement"
+      ]
+    },
+    {
+      "name": "Suppressive Fire",
+      "type": "Active",
+      "cost": "2 AP",
+      "costAmount": 2,
+      "costResource": "AP",
+      "description": "Target enemy suffers -1 damage until end of round.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "control",
+        "ranged"
+      ]
+    },
+    {
+      "name": "Swamp Kinship",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Amphibious units in your army within Command Radius treat water as normal terrain and gain +1 Toughness.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "amphibious"
+      ]
+    },
+    {
+      "name": "Tactical Withdrawal",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Choose one unit in your army. It may immediately move without provoking attacks.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "movement",
+        "defense"
+      ]
+    },
+    {
+      "name": "Terror Dive",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Choose a Dragon of this company that moved at least 2 this activation. Its attack applies Fear.",
+      "affects": "single",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "dragon",
+        "fear"
+      ]
+    },
+    {
+      "name": "Terror Mandate",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Choose a Dragon in Command Radius that moved at least 2 this activation. Its attack applies Fear.",
+      "affects": "single",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "dragon",
+        "fear",
+        "command"
+      ]
+    },
+    {
+      "name": "Thunder Stampede",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "All units in your army in Command Radius with Charge, or that are Cavalry or Beast, immediately move up to 2 spaces and perform one attack.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "offense"
+      ]
+    },
+    {
+      "name": "Torment Lattice",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Demon units in your army within Command Radius gain +1 Hit against enemies with Fear.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "demon",
+        "fear"
+      ]
+    },
+    {
+      "name": "Totem Pulse",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "This company's Totem Onager or War Beast in Command Radius gain +1 Damage this activation.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "beastfolk"
+      ]
+    },
+    {
+      "name": "Tow Hitch",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Choose a Siege of this company adjacent to a Siege Tower, Construct, Beast, or Engineer of this company. Move it up to 2 hexes (counts as its move).",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "movement",
+        "siege"
+      ]
+    },
+    {
+      "name": "Tribal Cadence",
+      "type": "Active",
+      "cost": "2 CC",
+      "costAmount": 2,
+      "costResource": "CC",
+      "description": "Beastfolk units in your army in Command Radius gain +1 Move this round.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "movement",
+        "beastfolk"
+      ]
+    },
+    {
+      "name": "Tribal Convergence",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "All Beastfolk units in your army in Command Radius gain +1 Damage and Pack until end of round. Each may immediately make one free attack.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "beastfolk",
+        "kinship"
+      ]
+    },
+    {
+      "name": "Tyrant Tithe",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "When a unit in your army in Command Radius destroys an enemy, gain 1 CC (no per-round limit).",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "economy"
+      ]
+    },
+    {
+      "name": "Tyrant's Command",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Dragon units in your army in Command Radius gain +2 Damage and Harden 1 until next round.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "dragon",
+        "kinship"
+      ]
+    },
+    {
+      "name": "Unbreakable Hold",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Fortify up to 3 hexes in Command Radius. Units in your army in Command Radius gain Harden 2 and +1 Damage until next round.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "fortify",
+        "dwarf"
+      ]
+    },
+    {
+      "name": "Unbroken Hearth",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Until end of round, units in your army in Command Radius gain Shieldwall, Inspire, Regenerate 1, and Harden 1.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "human",
+        "defense"
+      ]
+    },
+    {
+      "name": "Undead Compact",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Undead units in your army within Command Radius gain +2 Damage, +1 Hit, and Harden 2.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "undead",
+        "kinship"
+      ]
+    },
+    {
+      "name": "Vector March",
+      "type": "Passive",
+      "cost": "Passive",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Construct units in your army beginning activation inside Command Radius gain Open Ground (+1 Hit on Plains).",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "passive",
+        "construct",
+        "movement"
+      ]
+    },
+    {
+      "name": "Void Torment",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "All enemies in Command Radius gain Fear, are Slowed, and take 2 damage.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "demon",
+        "fear",
+        "magic"
+      ]
+    },
+    {
+      "name": "Wild Hunt",
+      "type": "Ultimate",
+      "cost": "Ultimate",
+      "costAmount": 0,
+      "costResource": "",
+      "description": "Choose up to three Beasts in your army in Command Radius. Each may Move then make one free attack.",
+      "affects": "self",
+      "usedBy": "Commander",
+      "cooldown": 0,
+      "tags": [
+        "ultimate",
+        "beastfolk"
+      ]
+    },
+    {
+      "name": "Wild Rush",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "This company's Beast or Cavalry in Command Radius that have Charge may count Charge after moving only 1 hex this activation.",
+      "affects": "self",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "beastfolk"
+      ]
+    },
+    {
+      "name": "Wing Buffet",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Push an adjacent enemy 1 hex.",
+      "affects": "single",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "dragon"
+      ]
+    },
+    {
+      "name": "Wing Gust",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Push an enemy adjacent to this Commander 1 hex.",
+      "affects": "single",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "dragon",
+        "command"
+      ]
+    },
+    {
+      "name": "Withering Gaze",
+      "type": "Active",
+      "cost": "1 AP",
+      "costAmount": 1,
+      "costResource": "AP",
+      "description": "Choose an enemy within 3 hexes. It gains Fear (ends at the start of the next round).",
+      "affects": "single",
+      "usedBy": "Officer",
+      "cooldown": 2,
+      "tags": [
+        "fear",
+        "undead"
+      ]
+    },
+    {
+      "name": "Wyrm Lash",
+      "type": "Active",
+      "cost": "2 AP",
+      "costAmount": 2,
+      "costResource": "AP",
+      "description": "Deal 2 damage to an enemy within 4 hexes in Command Radius.",
+      "affects": "single",
+      "usedBy": "Commander",
+      "cooldown": 2,
+      "tags": [
+        "dragon",
+        "damage"
+      ]
+    }
+  ],
+  "exportedAt": "2026-08-20T03:25:39.660Z"
+}

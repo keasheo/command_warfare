@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9255797cdfd1a84589c00339d919575, type: 3}
+  m_Name: UnitAssetCatalog
+  m_EditorClassIdentifier: Assembly-CSharp::CommandWarfare.Data.UnitAssetCatalog
+  commanderPrefab: {fileID: 4758681295890852652, guid: 1afab9eb9a399474c9f6c28bd7b3a343, type: 3}
+  officerPrefab: {fileID: 3621814773096697431, guid: 8e33c5ea3dbc5e140a6c9ef66f27c35f, type: 3}
+  unitPrefab: {fileID: 5782635598153188541, guid: f8ee758661fe6ed4691f3584e778c2a8, type: 3}
+  humanUnitPrefab: {fileID: 6483218658327405258, guid: 20407f4c5ead4454c8fdd573372610bb, type: 3}
+  dwarfUnitPrefab: {fileID: 7686341425293299485, guid: 1f19d4e436f66454ea79d96742f33934, type: 3}
+  elfUnitPrefab: {fileID: 2295861659222193963, guid: b06b6169beadc5a4f9df08eb622d632f, type: 3}
+  undeadUnitPrefab: {fileID: 2704757038050302657, guid: b2127af81d6edc042952ff184d72c0ec, type: 3}
+  demonUnitPrefab: {fileID: 4349275995896523837, guid: fd9d9e74fa07efd459f115594c8f9da3, type: 3}
+  dragonUnitPrefab: {fileID: 6261153632114286895, guid: 6e4c011038fa8ab4db0db25b192518fa, type: 3}
+  beastfolkUnitPrefab: {fileID: 4975469263687217244, guid: a4f83c18f28589648a2222d9369b6266, type: 3}
+  lizardmenUnitPrefab: {fileID: 3879943331429636641, guid: 519d9050386f49a488c741a7d2276ffb, type: 3}
+  constructUnitPrefab: {fileID: 1660745593482321527, guid: cccce355c431ef34bba5125f64c1f6d0, type: 3}

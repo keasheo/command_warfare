@@ -49,3 +49,14 @@ sim/*
 *.njsproj
 *.sln
 *.sw?
+
+# Unity client — exclude local binary art/models and editor junk
+unity/CommandWarfare/Library/
+unity/CommandWarfare/Temp/
+unity/CommandWarfare/Logs/
+unity/CommandWarfare/UserSettings/
+unity/CommandWarfare/Obj/
+unity/CommandWarfare/Assets/Art/Cards/
+unity/CommandWarfare/Assets/Prefabs/Generated/
+
+unity/CommandWarfare/Assets/StreamingAssets/CardArt/

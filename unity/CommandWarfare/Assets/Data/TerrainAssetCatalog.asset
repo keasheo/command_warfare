@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af9a852d734938840a311da209e71443, type: 3}
+  m_Name: TerrainAssetCatalog
+  m_EditorClassIdentifier: Assembly-CSharp::CommandWarfare.Data.TerrainAssetCatalog
+  plainsAlbedo: {fileID: 2800000, guid: 6f5bda991f76c41408a074c2a0ad1808, type: 3}
+  forestAlbedo: {fileID: 2800000, guid: eaec53b51d8c4124eba119f6c563e7c5, type: 3}
+  swampAlbedo: {fileID: 2800000, guid: 329b01205402fdc4181b36246bc3392e, type: 3}
+  desertAlbedo: {fileID: 2800000, guid: 05050e2d7b16593488864df1379366e7, type: 3}
+  waterAlbedo: {fileID: 2800000, guid: 91f32d2145e2b504dbfabd322b6b4169, type: 3}
+  volcanicAlbedo: {fileID: 2800000, guid: 8b09160f876fc8c45b163d79d96964d7, type: 3}
+  mountainsAlbedo: {fileID: 2800000, guid: f8902632150d61241bc1b7c822a5944d, type: 3}
+  wallAlbedo: {fileID: 2800000, guid: bc8a9416f085f174b90160dc4a38f46c, type: 3}
+  plainsMaterial: {fileID: 0}
+  forestMaterial: {fileID: 0}
+  swampMaterial: {fileID: 0}
+  desertMaterial: {fileID: 0}
+  waterMaterial: {fileID: 0}
+  volcanicMaterial: {fileID: 0}
+  mountainsMaterial: {fileID: 0}
+  wallMaterial: {fileID: 0}
+  albedoTiling: 1.4
+  treePrefabs:
+  - {fileID: 6859641072619082299, guid: e7117ad7d143bbb48b1f597067f2e44f, type: 3}
+  treeScaleMin: 0.8
+  treeScaleMax: 1.2
+  peakPrefabs:
+  - {fileID: 1065870388577893043, guid: 72fe4a8d5829f104a87076ef33b83387, type: 3}
+  peakScaleMin: 0.9
+  peakScaleMax: 1.3
+  rockPrefabs:
+  - {fileID: 5421840999838206566, guid: 47b28fd12e3bf7d40b8ad46be3431aeb, type: 3}
+  rockScaleMin: 0.5
+  rockScaleMax: 1
+  reedPrefabs:
+  - {fileID: 4463462210605724532, guid: 244b81f7453065a4f966a5d2b9de5e56, type: 3}
+  reedScaleMin: 0.7
+  reedScaleMax: 1.1
+  volcanicPrefabs:
+  - {fileID: 6937404251549883050, guid: 32cd32e92369165469554d5cbc0975b8, type: 3}
+  volcanicScaleMin: 0.6
+  volcanicScaleMax: 1.1
