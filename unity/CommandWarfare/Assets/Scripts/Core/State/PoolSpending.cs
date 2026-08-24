@@ -25,7 +25,7 @@ namespace CommandWarfare.Core.State
         public static SpendResult TrySpendCommanderAp(GameState state, SeatId seat, int amount)
         {
             if (amount < 1) return SpendResult.Fail("Spend at least 1.");
-            if (!state.CommanderPools.TryGetValue(seat, out var pool))
+            if (state?.CommanderPools == null || !state.CommanderPools.TryGetValue(seat, out var pool))
                 return SpendResult.Fail("No commander pool.");
             if (pool.Ap < amount) return SpendResult.Fail("Not enough AP.");
 
@@ -37,7 +37,7 @@ namespace CommandWarfare.Core.State
         public static SpendResult TrySpendCommanderCc(GameState state, SeatId seat, int amount)
         {
             if (amount < 1) return SpendResult.Fail("Spend at least 1.");
-            if (!state.CommanderPools.TryGetValue(seat, out var pool))
+            if (state?.CommanderPools == null || !state.CommanderPools.TryGetValue(seat, out var pool))
                 return SpendResult.Fail("No commander pool.");
             if (pool.Cc < amount) return SpendResult.Fail("Not enough CC.");
 
@@ -51,7 +51,7 @@ namespace CommandWarfare.Core.State
             if (amount < 1) return SpendResult.Fail("Spend at least 1.");
             if (string.IsNullOrEmpty(officerId))
                 return SpendResult.Fail("Activate a company to spend Company AP.");
-            if (!state.CompanyPools.TryGetValue(officerId, out var pool))
+            if (state?.CompanyPools == null || !state.CompanyPools.TryGetValue(officerId, out var pool))
                 return SpendResult.Fail("No company pool.");
             if (pool.Ap < amount) return SpendResult.Fail("Not enough Company AP.");
 

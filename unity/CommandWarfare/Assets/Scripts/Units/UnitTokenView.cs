@@ -119,14 +119,14 @@ namespace CommandWarfare.Units
                 model.transform.localPosition = Vector3.zero;
                 model.transform.localRotation = Quaternion.identity;
                 var bounds = ApproxBounds(model);
-                var targetH = _kind == UnitKind.Commander ? 1.6f : _kind == UnitKind.Officer ? 1.35f : 1.15f;
+                var targetH = TargetModelHeight(_kind, race);
                 if (bounds.size.y > 0.01f)
                 {
                     var s = targetH / bounds.size.y;
                     model.transform.localScale = Vector3.one * s;
                     model.transform.localPosition = new Vector3(0f, -bounds.min.y * s, 0f);
                 }
-                ApplyTint(model, modelTint.a > 0.01f ? modelTint : _seatColor);
+                ApplyTint(model, modelTint);
                 StripColliders(model);
                 _animator = model.GetComponentInChildren<Animator>();
                 if (_animator != null)
@@ -230,15 +230,15 @@ namespace CommandWarfare.Units
             if (col == null) col = gameObject.AddComponent<CapsuleCollider>();
             var radius = _kind switch
             {
-                UnitKind.Commander => 0.48f,
-                UnitKind.Officer => 0.4f,
-                _ => 0.34f,
+                UnitKind.Commander => 0.55f,
+                UnitKind.Officer => 0.48f,
+                _ => 0.42f,
             };
             var height = _kind switch
             {
-                UnitKind.Commander => 1.85f,
-                UnitKind.Officer => 1.6f,
-                _ => 1.4f,
+                UnitKind.Commander => 2.0f,
+                UnitKind.Officer => 1.75f,
+                _ => 1.55f,
             };
             col.radius = radius;
             col.height = height;
@@ -324,6 +324,27 @@ namespace CommandWarfare.Units
             return n.StartsWith("CW_") || n.Contains("Placeholder");
         }
 
+        static float TargetModelHeight(UnitKind kind, string race)
+        {
+            var baseH = kind switch
+            {
+                UnitKind.Commander => 1.55f,
+                UnitKind.Officer => 1.35f,
+                _ => 1.15f,
+            };
+            if (string.IsNullOrEmpty(race)) return baseH;
+            return race switch
+            {
+                "Dwarf" => baseH * 0.78f,
+                "Dragon" => baseH * 1.35f,
+                "Lizardman" or "Lizardmen" => baseH * 1.05f,
+                "Beastfolk" => baseH * 1.08f,
+                "Demon" => baseH * 1.12f,
+                "Construct" => baseH,
+                _ => baseH,
+            };
+        }
+
         void Update()
         {
             if (_root == null || !Application.isPlaying) return;
@@ -392,6 +413,10 @@ namespace CommandWarfare.Units
 
         static void ApplyTint(GameObject go, Color tint)
         {
+            if (go == null || tint.a < 0.01f) return;
+            // Near-white keeps Quaternius / catalog textures intact.
+            if (tint.r > 0.95f && tint.g > 0.95f && tint.b > 0.95f) return;
+
             foreach (var r in go.GetComponentsInChildren<Renderer>())
             {
                 if (r == null) continue;
@@ -400,9 +425,9 @@ namespace CommandWarfare.Units
                 {
                     if (mats[i] == null) continue;
                     if (mats[i].HasProperty("_BaseColor"))
-                        mats[i].SetColor("_BaseColor", Color.Lerp(mats[i].GetColor("_BaseColor"), tint, 0.45f));
+                        mats[i].SetColor("_BaseColor", Color.Lerp(mats[i].GetColor("_BaseColor"), tint, 0.35f));
                     else if (mats[i].HasProperty("_Color"))
-                        mats[i].SetColor("_Color", Color.Lerp(mats[i].color, tint, 0.45f));
+                        mats[i].SetColor("_Color", Color.Lerp(mats[i].color, tint, 0.35f));
                 }
                 r.materials = mats;
             }

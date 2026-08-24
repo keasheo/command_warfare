@@ -40,13 +40,13 @@ namespace CommandWarfare.Data
 
         [Header("Forest scatter")]
         public GameObject[] treePrefabs;
-        public float treeScaleMin = 0.8f;
-        public float treeScaleMax = 1.2f;
+        public float treeScaleMin = 0.35f;
+        public float treeScaleMax = 0.52f;
 
         [Header("Mountain scatter")]
         public GameObject[] peakPrefabs;
         public float peakScaleMin = 0.9f;
-        public float peakScaleMax = 1.3f;
+        public float peakScaleMax = 0.91f;
 
         [Header("Desert scatter")]
         public GameObject[] rockPrefabs;

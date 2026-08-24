@@ -33,6 +33,8 @@ export const MAX_DEPLOY_SIEGE = 5
 export const DEFAULT_OFFICER_COMMAND_RADIUS = 4
 /** Fallback Command Radius when a commander card has none printed. */
 export const DEFAULT_COMMANDER_COMMAND_RADIUS = 7
+/** Command Cards spent when activating an officer's company (battleSim OFFICER_ACTIVATE_CC). */
+export const OFFICER_ACTIVATE_CC_COST = 1
 /** @deprecated use DEPLOY_ZONE_DEPTH — kept for any stray imports. */
 export const DEPLOY_DEPTH = DEPLOY_ZONE_DEPTH
 

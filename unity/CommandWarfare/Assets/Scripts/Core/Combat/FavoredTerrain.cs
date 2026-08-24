@@ -169,5 +169,27 @@ namespace CommandWarfare.Core.Combat
 
         public static bool HasForestFavored(CardDefinition card) =>
             Matches(card, TerrainKind.Forest);
+
+        /// <summary>Primary favored terrain for map weighting (explicit field → keyword → race default → plains).</summary>
+        public static TerrainKind PrimaryKindForCard(CardDefinition card)
+        {
+            if (card == null) return TerrainKind.Plains;
+            if (!string.IsNullOrWhiteSpace(card.favoredTerrain))
+            {
+                var parsed = ParseKind(card.favoredTerrain);
+                if (parsed.HasValue) return parsed.Value;
+            }
+            if (card.keywords != null)
+            {
+                foreach (var k in card.keywords)
+                {
+                    if (string.IsNullOrEmpty(k)) continue;
+                    if (KeywordToTerrain.TryGetValue(k, out var kwTerrain))
+                        return kwTerrain;
+                }
+            }
+            var raceDefault = RaceDefault(card.race);
+            return raceDefault ?? TerrainKind.Plains;
+        }
     }
 }

@@ -28,6 +28,7 @@ sim-*.json
 sim-*.err
 sim-*.md
 sim-err.txt
+sim-err*.txt
 diag-*.json
 ultimate-lengths.json
 scripts/battleSim-out.json
@@ -50,7 +51,7 @@ sim/*
 *.sln
 *.sw?
 
-# Unity client — exclude local binary art/models and editor junk
+# Unity client â€” exclude local binary art/models and editor junk
 unity/CommandWarfare/Library/
 unity/CommandWarfare/Temp/
 unity/CommandWarfare/Logs/
@@ -61,6 +62,14 @@ unity/CommandWarfare/Assets/Prefabs/Generated/
 
 unity/CommandWarfare/Assets/StreamingAssets/CardArt/
 
+# Heavy local-only 3D packs (download / wire in Editor; do not push)
+unity/CommandWarfare/Assets/Art/Environment/PolyHavenInterior/
+unity/CommandWarfare/Assets/Art/Environment/KenneyFurnitureKit/
+unity/CommandWarfare/Assets/Art/Environment/KenneyCastleKit/
+unity/CommandWarfare/Assets/Art/Units/
+unity/CommandWarfare/Assets/Prefabs/Room/
+unity/CommandWarfare/Assets/Prefabs/Units/
+unity/CommandWarfare/Assets/Prefabs/Terrain/Kenney/
+
 .cursor/
 .vs/
-

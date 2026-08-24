@@ -63,6 +63,7 @@ namespace CommandWarfare.Board
             }
         }
         public bool IsNetworkMode => _network != null && _network.NetworkMode;
+        public string RoomSeed => _roomSeed;
         public event Action TurnChanged;
         public event Action SelectionChanged;
 
@@ -85,6 +86,8 @@ namespace CommandWarfare.Board
         /// <summary>Called by PlayNetworkBridge when server state arrives.</summary>
         public void ApplyNetworkStateRefresh()
         {
+            if (!string.IsNullOrEmpty(_state?.RoomCode))
+                SyncRoomSeed(_state.RoomCode);
             if (_state.Terrain != null && _state.Terrain.Count > 0)
                 _board.Rebuild(_state.Terrain);
             SyncTokensToState();
@@ -162,7 +165,7 @@ namespace CommandWarfare.Board
                     ConfirmDeploy(_state.ActiveSeat ?? SeatId.N);
                 else if (_state.PendingCleave != null)
                     ConfirmCleave();
-                else if (_state.PendingTrample != null)
+                else if (CombatFollowup.IsPendingTrampleValid(_state, out _))
                     TryContinueTrample();
                 else
                     EndTurn();
@@ -248,6 +251,8 @@ namespace CommandWarfare.Board
             _state.LastActionLog = "Click an enemy to attack (RMB cancel).";
             RefreshHighlights();
             SelectionChanged?.Invoke();
+            // Prevent the Attack button's own mouse-down from also raycasting the board.
+            BoardInputController.HudBlocksBoardClicks = true;
         }
 
         public static bool UnitAlreadyAttacked(UnitToken unit)
@@ -288,6 +293,15 @@ namespace CommandWarfare.Board
             }
             if (!TryAttack(attacker, defender))
             {
+                // Cleave opens its own pending UI — keep that, clear only a failed attack.
+                if (_state.PendingCleave != null)
+                {
+                    _pendingAttackTargetId = null;
+                    _pendingAttackPick = false;
+                    RefreshHighlights();
+                    SelectionChanged?.Invoke();
+                    return true;
+                }
                 _pendingAttackTargetId = null;
                 _pendingAttackPick = false;
                 SelectionChanged?.Invoke();
@@ -341,6 +355,7 @@ namespace CommandWarfare.Board
             Debug.Log($"[CommandWarfare] {result.Log}");
             BattleAudio.PlayAbility();
             SyncTokensToState();
+            EndTurnAfterAction();
             RefreshHighlights();
             SelectionChanged?.Invoke();
             return true;
@@ -373,9 +388,27 @@ namespace CommandWarfare.Board
 
         void EnsureRng()
         {
-            if (_rng != null) return;
-            _rng = new SeededRng(SeededRng.SeedFromRoomCode(
-                string.IsNullOrEmpty(_roomSeed) ? "dev" : _roomSeed, "combat"));
+            var seed = string.IsNullOrEmpty(_roomSeed) ? "dev" : _roomSeed;
+            if (_rng == null)
+                _rng = new SeededRng(SeededRng.SeedFromRoomCode(seed, "combat"));
+        }
+
+        /// <summary>Propagate room code to state, board visuals, and combat RNG.</summary>
+        public void SyncRoomSeed(string roomCode)
+        {
+            if (string.IsNullOrWhiteSpace(roomCode)) return;
+            _roomSeed = roomCode.Trim();
+            if (_board == null) _board = GetComponent<HexBoardBuilder>();
+            _board?.SetRoomSeed(_roomSeed);
+            if (_state != null) _state.RoomCode = _roomSeed;
+            _rng = new SeededRng(SeededRng.SeedFromRoomCode(_roomSeed, "combat"));
+        }
+
+        /// <summary>New random map seed for offline skirmish (called at match/room setup).</summary>
+        public void AssignNewRoomSeed()
+        {
+            if (IsNetworkMode) return;
+            SyncRoomSeed(RoomSeedGenerator.Generate());
         }
 
         void EnsureCardDatabase()
@@ -425,6 +458,7 @@ namespace CommandWarfare.Board
             }
             else
             {
+                AssignNewRoomSeed();
                 _state = GameSessionFactory.CreateArmyBuildLobby(
                     _roomSeed,
                     _state?.NorthRace ?? "Human",
@@ -548,6 +582,7 @@ namespace CommandWarfare.Board
             EnsureCardDatabase();
             if (_board == null) _board = GetComponent<HexBoardBuilder>();
             _state = GameSessionFactory.BeginForceSelectFromArmyBuild(_state, _cardDatabase, preserveArmies);
+            SyncRoomSeed(_state.RoomCode);
             if (_state?.Terrain != null && _state.Terrain.Count > 0 && _board != null)
                 _board.Rebuild(_state.Terrain);
             SyncTokensToState();
@@ -565,6 +600,7 @@ namespace CommandWarfare.Board
             EnsureCardDatabase();
             if (_board == null) _board = GetComponent<HexBoardBuilder>();
             _state = GameSessionFactory.BeginDeployFromArmyBuild(_state, _cardDatabase);
+            SyncRoomSeed(_state.RoomCode);
             if (_state?.Terrain != null && _state.Terrain.Count > 0 && _board != null)
                 _board.Rebuild(_state.Terrain);
             SyncTokensToState();
@@ -815,6 +851,7 @@ namespace CommandWarfare.Board
             Debug.Log($"[CommandWarfare] Cleave: {log}");
             SyncTokensToState();
             CheckVictory();
+            EndTurnAfterAction();
             RefreshHighlights();
             SelectionChanged?.Invoke();
         }
@@ -879,9 +916,18 @@ namespace CommandWarfare.Board
                 RefreshHighlights();
                 return;
             }
+            CombatFollowup.SanitizePendingFollowups(_state);
+            var beforeSeat = _state.ActiveSeat;
+            var beforeRound = _state.Round;
             TurnSystem.EndTurn(_state, _cardDatabase);
             RefreshHighlights();
-            Debug.Log($"[CommandWarfare] Turn → {_state.ActiveSeat} (round {_state.Round})");
+            if (_state.Round != beforeRound)
+                Debug.Log($"[CommandWarfare] Round → {_state.Round}; Turn → {_state.ActiveSeat}");
+            else if (_state.ActiveSeat != beforeSeat)
+                Debug.Log($"[CommandWarfare] Turn → {_state.ActiveSeat} (round {_state.Round})");
+            if (!string.IsNullOrEmpty(_state.LastActionLog) &&
+                _state.LastActionLog.Contains("skipped"))
+                Debug.Log($"[CommandWarfare] {_state.LastActionLog}");
             TurnChanged?.Invoke();
         }
 
@@ -1027,14 +1073,10 @@ namespace CommandWarfare.Board
 
                 var race = !string.IsNullOrEmpty(unit.Race) ? unit.Race : RaceFor(unit.Seat);
                 GameObject prefab = null;
-                var tint = SeatColors.Fill(unit.Seat);
+                // Catalog meshes keep authored textures; seat identity is the plate color.
+                var tint = Color.white;
                 if (_unitCatalog != null)
-                {
                     prefab = _unitCatalog.Resolve(unit.Kind, race, unit.CardId);
-                    // Prefer seat color for miniatures; catalog tint only for real meshes.
-                    if (prefab != null && !UnitTokenView.IsPlaceholderPrefab(prefab))
-                        tint = _unitCatalog.TintFor(unit.Kind, race, unit.CardId, unit.Seat);
-                }
 
                 var view = go.AddComponent<UnitTokenView>();
                 view.SetBoardIdentity(unit.Id, unit.Col, unit.Row);
@@ -1277,6 +1319,25 @@ namespace CommandWarfare.Board
                 ? null
                 : _state.Units.FirstOrDefault(u => u.Id == _state.SelectedUnitId);
 
+        /// <summary>Select a unit from HUD / quick-pick without requiring a board click.</summary>
+        public void SelectUnit(string unitId)
+        {
+            if (_state == null || string.IsNullOrEmpty(unitId) || _state.Units == null) return;
+            UnitToken found = null;
+            foreach (var u in _state.Units)
+            {
+                if (u.Id != unitId) continue;
+                found = u;
+                break;
+            }
+            if (found == null) return;
+
+            CancelPendingPlayAction();
+            _state.SelectedUnitId = found.Id;
+            RefreshHighlights();
+            SelectionChanged?.Invoke();
+        }
+
         void OnTileClicked(HexTile tile)
         {
             if (_state.Phase == Phase.Ended || _state.Phase == Phase.ArmyBuild ||
@@ -1334,7 +1395,7 @@ namespace CommandWarfare.Board
                 return;
             }
 
-            // Attack mode: pick / retarget enemy (do not steal inspect selection).
+            // Attack mode: pick enemy and resolve immediately (confirm still available if needed).
             if (_pendingAttackPick || !string.IsNullOrEmpty(_pendingAttackTargetId))
             {
                 if (!myTurn) return;
@@ -1343,12 +1404,12 @@ namespace CommandWarfare.Board
                 {
                     _pendingAttackPick = false;
                     _pendingAttackTargetId = unit.Id;
-                    _state.LastActionLog = $"Attack {unit.CardName}? Confirm in HUD (RMB cancel).";
+                    _state.LastActionLog = $"Attacking {unit.CardName}…";
+                    TryConfirmPendingAttack();
+                    return;
                 }
-                else if (unit == null)
-                {
+                if (unit == null)
                     CancelPendingPlayAction();
-                }
                 RefreshHighlights();
                 SelectionChanged?.Invoke();
                 return;
@@ -1471,7 +1532,9 @@ namespace CommandWarfare.Board
             }
             CheckVictory();
             if (_state.Phase == Phase.Ended) return;
-            if (_state.PendingTrample != null || _state.PendingCleave != null) return;
+            if (CombatFollowup.IsPendingTrampleValid(_state, out _) ||
+                CombatFollowup.IsPendingCleaveValid(_state, out _))
+                return;
             if (HasPendingFollowupAction(out var note))
             {
                 if (!string.IsNullOrEmpty(note))
@@ -1483,6 +1546,17 @@ namespace CommandWarfare.Board
                 SelectionChanged?.Invoke();
                 return;
             }
+
+            // Auto-end only when this seat has nothing left (all companies/commander
+            // already used for the round, and no move/attack/cast remaining).
+            if (_state.ActiveSeat.HasValue &&
+                TurnSystem.SeatCanActThisTurn(_state, _state.ActiveSeat.Value, _abilityDatabase))
+            {
+                RefreshHighlights();
+                SelectionChanged?.Invoke();
+                return;
+            }
+
             EndTurn();
         }
 
@@ -1518,6 +1592,7 @@ namespace CommandWarfare.Board
             if (!SkirmishActions.ExecuteMove(_state, unit, dest)) return false;
             SyncTokensToState();
             Debug.Log($"[CommandWarfare] {unit.CardName} → ({dest.Col},{dest.Row})");
+            EndTurnAfterAction();
             return true;
         }
 
@@ -1552,6 +1627,7 @@ namespace CommandWarfare.Board
             Debug.Log($"[CommandWarfare] {log}");
             SpawnCombatFx(defender, log);
             SyncTokensToState();
+            EndTurnAfterAction();
             return true;
         }
 

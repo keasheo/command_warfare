@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CommandWarfare.Core;
 using CommandWarfare.Core.Combat;
 using CommandWarfare.Core.Types;
 using CommandWarfare.Data;
@@ -47,6 +48,11 @@ namespace CommandWarfare.Core.State
             if (state.ActiveCompanyOfficerId == officer.Id)
                 return ActivateResult.Success(null);
 
+            var ccSpend = PoolSpending.TrySpendCommanderCc(
+                state, officer.Seat, GameConstants.OfficerActivateCcCost);
+            if (!ccSpend.Ok)
+                return ActivateResult.Fail(ccSpend.Error ?? "Not enough CC.");
+
             EndPreviousCompanyActivation(state, officer.Seat);
 
             var companyCardId = officer.CardId;
@@ -89,7 +95,7 @@ namespace CommandWarfare.Core.State
             var pool = state.CompanyPools.TryGetValue(officer.Id, out var p) ? p : default;
             var poisonNote = poisonKills.Count > 0 ? $" · Poison killed {poisonKills.Count}" : "";
             return ActivateResult.Success(
-                $"{officer.Seat} activated {officer.CardName}'s company (AP {pool.Ap}/{pool.ApMax}){poisonNote}.");
+                $"{officer.Seat} activated {officer.CardName}'s company (−{GameConstants.OfficerActivateCcCost} CC · AP {pool.Ap}/{pool.ApMax}){poisonNote}.");
         }
 
         public static void EndPreviousCompanyActivation(GameState state, SeatId seat)

@@ -147,7 +147,7 @@ namespace CommandWarfare.Core.State
 
         public static void OfferTrample(GameState state, UnitToken attacker, UnitToken defender, AttackResult result)
         {
-            if (!result.TrampleEligible) return;
+            if (!result.TrampleEligible || !CombatKeywords.HasTrample(attacker)) return;
             state.PendingTrample = new PendingTrample
             {
                 AttackerId = attacker.Id,
@@ -155,6 +155,64 @@ namespace CommandWarfare.Core.State
                 DestRow = defender.Row,
                 LeftoverDamage = result.TrampleLeftover,
             };
+        }
+
+        /// <summary>Drop stale prompts (wrong seat, dead attacker, missing keyword).</summary>
+        public static void SanitizePendingFollowups(GameState state)
+        {
+            if (state == null) return;
+            if (state.PendingTrample != null && !IsPendingTrampleValid(state, out _))
+                state.PendingTrample = null;
+            if (state.PendingCleave != null && !IsPendingCleaveValid(state, out _))
+                state.PendingCleave = null;
+        }
+
+        /// <summary>Auto-dismiss unresolved follow-ups when a seat ends their turn.</summary>
+        public static void DismissPendingFollowupsForSeat(GameState state, SeatId seat)
+        {
+            if (state == null) return;
+            if (state.PendingTrample != null)
+            {
+                var atk = FindUnit(state, state.PendingTrample.AttackerId);
+                if (atk == null || atk.Seat == seat)
+                    state.PendingTrample = null;
+            }
+            if (state.PendingCleave != null)
+            {
+                var atk = FindUnit(state, state.PendingCleave.AttackerId);
+                if (atk == null || atk.Seat == seat)
+                    state.PendingCleave = null;
+            }
+        }
+
+        public static bool IsPendingTrampleValid(GameState state, out UnitToken attacker)
+        {
+            attacker = null;
+            var pending = state?.PendingTrample;
+            if (pending == null || !state.ActiveSeat.HasValue) return false;
+            attacker = FindUnit(state, pending.AttackerId);
+            if (attacker == null || attacker.Seat != state.ActiveSeat.Value) return false;
+            return CombatKeywords.HasTrample(attacker);
+        }
+
+        public static bool IsPendingCleaveValid(GameState state, out UnitToken attacker)
+        {
+            attacker = null;
+            var pending = state?.PendingCleave;
+            if (pending == null || !state.ActiveSeat.HasValue) return false;
+            attacker = FindUnit(state, pending.AttackerId);
+            if (attacker == null || attacker.Seat != state.ActiveSeat.Value) return false;
+            return CombatKeywords.HasCleave(attacker);
+        }
+
+        static UnitToken FindUnit(GameState state, string id)
+        {
+            if (state?.Units == null || string.IsNullOrEmpty(id)) return null;
+            foreach (var u in state.Units)
+            {
+                if (u.Id == id) return u;
+            }
+            return null;
         }
 
         public static bool ContinueTrample(GameState state, out string log)

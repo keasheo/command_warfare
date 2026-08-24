@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace CommandWarfare.UI
 {
-    /// <summary>Selected-unit inspect: compact stats + full card face on the battlefield HUD.</summary>
+    /// <summary>Unit inspect: compact stats + full card face on the battlefield HUD.</summary>
     public static class UnitInspectGui
     {
         public static void Draw(GameState state, UnitToken unit, CardDatabase cards = null, AbilityDatabase abilities = null)
@@ -20,10 +20,11 @@ namespace CommandWarfare.UI
             var card = cards != null
                 ? cards.FindByIdOrName(unit.CardId, unit.CardName)
                 : null;
+            var activation = UnitBattleAvailability.Describe(state, unit, abilities);
 
             var cardW = Mathf.Clamp(Screen.width * 0.26f, 200f, 300f);
             var cardH = cardW * (CardFaceGui.RefH / CardFaceGui.RefW);
-            var statsH = 132f;
+            var statsH = 150f;
             var gap = 8f;
             var totalH = statsH + gap + cardH;
             if (totalH > Screen.height - 24f)
@@ -65,6 +66,11 @@ namespace CommandWarfare.UI
                 MenuStyle.Body);
             sy += 16f;
 
+            GUI.color = ActivationColor(activation.Tone);
+            GUI.Label(new Rect(sx, sy, iw, 16), activation.StatusLabel, MenuStyle.Body);
+            GUI.color = Color.white;
+            sy += 16f;
+
             var statuses = StatusLine(unit);
             if (!string.IsNullOrEmpty(statuses))
                 GUI.Label(new Rect(sx, sy, iw, 16), statuses, MenuStyle.MutedLabel);
@@ -72,6 +78,14 @@ namespace CommandWarfare.UI
             var cardRect = new Rect(x, statsRect.yMax + gap, cardW, cardH);
             CardFaceGui.Draw(cardRect, card, abilities);
         }
+
+        static Color ActivationColor(UnitBattleAvailability.Tone tone) => tone switch
+        {
+            UnitBattleAvailability.Tone.Ready => new Color(0.55f, 0.9f, 0.55f),
+            UnitBattleAvailability.Tone.Active => new Color(0.95f, 0.85f, 0.4f),
+            UnitBattleAvailability.Tone.Done => new Color(0.7f, 0.65f, 0.6f),
+            _ => new Color(0.75f, 0.75f, 0.75f),
+        };
 
         static bool HasPromotedKeyword(UnitToken unit)
         {

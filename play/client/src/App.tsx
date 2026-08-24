@@ -3882,7 +3882,8 @@ export default function App() {
                     state.activeCompanyOfficerId === selectedUnit.id ||
                     !!state.companiesActivatedThisRound?.[selectedUnit.id] ||
                     (!!state.companyActivatedThisTurn?.[seat] &&
-                      state.companyActivatedThisTurn[seat] !== selectedUnit.id)
+                      state.companyActivatedThisTurn[seat] !== selectedUnit.id) ||
+                    (state.commanderPools[seat]?.cc ?? 0) < 1
                   }
                   onClick={() =>
                     send({
@@ -3898,7 +3899,9 @@ export default function App() {
                       : state.companyActivatedThisTurn?.[seat] &&
                           state.companyActivatedThisTurn[seat] !== selectedUnit.id
                         ? 'One company per turn'
-                        : 'Activate company'}
+                        : (state.commanderPools[seat]?.cc ?? 0) < 1
+                          ? 'Activate company (need 1 CC)'
+                          : 'Activate company (−1 CC)'}
                 </button>
               ) : null}
               {selectedUnit.seat === seat &&

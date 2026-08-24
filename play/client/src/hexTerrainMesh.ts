@@ -24,15 +24,18 @@ export function hexTerrainVariant(
 }
 
 /** Block height above ground (Y-up). Taller prisms so sides read clearly. */
+const STANDARD_BLOCK_HEIGHT = 0.72
+
+/** Uniform base prism height — elevation variation lives in scatter props only. */
 export const TERRAIN_BLOCK_HEIGHT: Record<TerrainKind, number> = {
-  plains: 0.72,
-  forest: 0.88,
-  swamp: 0.58,
-  desert: 0.68,
-  water: 0.38,
+  plains: STANDARD_BLOCK_HEIGHT,
+  forest: STANDARD_BLOCK_HEIGHT,
+  swamp: STANDARD_BLOCK_HEIGHT,
+  desert: STANDARD_BLOCK_HEIGHT,
+  water: STANDARD_BLOCK_HEIGHT,
   wall: 2.1,
-  volcanic: 0.92,
-  mountains: 1.85,
+  volcanic: STANDARD_BLOCK_HEIGHT,
+  mountains: STANDARD_BLOCK_HEIGHT,
 }
 
 const TERRAIN_PALETTE: Record<TerrainKind, readonly number[]> = {
@@ -42,7 +45,7 @@ const TERRAIN_PALETTE: Record<TerrainKind, readonly number[]> = {
   desert: [0xe8b868, 0xf0c070, 0xe0b060, 0xf8c878, 0xd8a858],
   water: [0x4898d8, 0x50a0e0, 0x4090d0, 0x58a8e8, 0x3888c8],
   wall: [0x989ca8, 0xa0a4b0, 0x909498, 0xa8acb8, 0x888c98],
-  volcanic: [0x685850, 0x706058, 0x605048, 0x786860, 0x584840],
+  volcanic: [0x0a0a0a, 0x120808, 0x180606, 0x0e0404, 0x1c0a08],
   mountains: [0x6a6870, 0x747278, 0x605e68, 0x7a7880, 0x58565e],
 }
 
@@ -53,7 +56,7 @@ const VARIANT_COLOR_TINT: Record<TerrainKind, readonly number[]> = {
   desert: [0xffffff, 0xfff8f0, 0xfff4e8, 0xfffaf4, 0xfff0e0],
   water: [0xd0e8ff, 0xc8e4ff, 0xd8ecff, 0xc0e0ff, 0xe0f0ff],
   wall: [0xffffff, 0xf4f4f6, 0xeeeef2, 0xf8f8fa, 0xe8e8ec],
-  volcanic: [0xffffff, 0xfff0ec, 0xffe8e4, 0xfff4f0, 0xffe0dc],
+  volcanic: [0x0a0a0a, 0x120808, 0x180606, 0x0e0404, 0x1c0a08],
   mountains: [0xffffff, 0xf2f2f4, 0xeaecef, 0xf6f6f8, 0xe4e6ea],
 }
 
@@ -281,17 +284,17 @@ function createHexPrism(radius: number, height: number): THREE.ExtrudeGeometry {
 }
 
 function terrainMaterial(kind: TerrainKind, variant: number): THREE.MeshStandardMaterial {
-  const tex = getTerrainTexture(kind, variant)
+  const tex = kind === 'volcanic' ? null : getTerrainTexture(kind, variant)
   const tint = VARIANT_COLOR_TINT[kind][variant % 5]!
   return new THREE.MeshStandardMaterial({
     map: tex,
     color: tint,
     roughness:
-      kind === 'water' ? 0.22 : kind === 'wall' ? 0.78 : kind === 'swamp' ? 0.84 : 0.68,
+      kind === 'water' ? 0.22 : kind === 'wall' ? 0.78 : kind === 'volcanic' ? 0.48 : kind === 'swamp' ? 0.84 : 0.68,
     metalness:
       kind === 'water' ? 0.42 : kind === 'volcanic' ? 0.1 : kind === 'swamp' ? 0.02 : 0.04,
-    emissive: kind === 'volcanic' ? 0x180804 : kind === 'swamp' ? 0x081008 : 0x000000,
-    emissiveIntensity: kind === 'volcanic' ? 0.12 : kind === 'swamp' ? 0.04 : 0,
+    emissive: kind === 'volcanic' ? 0x201008 : kind === 'swamp' ? 0x081008 : 0x000000,
+    emissiveIntensity: kind === 'volcanic' ? 0.18 : kind === 'swamp' ? 0.04 : 0,
   })
 }
 
@@ -506,30 +509,8 @@ function addVariantDetail(
       }
       break
     }
-    case 'volcanic': {
-      const shardCount = 2 + (variant % 3)
-      for (let i = 0; i < shardCount; i++) {
-        const { x, z } = randomInHex(rng, radius, 0.15)
-        const shard = new THREE.Mesh(SHARED.shardGeo, SHARED.shardMat)
-        const h = radius * (0.1 + rng() * 0.08)
-        shard.position.set(x, topY + h * 0.35, z)
-        shard.scale.set(radius * 0.06, h, radius * 0.06)
-        shard.rotation.set(rng() * 0.4, rng() * Math.PI, rng() * 0.3)
-        markDetailMesh(shard)
-        detailGroup.add(shard)
-      }
-      const crackCount = 1 + (variant % 2)
-      for (let i = 0; i < crackCount; i++) {
-        const { x, z } = randomInHex(rng, radius, 0.1)
-        const crack = new THREE.Mesh(SHARED.grassBladeGeo, SHARED.lavaCrackMat)
-        crack.position.set(x, topY + 0.02, z)
-        crack.scale.set(radius * 0.04, 0.04, radius * 0.35)
-        crack.rotation.y = rng() * Math.PI
-        markDetailMesh(crack)
-        detailGroup.add(crack)
-      }
+    case 'volcanic':
       break
-    }
     case 'wall': {
       if (variant >= 1) {
         const crenCount = 3 + (variant % 2)

@@ -6,6 +6,7 @@ import {
   DEFAULT_UNIT_MOVE,
   DEFAULT_OFFICER_COMMAND_RADIUS,
   DEFAULT_COMMANDER_COMMAND_RADIUS,
+  OFFICER_ACTIVATE_CC_COST,
   DEPLOY_ZONE_DEPTH,
   DEPLOY_ZONE_WIDTH,
   SIEGE_DEPLOY_DEPTH,
@@ -3910,8 +3911,24 @@ export function reduceAction(
       return { ok: true, state }
     }
 
+    const cmdPool = state.commanderPools[seat]
+    if (!cmdPool) return { ok: false, error: 'No commander pool.' }
+    if (cmdPool.cc < OFFICER_ACTIVATE_CC_COST) {
+      return { ok: false, error: 'Not enough CC.' }
+    }
+
     const companyCardId = officer.cardId
     let baseState = endPreviousCompanyActivation(state, seat)
+    baseState = {
+      ...baseState,
+      commanderPools: {
+        ...baseState.commanderPools,
+        [seat]: {
+          ...cmdPool,
+          cc: cmdPool.cc - OFFICER_ACTIVATE_CC_COST,
+        },
+      },
+    }
     const units = baseState.units.map((u) => {
       const inCompany =
         u.id === officer.id ||
@@ -3959,11 +3976,13 @@ export function reduceAction(
     next = removeDestroyedUnits(next)
     next = refreshCompanyPool(next, officer)
     const pool = next.companyPools[officer.id]
+    const ccLeft = next.commanderPools[seat]?.cc ?? 0
+    const ccMax = next.commanderPools[seat]?.ccMax ?? 0
     return {
       ok: true,
       state: pushLog(
         next,
-        `${seat} activated ${officer.cardName}'s company (Company AP ${pool?.ap ?? 0}/${pool?.apMax ?? 0}).`,
+        `${seat} activated ${officer.cardName}'s company (−${OFFICER_ACTIVATE_CC_COST} CC · ${ccLeft}/${ccMax} left · Company AP ${pool?.ap ?? 0}/${pool?.apMax ?? 0}).`,
       ),
     }
   }

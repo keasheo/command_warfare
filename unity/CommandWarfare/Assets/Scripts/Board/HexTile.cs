@@ -17,7 +17,7 @@ namespace CommandWarfare.Board
         MeshFilter _filter;
         Color _baseColor;
         Material _mat;
-        float _hexSize = 1.85f;
+        float _hexSize = 1.0f;
         float _blockHeight = 0.72f;
         HighlightKind _highlightKind = HighlightKind.None;
         Transform _highlight;
@@ -25,9 +25,23 @@ namespace CommandWarfare.Board
         Material _highlightMat;
 
         static readonly System.Collections.Generic.Dictionary<int, Mesh> PrismByHeightMm = new();
+        static float _cachedHexSize = -1f;
+        const float WorldUvScale = 0.28f;
 
-        static Mesh GetPrism(float hexSize, float height)
+        public static void ClearMeshCache()
         {
+            PrismByHeightMm.Clear();
+            _cachedHexSize = -1f;
+        }
+
+        static Mesh GetHighlightPrism(float hexSize, float height)
+        {
+            if (!Mathf.Approximately(_cachedHexSize, hexSize))
+            {
+                PrismByHeightMm.Clear();
+                _cachedHexSize = hexSize;
+            }
+
             var key = Mathf.RoundToInt(height * 1000f);
             if (!PrismByHeightMm.TryGetValue(key, out var mesh))
             {
@@ -49,24 +63,46 @@ namespace CommandWarfare.Board
             Terrain = terrain;
             Variant = variant;
             _hexSize = hexSize;
-            _baseColor = TerrainVisuals.BaseColor(terrain, variant);
+            // One tint per biome for every terrain kind — contiguous regions read as one sheet.
+            _baseColor = TerrainVisuals.BaseColor(terrain, 0);
             _blockHeight = TerrainVisuals.BlockHeight(terrain);
             transform.localPosition = HexMath.OddRToWorld(coord.Col, coord.Row, hexSize);
 
             EnsureComponents();
 
-            _filter.sharedMesh = GetPrism(hexSize, _blockHeight);
-            TerrainMaterialFactory.UvJitterForHex(coord.Col, coord.Row, out var uvOffset, out var uvRot);
-            _mat = TerrainMaterialFactory.CreateForTerrain(terrain, variant, catalog, uvOffset, uvRot);
+            // Per-tile mesh with planar world UVs. Shared local-UV meshes stamp a repeating
+            // dark center on every hex; material UV offsets cannot fix that.
+            if (_filter.sharedMesh != null && _filter.sharedMesh.name == "HexPrismWorld")
+            {
+                if (Application.isPlaying) Destroy(_filter.sharedMesh);
+                else DestroyImmediate(_filter.sharedMesh);
+            }
+            var world = new Vector2(transform.localPosition.x, transform.localPosition.z);
+            _filter.sharedMesh = HexMeshBuilder.CreatePrism(
+                hexSize, _blockHeight, world, WorldUvScale, flattenTopNormals: true);
+            _filter.sharedMesh.name = "HexPrismWorld";
+
+            // Shared material per biome (no per-hex UV offset).
+            _mat = TerrainMaterialFactory.CreateForTerrain(terrain, 0, catalog);
             _renderer.sharedMaterial = _mat;
-            TerrainMaterialFactory.SetMaterialColor(_mat, _baseColor);
+            // Water mat already has the right translucent tint — don't overwrite alpha to opaque.
+            // Volcanic / Mountains: albedo carries cracks / strata — keep BaseColor near-white.
+            if (terrain != TerrainKind.Water)
+                TerrainMaterialFactory.SetMaterialColor(_mat, DisplayTint());
+            _renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            _renderer.receiveShadows = false;
 
             if (terrain == TerrainKind.Wall)
                 WallMeshBuilder.DressWallHex(transform, hexSize, _blockHeight, _baseColor);
+            else if (terrain == TerrainKind.Water)
+                WaterSurfaceDress.Apply(this, hexSize);
 
-            EnsureHexOutline();
+            // No hard hex outline on land — outlines make the grid obvious and fight biome fades.
+            if (terrain == TerrainKind.Wall)
+                EnsureHexOutline();
+            else
+                ClearHexOutline();
 
-            // Keep any prior overlay in sync after rebuild.
             if (_highlight != null)
                 PositionHighlight();
         }
@@ -79,24 +115,30 @@ namespace CommandWarfare.Board
             HexTerrainAutotile.Apply(this, edgeNeighborKinds, _hexSize, catalog);
         }
 
-        void EnsureHexOutline()
+        void ClearHexOutline()
         {
             var existing = transform.Find("HexOutline");
-            if (existing != null)
-            {
-                if (Application.isPlaying) Destroy(existing.gameObject);
-                else DestroyImmediate(existing.gameObject);
-            }
+            if (existing == null) return;
+            if (Application.isPlaying) Destroy(existing.gameObject);
+            else DestroyImmediate(existing.gameObject);
+        }
 
+        void EnsureHexOutline()
+        {
+            ClearHexOutline();
+
+            // Wall outline: very thin and faint so fortifications stay readable
+            // without calling out hex geometry. Sits slightly inset from the prism edge.
             var go = new GameObject("HexOutline");
             go.transform.SetParent(transform, false);
             go.transform.localPosition = Vector3.zero;
             var filter = go.AddComponent<MeshFilter>();
             var renderer = go.AddComponent<MeshRenderer>();
-            filter.sharedMesh = HexMeshBuilder.CreateOutlineRing(_hexSize * 0.985f, _blockHeight + 0.028f, 0.028f);
+            filter.sharedMesh = HexMeshBuilder.CreateOutlineRing(_hexSize * 0.96f, _blockHeight + 0.022f, 0.018f);
             renderer.sharedMaterial = TerrainMaterialFactory.CreateTileInstance(
-                new Color(0.07f, 0.08f, 0.09f, 0.55f), null, 1f, 0.05f, 0f, Color.black);
+                new Color(0.05f, 0.055f, 0.06f, 0.38f), null, 1f, 0.03f, 0f, Color.black);
             renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            renderer.receiveShadows = false;
             var col = go.GetComponent<Collider>();
             if (col != null) DestroyImmediate(col);
         }
@@ -146,14 +188,15 @@ namespace CommandWarfare.Board
             var filter = go.AddComponent<MeshFilter>();
             _highlightRenderer = go.AddComponent<MeshRenderer>();
             // Thin hex prism floating above the block — not a material tint under scatter.
-            filter.sharedMesh = HexMeshBuilder.CreatePrism(_hexSize * 0.98f, 0.06f);
+            filter.sharedMesh = GetHighlightPrism(_hexSize * 0.98f, 0.06f);
             _highlightMat = TerrainMaterialFactory.CreateTileInstance(
                 Color.white,
                 null,
                 1f,
                 0.05f,
                 0f,
-                Color.white);
+                Color.black);
+            TerrainMaterialFactory.MakeTransparent(_highlightMat);
             _highlightRenderer.sharedMaterial = _highlightMat;
             _highlightRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             _highlightRenderer.receiveShadows = false;
@@ -172,15 +215,17 @@ namespace CommandWarfare.Board
         void ApplyHighlightVisual(HighlightKind kind)
         {
             if (_highlightMat == null) return;
+            // Command radii stay faint so terrain stays readable underneath.
             var (fill, glow) = kind switch
             {
-                HighlightKind.Selected => (new Color(1f, 0.92f, 0.25f, 1f), new Color(1.4f, 1.1f, 0.2f)),
-                HighlightKind.Move => (new Color(0.15f, 1f, 0.55f, 1f), new Color(0.1f, 1.6f, 0.5f)),
-                HighlightKind.Attack => (new Color(1f, 0.22f, 0.18f, 1f), new Color(1.6f, 0.2f, 0.1f)),
-                HighlightKind.CommandRadius => (new Color(0.45f, 0.55f, 1f, 1f), new Color(0.35f, 0.45f, 1.4f)),
-                HighlightKind.CommanderRadius => (new Color(0.85f, 0.45f, 1f, 1f), new Color(1.1f, 0.35f, 1.4f)),
-                _ => (Color.white, Color.black),
+                HighlightKind.Selected => (new Color(1f, 0.92f, 0.25f, 0.55f), new Color(0.55f, 0.45f, 0.08f)),
+                HighlightKind.Move => (new Color(0.15f, 1f, 0.55f, 0.45f), new Color(0.04f, 0.45f, 0.15f)),
+                HighlightKind.Attack => (new Color(1f, 0.22f, 0.18f, 0.5f), new Color(0.55f, 0.08f, 0.04f)),
+                HighlightKind.CommandRadius => (new Color(0.45f, 0.55f, 1f, 0.16f), new Color(0.08f, 0.1f, 0.22f)),
+                HighlightKind.CommanderRadius => (new Color(0.85f, 0.45f, 1f, 0.14f), new Color(0.16f, 0.06f, 0.2f)),
+                _ => (new Color(1f, 1f, 1f, 0.3f), Color.black),
             };
+            TerrainMaterialFactory.MakeTransparent(_highlightMat);
             TerrainMaterialFactory.SetMaterialColor(_highlightMat, fill);
             if (_highlightMat.HasProperty("_EmissionColor"))
             {
@@ -193,14 +238,25 @@ namespace CommandWarfare.Board
         {
             // Hover only when not already highlighted — overlay owns selection feedback.
             if (_highlightKind != HighlightKind.None || _mat == null) return;
-            TerrainMaterialFactory.SetMaterialColor(_mat, _baseColor * 1.12f);
+            TerrainMaterialFactory.SetMaterialColor(_mat, DisplayTint() * 1.12f);
         }
 
         void OnMouseExit()
         {
             if (_mat == null) return;
-            TerrainMaterialFactory.SetMaterialColor(_mat, _baseColor);
+            TerrainMaterialFactory.SetMaterialColor(_mat, DisplayTint());
         }
+
+        /// <summary>
+        /// Color multiplied with albedo. Volcanic/Mountains keep this near white so
+        /// crack veins and green/brown strata in the texture stay visible.
+        /// </summary>
+        Color DisplayTint() => Terrain switch
+        {
+            TerrainKind.Volcanic => Color.Lerp(Color.white, _baseColor, 0.12f),
+            TerrainKind.Mountains => Color.Lerp(Color.white, _baseColor, 0.28f),
+            _ => _baseColor,
+        };
     }
 
     public enum HighlightKind { None, Selected, Move, Attack, CommandRadius, CommanderRadius }

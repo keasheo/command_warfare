@@ -179,17 +179,45 @@ namespace CommandWarfare.EditorTools
 
         static Color LavaRock(float u, float v, Color baseCol)
         {
-            var crack = Mathf.Pow(1f - Fbm(u * 10f, v * 10f, 4), 3f);
-            var glow = crack * crack;
-            var rock = Color.Lerp(baseCol * 0.7f, baseCol * 1.05f, Fbm(u * 7f, v * 7f, 3));
-            return rock + new Color(0.55f, 0.12f, 0.03f) * glow;
+            // Dark gray basalt with sparse red/orange crack veins (not a lava sheet).
+            var rockN = Fbm(u * 7f, v * 7f, 4);
+            var rock = Color.Lerp(
+                new Color(0.14f, 0.14f, 0.16f),
+                new Color(0.28f, 0.27f, 0.29f),
+                rockN);
+            rock = Color.Lerp(rock, baseCol, 0.45f);
+
+            // Thin ridge cracks — high power keeps most of the sheet charcoal.
+            var n1 = Fbm(u * 9f, v * 9f, 5);
+            var n2 = Fbm(u * 14f + 4f, v * 14f - 2f, 4);
+            var ridge1 = 1f - Mathf.Abs(n1 * 2f - 1f);
+            var ridge2 = 1f - Mathf.Abs(n2 * 2f - 1f);
+            var crack = Mathf.Pow(Mathf.Max(ridge1, ridge2 * 0.85f), 16f);
+            var branch = Mathf.Pow(1f - Mathf.Abs(Fbm(u * 18f - 1f, v * 8f, 3) * 2f - 1f), 20f);
+            crack = Mathf.Max(crack, branch * 0.55f);
+
+            var lava = Color.Lerp(
+                new Color(0.7f, 0.12f, 0.03f),
+                new Color(1f, 0.45f, 0.08f),
+                Mathf.Clamp01(crack * 1.4f));
+            // Soft heat bleed only very near the vein.
+            var glow = Mathf.Pow(crack, 0.45f) * 0.35f;
+            var warmed = Color.Lerp(rock, new Color(0.35f, 0.16f, 0.1f), glow);
+            return Color.Lerp(warmed, lava, crack);
         }
 
         static Color StoneStrata(float u, float v, Color baseCol)
         {
             var bands = Mathf.Abs(Mathf.Sin((v * 8f + Fbm(u * 3f, v * 3f, 2)) * Mathf.PI));
-            var grit = Fbm(u * 22f, v * 22f, 2) * 0.1f;
-            return Color.Lerp(baseCol * 0.8f, baseCol * 1.2f, bands) + Color.white * grit;
+            var grit = Fbm(u * 22f, v * 22f, 2);
+            var greenPatch = Fbm(u * 5f + 2f, v * 5f, 3);
+            var brownPatch = Fbm(u * 6f - 1f, v * 4f + 3f, 3);
+
+            // Light gray rock strata with readable green / light-brown mountain character.
+            var stone = Color.Lerp(baseCol * 0.9f, baseCol * 1.08f, bands);
+            stone = Color.Lerp(stone, new Color(0.48f, 0.6f, 0.4f), greenPatch * 0.42f);
+            stone = Color.Lerp(stone, new Color(0.78f, 0.62f, 0.44f), brownPatch * 0.38f * (1f - bands * 0.35f));
+            return stone + Color.white * (grit * 0.045f);
         }
 
         static Color StoneBrick(float u, float v, Color baseCol)

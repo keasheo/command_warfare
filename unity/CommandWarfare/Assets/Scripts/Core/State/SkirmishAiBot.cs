@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CommandWarfare.Core;
 using CommandWarfare.Core.Combat;
 using CommandWarfare.Core.Hex;
 using CommandWarfare.Core.Objectives;
@@ -171,6 +172,10 @@ namespace CommandWarfare.Core.State
                     if (state.ActiveCompanyOfficerId == officer.Id) continue;
                     if (state.CompaniesActivatedThisRound != null &&
                         state.CompaniesActivatedThisRound.TryGetValue(officer.Id, out var done) && done)
+                        continue;
+                    if (state.CommanderPools == null ||
+                        !state.CommanderPools.TryGetValue(seat, out var cmdPool) ||
+                        cmdPool.Cc < GameConstants.OfficerActivateCcCost)
                         continue;
 
                     var company = CompanyMembers(mine, officer);

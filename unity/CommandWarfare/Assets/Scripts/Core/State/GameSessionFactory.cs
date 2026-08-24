@@ -35,7 +35,7 @@ namespace CommandWarfare.Core.State
             };
         }
 
-        /// <summary>ArmyBuild → ForceSelect: generate map + armies, no tokens on board yet.</summary>
+        /// <summary>ArmyBuild → ForceSelect: armies assigned; map waits until force-select confirm if RandomMap.</summary>
         public static GameState BeginForceSelectFromArmyBuild(
             GameState lobby,
             CardDatabase cards,
@@ -45,9 +45,14 @@ namespace CommandWarfare.Core.State
             var roomSeed = lobby?.RoomCode ?? "dev";
             var opts = RandomMapGenerator.Options.For2P(boardSize, roomSeed);
             var interactiveTerrain = lobby != null && !lobby.RandomMap;
-            var terrain = interactiveTerrain
-                ? RandomMapGenerator.GenerateCornerBiomeMap(opts)
-                : RandomMapGenerator.GenerateRandomBiomeMap(opts);
+            Dictionary<string, TerrainKind> terrain;
+            if (interactiveTerrain)
+                terrain = RandomMapGenerator.GenerateCornerBiomeMap(opts);
+            else
+            {
+                terrain = new Dictionary<string, TerrainKind>();
+                TerrainPlacement.FillEmptyHexesWithPlains(terrain, boardSize);
+            }
 
             var state = new GameState
             {
@@ -116,11 +121,10 @@ namespace CommandWarfare.Core.State
 
             if (state.RandomMap)
             {
-                TerrainPlacement.FillEmptyHexesWithPlains(state.Terrain, state.BoardSize);
-                // Interactive deploy for the player — AI auto-places via SkirmishAi.
+                GenerateArmyFavoredMap(state);
                 BeginDeployFromLoadouts(state, autoPlace: false);
                 state.LastActionLog =
-                    "Random battlefield — place Deploy companies on highlighted hexes, then confirm.";
+                    "Battlefield shaped by deploy armies' favored terrain — place companies on highlighted hexes.";
                 return true;
             }
 
@@ -171,9 +175,9 @@ namespace CommandWarfare.Core.State
             state.RandomMap = true;
             state.ForceSelectReady[SeatId.N] = true;
             state.ForceSelectReady[SeatId.S] = true;
-            TerrainPlacement.FillEmptyHexesWithPlains(state.Terrain, state.BoardSize);
+            GenerateArmyFavoredMap(state);
             BeginDeployFromLoadouts(state, autoPlace: true);
-            state.LastActionLog = "Random biome map — skipping terrain placement.";
+            state.LastActionLog = "Army-favored battlefield — skipping terrain placement.";
             return state;
         }
 
@@ -199,10 +203,133 @@ namespace CommandWarfare.Core.State
                 state.BattleLoadouts[seat] = loadout;
             }
             state.RandomMap = true;
-            TerrainPlacement.FillEmptyHexesWithPlains(state.Terrain, state.BoardSize);
+            GenerateArmyFavoredMap(state);
             BeginDeployFromLoadouts(state, autoPlace: true);
             state.LastActionLog = "Dev skirmish — full Deploy armies.";
             return state;
+        }
+
+        static void GenerateArmyFavoredMap(GameState state)
+        {
+            if (state == null) return;
+            var opts = MapOptionsForState(state);
+            var playerKinds = CollectPlayerFavoredTerrains(state);
+            var mix = RandomMapGenerator.BuildPlayerFavoredWeights(playerKinds);
+            state.Terrain = RandomMapGenerator.GenerateArmyWeightedBiomeMap(
+                opts, mix.Favored, mix.Random);
+        }
+
+        static RandomMapGenerator.Options MapOptionsForState(GameState state)
+        {
+            var opts = RandomMapGenerator.Options.For2P(state.BoardSize, state.RoomCode ?? "dev");
+            opts.ObjectiveKeys = ObjectiveHexKeys(state);
+            return opts;
+        }
+
+        static HashSet<string> ObjectiveHexKeys(GameState state)
+        {
+            var keys = new HashSet<string>();
+            if (state?.Objectives == null) return keys;
+            foreach (var obj in state.Objectives)
+            {
+                if (obj == null) continue;
+                foreach (var hex in ObjectiveSystem.ZoneHexes(obj))
+                    keys.Add(HexMath.Key(hex.Col, hex.Row));
+            }
+            return keys;
+        }
+
+        /// <summary>All cards in both seats' Deploy bucket (commander, officers, units).</summary>
+        public static List<CardDefinition> CollectDeployCards(GameState state)
+        {
+            var list = new List<CardDefinition>();
+            if (state == null) return list;
+            foreach (var seat in ParticipatingSeats(state))
+                list.AddRange(CollectDeployCardsForSeat(state, seat));
+            return list;
+        }
+
+        static List<CardDefinition> CollectDeployCardsForSeat(GameState state, SeatId seat)
+        {
+            var list = new List<CardDefinition>();
+            if (state == null) return list;
+            if (!state.OfflineArmies.TryGetValue(seat, out var army) || army == null) return list;
+            state.BattleLoadouts.TryGetValue(seat, out var loadout);
+            var queue = DeployQueueBuilder.FromArmy(army, loadout, BattleBucket.Deploy);
+            foreach (var item in queue)
+            {
+                var card = FindCardInArmy(army, item.CardId);
+                if (card != null) list.Add(card);
+            }
+            return list;
+        }
+
+        /// <summary>One dominant favored terrain per participating player (from deploy army).</summary>
+        public static List<TerrainKind> CollectPlayerFavoredTerrains(GameState state)
+        {
+            var kinds = new List<TerrainKind>();
+            if (state == null) return kinds;
+            foreach (var seat in ParticipatingSeats(state))
+                kinds.Add(PrimaryFavoredForSeat(state, seat));
+            return kinds;
+        }
+
+        static IReadOnlyList<SeatId> ParticipatingSeats(GameState state)
+        {
+            var seats = new List<SeatId>();
+            foreach (var seat in new[] { SeatId.N, SeatId.S, SeatId.E, SeatId.W })
+            {
+                if (state?.OfflineArmies != null &&
+                    state.OfflineArmies.TryGetValue(seat, out var army) &&
+                    army?.Commander != null)
+                    seats.Add(seat);
+            }
+            return seats.Count > 0 ? seats : new[] { SeatId.N, SeatId.S };
+        }
+
+        static TerrainKind PrimaryFavoredForSeat(GameState state, SeatId seat)
+        {
+            var counts = new Dictionary<TerrainKind, int>();
+            foreach (var card in CollectDeployCardsForSeat(state, seat))
+            {
+                var kind = FavoredTerrain.PrimaryKindForCard(card);
+                counts[kind] = counts.GetValueOrDefault(kind) + 1;
+            }
+            if (counts.Count > 0)
+            {
+                TerrainKind best = TerrainKind.Plains;
+                var bestN = -1;
+                foreach (var kv in counts)
+                {
+                    if (kv.Value <= bestN) continue;
+                    bestN = kv.Value;
+                    best = kv.Key;
+                }
+                return best;
+            }
+
+            var race = seat switch
+            {
+                SeatId.S => state.SouthRace,
+                SeatId.N => state.NorthRace,
+                _ => state.NorthRace,
+            };
+            return FavoredTerrain.RaceDefault(race) ?? TerrainKind.Plains;
+        }
+
+        static CardDefinition FindCardInArmy(DemoArmy army, string cardId)
+        {
+            if (army == null || string.IsNullOrEmpty(cardId)) return null;
+            if (army.Commander != null && army.Commander.cardId == cardId) return army.Commander;
+            if (army.Companies == null) return null;
+            foreach (var co in army.Companies)
+            {
+                if (co?.Officer != null && co.Officer.cardId == cardId) return co.Officer;
+                if (co?.Units == null) continue;
+                foreach (var u in co.Units)
+                    if (u != null && u.cardId == cardId) return u;
+            }
+            return null;
         }
 
         public static DemoArmy BuildDemoArmy(CardDatabase cards, string race)

@@ -95,10 +95,13 @@ namespace CommandWarfare.Data
                     "Elf" => elfCommanderPrefab,
                     "Undead" => undeadCommanderPrefab,
                     "Demon" => demonCommanderPrefab,
+                    "Dragon" => dragonUnitPrefab,
+                    "Beastfolk" => beastfolkUnitPrefab,
+                    "Lizardmen" or "Lizardman" => lizardmenUnitPrefab,
+                    "Construct" => constructUnitPrefab,
                     _ => null,
                 };
-                if (raceCmd != null) return raceCmd;
-                if (commanderPrefab != null) return commanderPrefab;
+                if (IsUsableMesh(raceCmd)) return raceCmd;
             }
             if (cardType == "Officer")
             {
@@ -107,10 +110,15 @@ namespace CommandWarfare.Data
                     "Human" => humanOfficerPrefab,
                     "Dwarf" => dwarfOfficerPrefab,
                     "Elf" => elfOfficerPrefab,
+                    "Undead" => undeadUnitPrefab,
+                    "Demon" => demonUnitPrefab,
+                    "Dragon" => dragonUnitPrefab,
+                    "Beastfolk" => beastfolkUnitPrefab,
+                    "Lizardmen" or "Lizardman" => lizardmenUnitPrefab,
+                    "Construct" => constructUnitPrefab,
                     _ => null,
                 };
-                if (raceOff != null) return raceOff;
-                if (officerPrefab != null) return officerPrefab;
+                if (IsUsableMesh(raceOff)) return raceOff;
             }
 
             var racePrefab = race switch
@@ -126,7 +134,23 @@ namespace CommandWarfare.Data
                 "Construct" => constructUnitPrefab,
                 _ => null,
             };
-            return racePrefab != null ? racePrefab : unitPrefab;
+            if (IsUsableMesh(racePrefab)) return racePrefab;
+
+            // Generic role slots — skip CW_/Placeholder capsules so MiniFigureBuilder
+            // only runs when we truly have no race mesh (e.g. Construct).
+            if (cardType == "Commander" && IsUsableMesh(commanderPrefab)) return commanderPrefab;
+            if (cardType == "Officer" && IsUsableMesh(officerPrefab)) return officerPrefab;
+            if (IsUsableMesh(unitPrefab)) return unitPrefab;
+            return null;
+        }
+
+        static bool IsUsableMesh(GameObject prefab)
+        {
+            if (prefab == null) return false;
+            var n = prefab.name ?? "";
+            if (n.StartsWith("CW_", System.StringComparison.OrdinalIgnoreCase)) return false;
+            if (n.IndexOf("Placeholder", System.StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            return true;
         }
     }
 }

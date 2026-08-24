@@ -11,6 +11,8 @@ namespace CommandWarfare.Core
         public const int MaxDeploySiege = 5;
         public const int DefaultOfficerCommandRadius = 4;
         public const int DefaultCommanderCommandRadius = 7;
+        /// <summary>Command Cards spent when activating an officer's company (battleSim OFFICER_ACTIVATE_CC).</summary>
+        public const int OfficerActivateCcCost = 1;
         public const int ScoutCrExtension = 3;
         public const int MaxRounds = 15;
         public const int VpPerObjective = 2;

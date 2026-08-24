@@ -105,7 +105,7 @@ namespace CommandWarfare.EditorTools
             so.FindProperty("rockScaleMin").floatValue = 0.55f;
             so.FindProperty("rockScaleMax").floatValue = 1.0f;
             so.FindProperty("peakScaleMin").floatValue = 0.7f;
-            so.FindProperty("peakScaleMax").floatValue = 1.15f;
+            so.FindProperty("peakScaleMax").floatValue = 0.805f;
             so.FindProperty("reedScaleMin").floatValue = 0.75f;
             so.FindProperty("reedScaleMax").floatValue = 1.2f;
             so.FindProperty("volcanicScaleMin").floatValue = 0.65f;

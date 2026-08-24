@@ -15,7 +15,7 @@ namespace CommandWarfare.Board
     {
         [Header("Board")]
         [SerializeField] int _boardSize = GameConstants.BoardSize2P;
-        [SerializeField] float _hexSize = 1.85f;
+        [SerializeField] float _hexSize = 1.0f;
         [SerializeField] string _roomSeed = "dev";
 
         [Header("Prefabs")]
@@ -24,6 +24,13 @@ namespace CommandWarfare.Board
 
         public int BoardSize => _boardSize;
         public float HexSize => _hexSize;
+        public string RoomSeed => _roomSeed;
+
+        public void SetRoomSeed(string roomSeed)
+        {
+            if (string.IsNullOrWhiteSpace(roomSeed)) return;
+            _roomSeed = roomSeed.Trim();
+        }
 
         Transform _tilesRoot;
 
@@ -59,7 +66,7 @@ namespace CommandWarfare.Board
                     else DestroyImmediate(child.gameObject);
                     continue;
                 }
-                if (child.name is "Tiles" or "DeployOverlay" or "ObjectiveOverlay" or "UnitTokens"
+                if (child.name is "Tiles" or "BoardPerimeter" or "DeployOverlay" or "ObjectiveOverlay" or "UnitTokens"
                     or "DeployZones" or "Objectives" or "DeploymentZones")
                     child.gameObject.SetActive(visible);
             }
@@ -70,9 +77,13 @@ namespace CommandWarfare.Board
             if (_terrainMaterial == null)
                 _terrainMaterial = TerrainMaterialFactory.CreateDefault();
 
+            TerrainMaterialFactory.ClearTerrainCache();
+            HexTile.ClearMeshCache();
             ClearChildrenNamed("Tiles");
             _tilesRoot = new GameObject("Tiles").transform;
             _tilesRoot.SetParent(transform, false);
+            // Procedural board must not serialize into Battle.unity (that bloated/corrupted the scene).
+            _tilesRoot.gameObject.hideFlags = HideFlags.DontSave;
 
             var terrainMap = terrainOverride != null && terrainOverride.Count > 0
                 ? terrainOverride
@@ -100,11 +111,13 @@ namespace CommandWarfare.Board
                         var collider = go.AddComponent<MeshCollider>();
                         collider.sharedMesh = meshFilter.sharedMesh;
                     }
-                    TerrainDetailScatter.Populate(tile, _hexSize, _roomSeed, _tilesRoot, _terrainCatalog);
+                    TerrainDetailScatter.Populate(tile, _hexSize, _roomSeed, tile.transform, _terrainCatalog);
                 }
             }
 
             ApplyNeighborTransitions();
+            ClearChildrenNamed("BoardPerimeter");
+            BoardPerimeterSkirt.Build(transform, _boardSize, _hexSize);
             CenterBoard();
             BattleTabletopEnvironment.Ensure(_boardSize, _hexSize);
         }
@@ -131,7 +144,15 @@ namespace CommandWarfare.Board
                     edges[ei++] = nt != null ? nt.Terrain : tile.Terrain;
                 }
                 while (ei < 6) edges[ei++] = tile.Terrain;
+
+                // Apply visual edge blending (autotile overlays).
                 tile.ApplyNeighborTransitions(edges, _terrainCatalog);
+
+                // Scatter sparse neighbor-influenced props on the outer ring of the hex.
+                // Creates density gradients: vegetation thins toward arid neighbors,
+                // rocks/sand leak into lush biomes at borders.
+                TerrainDetailScatter.PopulateEdgeTransitions(
+                    tile, _hexSize, _roomSeed, edges, _terrainCatalog);
             }
         }
 

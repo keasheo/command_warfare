@@ -1067,9 +1067,12 @@ function enumeratePlayActions(
   const activatedThisTurn = state.companyActivatedThisTurn?.[seat]
   const canActivateAnotherCompany = !activatedThisTurn
   if (canActivateAnotherCompany) {
+    const cmdPool = state.commanderPools[seat]
+    const canPayCc = (cmdPool?.cc ?? 0) >= 1
     for (const officer of mine.filter((u) => u.kind === 'officer')) {
       if (state.activeCompanyOfficerId === officer.id) continue
       if (activatedThisRound[officer.id]) continue
+      if (!canPayCc) continue
       const company = mine.filter(
         (u) => u.id === officer.id || u.officerCardId === officer.cardId,
       )

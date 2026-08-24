@@ -2,13 +2,13 @@ using UnityEngine;
 
 namespace CommandWarfare.Board
 {
-    /// <summary>Orbit + pan camera for the hex board (RMB orbit, MMB/Shift+RMB pan, scroll zoom, WASD pan).</summary>
+    /// <summary>Orbit + pan camera for the hex board (RMB orbit, MMB/Shift+RMB pan, Ctrl+scroll zoom, WASD pan).</summary>
     public class BoardCameraController : MonoBehaviour
     {
         [SerializeField] Transform _target;
-        [SerializeField] float _distance = 48f;
-        [SerializeField] float _minDistance = 18f;
-        [SerializeField] float _maxDistance = 68f;
+        [SerializeField] float _distance = 34f;
+        [SerializeField] float _minDistance = 14f;
+        [SerializeField] float _maxDistance = 52f;
         [SerializeField] float _orbitSpeed = 4f;
         [SerializeField] float _panSpeed = 0.08f;
         [SerializeField] float _keyPanSpeed = 18f;
@@ -75,7 +75,8 @@ namespace CommandWarfare.Board
 
             // Scroll zoom — scale with distance so far/near both feel responsive.
             var scroll = BoardInput.ScrollY();
-            if (Mathf.Abs(scroll) > 0.001f)
+            // Plain scroll is for HUD lists; hold Ctrl to zoom the battlefield.
+            if (BoardInput.CtrlHeld() && Mathf.Abs(scroll) > 0.001f)
                 _distance -= scroll * _zoomSpeed * Mathf.Max(0.35f, _distance / 40f);
             _distance = Mathf.Clamp(_distance, _minDistance, _maxDistance);
 
@@ -118,9 +119,9 @@ namespace CommandWarfare.Board
         {
             _focus = Vector3.zero;
             _hasFocus = true;
-            _pitch = 52f;
+            _pitch = 50f;
             _yaw = 35f;
-            _distance = 48f;
+            _distance = 34f;
             ApplyTransform();
         }
     }

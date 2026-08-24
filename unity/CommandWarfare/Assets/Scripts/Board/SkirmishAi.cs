@@ -164,6 +164,18 @@ namespace CommandWarfare.Board
                     continue;
                 }
 
+                if (_game.State.PendingTrample != null)
+                {
+                    var pending = _game.State.PendingTrample;
+                    var trampler = _game.State.Units.Find(u => u.Id == pending.AttackerId);
+                    if (trampler != null && trampler.Seat == _aiSeat)
+                        _game.ExecuteSkirmishAction(SkirmishAction.ContinueTrample());
+                    else
+                        _game.TryDeclineTrample();
+                    yield return new WaitForSeconds(ThinkDelay() * 0.35f);
+                    continue;
+                }
+
                 var action = SkirmishAiPlanner.PlanTurn(
                     _game.State, _aiSeat, _difficulty, _game.Cards, _rng);
 

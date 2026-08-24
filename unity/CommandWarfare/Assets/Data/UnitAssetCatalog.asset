@@ -15,12 +15,23 @@ MonoBehaviour:
   commanderPrefab: {fileID: 4758681295890852652, guid: 1afab9eb9a399474c9f6c28bd7b3a343, type: 3}
   officerPrefab: {fileID: 3621814773096697431, guid: 8e33c5ea3dbc5e140a6c9ef66f27c35f, type: 3}
   unitPrefab: {fileID: 5782635598153188541, guid: f8ee758661fe6ed4691f3584e778c2a8, type: 3}
-  humanUnitPrefab: {fileID: 6483218658327405258, guid: 20407f4c5ead4454c8fdd573372610bb, type: 3}
-  dwarfUnitPrefab: {fileID: 7686341425293299485, guid: 1f19d4e436f66454ea79d96742f33934, type: 3}
-  elfUnitPrefab: {fileID: 2295861659222193963, guid: b06b6169beadc5a4f9df08eb622d632f, type: 3}
-  undeadUnitPrefab: {fileID: 2704757038050302657, guid: b2127af81d6edc042952ff184d72c0ec, type: 3}
-  demonUnitPrefab: {fileID: 4349275995896523837, guid: fd9d9e74fa07efd459f115594c8f9da3, type: 3}
-  dragonUnitPrefab: {fileID: 6261153632114286895, guid: 6e4c011038fa8ab4db0db25b192518fa, type: 3}
-  beastfolkUnitPrefab: {fileID: 4975469263687217244, guid: a4f83c18f28589648a2222d9369b6266, type: 3}
-  lizardmenUnitPrefab: {fileID: 3879943331429636641, guid: 519d9050386f49a488c741a7d2276ffb, type: 3}
-  constructUnitPrefab: {fileID: 1660745593482321527, guid: cccce355c431ef34bba5125f64c1f6d0, type: 3}
+  humanUnitPrefab: {fileID: 1643665916800420587, guid: 897a5f771ed7ee14f8d11df1e011a333, type: 3}
+  dwarfUnitPrefab: {fileID: 6891544457589714263, guid: e97de0a6e0d60e64e99deecea9dffc8f, type: 3}
+  elfUnitPrefab: {fileID: 757581767064642527, guid: 2d5c990e8e6004c4590de4d2c2a19850, type: 3}
+  undeadUnitPrefab: {fileID: 5259054482851968425, guid: 6b0dc5b7bfe26504591d8fc30c660d61, type: 3}
+  demonUnitPrefab: {fileID: 1074408000638738859, guid: 3a3a8af9d948b44439b8b5e10af1bb80, type: 3}
+  dragonUnitPrefab: {fileID: 6698614510872532717, guid: 3940ff7a9ad9adb4da685e94b9c434af, type: 3}
+  beastfolkUnitPrefab: {fileID: 1075892816423465499, guid: 77c85634194469a4591ce6eb0d293b95, type: 3}
+  lizardmenUnitPrefab: {fileID: 9001544296373898009, guid: 01b33131a1b262e48afcbef7adf6d2fe, type: 3}
+  constructUnitPrefab: {fileID: 0}
+  humanCommanderPrefab: {fileID: 292307590458097558, guid: a009fcacefcd6a14ea4bfce79a45ff58, type: 3}
+  dwarfCommanderPrefab: {fileID: 6891544457589714263, guid: e97de0a6e0d60e64e99deecea9dffc8f, type: 3}
+  elfCommanderPrefab: {fileID: 8985564510984656958, guid: c060fe543ee8f804b85f4c64ab2f5769, type: 3}
+  undeadCommanderPrefab: {fileID: 5259054482851968425, guid: 6b0dc5b7bfe26504591d8fc30c660d61, type: 3}
+  demonCommanderPrefab: {fileID: 1074408000638738859, guid: 3a3a8af9d948b44439b8b5e10af1bb80, type: 3}
+  humanOfficerPrefab: {fileID: 2128755070453958057, guid: c1aa570db3308c44c8de229c370bbd46, type: 3}
+  dwarfOfficerPrefab: {fileID: 6891544457589714263, guid: e97de0a6e0d60e64e99deecea9dffc8f, type: 3}
+  elfOfficerPrefab: {fileID: 757581767064642527, guid: 2d5c990e8e6004c4590de4d2c2a19850, type: 3}
+  cardVariants: []
+  northTint: {r: 0.55, g: 0.72, b: 1, a: 1}
+  southTint: {r: 1, g: 0.62, b: 0.45, a: 1}

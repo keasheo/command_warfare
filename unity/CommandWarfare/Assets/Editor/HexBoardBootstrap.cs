@@ -127,7 +127,7 @@ namespace CommandWarfare.EditorTools
 
             if (!Application.isPlaying)
                 EditorSceneManager.MarkSceneDirty(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
-            Debug.Log("[CommandWarfare] Scene bootstrapped — Title screen ready (1P / Multiplayer / Army / Rulebook).");
+            Debug.Log("[CommandWarfare] Scene bootstrapped — Title screen ready. Prefer opening Assets/Scenes/MainMenu (Build index 0). Use CommandWarfare/Create Game Scenes if missing.");
         }
 
         [MenuItem("CommandWarfare/Create Asset Catalogs")]

@@ -87,8 +87,42 @@ namespace CommandWarfare.UI
 
         void Start()
         {
+            EnsureRefs();
+            if (GameSceneRouter.IsBattleScene)
+            {
+                if (MatchLaunchContext.PendingBattleStart)
+                    ApplyPendingBattleLaunch();
+                else if (_screen != GameMenuScreen.Match)
+                    EnterMatch();
+                return;
+            }
+
+            if (GameSceneRouter.IsArmyBuilderScene)
+            {
+                _deployUvMax = MatchLaunchContext.DeployUvMax;
+                _reserveUvMax = MatchLaunchContext.ReserveUvMax;
+                _randomMap = MatchLaunchContext.RandomMap;
+                _setupKind = MatchLaunchContext.SetupKind;
+                _defaultAiRace = MatchLaunchContext.DefaultAiRace ?? _defaultAiRace;
+                if (MatchLaunchContext.DraftArmy != null)
+                    _draft = MatchLaunchContext.DraftArmy;
+                EnterArmyBuilder(MatchLaunchContext.ArmyMode);
+                return;
+            }
+
             if (_screen != GameMenuScreen.Match)
-                EnterTitle();
+            {
+                if (MatchLaunchContext.OpenMatchSetupOnMenu)
+                {
+                    MatchLaunchContext.OpenMatchSetupOnMenu = false;
+                    _deployUvMax = MatchLaunchContext.DeployUvMax;
+                    _reserveUvMax = MatchLaunchContext.ReserveUvMax;
+                    _randomMap = MatchLaunchContext.RandomMap;
+                    EnterMatchSetup(MatchLaunchContext.SetupKind);
+                }
+                else
+                    EnterTitle();
+            }
         }
 
         void OnEnable()
@@ -111,12 +145,21 @@ namespace CommandWarfare.UI
 
         public void EnterTitle()
         {
+            if (!GameSceneRouter.IsMainMenuScene &&
+                Application.CanStreamedLevelBeLoaded(GameSceneIds.MainMenu))
+            {
+                GameSceneRouter.LoadMainMenu();
+                return;
+            }
+
             _screen = GameMenuScreen.Title;
             _status = "";
             ApplyMenuVisuals();
             if (_bridge != null) _bridge.NetworkMode = false;
             if (_socket != null && _socket.IsConnected) _socket.Disconnect();
         }
+
+        public void ReturnToMainMenu() => EnterTitle();
 
         public void EnterMatchSetup(MatchSetupKind kind)
         {
@@ -125,11 +168,24 @@ namespace CommandWarfare.UI
             _deployUvMax = GameConstants.DeployUvMax;
             _reserveUvMax = GameConstants.ReserveUvMax;
             _randomMap = true;
+            EnsureRefs();
+            if (kind == MatchSetupKind.Skirmish && (_bridge == null || !_bridge.NetworkMode))
+                _game?.AssignNewRoomSeed();
             ApplyMenuVisuals();
         }
 
         public void EnterArmyBuilder(ArmyBuilderMode mode)
         {
+            MatchLaunchContext.PrepareArmyBuilder(
+                mode, _setupKind, _deployUvMax, _reserveUvMax, _randomMap, _defaultAiRace, _draft);
+
+            if (!GameSceneRouter.IsArmyBuilderScene &&
+                Application.CanStreamedLevelBeLoaded(GameSceneIds.ArmyBuilder))
+            {
+                GameSceneRouter.LoadArmyBuilder();
+                return;
+            }
+
             _armyMode = mode;
             _screen = GameMenuScreen.ArmyBuilder;
             ApplyMenuVisuals();
@@ -183,9 +239,17 @@ namespace CommandWarfare.UI
             _backdrop?.Hide();
             MenuBackdrop3D.ForceCleanupScene();
             if (_board != null && (_game?.State?.Terrain == null || _game.State.Terrain.Count == 0))
+            {
+                if (!string.IsNullOrEmpty(_game?.State?.RoomCode))
+                    _game.SyncRoomSeed(_game.State.RoomCode);
                 _board.Rebuild();
+            }
             else if (_game?.State?.Terrain != null && _game.State.Terrain.Count > 0)
+            {
+                if (!string.IsNullOrEmpty(_game.State.RoomCode))
+                    _game.SyncRoomSeed(_game.State.RoomCode);
                 _board?.Rebuild(_game.State.Terrain);
+            }
             _game?.SetBattlefieldVisible(true);
             _game?.RebuildTokenViews();
             _game?.RefreshBattlefieldOverlays();
@@ -311,10 +375,10 @@ namespace CommandWarfare.UI
 
             GUI.Label(new Rect(x, y, bw, 22), "Battlefield", MenuStyle.Body);
             y += 26;
-            if (GUI.Toggle(new Rect(x, y, bw, 24), _randomMap, "  Random battlefield (skip terrain placement)"))
+            if (GUI.Toggle(new Rect(x, y, bw, 24), _randomMap, "  Generate battlefield from deploy armies (2p 30%+40% random, shared terrain penalized)"))
                 _randomMap = true;
             y += 28;
-            if (GUI.Toggle(new Rect(x, y, bw, 24), !_randomMap, "  Place terrain (command zone + land drops)"))
+            if (GUI.Toggle(new Rect(x, y, bw, 24), !_randomMap, "  Place terrain manually (command zone + land drops)"))
                 _randomMap = false;
             y += 40;
 
@@ -620,7 +684,7 @@ namespace CommandWarfare.UI
             GUI.Label(new Rect(x, y, fieldW, 18), $"{matches.Count} cards", MenuStyle.MutedLabel);
             y += 20;
 
-            var viewH = panel.height - (y - panel.y) - 12;
+            var viewH = Mathf.Max(48f, panel.height - (y - panel.y) - 12);
             _armyPickerScroll = GUI.BeginScrollView(
                 new Rect(x, y, fieldW, viewH),
                 _armyPickerScroll,
@@ -859,7 +923,17 @@ namespace CommandWarfare.UI
                     StartSkirmishFromDraft();
                 y += 48;
                 if (MenuStyle.Btn(new Rect(x, y, bw, 28), "Back to setup"))
-                    EnterMatchSetup(MatchSetupKind.Skirmish);
+                {
+                    MatchLaunchContext.SetupKind = MatchSetupKind.Skirmish;
+                    MatchLaunchContext.DeployUvMax = _deployUvMax;
+                    MatchLaunchContext.ReserveUvMax = _reserveUvMax;
+                    MatchLaunchContext.RandomMap = _randomMap;
+                    MatchLaunchContext.OpenMatchSetupOnMenu = true;
+                    if (Application.CanStreamedLevelBeLoaded(GameSceneIds.MainMenu))
+                        GameSceneRouter.LoadMainMenu();
+                    else
+                        EnterMatchSetup(MatchSetupKind.Skirmish);
+                }
             }
             else
             {
@@ -950,18 +1024,55 @@ namespace CommandWarfare.UI
                 _status = err;
                 return;
             }
+
+            var roomSeed = _game != null ? _game.State?.RoomCode : null;
+            if (string.IsNullOrEmpty(roomSeed))
+                roomSeed = MatchLaunchContext.RoomSeed;
+
+            MatchLaunchContext.PrepareBattleFromDraft(
+                ArmyListUtil.Clone(_draft),
+                _deployUvMax,
+                _reserveUvMax,
+                _randomMap,
+                _defaultAiRace,
+                roomSeed);
+
+            if (Application.CanStreamedLevelBeLoaded(GameSceneIds.Battle))
+            {
+                GameSceneRouter.LoadBattle();
+                return;
+            }
+
+            // Fallback when Battle scene is not in Build Settings yet.
+            ApplyPendingBattleLaunch();
+        }
+
+        void ApplyPendingBattleLaunch()
+        {
+            EnsureRefs();
             if (_game == null) return;
 
             if (_bridge != null) _bridge.NetworkMode = false;
+            if (!string.IsNullOrEmpty(MatchLaunchContext.RoomSeed))
+                _game.SyncRoomSeed(MatchLaunchContext.RoomSeed);
+
+            _deployUvMax = MatchLaunchContext.DeployUvMax;
+            _reserveUvMax = MatchLaunchContext.ReserveUvMax;
+            _randomMap = MatchLaunchContext.RandomMap;
+            _defaultAiRace = MatchLaunchContext.DefaultAiRace ?? _defaultAiRace;
+            _draft = MatchLaunchContext.DraftArmy ?? _draft;
+
             _game.RestartSkirmish();
             _game.ApplyMatchSetup(_deployUvMax, _reserveUvMax, _randomMap);
-            var race = _draft.Commander.race ?? "Human";
+            var race = _draft?.Commander?.race ?? "Human";
             if (race.StartsWith("Lizard", System.StringComparison.OrdinalIgnoreCase))
                 race = "Lizardmen";
             _game.SetArmyRace(SeatId.N, race);
             _game.SetArmyRace(SeatId.S, _defaultAiRace);
-            _game.SetOfflineArmy(SeatId.N, ArmyListUtil.Clone(_draft));
-            // Show match HUD/board first so ForceSelect overlays + clicks work immediately.
+            if (_draft != null)
+                _game.SetOfflineArmy(SeatId.N, ArmyListUtil.Clone(_draft));
+
+            MatchLaunchContext.ClearBattlePending();
             EnterMatch();
             _game.BeginForceSelectFromArmyBuild(preserveArmies: true);
             _game.SetBattlefieldVisible(true);

@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CommandWarfare.Core;
+using CommandWarfare.Core.Combat;
 using CommandWarfare.Core.Deploy;
 using CommandWarfare.Core.Hex;
 using CommandWarfare.Core.Terrain;
 using CommandWarfare.Core.Types;
 using CommandWarfare.Core.Util;
+using CommandWarfare.Data;
 
 namespace CommandWarfare.Core.Map
 {
@@ -72,6 +74,213 @@ namespace CommandWarfare.Core.Map
 
         public static Dictionary<string, TerrainKind> GenerateBiomeMap(int boardSize, string roomCode) =>
             GenerateRandomBiomeMap(Options.Default(boardSize, roomCode));
+
+        public const float SharedFavoredPenaltyRate = 0.25f;
+
+        /// <summary>
+        /// Favored-biome share of the board allocated to each player.
+        /// Remainder is the random land-biome slice (water still soft-capped separately).
+        /// 2p: 20%×2 → 60% random · 3p: 20%×3 → 40% random · 4p: 15%×4 → 40% random.
+        /// </summary>
+        public static float PerPlayerBoardShare(int playerCount) => playerCount switch
+        {
+            2 => 0.20f,
+            3 => 0.20f,
+            4 => 0.15f,
+            _ => 0.20f,
+        };
+
+        public readonly struct PlayerMapMix
+        {
+            public Dictionary<TerrainKind, float> Favored { get; }
+            public float Random { get; }
+
+            public PlayerMapMix(Dictionary<TerrainKind, float> favored, float random)
+            {
+                Favored = favored;
+                Random = random;
+            }
+        }
+
+        /// <summary>
+        /// Per-player board share (2p=30%, 3p=25%, 4p=20%) with duplicate-kind penalty:
+        /// when 2+ players share a favored terrain, 25% of that kind's combined share moves to random.
+        /// </summary>
+        public static PlayerMapMix BuildPlayerFavoredWeights(IReadOnlyList<TerrainKind> playerFavored)
+        {
+            var playerCount = Math.Max(1, playerFavored?.Count ?? 0);
+            if (playerFavored == null || playerFavored.Count == 0)
+                return DefaultPlayerMapMix(playerCount);
+
+            var share = PerPlayerBoardShare(playerCount);
+            var baseRandom = Math.Max(0f, 1f - share * playerCount);
+
+            var raw = new Dictionary<TerrainKind, float>();
+            var playersPerKind = new Dictionary<TerrainKind, int>();
+            foreach (var kind in playerFavored)
+            {
+                raw[kind] = raw.GetValueOrDefault(kind) + share;
+                playersPerKind[kind] = playersPerKind.GetValueOrDefault(kind) + 1;
+            }
+
+            var favored = new Dictionary<TerrainKind, float>();
+            var randomBonus = 0f;
+            foreach (var kv in raw)
+            {
+                var amount = kv.Value;
+                if (playersPerKind[kv.Key] >= 2)
+                {
+                    var penalty = amount * SharedFavoredPenaltyRate;
+                    amount -= penalty;
+                    randomBonus += penalty;
+                }
+                if (amount > 0f)
+                    favored[kv.Key] = amount;
+            }
+
+            return new PlayerMapMix(favored, baseRandom + randomBonus);
+        }
+
+        static PlayerMapMix DefaultPlayerMapMix(int playerCount)
+        {
+            var share = PerPlayerBoardShare(playerCount);
+            var random = Math.Max(0f, 1f - share * playerCount);
+            return new PlayerMapMix(
+                new Dictionary<TerrainKind, float>
+                {
+                    { TerrainKind.Plains, share * playerCount * 0.5f },
+                    { TerrainKind.Forest, share * playerCount * 0.5f },
+                },
+                random);
+        }
+
+        /// <summary>Normalized favored-terrain weights from deploy-bucket cards (legacy card-count mix).</summary>
+        public static Dictionary<TerrainKind, float> BuildFavoredWeightsFromCards(
+            IEnumerable<CardDefinition> cards)
+        {
+            var counts = new Dictionary<TerrainKind, int>();
+            var total = 0;
+            if (cards != null)
+            {
+                foreach (var card in cards)
+                {
+                    if (card == null) continue;
+                    var kind = FavoredTerrain.PrimaryKindForCard(card);
+                    counts[kind] = counts.GetValueOrDefault(kind) + 1;
+                    total++;
+                }
+            }
+            if (total == 0)
+            {
+                return new Dictionary<TerrainKind, float>
+                {
+                    { TerrainKind.Plains, 0.34f },
+                    { TerrainKind.Forest, 0.22f },
+                    { TerrainKind.Mountains, 0.16f },
+                    { TerrainKind.Swamp, 0.12f },
+                    { TerrainKind.Desert, 0.08f },
+                    { TerrainKind.Volcanic, 0.08f },
+                };
+            }
+            var weights = new Dictionary<TerrainKind, float>();
+            foreach (var kv in counts)
+                weights[kv.Key] = kv.Value / (float)total;
+            return weights;
+        }
+
+        /// <summary>
+        /// Army-driven map: favored terrain fractions + random land-biome slice.
+        /// </summary>
+        public static Dictionary<string, TerrainKind> GenerateArmyWeightedBiomeMap(
+            Options opts,
+            Dictionary<TerrainKind, float> favoredWeights,
+            float randomFraction = 0.40f)
+        {
+            var boardSize = opts.BoardSize;
+            var objectiveKeys = opts.ObjectiveKeys ?? new HashSet<string>();
+            favoredWeights ??= new Dictionary<TerrainKind, float>();
+            randomFraction = Math.Clamp(randomFraction, 0f, 1f);
+            if (favoredWeights.Count == 0)
+            {
+                var fallback = DefaultPlayerMapMix(2);
+                favoredWeights = fallback.Favored;
+                randomFraction = fallback.Random;
+            }
+
+            var seed = SeededRng.SeedFromRoomCode(opts.RoomCode, "army-map");
+            var rng = new SeededRng(seed);
+
+            var randomPool = LandBiomes.ToList();
+
+            var hexKeys = new List<string>();
+            for (var col = 0; col < boardSize; col++)
+            for (var row = 0; row < boardSize; row++)
+            {
+                var key = HexMath.Key(col, row);
+                if (objectiveKeys.Contains(key)) continue;
+                hexKeys.Add(key);
+            }
+            rng.Shuffle(hexKeys);
+
+            var terrain = new Dictionary<string, TerrainKind>();
+            foreach (var ok in objectiveKeys)
+                terrain[ok] = TerrainKind.Plains;
+
+            var randomCount = (int)Math.Round(hexKeys.Count * randomFraction);
+            randomCount = Math.Clamp(randomCount, 0, hexKeys.Count);
+            var favoredCount = hexKeys.Count - randomCount;
+
+            var favoredKinds = favoredWeights.Keys.ToList();
+            var cumulative = new List<(TerrainKind kind, float threshold)>();
+            var sum = 0f;
+            foreach (var kind in favoredKinds)
+            {
+                sum += favoredWeights[kind];
+                cumulative.Add((kind, sum));
+            }
+            if (sum <= 0f) sum = 1f;
+
+            TerrainKind PickFavored()
+            {
+                var roll = rng.NextFloat() * sum;
+                foreach (var (kind, threshold) in cumulative)
+                {
+                    if (roll <= threshold) return kind;
+                }
+                return favoredKinds[^1];
+            }
+
+            TerrainKind PickRandom() =>
+                randomPool[rng.NextInt(randomPool.Count)];
+
+            for (var i = 0; i < hexKeys.Count; i++)
+                terrain[hexKeys[i]] = i < favoredCount ? PickFavored() : PickRandom();
+
+            var tempAt = new Dictionary<string, float>();
+            var moistAt = new Dictionary<string, float>();
+            foreach (var key in terrain.Keys)
+            {
+                tempAt[key] = 0.5f;
+                moistAt[key] = 0.5f;
+            }
+
+            BreakUpFlatBiomes(terrain, boardSize, seed, objectiveKeys);
+            CoalesceIsolates(terrain, boardSize, objectiveKeys, 2);
+            CoalesceIsolates(terrain, boardSize, objectiveKeys, 1);
+            LimitCrWater(terrain, boardSize, objectiveKeys, opts.Commanders, opts.CommanderRadii, tempAt, moistAt, rng);
+            RepairConnectivity(terrain, boardSize, objectiveKeys, opts.Commanders, opts.CommanderRadii, rng);
+
+            if (opts.Commanders != null)
+            {
+                foreach (var cmd in opts.Commanders.Values)
+                {
+                    var key = HexMath.Key(cmd.Col, cmd.Row);
+                    terrain[key] = TerrainKind.Plains;
+                }
+            }
+
+            return terrain;
+        }
 
         public static Dictionary<string, TerrainKind> GenerateRandomBiomeMap(Options opts)
         {

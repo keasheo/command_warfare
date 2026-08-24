@@ -349,6 +349,12 @@ namespace CommandWarfare.UI
             _dropdownFocusId = -1;
         }
 
+        /// <summary>Dismiss the currently focused dropdown without touching caller open flags.</summary>
+        public static void DismissOpenDropdown()
+        {
+            _dropdownFocusId = -1;
+        }
+
         static void EnsureDropdownStyles()
         {
             if (_dropdownField != null) return;

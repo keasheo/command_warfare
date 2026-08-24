@@ -14,18 +14,16 @@ namespace CommandWarfare.Core.Terrain
 
     public static class TerrainVisuals
     {
+        /// <summary>Uniform base prism height — elevation variation lives in scatter props only.</summary>
+        public const float StandardBlockHeight = 0.72f;
+        public const float WaterBlockHeight = 0.48f;
+
         /// <summary>Block height above ground — matches TERRAIN_BLOCK_HEIGHT in hexTerrainMesh.ts.</summary>
         public static float BlockHeight(TerrainKind kind) => kind switch
         {
-            TerrainKind.Plains => 0.72f,
-            TerrainKind.Forest => 0.88f,
-            TerrainKind.Swamp => 0.58f,
-            TerrainKind.Desert => 0.68f,
-            TerrainKind.Water => 0.38f,
             TerrainKind.Wall => 2.1f,
-            TerrainKind.Volcanic => 0.92f,
-            TerrainKind.Mountains => 1.85f,
-            _ => 0.72f,
+            TerrainKind.Water => WaterBlockHeight,
+            _ => StandardBlockHeight,
         };
 
         public static UnityEngine.Color BaseColor(TerrainKind kind, int variant) => kind switch
@@ -34,10 +32,13 @@ namespace CommandWarfare.Core.Terrain
             TerrainKind.Forest => Variant(new[] { "#488858", "#529060", "#408050", "#5a9868", "#38784c" }, variant),
             TerrainKind.Swamp => Variant(new[] { "#2a4838", "#1e3828", "#243c30", "#324840", "#182e22" }, variant),
             TerrainKind.Desert => Variant(new[] { "#e8b868", "#f0c070", "#e0b060", "#f8c878", "#d8a858" }, variant),
-            TerrainKind.Water => Variant(new[] { "#4898d8", "#50a0e0", "#4090d0", "#58a8e8", "#3888c8" }, variant),
+            // Deeper teal-blue pool color (alpha used when water mat is transparent).
+            TerrainKind.Water => Variant(new[] { "#1e7aad", "#2486b8", "#18709e", "#2a92c4", "#156898" }, variant),
             TerrainKind.Wall => Variant(new[] { "#989ca8", "#a0a4b0", "#909498", "#a8acb8", "#888c98" }, variant),
-            TerrainKind.Volcanic => Variant(new[] { "#685850", "#706058", "#605048", "#786860", "#584840" }, variant),
-            TerrainKind.Mountains => Variant(new[] { "#6a6870", "#747278", "#605e68", "#7a7880", "#58565e" }, variant),
+            // Dark charcoal — crack glow comes from volcanic albedo, not a near-black slab.
+            TerrainKind.Volcanic => Variant(new[] { "#2c2c30", "#343438", "#28282c", "#303034", "#2a2a2e" }, variant),
+            // Light gray rock with soft green / light-brown mountain character.
+            TerrainKind.Mountains => Variant(new[] { "#b0b4ac", "#b8b0a4", "#a8aca4", "#c0b8a8", "#aab0a6" }, variant),
             _ => UnityEngine.Color.gray,
         };
 
